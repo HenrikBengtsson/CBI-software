@@ -8,6 +8,7 @@ TARBALL=$(NAME)_$(VERSION)$(BUILD_SUFFIX).orig.tar.gz
 all: debug install
 
 $(BUILD_PATH):
+	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
 	curl --insecure -L -O https://launchpad.net/byobu/trunk/$(VERSION)/+download/$(TARBALL); \
 	tar xvfz $(TARBALL)

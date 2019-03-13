@@ -65,3 +65,24 @@ debug:
 	@echo "MODULE_NAME: $(MODULE_NAME)"
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
+
+all: debug install
+
+install: install_software install_module
+
+install_software:
+	cd install; \
+	make NAME=$(NAME)
+
+install_module: build_module test_module
+
+$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua: module/module.lua.tmpl
+	mkdir -p "$(@D)"
+	cp "$<" "$@"
+
+build_module: $(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
+
+test_module: $(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
+	module --ignore-cache show $(MODULE_NAME)/$(VERSION)
+	module load $(MODULE_NAME)/$(VERSION)
+	module unload $(MODULE_NAME)/$(VERSION)

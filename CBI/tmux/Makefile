@@ -3,18 +3,16 @@
 
 NAME=tmux
 
-all: debug install
+include ../utils.mk
 
-debug:
-	@echo "NAME: $(NAME)"
-	@echo "VERSION: $(VERSION)"
+all: debug install
 
 install_software:
 	cd install; \
-	make
+	make NAME=$(NAME)
 
 install_module:
 	cd module; \
-	make
+	make NAME=$(NAME)
 
 install: install_software install_module

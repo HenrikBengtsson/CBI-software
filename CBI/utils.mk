@@ -65,6 +65,7 @@ debug:
 	@echo "MODULE_NAME: $(MODULE_NAME)"
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
+	@echo "URL: $(URL)"
 
 all: debug install
 

@@ -40,7 +40,7 @@ ifndef MODULE_HOME
 endif
 
 ifndef FULLNAME
-  FULLNAME=$(basename $(PREFIX))
+  FULLNAME=$(shell basename "$(PREFIX)")
 endif
 
 ifndef MODULE_NAME

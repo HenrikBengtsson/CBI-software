@@ -10,6 +10,9 @@ ifndef VERSION
 endif
 
 ifndef BUILD_HOME
+  ifndef TMPDIR
+    $(error ERROR: Environment variable 'TMPDIR' is not set)
+  endif
   BUILD_HOME=$(TMPDIR)
 endif
 

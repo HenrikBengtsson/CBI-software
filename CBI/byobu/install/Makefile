@@ -7,18 +7,6 @@ TARBALL=$(NAME)_$(VERSION)$(BUILD_SUFFIX).orig.tar.gz
 
 all: debug install
 
-debug:
-	@echo "NAME: $(NAME)"
-	@echo "VERSION: $(VERSION)"
-	@echo "SOFTWARE_HOME: $(SOFTWARE_HOME)"
-	@echo "PREFIX: $(PREFIX)"
-	@echo "BUILD_HOME: $(BUILD_HOME)"
-	@echo "BUILD_PATH: $(BUILD_PATH)"
-	@echo "BUILD_SUFFIX: $(BUILD_SUFFIX)"
-	@echo "BUILD_NAME: $(BUILD_NAME)"
-	@echo "TARBALL: $(TARBALL)"
-
-
 $(BUILD_PATH):
 	cd $(BUILD_HOME); \
 	curl --insecure -L -O https://launchpad.net/byobu/trunk/$(VERSION)/+download/$(TARBALL); \

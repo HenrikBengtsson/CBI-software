@@ -7,10 +7,6 @@ include ../utils.mk
 
 all: debug install
 
-debug:
-	@echo "NAME: $(NAME)"
-	@echo "VERSION: $(VERSION)"
-
 install_software:
 	cd install; \
 	make NAME=$(NAME)

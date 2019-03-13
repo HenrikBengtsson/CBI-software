@@ -3,7 +3,7 @@
 
 NAME=byobu
 
-include utils.mk
+include ../utils.mk
 
 all: debug install
 

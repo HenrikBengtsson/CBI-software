@@ -1,7 +1,7 @@
 #' Example:
 #' make VERSION=5.124
 
-include ../utils.mk
+include ../../utils.mk
 
 TARBALL=$(NAME)_$(VERSION)$(BUILD_SUFFIX).orig.tar.gz
 

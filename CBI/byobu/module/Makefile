@@ -1,7 +1,7 @@
 #' Example:
 #' make VERSION=5.124
 
-include ../utils.mk
+include ../../utils.mk
 
 all: debug build test
 

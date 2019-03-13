@@ -1,28 +1,7 @@
 #' Example:
 #' make VERSION=5.124
 
-SHELL=bash
-
-NAME=byobu
-
-ifndef MODULE_HOME
-  $(error ERROR: Environment variable 'MODULE_HOME' is not set)
-endif
-
-ifndef PREFIX
-  ifndef VERSION
-    $(error ERROR: Environment variable 'VERSION' is not set)
-  endif
-  ifndef SOFTWARE_HOME
-    $(error ERROR: Environment variable 'SOFTWARE_HOME' is not set)
-  endif
-  PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)
-else
-  FULLNAME=$(basename $(PREFIX))
-endif
-
-MODULE_NAME=$(NAME)
-MODULE_NAME_VERSION=$(MODULE_NAME)/$(VERSION)
+include ../utils.mk
 
 all: debug build test
 

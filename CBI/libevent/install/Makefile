@@ -1,14 +1,17 @@
 #' Example:
-#' make VERSION=2.1.8
+#' make NAME=libevent VERSION=2.1.8
 
-NAME=libevent
-BUILD_SUFFIX=-stable
-
-MODULE_NAME=$(NAME)
+ifndef NAME
+  $(error ERROR: Environment variable 'NAME' is not set)
+endif
 
 ifndef VERSION
   $(error ERROR: Environment variable 'VERSION' is not set)
 endif
+
+BUILD_SUFFIX=-stable
+
+MODULE_NAME=$(NAME)
 
 ifndef BUILD_HOME
   BUILD_HOME=$(TMPDIR)
@@ -44,7 +47,7 @@ debug:
 $(BUILD_PATH):
 	cd $(BUILD_HOME); \
 	curl -L -O https://github.com/libevent/libevent/releases/download/release-$(VERSION)-stable/$(TARBALL); \
-	tar xvfz $(BUILD_NAME).tar.gz
+	tar xvfz $(TARBALL)
 
 dependencies:
 

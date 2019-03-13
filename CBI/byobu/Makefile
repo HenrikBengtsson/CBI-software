@@ -3,6 +3,8 @@
 
 NAME=byobu
 
+include utils.mk
+
 all: debug install
 
 debug:
@@ -11,10 +13,10 @@ debug:
 
 install_software:
 	cd install; \
-	make
+	make NAME=$(NAME)
 
 install_module:
 	cd module; \
-	make
+	make NAME=$(NAME)
 
 install: install_software install_module

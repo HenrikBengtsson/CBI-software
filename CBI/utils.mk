@@ -8,7 +8,7 @@ ifndef VERSION
   $(error ERROR: Environment variable 'VERSION' is not set)
 endif
 
-TARBALL=$(NAME)_$(VERSION)$(BUILD_SUFFIX).tar.gz
+TARBALL=$(NAME)-$(VERSION)$(BUILD_SUFFIX).tar.gz
 
 ifndef BUILD_HOME
   ifndef TMPDIR

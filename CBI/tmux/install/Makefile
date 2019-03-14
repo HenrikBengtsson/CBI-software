@@ -3,8 +3,6 @@
 
 include ../../utils.mk
 
-TARBALL=$(NAME)-$(VERSION).tar.gz
-
 all: debug build install
 
 $(BUILD_PATH)/$(NAME)-$(VERSION):

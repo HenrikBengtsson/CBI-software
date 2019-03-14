@@ -132,6 +132,11 @@ $(MODULE_TARGET): module/module.lua.tmpl
 
 install_module: $(MODULE_TARGET)
 
+test_module: $(MODULE_TARGET)
+	module --ignore-cache show $(MODULE_NAME)/$(VERSION)
+	module load $(MODULE_NAME)/$(VERSION)
+	module unload $(MODULE_NAME)/$(VERSION)
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEBUG

@@ -143,6 +143,7 @@ debug:
 	@echo
 	@echo "DOWNLOADING:"
 	@echo "TARBALL*: $(TARBALL)"
+	@echo "DOWNLOAD_TARGET: $(DOWNLOAD_TARGET)"
 	@echo
 	@echo "BUILDING:"
 	@echo "TMPDIR*: $(TMPDIR)"

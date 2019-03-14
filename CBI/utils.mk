@@ -88,15 +88,21 @@ config_software: $(CONFIG_TARGET)
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	module purge;
 	cd $(BUILD_PATH); \
-	make
+	make $(BUILD_OPTS)
+	make post_build_software
 
 build_software: $(BUILD_TARGET)
+
+post_build_software:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	cd $(BUILD_PATH); \
 	make install
+	make post_install_software
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+post_install_software:
 
 install_software: $(INSTALL_TARGET)
 

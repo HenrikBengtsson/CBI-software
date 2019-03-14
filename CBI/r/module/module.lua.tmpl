@@ -1,0 +1,17 @@
+help([[
+R: The R Programming Language
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: Programming, Statistics")
+whatis("URL: https://www.r-project.org/")
+whatis("Description: The R programming language. Examples: `R --version` and `Rscript --version`.")
+
+local name = "R"
+local root = os.getenv("CBI_APPS_ROOT")
+local path = pathJoin(root, "manual")
+local home = pathJoin(path, name .. "-" .. version)
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

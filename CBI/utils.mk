@@ -81,7 +81,7 @@ download_software: $(DOWNLOAD_TARGET)
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module purge
 	cd $(BUILD_PATH); \
-	./configure --prefix=$(PREFIX)
+	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
 
 config_software: $(CONFIG_TARGET)
 
@@ -156,6 +156,7 @@ debug:
 	@echo "BUILD_NAME: $(BUILD_NAME)"
 	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
 	@echo "BUILD_PATH: $(BUILD_PATH)"
+	@echo "CONFIG_OPTS*: $(CONFIG_OPTS)"
 	@echo "CONFIG_TARGET: $(CONFIG_TARGET)"
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"
 	@echo

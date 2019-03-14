@@ -11,10 +11,17 @@ $(DOWNLOAD_TARGET):
 	curl -O https://cran.r-project.org/src/base/R-3/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
+post_build_software:
+	cd $(BUILD_PATH); \
+	R_LIBS_USER=dummy make check &> make-check.log
+
 post_install_software:
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib64/R/library
-
+	## Save log files
+	cp $(BUILD_PATH)/config.log $(PREFIX)/
+	cp $(BUILD_PATH)/make-check.log $(PREFIX)/
+	grep -A 28 -F "R is now configured" $(BUILD_PATH)/config.log > $(PREFIX)/config.log.summary
 
 ## ----------------------------------------------------------
 ## MODULE

@@ -69,7 +69,11 @@ endif
 ## SOFTWARE
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef SOFTWARE_HOME
-  $(error ERROR: Environment variable 'SOFTWARE_HOME' is not set)
+  ifdef SOFTWARE_ROOT_CBI
+    SOFTWARE_HOME=$(SOFTWARE_ROOT_CBI)
+  else
+    $(error ERROR: Environment variable 'SOFTWARE_HOME' is not set)
+  endif
 endif
 
 ifndef PREFIX
@@ -96,6 +100,7 @@ build_software: $(BUILD_TARGET)
 post_build_software:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
+	mkdir -p $(SOFTWARE_HOME)
 	cd $(BUILD_PATH); \
 	make install
 	make post_install_software

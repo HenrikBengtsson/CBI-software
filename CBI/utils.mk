@@ -23,6 +23,13 @@ ifndef BUILD_NAME
   BUILD_NAME=$(NAME)-$(VERSION)$(BUILD_SUFFIX)
 endif
 
+ifndef BUILD_PATH
+  ifdef DOWNLOAD_PATH
+    BUILD_PATH=$(DOWNLOAD_PATH)
+  else
+    BUILD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+  endif
+endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -45,41 +52,46 @@ endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## CONFIGURE
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef CONFIG
+  CONFIG=true
+endif
+
+ifeq ($(CONFIG),true)
+  ifndef CONFIG_TARGET_FILE
+    CONFIG_TARGET_FILE=config.log
+  endif
+  ifndef CONFIG_TARGET
+    CONFIG_TARGET=$(BUILD_PATH)/$(CONFIG_TARGET_FILE)
+  endif
+else
+  CONFIG_TARGET_FILE=
+  CONFIG_TARGET=
+endif
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## BUILDING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef BUILD_PATH
-  ifdef DOWNLOAD_PATH
-    BUILD_PATH=$(DOWNLOAD_PATH)
-  else
-    BUILD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+ifndef BUILD
+  BUILD=true
+endif
+
+ifeq ($(BUILD),true)
+  ifndef BUILD_TARGET
+    ifndef BUILD_TARGET_FILE
+      $(error ERROR: Environment variable 'BUILD_TARGET_FILE' is not set)
+    endif
+    BUILD_TARGET=$(BUILD_PATH)/$(BUILD_TARGET_FILE)
   endif
-endif
-
-ifndef CONFIG_TARGET_FILE
-  CONFIG_TARGET_FILE=config.log
-endif
-
-ifndef CONFIG_TARGET
-  CONFIG_TARGET=$(BUILD_PATH)/$(CONFIG_TARGET_FILE)
-endif
-
-ifndef BUILD_TARGET
-  ifndef BUILD_TARGET_FILE
-    $(error ERROR: Environment variable 'BUILD_TARGET_FILE' is not set)
-  endif
-  BUILD_TARGET=$(BUILD_PATH)/$(BUILD_TARGET_FILE)
-endif
-
-ifndef INSTALL_TARGET
-  ifndef INSTALL_TARGET_FILE
-    $(error ERROR: Environment variable 'INSTALL_TARGET_FILE' is not set)
-  endif
-  INSTALL_TARGET=$(PREFIX)/$(INSTALL_TARGET_FILE)
+else
+  BUILD_TARGET=
+  INSTALL_TARGET=
 endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## SOFTWARE
+## INSTALLATION
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef SOFTWARE_HOME
   ifdef SOFTWARE_ROOT_CBI
@@ -93,6 +105,18 @@ ifndef PREFIX
   PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)
 endif
 
+ifndef INSTALL_TARGET
+  ifndef INSTALL_TARGET_FILE
+    $(error ERROR: Environment variable 'INSTALL_TARGET_FILE' is not set)
+  endif
+  INSTALL_TARGET=$(PREFIX)/$(INSTALL_TARGET_FILE)
+endif
+
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## MAKE RULES
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 download_software: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
@@ -100,13 +124,19 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
 
-config_software: $(CONFIG_TARGET)
+ifeq ($(CONFIG),false)
+$(CONFIG_TARGET):
+endif
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	module purge;
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
 	make post_build_software
+
+ifeq ($(BUILD),false)
+$(BUILD_TARGET):
+endif
 
 build_software: $(BUILD_TARGET)
 
@@ -175,6 +205,7 @@ debug:
 	@echo "TMPDIR*: $(TMPDIR)"
 	@echo "BUILD_HOME: $(BUILD_HOME)"
 	@echo "BUILD_NAME: $(BUILD_NAME)"
+	@echo "BUILD_PATH: $(BUILD_PATH)"
 	@echo
 	@echo "DOWNLOADING:"
 	@echo "TARBALL*: $(TARBALL)"
@@ -182,12 +213,15 @@ debug:
 	@echo "DOWNLOAD_TARGET_FILE: $(DOWNLOAD_TARGET_FILE)"
 	@echo "DOWNLOAD_TARGET: $(DOWNLOAD_TARGET)"
 	@echo
-	@echo "BUILDING:"
-	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
-	@echo "BUILD_PATH: $(BUILD_PATH)"
+	@echo "CONFIGURE:"
+	@echo "CONFIG: $(CONFIG)"
 	@echo "CONFIG_OPTS*: $(CONFIG_OPTS)"
 	@echo "CONFIG_TARGET_FILE: $(CONFIG_TARGET_FILE)"
 	@echo "CONFIG_TARGET: $(CONFIG_TARGET)"
+	@echo
+	@echo "BUILDING:"
+	@echo "BUILD: $(BUILD)"
+	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
 	@echo "BUILD_TARGET_FILE: $(BUILD_TARGET)"
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"
 	@echo

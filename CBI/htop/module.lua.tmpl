@@ -9,9 +9,8 @@ whatis("Keywords: system, utility")
 whatis("URL: http://hisham.hm/htop/")
 whatis("Description: `htop` is an interactive process viewer for Unix systems. It is a text-mode application (for console or X terminals) and requires ncurses. Example: `htop`")
 
-local root = os.getenv("CBI_APPS_ROOT")
-local path = pathJoin(root, "manual")
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
 
-local home = pathJoin(path, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))

@@ -9,9 +9,8 @@ whatis("Keywords: editor, text")
 whatis("URL: https://www.gnu.org/software/emacs/")
 whatis("Description: At its core is an interpreter for Emacs Lisp, a dialect of the Lisp programming language with extensions to support text editing. Example: `emacs --version` and `emacs -nw`.")
 
-local root = os.getenv("CBI_APPS_ROOT")
-local path = pathJoin(root, "manual")
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
 
-local home = pathJoin(path, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))

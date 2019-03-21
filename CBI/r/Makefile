@@ -22,7 +22,3 @@ post_install_software:
 	cp $(BUILD_PATH)/config.log $(PREFIX)/
 	cp $(BUILD_PATH)/make-check.log $(PREFIX)/
 	grep -A 28 -F "R is now configured" $(BUILD_PATH)/config.log > $(PREFIX)/config.log.summary
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

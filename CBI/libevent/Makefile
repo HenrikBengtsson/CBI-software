@@ -17,9 +17,3 @@ $(DOWNLOAD_TARGET):
 ## [msg] Nameserver 127.0.0.1:51382 has failed: request timed out.
 check_software: $(BUILD_TARGET)
 	cd $(BUILD_PATH); \
-	make check
-
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

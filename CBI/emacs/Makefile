@@ -13,8 +13,3 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -O http://gnu.mirrors.hoobly.com/emacs/$(TARBALL); \
 	tar xvfz $(TARBALL)
-
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

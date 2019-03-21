@@ -13,8 +13,3 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -O http://hisham.hm/htop/releases/$(VERSION)/$(TARBALL); \
 	tar xvfz $(TARBALL)
-
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

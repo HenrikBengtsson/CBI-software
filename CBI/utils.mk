@@ -129,7 +129,7 @@ ifndef MODULE_TARGET
   MODULE_TARGET=$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
 endif
 
-$(MODULE_TARGET): module/module.lua.tmpl
+$(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
 	module --ignore-cache show $(MODULE_NAME)/$(VERSION)

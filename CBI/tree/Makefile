@@ -17,7 +17,3 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cp Makefile Makefile.org; \
 	sed 's|^prefix = /usr|prefix = $(PREFIX)|' Makefile.org > Makefile
 	touch $@
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

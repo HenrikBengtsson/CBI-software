@@ -13,8 +13,3 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://github.com/tmux/tmux/releases/download/$(VERSION)/$(TARBALL); \
 	tar xvfz $(TARBALL)
-
-
-## ----------------------------------------------------------
-## MODULE
-## ----------------------------------------------------------

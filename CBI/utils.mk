@@ -10,22 +10,7 @@ endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## DOWNLOADING
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef DOWNLOAD_TARGET
-  ifndef DOWNLOAD_TARGET_FILE
-    DOWNLOAD_TARGET_FILE=configure
-  endif
-  DOWNLOAD_TARGET=$(BUILD_PATH)/$(DOWNLOAD_TARGET_FILE)
-endif
-
-ifndef TARBALL
-  TARBALL=$(NAME)-$(VERSION)$(BUILD_SUFFIX).tar.gz
-endif
-
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## BUILDING
+## CORE
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef BUILD_HOME
   ifndef TMPDIR
@@ -38,8 +23,36 @@ ifndef BUILD_NAME
   BUILD_NAME=$(NAME)-$(VERSION)$(BUILD_SUFFIX)
 endif
 
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## DOWNLOADING
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef DOWNLOAD_PATH
+  DOWNLOAD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+endif
+
+ifndef DOWNLOAD_TARGET
+  ifndef DOWNLOAD_TARGET_FILE
+    DOWNLOAD_TARGET_FILE=configure
+  endif
+  DOWNLOAD_TARGET=$(DOWNLOAD_PATH)/$(DOWNLOAD_TARGET_FILE)
+endif
+
+ifndef TARBALL
+  TARBALL=$(NAME)-$(VERSION)$(BUILD_SUFFIX).tar.gz
+endif
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## BUILDING
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef BUILD_PATH
-  BUILD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+  ifdef DOWNLOAD_PATH
+    BUILD_PATH=$(DOWNLOAD_PATH)
+  else
+    BUILD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+  endif
 endif
 
 ifndef CONFIG_TARGET_FILE
@@ -158,18 +171,24 @@ debug:
 	@echo "VERSION: $(VERSION)"
 	@echo "URL: $(URL)"
 	@echo
-	@echo "DOWNLOADING:"
-	@echo "TARBALL*: $(TARBALL)"
-	@echo "DOWNLOAD_TARGET: $(DOWNLOAD_TARGET)"
-	@echo
-	@echo "BUILDING:"
+	@echo "CORE:"
 	@echo "TMPDIR*: $(TMPDIR)"
 	@echo "BUILD_HOME: $(BUILD_HOME)"
 	@echo "BUILD_NAME: $(BUILD_NAME)"
+	@echo
+	@echo "DOWNLOADING:"
+	@echo "TARBALL*: $(TARBALL)"
+	@echo "DOWNLOAD_PATH: $(DOWNLOAD_PATH)"
+	@echo "DOWNLOAD_TARGET_FILE: $(DOWNLOAD_TARGET_FILE)"
+	@echo "DOWNLOAD_TARGET: $(DOWNLOAD_TARGET)"
+	@echo
+	@echo "BUILDING:"
 	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
 	@echo "BUILD_PATH: $(BUILD_PATH)"
 	@echo "CONFIG_OPTS*: $(CONFIG_OPTS)"
+	@echo "CONFIG_TARGET_FILE: $(CONFIG_TARGET_FILE)"
 	@echo "CONFIG_TARGET: $(CONFIG_TARGET)"
+	@echo "BUILD_TARGET_FILE: $(BUILD_TARGET)"
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"
 	@echo
 	@echo "MODULES:"

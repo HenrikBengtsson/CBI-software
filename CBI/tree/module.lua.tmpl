@@ -9,7 +9,7 @@ whatis("Keywords: files, utility")
 whatis("URL: http://mama.indstate.edu/users/ice/tree/, ")
 whatis("Description: Tree is a recursive directory listing command that produces a depth indented listing of files, which is colorized ala dircolors if the `LS_COLORS` environment variable is set and output is to tty.. Example: `tree --help`.")
 
-local path = os.getenv("SOFTWARE_ROOT_CBC")
+local path = os.getenv("CBI_APPS_ROOT")
 local home = pathJoin(path, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))

@@ -11,7 +11,7 @@ whatis("Description: tmux is a terminal multiplexer. It lets you switch easily b
 
 load("libevent")
 
-local path = os.getenv("SOFTWARE_ROOT_CBC")
+local path = os.getenv("CBI_APPS_ROOT")
 local home = path .. "/" .. name .. "-" .. version
 prepend_path("PATH", home .. "/bin")
 prepend_path("MANPATH", home .. "/share/man")

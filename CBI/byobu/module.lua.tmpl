@@ -9,7 +9,7 @@ whatis("Keywords: terminal, SSHH")
 whatis("URL: http://byobu.org, https://github.com/dustinkirkland/byobu")
 whatis("Description: Byobu is an elegant enhancement of the otherwise functional, plain, practical GNU Screen. Byobu includes an enhanced profile, configuration utilities, and system status notifications for the GNU screen window manager as well as the Tmux terminal multiplexer. Example: `byobu --version`")
 
-local path = os.getenv("SOFTWARE_ROOT_CBC")
+local path = os.getenv("CBI_APPS_ROOT")
 local home = path .. "/" .. name .. "-" .. version
 prepend_path("PATH",  home .. "/bin")
 prepend_path("MANPATH",  home .. "/share/man")

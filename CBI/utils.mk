@@ -101,6 +101,7 @@ post_build_software:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(SOFTWARE_HOME)
+	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	make install
 	make post_install_software

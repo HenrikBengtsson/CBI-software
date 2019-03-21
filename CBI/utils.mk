@@ -120,7 +120,7 @@ endif
 download_software: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
-	module purge
+	module purge; \
 	cd $(BUILD_PATH); \
 	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
 
@@ -128,8 +128,11 @@ ifeq ($(CONFIG),false)
 $(CONFIG_TARGET):
 endif
 
+config_software: $(CONFIG_TARGET)
+
+
 $(BUILD_TARGET): $(CONFIG_TARGET)
-	module purge;
+	module purge; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
 	make post_build_software
@@ -143,7 +146,6 @@ build_software: $(BUILD_TARGET)
 post_build_software:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
-	mkdir -p $(SOFTWARE_HOME)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	make install

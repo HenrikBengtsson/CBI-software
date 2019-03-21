@@ -1,0 +1,17 @@
+help([[
+HTSlib: C Library for High-Throughput Sequencing Data Formats
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing, programming")
+whatis("URL: http://www.htslib.org/")
+whatis("Description: HTSlib is an implementation of a unified C library for accessing common file formats, such as SAM, CRAM and VCF, used for high-throughput sequencing data, and is the core library used by samtools and bcftools. HTSlib also provides the bgzip, htsfile, and tabix utilities.  Example: `bgzip --version`, `htsfile --version`, and `tabix --version`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))

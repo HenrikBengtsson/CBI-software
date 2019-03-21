@@ -9,6 +9,8 @@ whatis("Keywords: version control")
 whatis("URL: https://github.com/petervanderdoes/gitflow-avh, https://github.com/nvie/gitflow")
 whatis("Description: A collection of Git extensions to provide high-level repository operations for Vincent Driessen's branching model. Example: `git flow`.")
 
-local path = os.getenv("CBI_APPS_ROOT")
-local home = path .. "/" .. name .. "-" .. version
-prepend_path("PATH", home .. "/bin")
+local root = os.getenv("CBI_APPS_ROOT")
+local path = pathJoin(root, "manual")
+
+local home = pathJoin(path, name .. "-" .. version)
+prepend_path("PATH", pathJoin(home, "bin"))

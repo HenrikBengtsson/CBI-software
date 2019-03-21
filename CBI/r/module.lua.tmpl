@@ -12,6 +12,7 @@ whatis("Description: The R programming language. Examples: `R --version` and `Rs
 local name = "R"
 local root = os.getenv("CBI_APPS_ROOT")
 local path = pathJoin(root, "manual")
+
 local home = pathJoin(path, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))

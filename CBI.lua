@@ -8,8 +8,22 @@ whatis("BugReports: Please contact the maintainer of this repository")
 whatis("Maintainer: Henrik Bengtsson, Computational Biology and Informatics (http://cbi.ucsf.edu)")
 whatis("Keywords: UCSF, CBI, repository")
 
-local hb_home = "/wynton/home/cbi/hb"
-local apps_root = pathJoin(hb_home, "shared/apps")
+require "io"
+function isdir(fn)
+    return (posix.stat(fn, "type") == 'directory')
+end
+
+-- Wynton or TIPCC?
+local cbi_software_home="UNKNOWN"
+if isdir("/wynton/home/cbi/hb") then
+   cbi_software_home = "/wynton/home/cbi/hb"
+elseif isdir("/home/shared/cbc/software_cbc") then
+   cbi_software_home = "/home/shared/cbc/software_cbc"
+else
+   error("Unknown file system")
+end
+
+local apps_root = pathJoin(cbi_software_home, "shared/apps")
 setenv("SOFTWARE_ROOT_CBI", pathJoin(apps_root, "manual"))
 
 local shared_modulepath_root=pathJoin(apps_root, "modulefiles")

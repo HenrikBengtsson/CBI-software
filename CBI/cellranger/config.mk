@@ -4,4 +4,4 @@ URL=https://support.10xgenomics.com/single-cell-gene-expression/software/downloa
 DOWNLOAD_TARGET_FILE=cellranger-shell
 CONFIG=false
 BUILD=false
-INSTALL_TARGET_FILE=cellranger-shell
+INSTALL_TARGET_FILE=cellranger

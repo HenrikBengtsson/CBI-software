@@ -1,0 +1,16 @@
+help([[
+TopHat: A Spliced Read Mapper for RNA-Seq
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: Programming, Statistics")
+whatis("URL: https://ccb.jhu.edu/software/tophat/index.shtml, https://github.com/infphilo/tophat")
+whatis("Description: TopHat is a fast splice junction mapper for RNA-Seq reads. It aligns RNA-Seq reads to mammalian-sized genomes using the ultra high-throughput short read aligner Bowtie, and then analyzes the mapping results to identify splice junctions between exons.  Example: `tophat --version`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+

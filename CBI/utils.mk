@@ -244,6 +244,4 @@ debug:
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## EVERYTHING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-install: install install_module
-
-all: debug install
+all: debug install install_module

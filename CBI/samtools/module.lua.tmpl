@@ -1,0 +1,17 @@
+help([[
+SAMtools: Tools (written in C using htslib) for Manipulating Next-Generation Sequencing Data
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing")
+whatis("URL: http://www.htslib.org/")
+whatis("Description: SAMtools is a suite of programs for interacting with high-throughput sequencing data.  Example: `samtools --version`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

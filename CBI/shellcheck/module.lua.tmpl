@@ -1,0 +1,16 @@
+help([[
+ShellCheck: A Shell Script Static Analysis Tool
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, shell, sh, bash, dash, ksh")
+whatis("URL: https://www.shellcheck.net/, https://github.com/koalaman/shellcheck/")
+whatis("Description: ShellCheck finds bugs in your shell scripts.  Example: `shellcheck --version` and `shellcheck -x ~/.bashrc`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+

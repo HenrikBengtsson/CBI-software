@@ -16,6 +16,6 @@ $(DOWNLOAD_TARGET):
 	curl --insecure -L -O https://launchpad.net/byobu/trunk/$(VERSION)/+download/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
-test_software: $(BUILD_TARGET)
+test: $(BUILD_TARGET)
 	cd $(BUILD_PATH); \
 	make check

@@ -117,7 +117,7 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MAKE RULES
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-download_software: $(DOWNLOAD_TARGET)
+download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module purge; \
@@ -128,34 +128,34 @@ ifeq ($(CONFIG),false)
 $(CONFIG_TARGET):
 endif
 
-config_software: $(CONFIG_TARGET)
+config: $(CONFIG_TARGET)
 
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	module purge; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
-	make post_build_software
+	make post_build
 
 ifeq ($(BUILD),false)
 $(BUILD_TARGET):
 endif
 
-build_software: $(BUILD_TARGET)
+build: $(BUILD_TARGET)
 
-post_build_software:
+post_build:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	make install
-	make post_install_software
+	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-post_install_software:
+post_install:
 
-install_software: $(INSTALL_TARGET)
+install: $(INSTALL_TARGET)
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -244,6 +244,6 @@ debug:
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## EVERYTHING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-install: install_software install_module
+install: install install_module
 
 all: debug install

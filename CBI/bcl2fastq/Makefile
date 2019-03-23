@@ -28,13 +28,13 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	module purge;
 	cd $(BUILD_PATH)/bcl2fastq-build; \
 	make $(BUILD_OPTS)
-	make post_build_software
+	make post_build
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(SOFTWARE_HOME)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH)/bcl2fastq-build; \
 	make install
-	make post_install_software
+	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

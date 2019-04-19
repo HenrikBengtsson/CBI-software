@@ -15,25 +15,17 @@ end
 
 -- Wynton or TIPCC?
 local cbi_software_home="UNKNOWN"
-if isdir("/wynton/home/cbi/hb") then
-   cbi_software_home = "/wynton/home/cbi/hb"
-elseif isdir("/home/shared/cbc/software_cbc") then
-   cbi_software_home = "/home/shared/cbc/software_cbc"
+local cbi_modules_home="UNKNOWN"
+if isdir("/wynton/home/cbi/shared/software/CBI") then
+   cbi_software_home = "/wynton/home/cbi/shared/software/CBI"
+   cbi_modules_home = "/wynton/home/cbi/shared/modulefiles/CBI"
+elseif isdir("/home/shared/cbc/software_cbc/shared/apps/manual") then
+   cbi_software_home = "/home/shared/cbc/software_cbc/shared/apps/manual"
+   cbi_modules_home = "/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
 else
    error("Unknown file system")
 end
 
-local apps_root = pathJoin(cbi_software_home, "shared/apps")
-setenv("SOFTWARE_ROOT_CBI", pathJoin(apps_root, "manual"))
-
-local shared_modulepath_root=pathJoin(apps_root, "modulefiles")
-local name = myModuleName()
-local modulepath = pathJoin(shared_modulepath_root, name)
-setenv("MODULE_ROOT_CBI", modulepath)
-prepend_path("MODULEPATH", modulepath)
-
--- Legacy (the UCSF CBC group was renamed to CBI in early 2018)
-setenv("CBI_APPS_ROOT", apps_root)
-setenv("CBC_APPS_ROOT", apps_root)
-setenv("SOFTWARE_ROOT_CBC", pathJoin(apps_root, "manual"))
-setenv("MODULE_ROOT_CBC", modulepath)
+setenv("SOFTWARE_ROOT_CBI", cbi_software_home)
+setenv("MODULE_ROOT_CBI", cbi_modules_home)
+prepend_path("MODULEPATH", cbi_modules_home)

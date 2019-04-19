@@ -1,5 +1,5 @@
 NAME=bwa
-VERSION=0.7.17
+VERSION:=0.7.17
 URL=http://bio-bwa.sourceforge.net/
 DOWNLOAD_TARGET_FILE=Makefile
 CONFIG=false

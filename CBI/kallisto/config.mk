@@ -1,5 +1,5 @@
 NAME=kallisto
-VERSION=0.45.0
+VERSION:=0.45.0
 URL=https://pachterlab.github.io/kallisto/download
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false

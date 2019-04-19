@@ -1,5 +1,5 @@
 NAME=shellcheck
-VERSION=0.6.0
+VERSION:=0.6.0
 URL=https://github.com/koalaman/shellcheck/
 DOWNLOAD_TARGET_FILE=shellcheck
 CONFIG=false

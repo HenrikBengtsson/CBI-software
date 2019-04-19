@@ -1,5 +1,5 @@
 NAME=bcl2fastq
-VERSION=2.20.0
+VERSION:=2.20.0
 URL=https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html
 DOWNLOAD_TARGET_FILE=COPYRIGHT
 CONFIG_TARGET_FILE=bcl2fastq-build/Makefile

@@ -1,5 +1,5 @@
 NAME=tophat
-VERSION=2.1.1
+VERSION:=2.1.1
 URL=https://ccb.jhu.edu/software/tophat/index.shtml
 DOWNLOAD_TARGET_FILE=tophat
 CONFIG=false

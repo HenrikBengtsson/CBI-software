@@ -16,7 +16,7 @@ ifndef BUILD_HOME
   ifndef TMPDIR
     $(error ERROR: Environment variable 'TMPDIR' is not set)
   endif
-  BUILD_HOME=$(TMPDIR)
+  BUILD_HOME=$(TMPDIR)/$(shell date +%Y%m%d)
 endif
 
 ifndef BUILD_NAME

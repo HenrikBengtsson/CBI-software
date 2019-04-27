@@ -15,3 +15,10 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+if version == "3.6.0" then
+  setenv("R_INSTALL_STAGED", "false")
+end
+
+-- In-house env var for local CRAN mirror
+setenv("R_LOCAL_CRAN", "file://" .. pathJoin(os.getenv("CBI_SHARED_ROOT"), "mirrors", "r-mirrors", "cran"))

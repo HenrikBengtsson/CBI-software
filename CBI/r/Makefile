@@ -17,7 +17,7 @@ post_build:
 
 post_install:
 	## Prevent package installations/updates in system library
-	chmod -R ugo-w $(PREFIX)/lib64/R/library
+	chmod -R ugo-w $(PREFIX)/lib*/R/library
 	## Save log files
 	cp $(BUILD_PATH)/config.log $(PREFIX)/
 	cp $(BUILD_PATH)/make-check.log $(PREFIX)/

@@ -6,6 +6,9 @@ local name = myModuleName()
 local version = myModuleVersion()
 local version_sans_period = string.gsub(version, "%.", "")
 local scl_name = "rh-python" .. version_sans_period
+if version == "3.3" then
+  scl_name = "python" .. version_sans_period
+end  
 
 whatis("Version: " .. version)
 whatis("Keywords: programming, Python")

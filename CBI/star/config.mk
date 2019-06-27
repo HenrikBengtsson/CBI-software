@@ -1,6 +1,6 @@
 NAME=STAR
 MODULE_NAME=star
-VERSION:=2.7.0e
+VERSION:=2.7.1a
 URL=https://github.com/alexdobin/STAR
 DOWNLOAD_TARGET_FILE=bin/Linux_x86_64/$(NAME)
 CONFIG=false

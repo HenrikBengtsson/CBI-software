@@ -11,7 +11,8 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://github.com/pachterlab/kallisto/releases/download/v$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL); \
-	mv $(NAME)_linux-v$(VERSION) $(NAME)-$(VERSION)
+	mv $(NAME) $(NAME)-$(VERSION)                   # 0.46.0
+#	mv $(NAME)_linux-v$(VERSION) $(NAME)-$(VERSION) # 0.45.x
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

@@ -1,5 +1,5 @@
 NAME=git-flow
-VERSION:=1.12.1
+VERSION:=1.12.3
 URL=https://github.com/petervanderdoes/gitflow-avh/releases
 DOWNLOAD_TARGET_FILE=AUTHORS
 CONFIG_TARGET_FILE=Makefile.org

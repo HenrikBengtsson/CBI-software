@@ -1,5 +1,5 @@
 NAME=emacs
-VERSION:=26.1
+VERSION:=26.2
 URL=http://gnu.mirrors.hoobly.com/emacs
 CONFIG_OPTS=--with-xpm=no --with-gif=no --with-gnutls=no
 BUILD_TARGET_FILE=src/emacs

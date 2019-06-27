@@ -1,0 +1,21 @@
+help([[
+BCFtools: Utilities for Variant Calling and Manipulating VCFs and BCFs
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing")
+whatis("URL: http://www.htslib.org/")
+whatis("Description: BCFtools is a set of utilities that manipulate variant calls in the Variant Call Format (VCF) and its binary counterpart BCF. All commands work transparently with both VCFs and BCFs, both uncompressed and BGZF-compressed.  Example: `bcftools --version`")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+setenv("BCFTOOLS_PLUGINS", pathJoin(home, "libexec", name))
+
+
+
+

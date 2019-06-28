@@ -1,6 +1,3 @@
-#' Example:
-#' make VERSION=2.2.0
-
 include config.mk
 include ../utils.mk
 

@@ -16,6 +16,10 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
+-- A custom installed R may not be compatible with R from the Linux distro
+-- TODO: Enable this /HB 2019-08-14
+-- setenv("R_LIBS_USER","~/R/%p-library/%v-CBI")
+
 if version == "3.6.0" then
   setenv("R_INSTALL_STAGED", "false")
 end

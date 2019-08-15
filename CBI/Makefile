@@ -1,4 +1,4 @@
-all: bamutil bcl2fastq bedtools2 bowtie2 bwa byobu cellranger emacs gatk git-flow htop htslib kallisto libevent pindel plink qtop rsamtools shellcheck star tmux tophat tree
+all: bamutil bcl2fastq bedtools2 bowtie2 bwa byobu cellranger emacs gatk git-flow htop htslib kallisto libevent pindel plink plink2 qtop rsamtools shellcheck star tmux tophat tree
 
 bamutil:
 	cd $@; $(MAKE) all
@@ -46,6 +46,9 @@ pindel:
 	cd $@; $(MAKE) all
 
 plink:
+	cd $@; $(MAKE) all
+
+plink2:
 	cd $@; $(MAKE) all
 
 qtop:

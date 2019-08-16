@@ -26,3 +26,15 @@ end
 
 -- In-house env var for local CRAN mirror
 setenv("R_LOCAL_CRAN", "file://" .. pathJoin(os.getenv("CBI_SHARED_ROOT"), "mirrors", "r-mirrors", "cran"))
+
+-- R packages built from native code and installed using R from EPEL is *not*
+-- always compatible with ditto installed using R from the CBI software stack.
+-- Because of this, we will use R_LIBS_USER specific to the CBI stack.
+-- However, since some users has already installed to the built-in R_LIBS_USER
+-- we will not change this for such users.  The heuristic is to check if the
+-- built-in R_LIBS_USER folder already exists. If not, then it's safe to use
+-- one specific to the CBI stack.
+local r_libs_user = capture("Rscript -e \"cat(Sys.getenv('R_LIBS_USER'))\"")
+if (not isDir(r_libs_user)) then
+  setenv("R_LIBS_USER", path .. "-CBI")
+end

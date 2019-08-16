@@ -1,0 +1,15 @@
+help([[
+bamUtil: Programs for Working on SAM/BAM Files
+]])
+
+local name = "bamUtil"
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: version control")
+whatis("URL: https://genome.sph.umich.edu/wiki/BamUtil, https://github.com/statgen/bamUtil")
+whatis("Description: bamUtil is a repository that contains several programs that perform operations on SAM/BAM files. All of these programs are built into a single executable, `bam`. Example: `bam help`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

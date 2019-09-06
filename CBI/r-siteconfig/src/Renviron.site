@@ -1,0 +1,2 @@
+## Used when installing the 'stringi' package
+ICUDT_DIR=${ICUDT_DIR-/wynton/home/cbi/hb/shared/apps/manual/icu-55}

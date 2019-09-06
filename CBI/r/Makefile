@@ -8,7 +8,7 @@ include ../utils.mk
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O https://cran.r-project.org/src/base/R-3/$(TARBALL); \
+	curl -O https://cran.r-project.org/src/base/R-$(VERSION_X)/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
 post_build:

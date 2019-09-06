@@ -61,21 +61,22 @@ local({
   biocver <- package_version(Sys.getenv("R_BIOC_VERSION"))
 
   repos <- c(
-    CRAN = "https://cloud.r-project.org",
-    CRANextra = if (.Platform$OS.type == "windows") {
-      "https://www.stats.ox.ac.uk/pub/RWin"
-    },
-    "R-Forge" = "http://R-Forge.R-project.org",
-    Omegahat = "http://www.omegahat.org/R",
+    getOption("repos"),
     known_repos(),
-    getOption("repos")
+    "CRAN"       = "https://cloud.r-project.org",
+    "CRANextra"  = if (.Platform$OS.type == "windows") {
+                     "https://www.stats.ox.ac.uk/pub/RWin"
+                   },
+    "R-Forge"    = "http://R-Forge.R-project.org",
+    "Omegahat"   = "http://www.omegahat.org/R",
+    "rforge.net" = "https://www.rforge.net"
   )
-  
-  # Drop some
-  repos <- repos[!grepl("(Omegahat|R-Forge|rforge.net)", names(repos))]
 
-  # Drop R-Forge
-  repos <- repos[!grepl("R-Forge", names(repos))]
+  # Drop remaining '@...@' values
+  repos <- grep("^@.*@$", repos, invert=TRUE, value=TRUE)
+
+  # Drop miscellaneous 
+  repos <- repos[!grepl("(CRANextra|Omegahat|R-Forge|rforge.net)", names(repos))]
 
   # Bioconductor tweaks
   if (biocver >= "3.6") {
@@ -85,6 +86,10 @@ local({
     repos["BioCworkflows"] <- gsub("bioc$", "workflows", repos[["BioCsoft"]])
   }
 
+  # Bring CRAN to the front
+  idx <- match("CRAN", names(repos))
+  if (!is.na(idx)) repos <- c(repos[idx], repos[-idx])
+  
   # Use HTTP when HTTPS is not supported
   if (getRversion() < "3.2.2") {
     repos <- gsub("https://", "http://", repos, fixed = TRUE)
@@ -117,7 +122,16 @@ local({
   repos <- getOption("repos")
 
   ## Local mirrors?
-  r_repos_root <- Sys.getenv("R_REPOS_ROOT", "/wynton/home/cbi/shared/mirrors/r-mirrors")
+  r_repos_root <- Sys.getenv("R_REPOS_ROOT", NA_character_)
+
+  ## Fall back to known locations
+  if (is.na(r_repos_root)) {
+    # UCSF Wynton HPC
+    if (Sys.getenv("SGE_CLUSTER_NAME") == "wynton_cluster") {
+      r_repos_root <- "/wynton/home/cbi/shared/mirrors/r-mirrors"
+    }
+  }
+  
   mirror_root <- normalizePath(r_repos_root)
   if (isTRUE(file.info(mirror_root)$isdir)) {
     ## Local CRAN mirror?
@@ -155,4 +169,11 @@ local({
   repos <- repos[!drop]
 
   options(repos = repos)
+
+  ## Set 'ICUDT_DIR' for when installing the 'stringi' package
+  path <- Sys.getenv("ICUDT_DIR", NA_character_)
+  if (is.na(path)) {
+    path <- file.path(r_repos_root, "misc", "icu55", "data")
+    if (isTRUE(file.info(path)$isdir)) Sys.setenv(ICUDT_DIR = path)
+  }
 })

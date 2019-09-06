@@ -1,0 +1,14 @@
+help([[
+R Site Configuration: Tweaks to R for the Current Compute Environment
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: R, configuration")
+whatis("Description: Sets R options and environment variables customized for the current compute environment. Examples: In R, `getOption(\"repos\")`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+setenv("R_PROFILE", pathJoin(home, "Rprofile.site"))

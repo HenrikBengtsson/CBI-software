@@ -11,5 +11,5 @@ whatis("Description: Sets R options and environment variables customized for the
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
--- setenv("R_ENVIRON", pathJoin(home, "Renviron.site"))
+setenv("R_ENVIRON", pathJoin(home, "Renviron.site"))
 setenv("R_PROFILE", pathJoin(home, "Rprofile.site"))

@@ -17,3 +17,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(<D)/* $(PREFIX)/
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+cleanup:
+	rm -rf -- $(DOWNLOAD_PATH)

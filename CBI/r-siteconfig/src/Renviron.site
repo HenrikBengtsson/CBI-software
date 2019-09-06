@@ -1,0 +1,8 @@
+## Default to single-core processing in a parallel processing that
+## rely on the framework provided by the 'future' package. This
+## prevents code from hijacking all available cores on machines.
+## Note that the future framework will still respect settings that
+## override this, e.g. 'MC_CORES', option 'mc.cores', environment
+## variables set by common HPC scheduler, etc.
+R_FUTURE_AVAILABLECORES_FALLBACK=${R_FUTURE_AVAILABLECORES_FALLBACK-1}
+

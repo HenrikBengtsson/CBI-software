@@ -8,6 +8,9 @@ ifndef VERSION
   $(error ERROR: Environment variable 'VERSION' is not set)
 endif
 
+$(eval REMAINDER := $$$(VERSION))
+VERSION_X := $(subst $(REMAINDER),,$(VERSION))
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## CORE
@@ -35,15 +38,24 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DOWNLOADING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef DOWNLOAD
+  DOWNLOAD=true
+endif
+
 ifndef DOWNLOAD_PATH
   DOWNLOAD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
 endif
 
-ifndef DOWNLOAD_TARGET
-  ifndef DOWNLOAD_TARGET_FILE
-    DOWNLOAD_TARGET_FILE=configure
+ifeq ($(DOWNLOAD),true)
+  ifndef DOWNLOAD_TARGET
+    ifndef DOWNLOAD_TARGET_FILE
+      DOWNLOAD_TARGET_FILE=configure
+    endif
+    DOWNLOAD_TARGET=$(DOWNLOAD_PATH)/$(DOWNLOAD_TARGET_FILE)
   endif
-  DOWNLOAD_TARGET=$(DOWNLOAD_PATH)/$(DOWNLOAD_TARGET_FILE)
+else
+  DOWNLOAD_TARGET_FILE=
+  DOWNLOAD_TARGET=
 endif
 
 ifndef TARBALL
@@ -201,6 +213,7 @@ test_module: $(MODULE_TARGET)
 debug:
 	@echo "NAME: $(NAME)"
 	@echo "VERSION: $(VERSION)"
+	@echo "VERSION_X: $(VERSION_X)"
 	@echo "URL: $(URL)"
 	@echo
 	@echo "CORE:"

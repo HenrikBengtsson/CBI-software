@@ -7,7 +7,7 @@
 #' * `R_BIOC_VERSION`
 #'
 #' @author Henrik Bengtsson
-#' @imports utils BiocVersion BiocManager startup
+#' @imports utils BiocVersion BiocManager
 local({
   known_repos <- function() {
     p <- file.path(Sys.getenv("HOME"), ".R", "repositories")
@@ -86,7 +86,7 @@ local({
   }
 
   # Use HTTP when HTTPS is not supported
-  if (getRversion() < "3.2.2" || startup::sysinfo()$wine) {
+  if (getRversion() < "3.2.2") {
     repos <- gsub("https://", "http://", repos, fixed = TRUE)
   }
 

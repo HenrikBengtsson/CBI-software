@@ -1,0 +1,15 @@
+help([[
+GCTA: Genome-wide Complex Trait Analysis
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: genome")
+whatis("URL: http://cnsgenomics.com/software/gcta/")
+whatis("Description: A tool for Genome-wide Complex Trait Analysis (GCTA). Example: `gcta64`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

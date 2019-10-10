@@ -10,7 +10,7 @@ whatis("URL: http://mcmc-jags.sourceforge.net/")
 whatis("Description: JAGS is Just Another Gibbs Sampler.  It is a program for analysis of Bayesian hierarchical models using Markov Chain Monte Carlo (MCMC) simulation  not wholly unlike BUGS. Example: `jags` and `man jags`.")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
-local home = pathJoin(root, name .. "-" .. version)
+local home = pathJoin(root, "JAGS" .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))

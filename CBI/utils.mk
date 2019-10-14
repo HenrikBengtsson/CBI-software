@@ -185,7 +185,7 @@ ifndef FULLNAME
 endif
 
 ifndef MODULE_NAME
-  MODULE_NAME=$(NAME)
+  MODULE_NAME=$(shell echo "$(NAME)" | tr A-Z a-z)
 endif
 
 MODULE_NAME_VERSION=$(MODULE_NAME)/$(VERSION)

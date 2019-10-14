@@ -9,7 +9,10 @@ ifndef VERSION
 endif
 
 $(eval REMAINDER := $$$(VERSION))
+$(eval REMAINDERtmp := $$$(REMAINDER))
+$(eval REMAINDER2 := $$$(REMAINDERtmp))
 VERSION_X := $(subst $(REMAINDER),,$(VERSION))
+VERSION_X_Y := $(subst $(REMAINDER2),,$(VERSION))
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -214,6 +217,7 @@ debug:
 	@echo "NAME: $(NAME)"
 	@echo "VERSION: $(VERSION)"
 	@echo "VERSION_X: $(VERSION_X)"
+	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "URL: $(URL)"
 	@echo
 	@echo "CORE:"

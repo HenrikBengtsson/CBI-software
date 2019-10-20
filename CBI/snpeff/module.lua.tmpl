@@ -1,0 +1,24 @@
+help([[
+SnpEff: Genetic Variant Annotation and Effect Prediction Toolbox
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: high-throughput sequencing")
+whatis("URL: http://snpeff.sourceforge.net/")
+whatis("Description: SnpEff is a variant annotation and effect prediction tool. It annotates and predicts the effects of variants on genes (such as amino acid changes). Example: `snpEff -help`  and `ClinEff -help`, which are aliases for `java -jar $SNPEFF_HOME/snpEff/snpEff.jar -help` and `java -jar $SNPEFF_HOME/clinEff/ClinEff.jar -help`.")
+
+local name = "snpEff"
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+setenv("SNPEFF_HOME", home)
+
+local jarfile = pathJoin(home, "snpEff/snpEff.jar")
+setenv("SNPEFF", jarfile)
+set_alias("snpEff", "java -jar " .. jarfile)
+
+local jarfile = pathJoin(home, "clinEff/ClinEff.jar")
+setenv("CLINEFF", jarfile)
+set_alias("ClinEff", "java -jar " .. jarfile)

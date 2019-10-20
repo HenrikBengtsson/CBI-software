@@ -132,6 +132,8 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MAKE RULES
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+all: debug install install_module
+
 download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
@@ -255,10 +257,3 @@ debug:
 	@echo "SOFTWARE_HOME: $(SOFTWARE_HOME)"
 	@echo "PREFIX: $(PREFIX)"
 	@echo "INSTALL_TARGET: $(INSTALL_TARGET)"
-
-
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## EVERYTHING
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-all: debug install install_module

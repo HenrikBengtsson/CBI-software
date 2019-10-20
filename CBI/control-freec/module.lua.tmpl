@@ -1,0 +1,16 @@
+help([[
+Control FREEC: Control-FREE Copy Number and Genotype Caller
+]])
+
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: ")
+whatis("URL: http://boevalab.com/FREEC/, https://github.com/BoevaLab/FREEC/")
+whatis("Description: Prediction of copy numbers and allelic content using deep-sequencing data. Example: `freec`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local name = "FREEC"
+local home = pathJoin(root, name .. "-" .. version)
+prepend_path("PATH", pathJoin(home, "bin"))
+
+

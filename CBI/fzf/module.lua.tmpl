@@ -1,0 +1,17 @@
+help([[
+fzf - A Command-Line Fuzzy Finder
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell")
+whatis("URL: https://github.com/junegunn/fzf, https://github.com/junegunn/fzf/wiki")
+whatis("Description: fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc. Example: `fzf --version` and `emacs \"$(fzf)\"")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "man"))
+

@@ -7,7 +7,7 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: cli, shell")
 whatis("URL: https://github.com/junegunn/fzf, https://github.com/junegunn/fzf/wiki")
-whatis("Description: fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc. Example: `fzf --version` and `emacs \"$(fzf)\". To install tab completions and key bindinds to your shell, call `$FZF_HOME/install`.  To uninstall, use `$FZF_HOME/uninstall`.")
+whatis("Description: fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc. Example: `fzf --version` and `emacs \"$(fzf)\"`. To install tab completions and key bindinds to your shell, call `$FZF_HOME/install`. To uninstall, use `$FZF_HOME/uninstall`.")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

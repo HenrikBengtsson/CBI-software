@@ -1,0 +1,18 @@
+help([[
+Picard: Command-line tools for Manipulating High-throughput Sequencing Data and Formats
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing")
+whatis("URL: http://broadinstitute.github.io/picard/")
+whatis("Description: Picard is a set of command line tools for manipulating high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF.  Example: `picard -h`, which is an alias for `java -jar $PICARD_HOME/picard.jar -h`")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+setenv("PICARD_HOME", home)
+set_alias("picard", "java -jar " .. pathJoin(home, "picard.jar"))
+
+
+

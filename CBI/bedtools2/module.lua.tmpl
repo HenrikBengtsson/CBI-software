@@ -15,7 +15,7 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 
 -- custom; helps find $BEDTOOLS2_HOME/genomes
-setenv("BEDTOOLS2_HOME", home)
+pushenv("BEDTOOLS2_HOME", home)
 
 
 

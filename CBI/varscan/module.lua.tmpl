@@ -12,7 +12,7 @@ whatis("Description: VarScan is a platform-independent mutation caller for targe
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 name = "VarScan"
 local home = pathJoin(root, name .. "-" .. version)
-setenv("VARSCAN_HOME", home)
+pushenv("VARSCAN_HOME", home)
 
 local jarfile = home .. "/" .. name .. ".v" .. version .. ".jar"
 set_alias("varscan", "java -jar " .. jarfile)

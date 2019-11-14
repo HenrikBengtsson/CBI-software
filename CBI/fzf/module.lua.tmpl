@@ -16,5 +16,4 @@ prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "man"))
 
 -- Custom
-setenv("FZF_HOME", home)
-
+pushenv("FZF_HOME", home)

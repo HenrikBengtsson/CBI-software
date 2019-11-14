@@ -11,7 +11,7 @@ whatis("Description: Picard is a set of command line tools for manipulating high
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
-setenv("PICARD_HOME", home)
+pushenv("PICARD_HOME", home)
 set_alias("picard", "java -jar " .. pathJoin(home, "picard.jar"))
 
 

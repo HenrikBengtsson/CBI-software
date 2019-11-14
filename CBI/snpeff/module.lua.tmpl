@@ -13,12 +13,12 @@ local name = "snpEff"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-setenv("SNPEFF_HOME", home)
+pushenv("SNPEFF_HOME", home)
 
 local jarfile = pathJoin(home, "snpEff/snpEff.jar")
-setenv("SNPEFF", jarfile)
+pushenv("SNPEFF", jarfile)
 set_alias("snpEff", "java -jar " .. jarfile)
 
 local jarfile = pathJoin(home, "clinEff/ClinEff.jar")
-setenv("CLINEFF", jarfile)
+pushenv("CLINEFF", jarfile)
 set_alias("ClinEff", "java -jar " .. jarfile)

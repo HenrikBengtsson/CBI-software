@@ -12,6 +12,4 @@ whatis("Description: Bowtie is an ultrafast, memory-efficient short read aligner
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
-setenv("BOWTIE_HOME", home)
-
-
+pushenv("BOWTIE_HOME", home)

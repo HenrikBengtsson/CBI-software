@@ -14,7 +14,7 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
-setenv("BCFTOOLS_PLUGINS", pathJoin(home, "libexec", name))
+pushenv("BCFTOOLS_PLUGINS", pathJoin(home, "libexec", name))
 
 
 

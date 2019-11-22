@@ -23,6 +23,10 @@ else
   pushenv("R_INSTALL_STAGED", "true")
 end
 
+-- Avoid R CMD build warning on "invalid uid value replaced by that for user 'nobody'"
+-- https://stackoverflow.com/questions/30599326
+pushenv("R_BUILD_TAR", "tar")
+
 -- In-house env var for R repositories mirrored locally
 local r_repos_root = pathJoin(os.getenv("CBI_SHARED_ROOT"), "mirrors", "r-mirrors")
 pushenv("R_REPOS_ROOT", r_repos_root)

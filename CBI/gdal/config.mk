@@ -1,0 +1,7 @@
+NAME=gdal
+VERSION=3.0.1
+VERSION=2.4.3
+URL=https://gdal.org
+DOWNLOAD_FILE=configure
+BUILD_TARGET_FILE=jags
+INSTALL_TARGET_FILE=bin/jags

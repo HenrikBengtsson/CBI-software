@@ -1,76 +1,22 @@
-all: bamutil bcl2fastq bedtools2 bowtie2 bwa byobu cellranger emacs gatk git-flow htop htslib kallisto libevent pindel plink plink2 qtop rsamtools shellcheck star tmux tophat tree
+debug:
+	@pkgs=$$(cat PACKAGES | grep -vE "^#" | sort -u); \
+	echo pkgs="$${pkgs}";
 
-bamutil:
-	cd $@; $(MAKE) all
+all:
+	pkgs=($$(cat PACKAGES | grep -vE "^#" | sort -u)); \
+	for ii in $${!pkgs[@]}; do \
+	  pkg=$${pkgs[$$ii]}; \
+	  printf "%02d. %s ... " "$${ii}" "$${pkg}"; \
+	  if [[ -f "$${pkg}/.done" ]]; then \
+	    echo "already done"; \
+	    continue; \
+	  fi; \
+          echo; \
+	  (cd "$${pkg}"; $(MAKE) all; touch ".done"); \
+	done;
 
-bcl2fastq:
-	cd $@; $(MAKE) all
+unclean:
+	for pkg in *; do touch "$${pkg}/.done" 2> /dev/null; done
 
-bedtools2:
-	cd $@; $(MAKE) all
-
-bowtie2:
-	cd $@; $(MAKE) all
-
-bwa:
-	cd $@; $(MAKE) all
-
-byobu:
-	cd $@; $(MAKE) all
-
-cellranger:
-	cd $@; $(MAKE) all
-
-emacs:
-	cd $@; $(MAKE) all
-
-gatk:
-	cd $@; $(MAKE) all
-
-git-flow:
-	cd $@; $(MAKE) all
-
-htop:
-	cd $@; $(MAKE) all
-
-htslib:
-	cd $@; $(MAKE) all
-
-kallisto:
-	cd $@; $(MAKE) all
-
-libevent:
-	cd $@; $(MAKE) all
-
-pindel:
-	cd $@; $(MAKE) all
-
-plink:
-	cd $@; $(MAKE) all
-
-plink2:
-	cd $@; $(MAKE) all
-
-qtop:
-	cd $@; $(MAKE) all
-
-r:
-	cd $@; $(MAKE) all
-
-samtools:
-	cd $@; $(MAKE) all
-
-shellcheck:
-	cd $@; $(MAKE) all
-
-star:
-	cd $@; $(MAKE) all
-
-tmux:
-	cd $@; $(MAKE) all
-
-tophat:
-	cd $@; $(MAKE) all
-
-tree:
-	cd $@; $(MAKE) all
+clean:
+	rm -- */.done

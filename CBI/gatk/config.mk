@@ -1,5 +1,5 @@
 NAME=gatk
-VERSION:=4.1.2.0
+VERSION:=4.1.4.1
 URL=https://software.broadinstitute.org/gatk/
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false

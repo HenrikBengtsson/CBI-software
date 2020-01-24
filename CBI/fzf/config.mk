@@ -1,5 +1,5 @@
 NAME=fzf
-VERSION:=0.19.0
+VERSION:=0.20.0
 URL=https://github.com/junegunn/fzf/
 DOWNLOAD_TARGET_FILE=install
 CONFIG=false

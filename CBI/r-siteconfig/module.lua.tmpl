@@ -11,5 +11,6 @@ whatis("Description: Sets R options and environment variables customized for the
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
+-- Set site-wide (sic!) Renviron and Rprofile files
 pushenv("R_ENVIRON", pathJoin(home, "Renviron.site"))
 pushenv("R_PROFILE", pathJoin(home, "Rprofile.site"))

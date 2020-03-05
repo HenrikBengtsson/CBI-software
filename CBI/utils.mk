@@ -11,9 +11,11 @@ endif
 $(eval REMAINDER := $$$(VERSION))
 $(eval REMAINDERtmp := $$$(REMAINDER))
 $(eval REMAINDER2 := $$$(REMAINDERtmp))
-VERSION_X := $(subst $(REMAINDER),,$(VERSION))
-VERSION_X_Y := $(subst $(REMAINDER2),,$(VERSION))
-
+#VERSION_X := $(subst $(REMAINDER),,$(VERSION))
+#VERSION_X_Y := $(subst $(REMAINDER2),,$(VERSION))
+VERSION_X := $(shell echo "$(VERSION)" | sed -E 's/[.].*//')
+VERSION_Y := $(shell echo "$(VERSION)" | sed -E 's/[^.]+[.]//' | sed -E 's/[.].*//')
+VERSION_X_Y := $(VERSION_X).$(VERSION_Y)
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## CORE
@@ -219,6 +221,7 @@ debug:
 	@echo "NAME: $(NAME)"
 	@echo "VERSION: $(VERSION)"
 	@echo "VERSION_X: $(VERSION_X)"
+	@echo "VERSION_Y: $(VERSION_Y)"
 	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "URL: $(URL)"
 	@echo

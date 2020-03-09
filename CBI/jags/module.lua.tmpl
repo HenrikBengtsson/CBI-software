@@ -17,6 +17,13 @@ prepend_path("MANPATH", pathJoin(home, "share", "man"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
--- AD HOC: Help R package 'runjags' find the proper subfolder for libjags
--- when built from source (from README of the runjags package)
+-- AD HOC:
+-- R package 'rjags' uses 'JAGS_LIBDIR' and 'JAGS_INCLUDEDIR' (INSTALL)
+-- Comment: Appears not to be needed /HB 2020-03-09
+-- pushenv("JAGS_INCLUDEDIR", pathJoin(home, "include"))
+-- pushenv("JAGS_LIBDIR", pathJoin(home, "lib"))
+
+-- R package 'runjags' uses 'JAGS_LIB' and 'JAGS_INCLUDE' (README)
+-- Comment: Email maintainer about diff to 'rjags' /HB 2020-03-09
+-- pushenv("JAGS_INCLUDE", pathJoin(home, "include")) -- Not needed /HB 2020-03-09
 pushenv("JAGS_LIB", pathJoin(home, "lib"))

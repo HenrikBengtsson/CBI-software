@@ -1,5 +1,5 @@
 NAME=bedops
-VERSION:=2.4.37
+VERSION:=2.4.38
 URL=https://bedops.readthedocs.io/en/latest/
 DOWNLOAD_TARGET_FILE=bin/$(NAME)
 CONFIG=false

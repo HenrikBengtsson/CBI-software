@@ -4,14 +4,23 @@ SCL Developer Toolset: GNU Compiler Collection, GNU Debugger, etc.
 
 local name = myModuleName()
 local version = myModuleVersion()
-local scl_name = "devtoolset" .. version
+local scl_name = "devtoolset" .. "-" .. version
 
 whatis("Version: " .. version)
 whatis("Keywords: programming, gcc")
 whatis("URL: https://www.softwarecollections.org/en/scls/rhscl/" .. scl_name .. "/")
-whatis("Description: Enables the CentOS Software Collection (SCL) `" .. scl_name .. "` in the current environment.  This is an alternative to calling `source scl_source enable " .. scl_name .. "`, which is not officially supported by RedHat/CentOS.  Example: `gcc --version`.")
+whatis("Description: Enables the CentOS Software Collection (SCL) `" .. scl_name .. "` in the current environment.  This is an alternative to calling `source scl_source enable " .. scl_name .. "`, which is an approach that is not officially supported by RedHat/CentOS.  Example: `gcc --version`.")
 
-local path = dirname(myFileName())
-local pathname = pathJoin(path, ".incl", version .. ".lua")
-loadfile(pathname)()
-
+-- /usr/share/lmod/lmod/libexec/sh_to_modulefile /opt/rh/devtoolset-4/enable
+setenv("INFOPATH","/opt/rh/devtoolset-4/root/usr/share/info")
+setenv("JAVACONFDIRS","/opt/rh/devtoolset-4/root/etc/java:/etc/java")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-4/root/usr/lib")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-4/root/usr/lib64")
+prepend_path("MANPATH","/opt/rh/devtoolset-4/root/usr/share/man")
+prepend_path("PATH","/opt/rh/devtoolset-4/root/usr/bin")
+setenv("PCP_DIR","/opt/rh/devtoolset-4/root")
+setenv("PERL5LIB","/opt/rh/devtoolset-4/root//usr/lib64/perl5/vendor_perl:/opt/rh/devtoolset-4/root/usr/lib/perl5:/opt/rh/devtoolset-4/root//usr/share/perl5/vendor_perl")
+prepend_path("PYTHONPATH","/opt/rh/devtoolset-4/root/usr/lib/python2.7/site-packages")
+prepend_path("PYTHONPATH","/opt/rh/devtoolset-4/root/usr/lib64/python2.7/site-packages")
+setenv("XDG_CONFIG_DIRS","/opt/rh/devtoolset-4/root/etc/xdg:/etc/xdg")
+setenv("XDG_DATA_DIRS","/opt/rh/devtoolset-4/root/usr/share:/usr/local/share:/usr/share")

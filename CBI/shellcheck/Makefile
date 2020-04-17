@@ -1,6 +1,7 @@
 include config.mk
 include ../utils.mk
 
+
 TARBALL=$(NAME)-v$(VERSION).linux.x86_64.tar.xz
 
 ## ----------------------------------------------------------
@@ -9,7 +10,7 @@ TARBALL=$(NAME)-v$(VERSION).linux.x86_64.tar.xz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O https://storage.googleapis.com/shellcheck/$(TARBALL); \
+	curl -L -O https://github.com/koalaman/shellcheck/releases/download/v$(VERSION)/$(TARBALL); \
 	tar Jxf $(TARBALL); \
 	mv $(NAME)-v$(VERSION) $(NAME)-$(VERSION)
 

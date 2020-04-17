@@ -1,5 +1,26 @@
 include config.mk
+
+## Special cases
+ifeq ($(findstring alpha,$(VERSION)),alpha)
+	BUILD_NAME=R-alpha
+	TARBALL=R-latest.tar.gz
+endif
+
 include ../utils.mk
+
+DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base/R-$(VERSION_X)
+## Special cases
+ifeq ($(BUILD_NAME),R-alpha)
+	TARBALL=R-latest.tar.gz
+	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
+endif
+
+DOWNLOAD_URL=$(DOWNLOAD_URL_PATH)/$(TARBALL)
+
+debug2: debug
+	@echo
+	@echo "DOWNLOAD_URL_PATH=$(DOWNLOAD_URL_PATH)"
+	@echo "DOWNLOAD_URL=$(DOWNLOAD_URL)"
 
 
 ## ----------------------------------------------------------
@@ -8,7 +29,7 @@ include ../utils.mk
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O https://cran.r-project.org/src/base/R-$(VERSION_X)/$(TARBALL); \
+	curl -O $(DOWNLOAD_URL); \
 	tar xvfz $(TARBALL)
 
 post_build:

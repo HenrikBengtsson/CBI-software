@@ -1,6 +1,6 @@
 NAME=FastQC
 MODULE_NAME=fastqc
-VERSION:=0.11.8
+VERSION:=0.11.9
 URL=https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc
 DOWNLOAD_TARGET_FILE=fastqc
 CONFIG=false

@@ -9,7 +9,7 @@ TARBALL=$(NAME).$(VERSION)-centos_linux64.tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)
 	cd $(BUILD_HOME); \
-	curl -L -O http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/$(TARBALL); \
+	curl -L -O http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL); \
 	mv $(NAME).$(VERSION)-centos_linux64 $(NAME)-$(VERSION)
 

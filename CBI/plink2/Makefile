@@ -2,7 +2,15 @@ include config.mk
 include ../utils.mk
 
 ARCH=x86_64
-ZIPBALL=plink2_linux_$(ARCH)_20190810.zip
+
+ifeq ($(VERSION),2.00a2LM)
+        ZIPBALL=plink2_linux_$(ARCH)_20190810.zip
+	UNZIP_NAME=
+else ifeq ($(VERSION),2.00a3LM)
+        ZIPBALL=plink2_linux_$(ARCH)_20200328.zip
+	UNZIP_NAME=
+endif
+
 
 ## ----------------------------------------------------------
 ## SOFTWARE

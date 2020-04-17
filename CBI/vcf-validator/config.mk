@@ -1,5 +1,5 @@
 NAME=vcf-validator
-VERSION:=0.9.2
+VERSION:=0.9.3
 URL=https://github.com/EBIvariation/vcf-validator
 DOWNLOAD_TARGET_FILE=vcf_validator_linux
 CONFIG=false

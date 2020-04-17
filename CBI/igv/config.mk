@@ -1,5 +1,5 @@
 NAME=IGV
-VERSION:=2.7.2
+VERSION:=2.8.2
 URL=https://software.broadinstitute.org/software/igv/
 DOWNLOAD_TARGET_FILE=igv.sh
 CONFIG=false

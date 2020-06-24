@@ -1,6 +1,6 @@
 NAME=gdal
-VERSION=3.0.1
-VERSION=2.4.3
+#VERSION=3.1.0  # (>= 3.0.0) requires PROJ (>= 6)
+VERSION=2.4.4
 URL=https://gdal.org
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=jags

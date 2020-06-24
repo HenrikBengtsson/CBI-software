@@ -1,5 +1,5 @@
 NAME=R
-VERSION:=4.0.1
+VERSION:=4.0.2
 URL=https://cran.r-project.org/src/base/R-4/
 CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib
 BUILD_TARGET_FILE=bin/exec/R

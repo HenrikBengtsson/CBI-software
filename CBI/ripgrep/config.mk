@@ -1,5 +1,5 @@
 NAME=ripgrep
-VERSION:=12.0.1
+VERSION:=12.1.1
 URL=https://github.com/BurntSushi/ripgrep/releases
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false

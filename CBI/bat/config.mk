@@ -1,5 +1,5 @@
 NAME=bat
-VERSION:=0.13.0
+VERSION:=0.15.4
 URL=https://github.com/sharkdp/bat
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false

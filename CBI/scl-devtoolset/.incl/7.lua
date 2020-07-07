@@ -1,3 +1,4 @@
+-- Don't edit! Created using: 
 -- /usr/share/lmod/lmod/libexec/sh_to_modulefile /opt/rh/devtoolset-7/enable
 setenv("INFOPATH","/opt/rh/devtoolset-7/root/usr/share/info")
 prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-7/root/usr/lib/dyninst")
@@ -5,7 +6,6 @@ prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-7/root/usr/lib64/dyninst")
 prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-7/root/usr/lib")
 prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-7/root/usr/lib64")
 append_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-7/root/usr/lib")
-append_path("LD_LIBRARY_PATH","/usr/lib64/openmpi/lib")
 prepend_path("MANPATH","/opt/rh/devtoolset-7/root/usr/share/man")
 prepend_path("PATH","/opt/rh/devtoolset-7/root/usr/bin")
 setenv("PCP_DIR","/opt/rh/devtoolset-7/root")

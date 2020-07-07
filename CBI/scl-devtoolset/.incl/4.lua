@@ -1,8 +1,8 @@
+-- Don't edit! Created using: 
 -- /usr/share/lmod/lmod/libexec/sh_to_modulefile /opt/rh/devtoolset-4/enable
 setenv("INFOPATH","/opt/rh/devtoolset-4/root/usr/share/info")
 setenv("JAVACONFDIRS","/opt/rh/devtoolset-4/root/etc/java:/etc/java")
-prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-4/root/usr/lib")
-prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-4/root/usr/lib64")
+setenv("LD_LIBRARY_PATH","/opt/rh/devtoolset-4/root/usr/lib64:/opt/rh/devtoolset-4/root/usr/lib")
 prepend_path("MANPATH","/opt/rh/devtoolset-4/root/usr/share/man")
 prepend_path("PATH","/opt/rh/devtoolset-4/root/usr/bin")
 setenv("PCP_DIR","/opt/rh/devtoolset-4/root")

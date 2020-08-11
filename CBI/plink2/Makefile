@@ -8,6 +8,7 @@ ifeq ($(VERSION),2.00a2LM)
 	UNZIP_NAME=
 else ifeq ($(VERSION),2.00a3LM)
         ZIPBALL=plink2_linux_$(ARCH)_20200328.zip
+        ZIPBALL=plink2_linux_$(ARCH)_20200727.zip
 	UNZIP_NAME=
 endif
 

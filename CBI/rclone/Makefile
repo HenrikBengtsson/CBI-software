@@ -14,7 +14,7 @@ $(DOWNLOAD_TARGET):
 	unzip $(ZIPFILE); \
 	mv $(ZIPNAME) $(BUILD_NAME)
 
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install

@@ -1,6 +1,7 @@
-debug:
-	@pkgs=$$(cat PACKAGES | grep -vE "^#" | sort -u); \
-	echo pkgs="$${pkgs}";
+SHELL:=bash
+
+pkgs: PACKAGES
+	@cat PACKAGES | grep -vE "^#" | sort -u
 
 all:
 	pkgs=($$(cat PACKAGES | grep -vE "^#" | sort -u)); \
@@ -20,3 +21,9 @@ unclean:
 
 clean:
 	rm -- */.done
+
+PACKAGES: FORCE
+	find . -type f -name "config.mk" -exec dirname {} + | sed -E 's/.\///' > "$@"
+
+FORCE:
+

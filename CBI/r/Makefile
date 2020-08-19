@@ -39,6 +39,8 @@ post_build:
 post_install:
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
+	## Configure R for Java (so that 'rJava' can be installed)
+	$(PREFIX)/bin/R CMD javareconf
 	## Save log files
 	cp $(BUILD_PATH)/config.log $(PREFIX)/
 	cp $(BUILD_PATH)/make-check.log $(PREFIX)/

@@ -1,5 +1,7 @@
-all: .incl
+include config.mk
+include ../utils.mk
 
+all: .incl
 
 .incl: .incl/4.lua .incl/6.lua .incl/7.lua .incl/8.lua
 
@@ -12,3 +14,8 @@ all: .incl
 clean:
 	rm -f s.log
 	rm -rf .incl/
+
+$(MODULE_TARGET): $(VERSION).lua
+	mkdir -p "$(@D)"
+	cp "$<" "$@"
+

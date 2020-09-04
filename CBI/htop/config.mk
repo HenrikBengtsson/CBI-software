@@ -1,5 +1,5 @@
 NAME=htop
-VERSION:=2.2.0
-URL=https://hisham.hm/htop/releases/
+VERSION:=3.0.1
+URL=https://htop.dev
 BUILD_TARGET_FILE=htop
 INSTALL_TARGET_FILE=bin/htop

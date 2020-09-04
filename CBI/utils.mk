@@ -139,7 +139,9 @@ all: debug install install_module
 download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
-	module purge; \
+	module --force purge; \
+	module list; \
+	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
 	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
 
@@ -151,7 +153,8 @@ config: $(CONFIG_TARGET)
 
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
-	module purge; \
+	module --force purge; \
+	module list; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
 	make post_build

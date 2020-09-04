@@ -1,7 +1,7 @@
 include config.mk
 include ../utils.mk
 
-all: .incl
+all: debug install_module
 
 .incl: .incl/4.lua .incl/6.lua .incl/7.lua .incl/8.lua
 

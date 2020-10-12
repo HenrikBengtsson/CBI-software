@@ -7,7 +7,7 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, 10x genomics")
 whatis("URL: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger")
-whatis("Description: Cell Ranger is a set of analysis pipelines that process Chromium Single Cell 3' RNA-seq output to align reads, generate gene-cell matrices and perform clustering and gene expression analysis.  Example: `cellranger`")
+whatis("Description: Cell Ranger is a set of analysis pipelines that process Chromium Single Cell 3' RNA-seq output to align reads, generate gene-cell matrices and perform clustering and gene expression analysis.  Example: `cellranger`.  Warning: To prevent a single Cell Ranger process from hijacking all CPU and RAM by default, this module sets environment variable MROFLAGS='--localcores=1 --localmem=8 --limit-loadavg' making those the default.")
 
 load("bcl2fastq")
 
@@ -15,3 +15,10 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)
+
+-- Make CellRanger run on a single core with little memory by default
+-- This prevents a single Cell Ranger process from hijacking all
+-- available CPU and memory resources.
+-- REFERENCES:
+-- * https://martian-lang.org/advanced-features/#job-management
+pushenv("MROFLAGS", "--localcores=1 --localmem=8 --limit-loadavg")

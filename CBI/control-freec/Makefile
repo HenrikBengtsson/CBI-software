@@ -14,6 +14,7 @@ $(DOWNLOAD_TARGET):
 
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
+	module --force purge; \
 	cd $(BUILD_PATH)/src; \
 	make; \
 	mkdir -p ../bin; \

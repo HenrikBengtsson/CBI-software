@@ -1,5 +1,5 @@
 NAME=FREEC
-VERSION:=11.5
+VERSION:=11.6
 MODULE_NAME=control-freec
 URL=https://github.com/BoevaLab/FREEC
 DOWNLOAD_TARGET_FILE=src/freec

@@ -14,6 +14,7 @@ $(DOWNLOAD_TARGET):
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
+	module --force purge; \
 	make; \
 	mkdir -p man/man1/; \
 	ln -s ../../bwa.1 man/man1/bwa.1
@@ -22,6 +23,7 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
+	module --force purge; \
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

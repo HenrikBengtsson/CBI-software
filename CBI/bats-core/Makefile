@@ -9,19 +9,11 @@ TARBALL=v$(VERSION).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/statgen/$(NAME)/archive/$(TARBALL); \
-	tar -xzf $(TARBALL)
-
-$(BUILD_TARGET):
-	cd $(BUILD_PATH); \
-	module --force purge; \
-	make cloneLib; \
-	make
+	curl -L -O https://github.com/bats-core/$(NAME)/archive/$(TARBALL); \
+	tar zxf $(TARBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p $(PREFIX)
-	cd $(BUILD_PATH); \
-	module --force purge; \
-	make install INSTALLDIR=$(PREFIX); \
+	$(BUILD_PATH)/install.sh $(PREFIX)
+	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

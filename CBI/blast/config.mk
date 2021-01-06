@@ -1,5 +1,5 @@
 NAME=blast
-VERSION:=2.10.1
+VERSION:=2.11.0
 URL=https://blast.ncbi.nlm.nih.gov/Blast.cgi
 DOWNLOAD_TARGET_FILE=bin/blastx
 CONFIG=false

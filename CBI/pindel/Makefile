@@ -11,7 +11,7 @@ $(DOWNLOAD_TARGET):
 	tar zxf v${VERSION}.tar.gz
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
-	module purge; \
+	module --force purge; \
 	module load CBI htslib; \
 	HTSLIB_PATH="$$(dirname $$(dirname $$(which htsfile)))"; \
 	echo "HTSLIB_PATH=$${HTSLIB_PATH}"; \

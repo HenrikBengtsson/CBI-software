@@ -3,7 +3,7 @@ include ../utils.mk
 
 all: debug install_module
 
-.incl: .incl/4.lua .incl/6.lua .incl/7.lua .incl/8.lua
+.incl: .incl/4.lua .incl/6.lua .incl/7.lua .incl/8.lua .incl/9.lua
 
 .incl/%.lua: /opt/rh/devtoolset-%/enable
 	mkdir -p .incl/

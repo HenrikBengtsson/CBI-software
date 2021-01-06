@@ -1,5 +1,5 @@
 NAME=samtools
-VERSION:=1.10
+VERSION:=1.11
 URL=http://www.htslib.org/
 BUILD_TARGET_FILE=$(NAME)
 INSTALL_TARGET_FILE=bin/$(NAME)

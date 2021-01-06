@@ -18,16 +18,16 @@ $(DOWNLOAD_TARGET):
 	mv ${NAME} ${BUILD_PATH}
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
-	module purge
 	cd $(BUILD_PATH); \
 	mkdir bcl2fastq-build; \
 	cd bcl2fastq-build; \
+	module --force purge; \
 	../src/configure $(CONFIG_OPTS) --prefix=$(PREFIX)
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
-	module purge;
 	cd $(BUILD_PATH)/bcl2fastq-build; \
-	make $(BUILD_OPTS)
+	module --force purge; \
+	make $(BUILD_OPTS); \
 	make post_build
 
 $(INSTALL_TARGET): $(BUILD_TARGET)

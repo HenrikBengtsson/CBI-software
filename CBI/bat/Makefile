@@ -15,8 +15,10 @@ $(DOWNLOAD_TARGET):
 	mv $(NAME)-v$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p $(PREFIX)
+	mkdir -p "$(PREFIX)"
+	mkdir -p "$(PREFIX)/share/man/man1"
 	cp -R $(BUILD_PATH) $(PREFIX)/..
+	mv "$(PREFIX)/bat.1" "$(PREFIX)/share/man/man1"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

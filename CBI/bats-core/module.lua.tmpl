@@ -1,0 +1,17 @@
+help([[
+bats: Bash Automated Testing System
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: bash, shell, testing")
+whatis("URL: https://github.com/bats-core/bats-core")
+whatis("Description: Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.  Example: `bats --help`, `bats --version`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))

@@ -1,5 +1,5 @@
 NAME=rclone
-VERSION:=1.53.1
+VERSION:=1.53.3
 URL=https://rclone.org/downloads/
 DOWNLOAD_TARGET_FILE=rclone
 CONFIG=false

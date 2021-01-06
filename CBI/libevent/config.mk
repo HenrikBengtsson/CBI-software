@@ -1,5 +1,5 @@
 NAME=libevent
-VERSION:=2.1.8
+VERSION:=2.1.12
 URL=https://github.com/libevent/libevent/releases
 BUILD_SUFFIX=-stable
 BUILD_TARGET_FILE=.libs/libevent.so

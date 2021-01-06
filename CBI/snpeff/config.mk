@@ -1,5 +1,5 @@
 NAME=snpEff
-VERSION:=4.3t
+VERSION:=5.0c
 URL=http://snpeff.sourceforge.net/
 DOWNLOAD_TARGET_FILE=snpEff/snpEff.jar
 CONFIG=false

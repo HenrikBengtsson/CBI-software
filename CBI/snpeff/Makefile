@@ -2,7 +2,12 @@ include config.mk
 include ../utils.mk
 
 VERSION_:=$(subst .,_,$(VERSION))
+
 ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
+DOWNLOAD_URL=https://sourceforge.net/projects/snpeff/files/$(ZIPBALL)/download
+
+ZIPBALL=$(NAME)_latest_core.zip
+DOWNLOAD_URL=https://snpeff.blob.core.windows.net/versions/$(ZIPBALL)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +15,7 @@ ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)/$(NAME)-$(VERSION)
 	cd $(BUILD_HOME)/$(NAME)-$(VERSION); \
-	curl -J -L -O https://sourceforge.net/projects/snpeff/files/$(ZIPBALL)/download; \
+	curl -J -L -O $(DOWNLOAD_URL); \
 	unzip $(ZIPBALL); \
 	rm $(ZIPBALL)
 

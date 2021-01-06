@@ -1,7 +1,7 @@
 NAME=pandoc
-VERSION:=2.10.1
+VERSION:=2.11.3.2
 URL=https://github.com/jgm/pandoc/
 DOWNLOAD_TARGET_FILE=bin/pandoc
 CONFIG=false
-BUILD_TARGET_FILE=bin/pandoc
+BUILD=false
 INSTALL_TARGET_FILE=bin/pandoc

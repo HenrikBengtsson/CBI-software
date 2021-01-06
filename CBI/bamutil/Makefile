@@ -14,12 +14,14 @@ $(DOWNLOAD_TARGET):
 
 $(BUILD_TARGET):
 	cd $(BUILD_PATH); \
+	module --force purge; \
 	make cloneLib; \
 	make
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
+	module --force purge; \
 	make install INSTALLDIR=$(PREFIX); \
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

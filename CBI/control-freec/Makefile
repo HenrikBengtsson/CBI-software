@@ -14,8 +14,8 @@ $(DOWNLOAD_TARGET):
 
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
-	module --force purge; \
 	cd $(BUILD_PATH)/src; \
+	module --force purge; \
 	make; \
 	mkdir -p ../bin; \
 	cp freec ../bin

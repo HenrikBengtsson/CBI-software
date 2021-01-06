@@ -14,6 +14,7 @@ $(DOWNLOAD_TARGET):
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cp -pR $(BUILD_PATH); \
+	module --force purge; \
 	make hisat2-align-s hisat2-build-s hisat2-inspect-s
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

@@ -17,6 +17,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	find . -type f -name "*.so" -exec ldd {} 2> /dev/null ';' | grep -F "not found" > "$(CONFIG_TARGET).tmp" || true
 	if grep -q -F "not found" "$(CONFIG_TARGET).tmp"; then \
 	   { echo "ERROR: Missing system libraries:"; grep -F "not found" "$(CONFIG_TARGET).tmp" | uniq; } 1>&2; \
+	   exit 1; \
 	fi
 	mv "$(CONFIG_TARGET).tmp" "$(CONFIG_TARGET)"
 

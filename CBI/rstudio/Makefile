@@ -14,7 +14,9 @@ $(DOWNLOAD_TARGET):
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd "$(BUILD_PATH)"; \
-	! find . -type f -name "*.so" -exec ldd {} 2> /dev/null ';' | grep -q -F "not found"
+	find . -type f -name "*.so" -exec ldd {} 2> /dev/null ';' | grep -F "not found" > "$(CONFIG_TARGET).tmp" || true
+	grep -q -F "not found" "$(CONFIG_TARGET).tmp" && { echo "ERROR: Missing system libraries:"; grep -F "not found" "$(CONFIG_TARGET).tmp" | uniq; exit 1; } 1>&2
+	mv "$(CONFIG_TARGET).tmp" "$(CONFIG_TARGET)"
 
 $(INSTALL_TARGET): $(CONFIG_TARGET)
 	mkdir -p $(PREFIX)

@@ -1,7 +1,7 @@
 include config.mk
 include ../utils.mk
 
-TARBALL="$(NAME)-$(VERSION)-x86_64-fedora.tar.gz"
+TARBALL=$(NAME)-$(VERSION)-x86_64-fedora.tar.gz
 
 ## ----------------------------------------------------------
 ## SOFTWARE

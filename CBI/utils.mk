@@ -144,12 +144,15 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
 	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
+	make post_config
 
 ifeq ($(CONFIG),false)
 $(CONFIG_TARGET):
 endif
 
 config: $(CONFIG_TARGET)
+
+post_config:
 
 
 $(BUILD_TARGET): $(CONFIG_TARGET)

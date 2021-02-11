@@ -13,7 +13,7 @@ $(DOWNLOAD_TARGET):
 	tar zxf $(TARBALL); \
 	mv $(NAME) $(NAME)-$(VERSION)
 
-$(INSTALL_TARGET):
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX); \
 	cd $(BUILD_HOME); \
 	cp -p -R $(NAME)-$(VERSION) $(PREFIX)/..

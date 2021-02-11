@@ -1,6 +1,7 @@
 NAME=FREEC
 VERSION:=11.6
 MODULE_NAME=control-freec
+URL_DOWNLOAD=https://github.com/BoevaLab/FREEC/releases
 URL=https://github.com/BoevaLab/FREEC
 DOWNLOAD_TARGET_FILE=src/freec
 CONFIG=false

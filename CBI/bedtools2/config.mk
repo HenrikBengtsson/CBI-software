@@ -1,5 +1,6 @@
 NAME=bedtools2
 VERSION:=2.29.2
+URL_DOWNLOAD=https://github.com/arq5x/bedtools2/releases/
 URL=https://github.com/arq5x/bedtools2/
 DOWNLOAD_TARGET_FILE=Makefile
 CONFIG=false

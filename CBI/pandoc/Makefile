@@ -14,7 +14,7 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://github.com/jgm/pandoc/releases/download/$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL)
 
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install

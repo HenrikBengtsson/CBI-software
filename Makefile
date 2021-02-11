@@ -5,6 +5,6 @@ urls:
 	    bfr=$$(module --redirect show "$$module"); \
 	    version=$$(echo "$$bfr" | grep "Version:" | sed -E 's/(^[^:]+:[[:space:]]*|"\)$$)//g'); \
 	    urls=$$(echo "$$bfr" | grep "URL:" | sed -E 's/(^[^:]+:[[:space:]]*|"\)$$)//g'); \
-	    echo "$$module/$$version: $$urls"; \
+	    echo "* $$module/$$version: $$urls"; \
 	done
 

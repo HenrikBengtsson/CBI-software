@@ -20,5 +20,5 @@ prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
 -- Warn about bug https://github.com/samtools/htslib/issues/1236
 if (mode() == "load" and version == "1.11") then
-  LmodMessage("MODULE WARNING: " .. name .. " " .. version .. " has a bug that results in valid but incorrect CIGAR strings. Because of this, it is recommended to use an older or a new version instead. For details, see https://github.com/samtools/htslib/issues/1236")
+  LmodMessage("MODULE WARNING: " .. name .. " " .. version .. " has a bug that results in valid but incorrect CIGAR strings. Because of this, it is recommended to use an older or a newer version instead. For details, see https://github.com/samtools/htslib/issues/1236")
 end

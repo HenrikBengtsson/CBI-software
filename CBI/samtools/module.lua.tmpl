@@ -15,3 +15,8 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
+
+-- Warn about bug https://github.com/samtools/htslib/issues/1236
+if (mode() == "load" and version == "1.11") then
+  LmodMessage("MODULE WARNING: " .. name .. " " .. version .. " has a bug that results in valid but incorrect CIGAR strings. Because of this, it is recommended to use an older or a new version instead. For details, see https://github.com/samtools/htslib/issues/1236")
+end

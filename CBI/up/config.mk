@@ -1,0 +1,7 @@
+NAME=up
+VERSION:=0.4
+URL_DOWNLOAD=https://github.com/akavel/up/releases/
+DOWNLOAD_TARGET_FILE=$(NAME)
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=$(NAME)

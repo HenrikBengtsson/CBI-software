@@ -7,7 +7,7 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: programming, R, GUI")
 whatis("URL: https://rstudio.com/products/rstudio/#rstudio-desktop")
-whatis("Description: The RStudio Desktop is an integrated development environment (IDE) for R, a programming language for statistical computing and graphics.  Example: `rstudio`.  Warning: This software works only on the development nodes and requires that X11 Forwarding or NX is enabled. For best performance, use SSH compression when using X11 Forwarding, i.e. `ssh -X -C ...`.")
+whatis("Description: The RStudio Desktop is an integrated development environment (IDE) for R, a programming language for statistical computing and graphics.  Example: `rstudio`. If you get blank window, retry with `QMLSCENE_DEVICE=softwarecontext rstudio`. Warning: This software works only on the development nodes and requires that X11 Forwarding or NX is enabled. For best performance, use SSH compression when using X11 Forwarding, i.e. `ssh -X -C ...`.")
 
 depends_on("r")
 

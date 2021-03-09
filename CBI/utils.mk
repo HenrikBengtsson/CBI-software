@@ -87,6 +87,10 @@ else
   CONFIG_TARGET=
 endif
 
+ifndef CONFIG_MODULES
+  CONFIG_MODULES=
+endif
+
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## BUILDING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -104,6 +108,10 @@ ifeq ($(BUILD),true)
 else
   BUILD_TARGET=
   INSTALL_TARGET=
+endif
+
+ifndef BUILD_MODULES
+  BUILD_MODULES=$(CONFIG_MODULES)
 endif
 
 
@@ -140,6 +148,7 @@ download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module --force purge; \
+	module load $(CONFIG_MODULES); \
 	module list; \
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
@@ -157,6 +166,7 @@ post_config:
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	module --force purge; \
+	module load $(BUILD_MODULES); \
 	module list; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
@@ -248,12 +258,14 @@ debug:
 	@echo "CONFIG_OPTS*: $(CONFIG_OPTS)"
 	@echo "CONFIG_TARGET_FILE: $(CONFIG_TARGET_FILE)"
 	@echo "CONFIG_TARGET: $(CONFIG_TARGET)"
+	@echo "CONFIG_MODULES: $(CONFIG_MODULES)"
 	@echo
 	@echo "BUILDING:"
 	@echo "BUILD: $(BUILD)"
 	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
 	@echo "BUILD_TARGET_FILE: $(BUILD_TARGET)"
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"
+	@echo "BUILD_MODULES: $(BUILD_MODULES)"
 	@echo
 	@echo "MODULES:"
 	@echo "MODULE_HOME: $(MODULE_HOME)"

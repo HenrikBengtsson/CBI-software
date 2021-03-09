@@ -1,6 +1,7 @@
 include config.mk
 include ../utils.mk
 
+
 TARBALL=$(NAME)-$(VERSION).tar.bz2
 
 ## ----------------------------------------------------------
@@ -14,7 +15,9 @@ $(DOWNLOAD_TARGET):
 
 $(BUILD_PATH)/check.log:
 	cd $(BUILD_PATH); \
+	module --force purge; \
+	module load $(BUILD_MODULES); \
+	module list; \
 	make check &> check.log
 
 post_build: $(BUILD_PATH)/check.log
-

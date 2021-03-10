@@ -1,5 +1,5 @@
 NAME=proj
-VERSION=7.2.1
+VERSION=4.9.3
 
 URL_DOWNLOAD=https://proj.org/download.html
 DOWNLOAD_FILE=configure
@@ -10,4 +10,4 @@ INSTALL_TARGET_FILE=bin/proj
 CONFIG_MODULES=CBI sqlite
 
 ## PROJ 4.9.3 requires sqlite3 (>= 3.??)
-#CONFIG_MODULES=CBI sqlite
+CONFIG_MODULES=

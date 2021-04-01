@@ -1,5 +1,5 @@
 NAME=R
-VERSION:=4.0.4
+VERSION:=4.0.5
 URL_DOWNLOAD=https://cran.r-project.org/
 URL=https://cran.r-project.org/src/base/R-4/
 CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib

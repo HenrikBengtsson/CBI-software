@@ -16,11 +16,18 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
+local v = version
+v = string.gsub(v, "-.*", "")
+
 -- WORKAROUND: R 3.6.0 is not compatible with BeeGFS
-if version == "3.6.0" then
+if v == "3.6.0" then
   pushenv("R_INSTALL_STAGED", "false")
 else
   pushenv("R_INSTALL_STAGED", "true")
+end
+
+if (v >= "4.1.0") then
+  depends_on("scl-devtoolset/7")
 end
 
 -- Avoid R CMD build warning on "invalid uid value replaced by that for user 'nobody'"

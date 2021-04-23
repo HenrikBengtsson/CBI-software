@@ -7,8 +7,16 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
 whatis("URL: https://ncbi.github.io/sra-tools/, https://github.com/ncbi/sra-tools")
-whatis("Description: The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives. Example: `fastq-dump --help`.")
+whatis("Description: The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives. Example: `fastq-dump --help`. Warning: To work around a bug where `fasterq-dump` crashes the local machine, it has been tweaked such that it uses `$TMPDIR` rather than `$PWD` as the default temporary folder.")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
+
+-- WORKAROUND: fasterq-dump crashes machines!
+-- Not sure exactly why, but one hypothesis is that the file system is
+-- being hit too hard.  The workaround forces 'fasterq-dump' to use
+-- 'TMPDIR' for temporary files rather than the current directory [2]
+-- [1] https://github.com/ncbi/sra-tools/issues/463#issuecomment-824321890
+-- [2] https://github.com/ncbi/sra-tools/issues/161#issuecomment-808294889
+set_shell_function("fasterq-dump", 'command fasterq-dump --temp "$(mktemp -d)" "$@"', '')

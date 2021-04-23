@@ -1,18 +1,18 @@
 include config.mk
 
-## Special cases
+## Special cases (must come before including utils.mk)
 ifeq ($(findstring alpha,$(VERSION)),alpha)
 	BUILD_NAME=R-alpha
 	TARBALL=R-latest.tar.gz
+	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
+	CONFIG_MODULES=CBI scl-devtoolset/7
+	BUILD_MODULES=CBI scl-devtoolset/7
 endif
 
 include ../utils.mk
 
-DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base/R-$(VERSION_X)
-## Special cases
-ifeq ($(BUILD_NAME),R-alpha)
-	TARBALL=R-latest.tar.gz
-	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
+ifneq ($(findstring alpha,$(VERSION)),alpha)
+	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base/R-$(VERSION_X)
 endif
 
 DOWNLOAD_URL=$(DOWNLOAD_URL_PATH)/$(TARBALL)

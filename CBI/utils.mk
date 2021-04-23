@@ -230,6 +230,15 @@ test_module: $(MODULE_TARGET)
 	module unload $(MODULE_NAME)/$(VERSION)
 
 
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## HELP
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+help:
+	@echo "Known 'make' targets:"
+	@make -qp | awk -F ':' '/^(|\/)[a-zA-Z0-9][^$$#\t=]*:([^=]|$$)/ { split($$1,A,/ /); for(i in A) print A[i] }' | sort -u
+
+
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEBUG
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

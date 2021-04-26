@@ -1,5 +1,5 @@
 help([[
-openjdk-runtime: Open Java Development Kit
+openjdk: Open Java Development Kit
 ]])
 
 local name = myModuleName()

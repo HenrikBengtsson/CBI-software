@@ -26,8 +26,16 @@ else
   pushenv("R_INSTALL_STAGED", "true")
 end
 
+local gv
+
 if (v >= "4.1.0") then
-  depends_on("scl-devtoolset/7")
+  gv = string.gsub(version, v, "")
+  gv = string.gsub(gv, "-alpha", "")
+  gv = string.gsub(gv, "-beta", "")
+  gv = string.gsub(gv, "-gcc", "")
+  if (gv > "4") then
+    depends_on("scl-devtoolset/" .. gv)
+  end
 end
 
 -- Avoid R CMD build warning on "invalid uid value replaced by that for user 'nobody'"

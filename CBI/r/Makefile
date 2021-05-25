@@ -6,10 +6,13 @@ include config.mk
 ifeq ($(findstring alpha,$(VERSION)),alpha)
 	BUILD_NAME=R-alpha
 else ifeq ($(findstring beta,$(VERSION)),beta)
-	BUILD_NAME=R-alpha
+	BUILD_NAME=R-beta
 endif
 
+
+
 ## Build using specific GCC version?
+ifeq ($(CUSTOM_GCC),true)
 ifeq ($(findstring gcc4,$(VERSION)),gcc4)
 	CONFIG_MODULES=
 	BUILD_MODULES=
@@ -26,6 +29,7 @@ else ifeq ($(findstring gcc9,$(VERSION)),gcc9)
 	CONFIG_MODULES=CBI scl-devtoolset/9
 	BUILD_MODULES=CBI scl-devtoolset/9
 	BUILD_NAME:=$(BUILD_NAME)-gcc9
+endif
 endif
 
 
@@ -45,6 +49,7 @@ debug2: debug
 	@echo "BUILD_NAME=$(BUILD_NAME)"
 	@echo "DOWNLOAD_URL_PATH=$(DOWNLOAD_URL_PATH)"
 	@echo "DOWNLOAD_URL=$(DOWNLOAD_URL)"
+	@echo "CUSTOM_GCC=$(CUSTOM_GCC)"
 	@echo "CONFIG_MODULES=$(CONFIG_MODULES)"
 	@echo "BUILD_MODULES=$(BUILD_MODULES)"
 

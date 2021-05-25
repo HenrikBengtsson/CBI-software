@@ -1,0 +1,16 @@
+help([[
+tig: Text-Mode Interface for Git
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, git")
+whatis("URL: https://jonas.github.io/tig/")
+whatis("Description: Tig is an ncurses-based text-mode interface for git. It functions mainly as a Git repository browser, but can also assist in staging changes for commit at chunk level and act as a pager for output from various Git commands. Example: `tig --help`, `tig`,  `man tig` and `man tigrc`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

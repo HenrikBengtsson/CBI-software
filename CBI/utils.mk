@@ -47,25 +47,26 @@ ifndef DOWNLOAD
   DOWNLOAD=true
 endif
 
-ifndef DOWNLOAD_PATH
-  DOWNLOAD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
-endif
-
 ifeq ($(DOWNLOAD),true)
+  ifndef DOWNLOAD_PATH
+    DOWNLOAD_PATH=$(BUILD_HOME)/$(BUILD_NAME)
+  endif
   ifndef DOWNLOAD_TARGET
     ifndef DOWNLOAD_TARGET_FILE
       DOWNLOAD_TARGET_FILE=configure
     endif
     DOWNLOAD_TARGET=$(DOWNLOAD_PATH)/$(DOWNLOAD_TARGET_FILE)
   endif
+  ifndef TARBALL
+    TARBALL=$(NAME)-$(VERSION)$(BUILD_SUFFIX).tar.gz
+  endif
 else
+  DOWNLOAD_PATH=
   DOWNLOAD_TARGET_FILE=
   DOWNLOAD_TARGET=
+  TARBALL=
 endif
 
-ifndef TARBALL
-  TARBALL=$(NAME)-$(VERSION)$(BUILD_SUFFIX).tar.gz
-endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -257,6 +258,7 @@ debug:
 	@echo "BUILD_PATH: $(BUILD_PATH)"
 	@echo
 	@echo "DOWNLOADING:"
+	@echo "DOWNLOAD: $(DOWNLOAD)"
 	@echo "TARBALL*: $(TARBALL)"
 	@echo "DOWNLOAD_PATH: $(DOWNLOAD_PATH)"
 	@echo "DOWNLOAD_TARGET_FILE: $(DOWNLOAD_TARGET_FILE)"

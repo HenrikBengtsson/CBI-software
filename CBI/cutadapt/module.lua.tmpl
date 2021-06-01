@@ -1,0 +1,18 @@
+help([[
+Cutadapt: Remove Adapter Sequences from Sequencing Reads 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing, genome")
+whatis("URL: https://github.com/marcelm/cutadapt")
+whatis("Description: . Example: `cutadapt --version` and `cutadapt --help`.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+prepend_path("PATH", pathJoin(home, "bin"))
+
+
+
+

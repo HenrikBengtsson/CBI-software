@@ -1,0 +1,9 @@
+NAME=cutadapt
+VERSION:=3.4
+URL_DOWNLOAD=https://github.com/marcelm/cutadapt/releases
+URL=https://github.com/marcelm/cutadapt
+NAME2=trimgalore
+DOWNLOAD=false
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/cutadapt

@@ -1,0 +1,9 @@
+NAME=mutect
+VERSION:=1.1.5
+URL_DOWNLOAD=https://github.com/broadinstitute/mutect
+URL=https://software.broadinstitute.org/cancer/cga/mutect
+NAME2=muTect
+DOWNLOAD_TARGET_FILE=$(NAME2)-$(VERSION).jar
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=$(NAME2)-$(VERSION).jar

@@ -1,5 +1,5 @@
 help([[
-muTect: 
+muTect: Identification of Somatic Point Mutations in Next Generation Sequencing Data of Cancer Genomes
 ]])
 
 local name = myModuleName()
@@ -12,9 +12,9 @@ whatis("Description: MuTect is a method developed at the Broad Institute for the
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-local name2 = "muTect"
+name = "muTect"
 pushenv("MUTECT_HOME", home)
-local jarfile = pathJoin(home, name2 .. "-" .. version .. ".jar")
+local jarfile = pathJoin(home, name .. "-" .. version .. ".jar")
 pushenv("MUTECT_JAR", jarfile)
 set_alias("mutect", "java -Xmx2g -jar " .. jarfile)
 

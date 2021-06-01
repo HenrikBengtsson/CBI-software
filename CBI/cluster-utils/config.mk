@@ -1,5 +1,5 @@
 NAME=cluster-utils
-VERSION:=20.07.2
+VERSION:=21.05.1
 URL_DOWNLOAD=https://github.com/molgenis/cluster-utils/releases/
 URL=https://github.com/molgenis/cluster-utils/releases/
 DOWNLOAD_TARGET_FILE=bin/ctop

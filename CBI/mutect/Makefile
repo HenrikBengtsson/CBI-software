@@ -1,7 +1,7 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME2)-$(VERSION)-bin.zip
+TARBALL=$(NAME)-$(VERSION)-bin.zip
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,7 +9,7 @@ TARBALL=$(NAME2)-$(VERSION)-bin.zip
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/broadinstitute/$(NAME)/releases/download/$(VERSION)/$(TARBALL); \
+	curl -L -O https://github.com/broadinstitute/mutect/releases/download/$(VERSION)/$(TARBALL); \
 	unzip -d "$(BUILD_NAME)" "$(TARBALL)"
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

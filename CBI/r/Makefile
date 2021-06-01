@@ -10,32 +10,22 @@ else ifeq ($(findstring beta,$(VERSION)),beta)
 endif
 
 
-
 ## Build using specific GCC version?
-ifeq ($(CUSTOM_GCC),true)
-ifeq ($(findstring gcc4,$(VERSION)),gcc4)
-	CONFIG_MODULES=
-	BUILD_MODULES=
-	BUILD_NAME:=$(BUILD_NAME)-gcc4
-else ifeq ($(findstring gcc7,$(VERSION)),gcc7)
-	CONFIG_MODULES=CBI scl-devtoolset/7
-	BUILD_MODULES=CBI scl-devtoolset/7
-	BUILD_NAME:=$(BUILD_NAME)-gcc7
-else ifeq ($(findstring gcc9,$(VERSION)),gcc8)
-	CONFIG_MODULES=CBI scl-devtoolset/8
-	BUILD_MODULES=CBI scl-devtoolset/8
-	BUILD_NAME:=$(BUILD_NAME)-gcc8
-else ifeq ($(findstring gcc9,$(VERSION)),gcc9)
-	CONFIG_MODULES=CBI scl-devtoolset/9
-	BUILD_MODULES=CBI scl-devtoolset/9
-	BUILD_NAME:=$(BUILD_NAME)-gcc9
-endif
+ifneq ($(GCC_VERSION),)
+	CONFIG_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
+	BUILD_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
+	BUILD_SUFFIX=-gcc$(GCC_VERSION)
+	PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)$(BUILD_SUFFIX)
+	TARBALL=$(NAME)-$(VERSION).tar.gz
 endif
 
 
 include ../utils.mk
 
 ifeq ($(findstring alpha,$(VERSION)),alpha)
+	TARBALL=R-latest.tar.gz
+	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
+else ifeq ($(findstring beta,$(VERSION)),beta)
 	TARBALL=R-latest.tar.gz
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
 else
@@ -49,7 +39,7 @@ debug2: debug
 	@echo "BUILD_NAME=$(BUILD_NAME)"
 	@echo "DOWNLOAD_URL_PATH=$(DOWNLOAD_URL_PATH)"
 	@echo "DOWNLOAD_URL=$(DOWNLOAD_URL)"
-	@echo "CUSTOM_GCC=$(CUSTOM_GCC)"
+	@echo "GCC_VERSION=$(GCC_VERSION)"
 	@echo "CONFIG_MODULES=$(CONFIG_MODULES)"
 	@echo "BUILD_MODULES=$(BUILD_MODULES)"
 

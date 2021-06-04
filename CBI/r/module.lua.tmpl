@@ -9,17 +9,14 @@ whatis("Keywords: Programming, Statistics")
 whatis("URL: https://www.r-project.org/")
 whatis("Description: The R programming language. Examples: `R --version` and `Rscript --version`.")
 
-function is_empty(s)
-  return((s == nil) or (s == ""))
+require "posix"
+function isdir(fn)
+  return (posix.stat(fn, "type") == "directory")
 end
 
-function has_envvar(name)
-  return(not is_empty(os.getenv(name)))
-end
-
-function on_dev_node()
-  -- Assume development node unless Slurm or SGE environment variables are set
-  return(not (has_envvar("SLURM_CLUSTER_NAME") or has_envvar("JOB_ID")))
+has_devtoolset = function(version)
+  local path = pathJoin("/opt", "rh", "devtoolset-" .. version)
+  return(isdir(path))
 end
 
 local name = "R"
@@ -47,9 +44,8 @@ if (v >= "4.1.0") then
   gv = string.gsub(gv, "-beta", "")
   gv = string.gsub(gv, "-gcc", "")
   if (gv > "4") then
-    r_libs_user=r_libs_user .. "-gcc" .. gv
-    -- SCL devtoolset is only available on compute nodes
-    if on_dev_node() then
+    r_libs_user = r_libs_user .. "-gcc" .. gv
+    if has_devtoolset(gv) then
       depends_on("scl-devtoolset/" .. gv)
     end
   end

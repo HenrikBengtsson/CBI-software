@@ -209,26 +209,30 @@ ifndef MODULE_NAME
   MODULE_NAME=$(shell echo "$(NAME)" | tr A-Z a-z)
 endif
 
-MODULE_NAME_VERSION=$(MODULE_NAME)/$(VERSION)
+ifndef MODULE_VERSION
+  MODULE_VERSION=$(VERSION)
+endif
+
+MODULE_NAME_VERSION=$(MODULE_NAME)/$(MODULE_VERSION)
 
 
 ifndef MODULE_TARGET
-  MODULE_TARGET=$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
+  MODULE_TARGET=$(MODULE_HOME)/$(MODULE_NAME_VERSION).lua
 endif
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
-	module --ignore-cache show $(MODULE_NAME)/$(VERSION)
-	module load $(MODULE_NAME)/$(VERSION)
-	module unload $(MODULE_NAME)/$(VERSION)
+	module --ignore-cache show $(MODULE_NAME_VERSION)
+	module load $(MODULE_NAME_VERSION)
+	module unload $(MODULE_NAME_VERSION)
 
 install_module: $(MODULE_TARGET)
 
 test_module: $(MODULE_TARGET)
-	module --ignore-cache show $(MODULE_NAME)/$(VERSION)
-	module load $(MODULE_NAME)/$(VERSION)
-	module unload $(MODULE_NAME)/$(VERSION)
+	module --ignore-cache show $(MODULE_NAME_VERSION)
+	module load $(MODULE_NAME_VERSION)
+	module unload $(MODULE_NAME_VERSION)
 
 
 
@@ -281,6 +285,7 @@ debug:
 	@echo "MODULES:"
 	@echo "MODULE_HOME: $(MODULE_HOME)"
 	@echo "MODULE_NAME: $(MODULE_NAME)"
+	@echo "MODULE_VERSION: $(MODULE_VERSION)"
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"

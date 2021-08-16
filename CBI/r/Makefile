@@ -16,9 +16,9 @@ ifneq ($(GCC_VERSION),)
 	BUILD_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
 	BUILD_SUFFIX=-gcc$(GCC_VERSION)
 	PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)$(BUILD_SUFFIX)
-	TARBALL=$(NAME)-$(VERSION).tar.gz
+	TARBALL=$(NAME)-$(VERSION).tar.gz        
 endif
-
+MODULE_TARGET_DEFAULT=$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
 
 include ../utils.mk
 
@@ -75,6 +75,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
 	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
+	if [[ ! -f "$(MODULE_TARGET_DEFAULT)" ]]; then ln -s "$@" "$(MODULE_TARGET_DEFAULT)"; fi
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)

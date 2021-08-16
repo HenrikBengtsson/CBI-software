@@ -70,3 +70,11 @@ post_install:
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
+
+$(MODULE_TARGET): module.lua.tmpl
+	mkdir -p "$(@D)"
+	cp "$<" "$@"
+	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
+	module --ignore-cache show $(MODULE_NAME_VERSION)
+	module load $(MODULE_NAME_VERSION)
+	module unload $(MODULE_NAME_VERSION)

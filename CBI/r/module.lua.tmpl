@@ -70,9 +70,20 @@ pushenv("R_LOCAL_CRAN", "file://" .. pathJoin(r_repos_root, "cran"))
 -- one specific to the CBI stack.
 pushenv("R_LIBS_USER", r_libs_user)
 
+-- WORKAROUND: utils::download.file(), which is for instance used by install.packages()
+-- have a built-in timeout at 60 seconds.  This might be too short for some larger
+-- Bioconductor annotation packages, e.g. 'SNPlocs.Hsapiens.dbSNP150.GRCh38' (2.10 GB).
+pushenv("R_DEFAULT_INTERNET_TIMEOUT", "180") -- 3 minutes timeout instead of 1 minute
 
 -- WORKAROUND: gert 1.1.0 (2021-01-25) installs toward a static libgit2 that
 -- gives 'Illegal instruction' on some hosts (with older CPUs?)
 -- See https://github.com/r-lib/gert/issues/117
 pushenv("USE_SYSTEM_LIBGIT2", "true")
 
+-- WORKAROUND: Package udunits2 does not install out of the box and requires
+-- manually specifying 'configure.args' during install unless we set the
+-- following environment variable
+local path = "/usr/include/udunits2"
+if (isdir(path)) then
+  pushenv("UDUNITS2_INCLUDE", path)
+end

@@ -13,15 +13,18 @@ function isdir(fn)
     return (posix.stat(fn, "type") == 'directory')
 end
 
--- Wynton or TIPCC?
+-- Wynton, C4, or TIPCC?
 local cbi_software_home="UNKNOWN"
 local cbi_modules_home="UNKNOWN"
+
 if isdir("/wynton/home/cbi/shared/software/CBI") then
+   -- Wynton
    cbi_software_home = "/wynton/home/cbi/shared/software/CBI"
-   cbi_modules_home = "/wynton/home/cbi/shared/modulefiles/CBI"
+   cbi_modules_home  = "/wynton/home/cbi/shared/modulefiles/CBI"
 elseif isdir("/home/shared/cbc/software_cbc/shared/apps/manual") then
+   -- TIPCC (legacy)
    cbi_software_home = "/home/shared/cbc/software_cbc/shared/apps/manual"
-   cbi_modules_home = "/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
+   cbi_modules_home  = "/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
 else
    error("Unknown file system")
 end

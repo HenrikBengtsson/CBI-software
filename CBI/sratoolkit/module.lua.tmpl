@@ -7,7 +7,7 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
 whatis("URL: https://ncbi.github.io/sra-tools/, https://github.com/ncbi/sra-tools")
-whatis("Description: The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives. Example: `fastq-dump --help`. Warning: To work around a bug where `fasterq-dump` crashes the local machine, it has been tweaked such that it uses `$TMPDIR` rather than `$PWD` as the default temporary folder.")
+whatis("Description: The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives. Example: `fastq-dump --help`. Warning: To work around a bug where `fasterq-dump` crashes the local machine, it has been tweaked such that it uses `$TMPDIR` rather than `$PWD` as the default temporary folder and it will only use two threads instead of six by default.")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
@@ -19,4 +19,9 @@ prepend_path("PATH", pathJoin(home, "bin"))
 -- 'TMPDIR' for temporary files rather than the current directory [2]
 -- [1] https://github.com/ncbi/sra-tools/issues/463#issuecomment-824321890
 -- [2] https://github.com/ncbi/sra-tools/issues/161#issuecomment-808294889
-set_shell_function("fasterq-dump", 'command fasterq-dump --temp "$(mktemp -d)" "$@"', '')
+-- In-house tests shows that it's not sufficient to control TMPDIR but also
+-- the number of parallel threads [Harry Putnam, 2021-08-20].  Ideally, we
+-- would limit it to a single thread, but the tool will ignore '--threads 1'
+-- and use the default six threads. [3]
+-- [3] https://github.com/ncbi/sra-tools/issues/494
+set_shell_function("fasterq-dump", 'command fasterq-dump --threads 2 --temp "$(mktemp -d)" "$@"', '')

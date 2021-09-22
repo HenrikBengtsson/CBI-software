@@ -15,6 +15,23 @@ else
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L https://bintray.com/htop/source/download_file?file_path=$(TARBALL) -o $(TARBALL); \
+	curl -L https://github.com/htop-dev/htop/archive/refs/tags/$(VERSION).tar.gz -o $(TARBALL); \
 	tar xfz $(TARBALL)
+endif
+
+
+$(CONFIG_TARGET): $(DOWNLOAD_TARGET)
+	module --force purge; \
+	module load $(CONFIG_MODULES); \
+	module list; \
+	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
+	cd $(BUILD_PATH); \
+	./autogen.sh && ./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
+	make post_config
+
+
+ifeq ($(VERSION),3.1.0)
+post_config:
+	cd $(BUILD_PATH); \
+	cp '.deps/$$(myhtopplatprogram).Po' .deps/htop.Po
 endif

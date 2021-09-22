@@ -224,6 +224,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
 	module --ignore-cache show $(MODULE_NAME_VERSION)
+	module load CBI
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
 

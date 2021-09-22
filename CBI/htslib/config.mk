@@ -1,5 +1,5 @@
 NAME=htslib
-VERSION:=1.12
+VERSION:=1.13
 URL_DOWNLOAD=http://www.htslib.org/download/
 URL=http://www.htslib.org/
 BUILD_TARGET_FILE=htsfile

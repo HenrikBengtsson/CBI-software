@@ -1,7 +1,8 @@
 include config.mk
 include ../utils.mk
 
-ZIPBALL=$(NAME)-$(VERSION)-Linux_x86_64.zip
+VERSION_NO_DOTS=$(subst .,,$(VERSION))
+ZIPBALL=$(NAME)-$(VERSION_NO_DOTS)-Linux_x86_64.zip
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,7 +10,7 @@ ZIPBALL=$(NAME)-$(VERSION)-Linux_x86_64.zip
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)
 	cd $(BUILD_HOME); \
-	curl -o $(ZIPBALL) -L -O https://cloud.biohpc.swmed.edu/index.php/s/hisat2-220-Linux_x86_64/download; \
+	curl -o $(ZIPBALL) -L -O https://cloud.biohpc.swmed.edu/index.php/s/hisat2-$(VERSION_NO_DOTS)-Linux_x86_64/download; \
 	unzip $(ZIPBALL); \
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)

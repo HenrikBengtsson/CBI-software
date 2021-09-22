@@ -1,5 +1,5 @@
 NAME=emacs
-VERSION:=27.1
+VERSION:=27.2
 URL_DOWNLOAD=http://gnu.mirrors.hoobly.com/emacs
 URL=http://gnu.mirrors.hoobly.com/emacs
 CONFIG_OPTS=--with-xpm=no --with-gif=no --with-gnutls=no

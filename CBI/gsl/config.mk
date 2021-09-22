@@ -1,5 +1,5 @@
 NAME=gsl
-VERSION=2.6
+VERSION=2.7
 URL_DOWNLOAD=https://www.gnu.org/software/gsl/
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=gsl-histogram

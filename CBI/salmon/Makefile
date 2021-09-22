@@ -12,7 +12,7 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://github.com/COMBINE-lab/$(NAME)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL); \
-	mv salmon-latest_linux_x86_64 $(NAME)-$(VERSION)
+	mv salmon-*_linux_x86_64 $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

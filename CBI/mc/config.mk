@@ -1,5 +1,5 @@
 NAME=mc
-VERSION:=4.8.26
+VERSION:=4.8.27
 URL_DOWNLOAD=https://github.com/MidnightCommander/mc/releases
 URL=https://github.com/MidnightCommander/mc
 CONFIG_OPTS=--with-screen=ncurses

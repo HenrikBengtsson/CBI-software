@@ -1,5 +1,5 @@
 NAME=bowtie
-VERSION:=1.3.0
+VERSION:=1.3.1
 URL_DOWNLOAD=https://sourceforge.net/projects/bowtie-bio/files/bowtie/
 URL=http://bowtie-bio.sourceforge.net/
 DOWNLOAD_TARGET_FILE=bowtie

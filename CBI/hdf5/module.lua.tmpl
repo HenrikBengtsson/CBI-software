@@ -7,7 +7,7 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: library")
 whatis("URL: https://www.hdfgroup.org/downloads/hdf5/")
-whatis("Description: Hierarchical Data Format (HDF) is a set of file formats (HDF4, HDF5) designed to store and organize large amounts of data. The HDF5 format is designed to address some of the limitations of the HDF4 library, and to address current and anticipated requirements of modern systems and applications. Example: `h5cc --version`")
+whatis("Description: Hierarchical Data Format (HDF) is a set of file formats (HDF4, HDF5) designed to store and organize large amounts of data. The HDF5 format is designed to address some of the limitations of the HDF4 library, and to address current and anticipated requirements of modern systems and applications. Example: `h5stat --version`")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

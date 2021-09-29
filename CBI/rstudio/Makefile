@@ -1,7 +1,14 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME)-$(VERSION)-x86_64-fedora.tar.gz
+VERSION_PLUS := $(shell echo "$(VERSION)" | sed -E 's/[.]([0-9]+)$$/+\1/g')
+VERSION_URL  := $(shell echo "$(VERSION_PLUS)" | sed 's/+/%2B/g')
+TARBALL=$(NAME)-$(VERSION_URL)-${ARCH}.tar.gz
+URL_ROOT=https://download1.rstudio.org/desktop
+URL=$(URL_ROOT)/centos7/x86_64/$(TARBALL)
+ifeq ($(ARCH),amd64-debian)
+  URL=$(URL_ROOT)/bionic/amd64/$(TARBALL)
+endif
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,8 +16,10 @@ TARBALL=$(NAME)-$(VERSION)-x86_64-fedora.tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O "https://download1.rstudio.org/desktop/centos7/x86_64/$(TARBALL)"; \
+	curl -L -O "$(URL)"; \
 	tar zxf "$(TARBALL)"
+
+
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd "$(BUILD_PATH)"; \

@@ -17,6 +17,7 @@ $(DOWNLOAD_TARGET):
 	mv "$(NAME)-$(NAME2)_$(VERSION)" "$(NAME)-$(VERSION)"
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
+	module load htslib; \
 	cd $(BUILD_PATH); \
 	for name in dnafrags ppflag-fixer snp-pileup; do \
 	  g++ -std=c++11 "$${name}.cpp" -o "$${name}" -lhts $$(pkg-config --libs htslib --cflags); \

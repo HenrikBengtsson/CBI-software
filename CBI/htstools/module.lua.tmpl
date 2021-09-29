@@ -1,0 +1,17 @@
+help([[
+htstools: Tools to Process BAM Files for Downstream Copy-Number Analysis
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: sequencing")
+whatis("URL: https://github.com/mskcc/htstools")
+whatis("Description: Contains three tools (dnafrags, ppflag-fixer, snp-pileup) written by Alex Studer to process bam files for downstream copy number analysis.  Example: `snp-pileup --help`.")
+
+depends_on("htslib")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

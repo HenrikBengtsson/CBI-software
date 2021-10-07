@@ -28,6 +28,7 @@ ifeq ($(VERSION),0.2.4t)
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	module --force purge; \
 	cd $(BUILD_PATH); \
+	module load CBI; \
 	module load samtools/0.1.18; \
 	module list; \
 	SAMTOOLS_HOME="$$(dirname $$(which samtools))"; \
@@ -37,6 +38,7 @@ else
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	module --force purge; \
 	cd $(BUILD_PATH); \
+	module load CBI; \
 	module load htslib; \
 	module list; \
 	SAMTOOLS_HOME="$$(dirname $$(dirname $$(which htsfile)))"; \

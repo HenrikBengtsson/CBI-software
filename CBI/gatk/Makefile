@@ -8,6 +8,7 @@ ifeq ($(VERSION_X),1)
 TARBALL=GenomeAnalysisTK-$(VERSION).tar.bz2
 URL=ftp://ftp.broadinstitute.org/pub/gsa/GenomeAnalysisTK/$(TARBALL)
 DOWNLOAD_TARGET_FILE=GenomeAnalysisTK.jar
+INSTALL_TARGET_FILE=GenomeAnalysisTK.jar
 endif
 
 include ../utils.mk

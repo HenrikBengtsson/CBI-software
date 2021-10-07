@@ -12,6 +12,11 @@ whatis("Description: Developed in the Data Sciences Platform at the Broad Instit
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", home)
+local version_x = string.gsub(version, "[.].*", "")
+if (version_x == "1") then
+  pushenv("GATK_HOME", home)
+else
+  prepend_path("PATH", home)
+end
 
 

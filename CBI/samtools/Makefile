@@ -27,7 +27,9 @@ $(DOWNLOAD_TARGET):
 
 ifeq ($(VERSION_X),0)
 $(INSTALL_TARGET):
-	mkdir -p "$(PREFIX)/bin"
+	mkdir -p "$(PREFIX)"/{bin,include,lib}
 	cd $(BUILD_PATH); \
-	cp samtools "$(PREFIX)/bin"
+	cp -- *.{h,c} "$(PREFIX)/include"; \
+	cp libbam.* "$(PREFIX)/lib"; \
+	cp samtools "$(PREFIX)/bin";
 endif

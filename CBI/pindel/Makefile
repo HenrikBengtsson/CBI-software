@@ -30,9 +30,9 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	module load samtools/0.1.18; \
 	module list; \
-	SAMTOOLS_HOME="$$(dirname $$(dirname $$(which samtools)))"; \
+	SAMTOOLS_HOME="$$(dirname $$(which samtools))"; \
 	echo "SAMTOOLS_HOME=$${SAMTOOLS_HOME}"; \
-	LIBRARY_PATH=$${SAMTOOLS_HOME}/lib ./INSTALL $${SAMTOOLS_HOME}/include;
+	LIBRARY_PATH=$${SAMTOOLS_HOME} ./INSTALL $${SAMTOOLS_HOME};
 else
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	module --force purge; \

@@ -12,9 +12,15 @@ whatis("Description: SAMtools is a suite of programs for interacting with high-t
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", pathJoin(home, "bin"))
+local version_x = string.gsub(version, "[.].*", "")
+if (version_x == "0") then
+  prepend_path("PATH", home)
+  prepend_path("PATH", pathJoin(home, "bcftools"))
+  prepend_path("PATH", pathJoin(home, "misc"))
+else
+  prepend_path("PATH", pathJoin(home, "bin"))
+end
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
-
 
 -- Warn about bug https://github.com/samtools/htslib/issues/1236
 if (mode() == "load" and version == "1.11") then

@@ -27,9 +27,11 @@ $(DOWNLOAD_TARGET):
 
 ifeq ($(VERSION_X),0)
 $(INSTALL_TARGET):
-	mkdir -p "$(PREFIX)"/{bin,include,lib}
+	mkdir -p $(PREFIX)/{bin,lib,share/man/man1}
 	cd $(BUILD_PATH); \
-	cp -- *.{h,c} "$(PREFIX)/include"; \
-	cp libbam.* "$(PREFIX)/lib"; \
-	cp samtools "$(PREFIX)/bin";
+	cp -R -- * "$(PREFIX)";
+	ln -s $(PREFIX)/bcftools/bcftools $(PREFIX)/bin/;
+	ln -s $(PREFIX)/samtools.1 $(PREFIX)/share/man/man1;
+	cd $(PREFIX); \
+	rm -- *.o bcftools/*.o misc/*.o
 endif

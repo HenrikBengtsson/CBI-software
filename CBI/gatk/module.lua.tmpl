@@ -6,12 +6,24 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, genome")
-whatis("URL: https://software.broadinstitute.org/gatk/, https://github.com/broadinstitute/gatk/")
+whatis("URL: https://software.broadinstitute.org/gatk/, https://github.com/broadinstitute/gatk, https://github.com/broadgsa/gatk, ftp://ftp.broadinstitute.org/pub/gsa/GenomeAnalysisTK/")
 whatis("Description: Developed in the Data Sciences Platform at the Broad Institute, the toolkit offers a wide variety of tools with a primary focus on variant discovery and genotyping. Its powerful processing engine and high-performance computing features make it capable of taking on projects of any size.  Example: `gatk --help` and `gatk --list`.")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", home)
+local version_x = string.gsub(version, "[.].*", "")
+if (version_x == "1") then
+  -- GATK v1.* requires Java (<= 1.7)
+  local cluster = os.getenv("CLUSTER")
+  if (cluster == "tipcc") then
+    load("jdk/1.7.0")
+  else
+    depends_on("openjdk/1.6.0")
+  end
+  pushenv("GATK_HOME", home)
+else
+  prepend_path("PATH", home)
+end
 
 

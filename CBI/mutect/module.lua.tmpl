@@ -12,6 +12,16 @@ whatis("Description: MuTect is a method developed at the Broad Institute for the
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
+if (version == "1.0.27783") then
+  -- muTect 1.0.27783 requires Java (<= 1.7)
+  local cluster = os.getenv("CLUSTER")
+  if (cluster == "tipcc") then
+    load("jdk/1.7.0")
+  else
+    depends_on("openjdk/1.6.0")
+  end
+end
+
 name = "muTect"
 pushenv("MUTECT_HOME", home)
 local jarfile = pathJoin(home, name .. "-" .. version .. ".jar")

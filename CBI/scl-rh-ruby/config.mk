@@ -1,0 +1,7 @@
+NAME=scl-rh-ruby
+VERSION=30
+CONFIG=false
+BUILD=false
+INSTALL=false
+INSTALL_TARGET_FILE=dummy
+

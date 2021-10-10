@@ -9,6 +9,13 @@ whatis("Keywords: sequencing")
 whatis("URL: http://broadinstitute.github.io/picard/, https://github.com/broadinstitute/picard")
 whatis("Description: Picard is a set of command line tools for manipulating high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF.  Example: `picard -h`, which is an alias for `java -jar $PICARD_HOME/picard.jar -h`")
 
+local version_x = string.gsub(version, "[.].*", "")
+if (version_x == "1") then
+  -- Pindel 1.64 requires Java (<= 1.6)
+  local cluster = os.getenv("CLUSTER")
+  depends_on("openjdk/1.6.0")
+end
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 pushenv("PICARD_HOME", home)

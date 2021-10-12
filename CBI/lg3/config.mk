@@ -1,5 +1,5 @@
 NAME=lg3
-VERSION=2021-10-09
+VERSION=2021-10-11
 URL=https://github.com/UCSF-Costello-Lab/LG3_Pipeline/releases
 DOWNLOAD_TARGET_FILE=bin/lg3
 CONFIG=false

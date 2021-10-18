@@ -4,7 +4,7 @@ include ../utils.mk
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-ARCH=Linux-x86_64
+ARCH=linux-x86_64
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 
 $(DOWNLOAD_TARGET):

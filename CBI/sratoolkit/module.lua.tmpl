@@ -19,9 +19,13 @@ prepend_path("PATH", pathJoin(home, "bin"))
 -- 'TMPDIR' for temporary files rather than the current directory [2]
 -- [1] https://github.com/ncbi/sra-tools/issues/463#issuecomment-824321890
 -- [2] https://github.com/ncbi/sra-tools/issues/161#issuecomment-808294889
--- In-house tests shows that it's not sufficient to control TMPDIR but also
--- the number of parallel threads [Harry Putnam, 2021-08-20].  Ideally, we
--- would limit it to a single thread, but the tool will ignore '--threads 1'
--- and use the default six threads. [3]
+-- In-house tests with sratoolkit 2.11.0 shows that it's *not* sufficient
+-- to control TMPDIR but also the number of parallel threads [Harry Putnam,
+-- 2021-08-20].  Ideally, we would limit it to a single thread, but the
+-- tool will ignore '--threads 1' and use the default six threads. [3]
 -- [3] https://github.com/ncbi/sra-tools/issues/494
+-- In sratoolkit (>= 2.11.2) it might be that we no longer need to use
+-- '--threads 2' [4]. As soon as we have verified that in a safe
+-- environment, we'll drop it
+-- [4] https://github.com/ncbi/sra-tools/issues/463#issuecomment-942410725
 set_shell_function("fasterq-dump", 'command fasterq-dump --threads 2 --temp "$(mktemp -d)" "$@"', '')

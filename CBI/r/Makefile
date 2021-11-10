@@ -60,11 +60,16 @@ post_build:
 	R_LIBS_USER=dummy make check &> make-check.log
 
 post_install:
+	mkdir -p $(BUILD_PATH)
+
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
+
 	## Configure R for Java (so that 'rJava' can be installed)
+	module load openjdk/$(OPENJDK_VERSION); \
 	$(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"
 	cat "$(BUILD_PATH)/javareconf.log"
+
 	## Save log files
 	cp "$(BUILD_PATH)/config.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/

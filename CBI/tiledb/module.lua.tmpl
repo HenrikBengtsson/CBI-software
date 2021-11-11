@@ -12,10 +12,14 @@ whatis("Description: TileDB is a powerful engine for storing and accessing dense
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("CPATH", pathJoin(home, "include"))
+-- Runtime
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Build time
+--prepend_path("CPATH", pathJoin(home, "include"))
+--prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
 -- In-house env var
--- setenv("TILEDB_HOME", home)
+setenv("TILEDB_HOME", home)
 

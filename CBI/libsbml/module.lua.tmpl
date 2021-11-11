@@ -1,0 +1,25 @@
+help([[
+libSBML: An Open-Source Library for Working with SBML (the Systems Biology Markup Language)
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, library")
+whatis("URL: http://sbml.org/Software/libSBML, https://github.com/sbmlteam/libsbml")
+whatis("Description: LibSBML is a native library for reading, writing and manipulating files and data streams containing the Systems Biology Markup Language (SBML). It offers language bindings for C, C++, C#, Java, JavaScript, MATLAB, Perl, PHP, Python, R and Ruby.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Runtime
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Build time
+prepend_path("CPATH", pathJoin(home, "include"))
+--prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+
+-- In-house env var
+--setenv("TILEDB_HOME", home)
+

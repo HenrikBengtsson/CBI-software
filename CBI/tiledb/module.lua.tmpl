@@ -1,0 +1,21 @@
+help([[
+TileDB: The Universal Storage Engine
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, database")
+whatis("URL: https://tiledb.com/, https://github.com/TileDB-Inc/TileDB")
+whatis("Description: TileDB is a powerful engine for storing and accessing dense and sparse multi-dimensional arrays, which can help you model any complex data efficiently. It is an embeddable C++ library that works on Linux, macOS, and Windows.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+--prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+
+-- In-house env var
+-- setenv("TILEDB_HOME", home)
+

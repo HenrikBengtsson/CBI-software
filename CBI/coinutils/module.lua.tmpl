@@ -1,0 +1,22 @@
+help([[
+CoinUtils: COIN-OR Utilities
+]])
+
+local name = myModuleName()
+name = "CoinUtils"
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.coin-or.org/, https://github.com/coin-or/CoinUtils")
+whatis("Description: CoinUtils is an open-source collection of classes and helper functions that are generally useful to multiple COIN-OR projects. CoinUtils is written in C++ and is released as open source under the Eclipse Public License 2.0.")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Runtime
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Buildtime
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

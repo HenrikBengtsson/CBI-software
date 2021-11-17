@@ -1,0 +1,8 @@
+NAME=Clp
+VERSION=1.17.6
+URL_DOWNLOAD=https://www.openbugs.net/w/Downloads
+DOWNLOAD_FILE=configure
+CONFIG_MODULES=CBI coinutils
+BUILD_TARGET_FILE=bin/OpenBUGS
+INSTALL_TARGET_FILE=bin/OpenBUGS
+

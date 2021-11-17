@@ -1,0 +1,26 @@
+help([[
+Clp: COIN-OR Linear Programming Solver
+]])
+
+local name = myModuleName()
+name = "Clp"
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.coin-or.org/, https://github.com/coin-or/Clp")
+whatis("Description: Clp (Coin-or linear programming) is an open-source linear programming solver. It is primarily meant to be used as a callable library, but a basic, stand-alone executable version is also available. Examples: `clp`")
+
+depends_on("coinutils")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Runtime
+prepend_path("PATH",  pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Buildtime
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+

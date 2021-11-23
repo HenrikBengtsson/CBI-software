@@ -1,5 +1,5 @@
 NAME=rstudio
-VERSION:=2021.09.0+351
+VERSION:=2021.09.1-372
 ARCH=x86_64-fedora
 URL_DOWNLOAD=https://rstudio.com/products/rstudio/download/#download
 URL=https://rstudio.com/products/rstudio/#rstudio-desktop

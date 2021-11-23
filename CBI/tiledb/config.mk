@@ -2,6 +2,9 @@ NAME=tiledb
 VERSION=2.4.3
 COMMIT=5cb0824
 
+VERSION=2.4.4
+COMMIT=7257605
+
 DOWNLOAD_TARGET_FILE=include/tiledb/tiledb.h
 CONFIG=false
 BUILD=false

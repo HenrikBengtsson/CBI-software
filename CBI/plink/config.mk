@@ -1,6 +1,6 @@
 NAME=plink
 VERSION:=1.07
-VERSION:=1.90b6.21
+VERSION:=1.90b6.24
 URL_DOWNLOAD=https://www.cog-genomics.org/plink/
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false

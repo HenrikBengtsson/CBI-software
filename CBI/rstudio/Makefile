@@ -1,7 +1,8 @@
 include config.mk
 include ../utils.mk
 
-VERSION_URL  := $(shell echo "$(VERSION)" | sed 's/+/%2B/g')
+VERSION_PLUS := $(shell echo "$(VERSION)" | sed -E 's/-([0-9]+)$$/+\1/g')
+VERSION_URL := $(shell echo "$(VERSION)" | sed 's/+/%2B/g')
 TARBALL=$(NAME)-$(VERSION_URL)-${ARCH}.tar.gz
 URL_ROOT=https://download1.rstudio.org/desktop
 URL=$(URL_ROOT)/centos7/x86_64/$(TARBALL)
@@ -12,11 +13,13 @@ endif
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
+
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
 	curl -L -O "$(URL)"; \
-	tar zxf "$(TARBALL)"
+	tar zxf "$(TARBALL)"; \
+	mv "$(NAME)-$(VERSION_PLUS)" "$(NAME)-$(VERSION)"
 
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)

@@ -16,9 +16,11 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 
 -- Build time
---prepend_path("CPATH", pathJoin(home, "include"))
---prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+
+-- Note: These are needed for R package 'tiledb' to compile
+-- prepend_path("CPATH", pathJoin(home, "include"))
+-- prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib") .. " ")
 
 -- In-house env var
 setenv("TILEDB_HOME", home)

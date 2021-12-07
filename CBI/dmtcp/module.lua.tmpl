@@ -6,7 +6,7 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: hpc, checkpointing")
-whatis("URL: http://dmtcp.sourceforge.net/, https://github.com/dmtcp/dmtcp")
+whatis("URL: http://dmtcp.sourceforge.net/, https://github.com/dmtcp/dmtcp, https://docs.nersc.gov/development/checkpoint-restart/dmtcp/")
 whatis("Description: DMTCP is a tool to transparently checkpoint the state of multiple simultaneous applications, including multi-threaded and distributed applications. It operates directly on the user binary executable, without any Linux kernel modules or other kernel modifications. Among the applications supported by DMTCP are MPI (various implementations), OpenMP, MATLAB, Python, Perl, R, and many programming languages and shell scripting languages. DMTCP also supports GNU screen sessions, including vim/cscope and emacs. Example: `dmtcp_launch R`, `dmtcp_launch matlab -nodisplay -nojvm`")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")

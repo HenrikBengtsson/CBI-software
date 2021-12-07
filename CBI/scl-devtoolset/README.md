@@ -58,7 +58,7 @@ setenv("PCP_DIR","/opt/rh/devtoolset-9/root")
 prepend_path("PKG_CONFIG_PATH","/opt/rh/devtoolset-9/root/usr/lib64/pkgconfig")
 ```
 
-With these commands, we can create an module environment file.  See [CBI/scl-devtoolset/9.lua](scl-devtoolset/9.lua) for an example.
+With these commands, we can create an module environment file.  See [CBI/scl-devtoolset/9.lua](9.lua) for an example.
 
 
 [Lmod]: https://lmod.readthedocs.org

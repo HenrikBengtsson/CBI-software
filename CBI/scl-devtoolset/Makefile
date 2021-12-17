@@ -3,17 +3,17 @@ include ../utils.mk
 
 all: debug install_module
 
-.incl: .incl/4.lua .incl/6.lua .incl/7.lua .incl/8.lua .incl/9.lua .incl/10.lua
+incl: incl/4.lua incl/6.lua incl/7.lua incl/8.lua incl/9.lua incl/10.lua
 
-.incl/%.lua: /opt/rh/devtoolset-%/enable
-	mkdir -p .incl/
+incl/%.lua: /opt/rh/devtoolset-%/enable
+	mkdir -p "$(@D)"
 	echo "-- Don't edit! Created using: " > $@
 	echo "-- $(LMOD_DIR)/sh_to_modulefile $<" >> $@
-	LD_LIBRARY_PATH= $(LMOD_DIR)/sh_to_modulefile $< >> $@
+	(module purge; LD_LIBRARY_PATH= $(LMOD_DIR)/sh_to_modulefile) $< >> $@
 
 clean:
 	rm -f s.log
-	rm -rf .incl/
+	rm -rf incl/
 
 $(MODULE_TARGET): $(VERSION).lua
 	mkdir -p "$(@D)"

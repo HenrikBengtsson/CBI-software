@@ -19,6 +19,8 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) ..; \
 	chmod ugo+x $(DOWNLOAD_TARGET_FILE); \
 	ln -s $(DOWNLOAD_TARGET_FILE) $(NAME)
+	mkdir -p "$(PREFIX)/man/man1"
+	"$(PREFIX)/restic" generate --man="$(PREFIX)/man/man1"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

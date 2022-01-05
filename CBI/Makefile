@@ -1,5 +1,8 @@
 SHELL:=bash
 
+i/%:
+	cd "$(@F)"; make
+
 pkgs: PACKAGES
 	@cat PACKAGES | grep -vE "^#" | sort -u
 
@@ -26,4 +29,3 @@ PACKAGES: FORCE
 	find . -type f -name "config.mk" -exec dirname {} + | sed -E 's/.\///' > "$@"
 
 FORCE:
-

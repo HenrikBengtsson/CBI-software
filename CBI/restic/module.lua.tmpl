@@ -1,0 +1,16 @@
+help([[
+restic: Fast, Secure, Efficient Backup Program
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, backup, files")
+whatis("URL: https://restic.net, https://restic.readthedocs.io/en/latest/, https://github.com/restic/restic")
+whatis("Description: restic is a backup program that is fast, efficient and secure. It supports the three major operating systems (Linux, macOS, Windows) and a few smaller ones (FreeBSD, OpenBSD).  Example: `restic --help` and `restic version`")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "man"))

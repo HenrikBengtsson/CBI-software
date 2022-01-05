@@ -44,14 +44,20 @@ export PKG_CONFIG_PATH=/opt/rh/devtoolset-9/root/usr/lib64/pkgconfig${PKG_CONFIG
 This script can be transpiled to Lmod commands as:
 
 ```lua
-$ (module purge; "${LMOD_DIR}/sh_to_modulefile" /opt/rh/devtoolset-9/enable)
-setenv("INFOPATH","/opt/rh/devtoolset-9/root/usr/share/info")
-setenv("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib64:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64/dyninst:/opt/rh/devtoolset-9/root/usr/lib/dyninst:/opt/rh/devtoolset-9/root/usr/lib64:/opt/rh/devtoolset-9/root/usr/lib")
+$ (module purge; INFOPATH=DUMMY LD_LIBRARY_PATH=DUMMY PKG_CONFIG_PATH=DUMMY "${LMOD_DIR}/sh_to_modulefile" /opt/rh/devtoolset-9/enable | grep -vF DUMMY)
+prepend_path("INFOPATH","/opt/rh/devtoolset-9/root/usr/share/info")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib/dyninst")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib64/dyninst")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib64")
+append_path("LD_LIBRARY_PATH","/opt/rh/devtoolset-9/root/usr/lib")
 prepend_path("MANPATH","/opt/rh/devtoolset-9/root/usr/share/man")
 prepend_path("PATH","/opt/rh/devtoolset-9/root/usr/bin")
 setenv("PCP_DIR","/opt/rh/devtoolset-9/root")
-setenv("PKG_CONFIG_PATH","/opt/rh/devtoolset-9/root/usr/lib64/pkgconfig")
+prepend_path("PKG_CONFIG_PATH","/opt/rh/devtoolset-9/root/usr/lib64/pkgconfig")
 ```
+
+Comment: The reason for those `ABC=DUMMY` environment variables is to make the corresponding variables be set with `prepend_path()` and not `setenv()` as intended.  At the moment, I don't fully understand why this is needed, but I suspect it has to do with the special `${ABC:+:$ABC}` syntax that the input shell script uses.  It could be that the `sh_to_modulefile` tool does not recognize them.  We use Lmod 8.1.2. /HB 2021-12-17
 
 With these commands, we can create an module environment file.  See [CBI/scl-devtoolset/9.lua](9.lua) for an example.
 

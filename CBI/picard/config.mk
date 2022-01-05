@@ -1,5 +1,5 @@
 NAME=picard
-VERSION=2.26.5
+VERSION=2.26.10
 URL_DOWNLOAD=https://github.com/broadinstitute/picard/releases
 URL=http://broadinstitute.github.io/picard/
 DOWNLOAD_TARGET_FILE=$(NAME).jar

@@ -1,5 +1,5 @@
 include config.mk
-include ../utils.mk
+include ../../CBI/utils.mk
 
 TARBALL=$(VERSION).tar.gz
 
@@ -15,7 +15,7 @@ $(DOWNLOAD_TARGET):
 ## NOTE: For now, we install 'catfs' with 'easycatfs' to avoid
 ## having a separate module for 'catfs'. This might change later
 ## /HB 2022-01-11
-$(BUILD_TARGET):
+$(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cargo install --root=$(BUILD_PATH) catfs
 
 $(INSTALL_TARGET):

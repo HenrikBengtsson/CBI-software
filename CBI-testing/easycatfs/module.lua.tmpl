@@ -9,7 +9,7 @@ whatis("Keywords: utility, files, hpc")
 whatis("URL: https://github.com/HenrikBengtsson/easycatfs")
 whatis("Description: This is Linux command-line tool for mounting one or more folders on a network file system on a local disk such that the local-disk folders mirrors everything (read-only) on the network folder. This will result in (i) faster repeated access to files, and (ii) decreased load on the network file system. This is particularly beneficial when working on high-performance compute (HPC) clusters used by hundreds and thousands of processes and users simultaneously..  Example: `easycatfs --help` and `easycatfs mount /shared/data`. Warning: Only the most recent version of this software will be kept.")
 
-local root = os.getenv("SOFTWARE_ROOT_CBI")
+local root = os.getenv("SOFTWARE_ROOT_CBI_TESTING")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))

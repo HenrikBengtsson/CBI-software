@@ -10,7 +10,9 @@ whatis("BugReports: Please contact the maintainer of this repository")
 whatis("Maintainer: Henrik Bengtsson, Computational Biology and Informatics (http://cbi.ucsf.edu)")
 whatis("Keywords: UCSF, CBI, repository, testing")
 
-local root = "/wynton/home/cbi/shared"
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+root = pathJoin(root, "..")
+
 local software_home = pathJoin(root, "software", name)
 local modules_home = pathJoin(root, "modulefiles", name)
 

@@ -1,5 +1,5 @@
 include config.mk
-include ../../CBI/utils.mk
+include ../utils.mk
 
 TARBALL=$(VERSION).tar.gz
 

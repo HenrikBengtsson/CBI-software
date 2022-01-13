@@ -16,7 +16,8 @@ $(DOWNLOAD_TARGET):
 ## having a separate module for 'catfs'. This might change later
 ## /HB 2022-01-11
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
-	cargo install --root=$(BUILD_PATH) catfs
+	[[ -x catfs ]] && cp -p catfs "$(BUILD_PATH)/bin"
+	[[ -x "$(BUILD_PATH)/bin/catfs" ]] || cargo install --root=$(BUILD_PATH) catfs
 
 $(INSTALL_TARGET):
 	mkdir -p $(PREFIX)

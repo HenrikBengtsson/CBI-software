@@ -12,13 +12,13 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://github.com/HenrikBengtsson/easycatfs/archive/refs/tags/$(TARBALL); \
 	tar xzf $(TARBALL)
 
-## For now, we install 'catfs' devel with 'easycatfs' /HB 2022-01-15
+## For now, we install customized 'catfs' devel with 'easycatfs' /HB 2022-01-19
 $(BUILD_PATH)/bin/catfs:
 	if [[ -f "catfs" ]]; then \
 	    cp catfs "$(BUILD_PATH)/bin"; \
 	else \
 	    cd $(BUILD_PATH); \
-	    git clone https://github.com/kahing/catfs.git; \
+	    git clone https://github.com/HenrikBengtsson/catfs.git; \
 	    cargo install --root=$(BUILD_PATH) --path=catfs; \
 	fi
 

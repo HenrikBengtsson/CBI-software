@@ -17,10 +17,14 @@ $(DOWNLOAD_TARGET):
 	mv rstudio-$(VERSION) $(NAME)-$(VERSION)
 
 
-rstudio-tools: $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci
+rstudio-tools: $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node
 
 $(BUILD_PATH)/rstudio-tools: $(DOWNLOAD_TARGET)
 	mkdir -p "$@"
+
+$(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
+	cd ${BUILD_PATH)/dependencies/common/; \
+	install-$(@F)
 
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	export RSTUDIO_TOOLS_ROOT=$<; \
@@ -39,9 +43,7 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	make preinstall
 
-$(INSTALL_TARGET): $(CONFIG_TARGET)
-	#mkdir -p $(PREFIX)
-	#cp -R $(BUILD_PATH) $(PREFIX)/..
+$(INSTALL_TARGET): $(BUILD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	make install
 	make post_install

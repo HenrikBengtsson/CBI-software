@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -o nounset
 
@@ -6,5 +6,21 @@ set -o nounset
 ## The accepted RStudio username is the same as the USER environment variable (i.e., local user name).
 
 IFS='' read -r password
+
+if [[ -n "${PAM_HELPER_LOGFILE:-}" ]]; then
+  {
+    echo
+    echo "pam-helper:"
+    echo "  time=$(date)"
+    echo "  PPID=${PPID}"
+    echo "  USER='${USER}'"
+    echo "  RSTUDIO_PASSWORD='${RSTUDIO_PASSWORD}'"
+    echo "  password='${password}'"
+    echo "  \${1}='${1}'"
+    echo "  \${USER} = \${1}: $(if [[ "${USER}" = "${1}" ]]; then echo "true"; else echo "false"; fi)"
+    echo "  \${RSTUDIO_PASSWORD} = \${password}: $(if [[ "${RSTUDIO_PASSWORD}" = "${password}" ]]; then echo "true"; else echo "false"; fi)"
+    echo
+  } >> "${PAM_HELPER_LOGFILE}"
+fi
 
 [ "${USER}" = "${1}" ] && [ "${RSTUDIO_PASSWORD}" = "${password}" ]

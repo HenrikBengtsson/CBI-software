@@ -1,0 +1,17 @@
+help([[
+Apache Ant: A Java Library and Command-Line Tool to Build Software
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming")
+whatis("URL: https://ant.apache.org/bindownload.cgi")
+whatis("Description: Apache Ant is a Java library and command-line tool that help building software.  Example: `ant -h`")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+
+

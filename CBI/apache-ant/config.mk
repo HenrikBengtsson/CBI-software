@@ -1,0 +1,6 @@
+NAME=apache-ant
+VERSION:=1.10.12
+DOWNLOAD_TARGET_FILE=bin/ant
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/ant

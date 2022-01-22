@@ -35,7 +35,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd "$(BUILD_PATH)"; \
 	mkdir -p build; \
 	cd build; \
-	module load CBI apache-ant; \
+	command -v ant &> /dev/null || module load CBI apache-ant; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools; \
 	cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX)
 

@@ -23,8 +23,8 @@ $(BUILD_PATH)/rstudio-tools: $(DOWNLOAD_TARGET)
 	mkdir -p "$@"
 
 $(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
-	cd ${BUILD_PATH)/dependencies/common/; \
-	install-$(@F)
+	cd $(BUILD_PATH)/dependencies/common/; \
+	./install-npm-dependencies
 
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	export RSTUDIO_TOOLS_ROOT=$<; \

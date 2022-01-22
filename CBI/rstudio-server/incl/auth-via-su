@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+## Usage:
+## echo "<password>" | auth-via-su "<username>"
+##
+## Description:
+## Validates the password on standard input for the user
+## specified as the first argument
+## 
+## Author: Henrik Bengtsson (2021)
+set -o nounset
+
+su "$1" -c exit
+

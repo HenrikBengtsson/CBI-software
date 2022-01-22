@@ -43,7 +43,7 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	make preinstall
 
-post_install: incl/pam-helper
+post_install: incl/auth-via-su
 	cp "$<" "$(PREFIX)/bin"
 
 $(INSTALL_TARGET): $(BUILD_TARGET)

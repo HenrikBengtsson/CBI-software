@@ -18,9 +18,12 @@ $(BUILD_PATH)/bin/catfs:
 	    cp catfs "$(BUILD_PATH)/bin"; \
 	else \
 	    cd $(BUILD_PATH); \
-	    git clone https://github.com/HenrikBengtsson/catfs.git; \
+	    git clone --depth=1 --branch=fewerthreads https://github.com/HenrikBengtsson/catfs.git; \
 	    cargo install --root=$(BUILD_PATH) --path=catfs; \
 	fi
+	"$@" --version
+
+post-build: $(BUILD_PATH)/bin/catfs
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET) $(BUILD_PATH)/bin/catfs
 

@@ -1,0 +1,19 @@
+help([[
+RSC: An RStudio Server Controller
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, R, GUI")
+whatis("URL: https://github.com/UCSF-CBI/rstudio-server-controller")
+whatis("Description: The RStudio Server Controller (RSC) is a tool for launching a personal instance of the RStudio Server on a Linux machine, which then can be access via the web browser, either directly or via SSH tunneling.  Example: `rsc --help` and `rsc start`.  Warning: This is work under construction!")
+
+depends_on("r")
+depends_on("rstudio-server")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+

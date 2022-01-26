@@ -1,5 +1,5 @@
 NAME=scl-devtoolset
-VERSION=10
+VERSION=11
 CONFIG=false
 BUILD=false
 INSTALL=false

@@ -13,7 +13,7 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://github.com/UCSF-CBI/rstudio-server-controller/archive/refs/tags/$(TARBALL); \
 	tar xf "$(TARBALL)"
 
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)"
 	cd "$(BUILD_PATH)"; \
 	cp *.md "$(PREFIX)"; \

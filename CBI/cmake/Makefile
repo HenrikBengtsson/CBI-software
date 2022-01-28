@@ -5,6 +5,12 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 ARCH=linux-x86_64
+ifeq ($(VERSION_X), 2)
+    ARCH=Linux-x86_64
+else ifeq ($(shell test "$(VERSION_Y)" -lt 20; echo $$?), 0)
+    ARCH=Linux-x86_64
+endif
+
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 
 $(DOWNLOAD_TARGET):

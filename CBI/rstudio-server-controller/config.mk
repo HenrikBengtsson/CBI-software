@@ -1,5 +1,5 @@
 NAME=rstudio-server-controller
-VERSION:=0.2.3
+VERSION:=0.2.4
 DOWNLOAD_TARGET_FILE=bin/rsc
 CONFIG=false
 BUILD=false

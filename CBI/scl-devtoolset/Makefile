@@ -1,11 +1,10 @@
 include config.mk
 include ../utils.mk
 
-all: debug install_module
-
 incl: incl/4.lua incl/6.lua incl/7.lua incl/8.lua incl/9.lua incl/10.lua incl/11.lua
 
 incl/%.lua: /opt/rh/devtoolset-%/enable
+	@[[ -d "$<" || { 2>&1 echo "ERROR: SCL devtools-$(VERSION) does not exist on $$HOSTNAME"; exit 1; }
 	mkdir -p "$(@D)"
 	module purge; \
 	{ \
@@ -27,6 +26,7 @@ clean:
 	cat $^ > "$@"
 
 $(MODULE_TARGET): $(VERSION).lua
+	@[[ -d /opt/rh/devtoolset-$(VERSION) ]] || { 2>&1 echo "ERROR: SCL devtools-$(VERSION) does not exist on $$HOSTNAME"; exit 1; }
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
 

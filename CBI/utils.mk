@@ -120,23 +120,28 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## INSTALLATION
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef SOFTWARE_HOME
-  ifdef SOFTWARE_ROOT_CBI
-    SOFTWARE_HOME=$(SOFTWARE_ROOT_CBI)
-  else
-    $(error ERROR: Environment variable 'SOFTWARE_HOME' is not set)
+ifeq ($(INSTALL),true)
+  ifndef SOFTWARE_HOME
+    ifdef SOFTWARE_ROOT_CBI
+      SOFTWARE_HOME=$(SOFTWARE_ROOT_CBI)
+    else
+      $(error ERROR: Environment variable 'SOFTWARE_HOME' is not set)
+    endif
   endif
-endif
 
-ifndef PREFIX
-  PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)
-endif
-
-ifndef INSTALL_TARGET
-  ifndef INSTALL_TARGET_FILE
-    $(error ERROR: Environment variable 'INSTALL_TARGET_FILE' is not set)
+  ifndef INSTALL_TARGET
+    ifndef INSTALL_TARGET_FILE
+      $(error ERROR: Environment variable 'INSTALL_TARGET_FILE' is not set)
+    endif
+    INSTALL_TARGET=$(PREFIX)/$(INSTALL_TARGET_FILE)
   endif
-  INSTALL_TARGET=$(PREFIX)/$(INSTALL_TARGET_FILE)
+
+  ifndef PREFIX
+    PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)
+  endif
+else
+  INSTALL_TARGET=
+  PREFIX=
 endif
 
 
@@ -189,6 +194,10 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+ifeq ($(INSTALL),false)
+$(INSTALL_TARGET):
+endif
 
 post_install:
 
@@ -285,6 +294,12 @@ debug:
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"
 	@echo "BUILD_MODULES: $(BUILD_MODULES)"
 	@echo
+	@echo "INSTALLATION:"
+	@echo "INSTALL: $(INSTALL)"
+	@echo "INSTALL_TARGET: $(INSTALL_TARGET)"
+	@echo "SOFTWARE_HOME: $(SOFTWARE_HOME)"
+	@echo "PREFIX: $(PREFIX)"
+	@echo
 	@echo "MODULES:"
 	@echo "MODULE_HOME: $(MODULE_HOME)"
 	@echo "MODULE_NAME: $(MODULE_NAME)"
@@ -292,8 +307,3 @@ debug:
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"
-	@echo
-	@echo "INSTALLATION:"
-	@echo "SOFTWARE_HOME: $(SOFTWARE_HOME)"
-	@echo "PREFIX: $(PREFIX)"
-	@echo "INSTALL_TARGET: $(INSTALL_TARGET)"

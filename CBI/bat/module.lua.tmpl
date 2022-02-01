@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: utility, file viewer")
-whatis("URL: https://github.com/sharkdp/bat")
-whatis("Description: A cat(1) clone with syntax highlighting and Git integration.  Examples: `bat README.md`, `bat scripts/*.sh`, and `bat src/*.c`.  Warning: Only the most recent version of this software will be kept.")
+whatis("URL: https://github.com/sharkdp/bat, https://github.com/sharkdp/bat/blob/master/CHANGELOG.md (changelog)")
+whatis([[
+Description: A cat(1) clone with syntax highlighting and Git integration.
+Examples: `bat README.md`, `bat scripts/*.sh`, and `bat src/*.c`.
+Warning: Only the most recent version of this software will be kept.
+]])
 
 -- Local variables
 local root = os.getenv("SOFTWARE_ROOT_CBI")

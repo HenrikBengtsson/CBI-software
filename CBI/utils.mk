@@ -120,6 +120,10 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## INSTALLATION
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef INSTALL
+  INSTALL=true
+endif
+
 ifeq ($(INSTALL),true)
   ifndef SOFTWARE_HOME
     ifdef SOFTWARE_ROOT_CBI

@@ -1,5 +1,5 @@
 NAME=geos
-VERSION=3.9.1
+VERSION=3.9.2
 URL_DOWNLOAD=https://trac.osgeo.org/geos/
 URL=https://trac.osgeo.org/geos/
 DOWNLOAD_FILE=configure

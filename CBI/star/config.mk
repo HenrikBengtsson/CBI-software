@@ -1,8 +1,6 @@
 NAME=STAR
 MODULE_NAME=star
 VERSION:=2.7.9a
-URL_DOWNLOAD=https://github.com/alexdobin/STAR/releases
-URL=https://github.com/alexdobin/STAR
 DOWNLOAD_TARGET_FILE=bin/Linux_x86_64/$(NAME)
 CONFIG=false
 BUILD=false

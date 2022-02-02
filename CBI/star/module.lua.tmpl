@@ -1,17 +1,17 @@
-help([[
-STAR: Spliced Transcripts Alignment to a Reference
-]])
+help("STAR: Spliced Transcripts Alignment to a Reference")
 
 local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: https://github.com/alexdobin/STAR")
-whatis("Description: STAR (Spliced Transcripts Alignment to a Reference) is a fast NGS read aligner for RNA-seq data. Example: `STAR --help`.")
+whatis("URL: https://github.com/alexdobin/STAR, https://github.com/alexdobin/STAR/blob/master/CHANGES.md (changelog)")
+whatis([[
+Description: STAR (Spliced Transcripts Alignment to a Reference) is a fast NGS read aligner for RNA-seq data.
+Example: `STAR --help`.
+]])
 
 local name = "STAR"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin", "Linux_x86_64"))
-

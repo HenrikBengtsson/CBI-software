@@ -44,7 +44,7 @@ if isempty(modules_root) then
    LmodError("Failed to infer 'MODULES_ROOT_CBI' from the file system. Please set manually")
 end
 
-setenv("SOFTWARE_ROOT_CBI", software_root)
-setenv("MODULE_ROOT_CBI", modules_root)
+pushenv("SOFTWARE_ROOT_CBI", software_root)
+pushenv("MODULE_ROOT_CBI", modules_root)
 
 prepend_path("MODULEPATH", modules_root)

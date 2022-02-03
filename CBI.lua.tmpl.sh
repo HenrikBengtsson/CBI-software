@@ -7,16 +7,16 @@
 ## Infer defaults from the underlying file system
 if [[ -d "/wynton/home/cbi/shared/software/CBI" ]]; then
    2>&1 echo "File system: Wynton (https://wynton.ucsf.edu/)"
-   software_root = "/wynton/home/cbi/shared/software/CBI"
-   module_root  = "/wynton/home/cbi/shared/modulefiles/CBI"
+   software_root="/wynton/home/cbi/shared/software/CBI"
+   module_root="/wynton/home/cbi/shared/modulefiles/CBI"
 elif [[ -d "/software/c4/cbi/software/" ]]; then
    2>&1 echo "File system: C4 (https://www.c4.ucsf.edu/)"
-   software_root = "/software/c4/cbi/software"
-   module_root  = "/software/c4/cbi/modulefiles"
+   software_root="/software/c4/cbi/software"
+   module_root="/software/c4/cbi/modulefiles"
 elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    2>&1 echo "File system: TIPCC (legacy)"
-   software_root = "/home/shared/cbc/software_cbc/shared/apps/manual"
-   module_root  = "/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
+   software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
+   module_root="/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
 else
    software_root=
    module_root=

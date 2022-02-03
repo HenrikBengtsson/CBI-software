@@ -28,7 +28,7 @@ module_root=${MODULE_ROOT_CBI:-${module_root}}
 [[ -z ${software_root} ]] && { 2>&1 echo "ERROR: Failed to infer 'SOFTWARE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
 [[ -z ${module_root} ]] && { 2>&1 echo "ERROR: Failed to infer 'MODULE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
 
-cat > CBI.lua <<- HEREDOC
+cat <<- HEREDOC
 help("Module Repository by Computational Biology and Informatics (CBI)")
 
 local name = myModuleName()

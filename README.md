@@ -1,4 +1,5 @@
 [![shellcheck](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/shellcheck.yml)
+[![luacheck](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/luacheck.yml/badge.svg)](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/luacheck.yml)
 
 # The UCSF Computation Biology Core (CBI) Software Repository
 

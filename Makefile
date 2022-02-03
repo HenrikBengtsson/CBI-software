@@ -11,7 +11,8 @@ urls:
 	done
 
 CBI.lua: CBI.lua.tmpl.sh
-	./CBI.lua.tmpl.sh
+	./$<
+	luac -p "$@"
 
 install: CBI.lua
 	@module purge; \
@@ -27,8 +28,22 @@ install: CBI.lua
 	cat "$${path}/$<"
 
 
-check: shellcheck
+check: shellcheck check.lua check.lua.tmpl
 
 shellcheck:
 	echo "ShellCheck $$(shellcheck --version | grep version:)"
 	shellcheck CBI.lua.tmpl.sh
+
+check.lua:
+	echo "luac $$(luac -v)"
+	for f in $$(find . -type f -name "*.lua" -print); do \
+	    echo "Checking: $${f}"; \
+	    luac -p "$${f}" || { 2>&1 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
+	done
+
+check.lua.tmpl:
+	echo "luac $$(luac -v)"
+	for f in $$(find . -type f -name "*.lua.tmpl" -print); do \
+	    echo "Checking: $${f}"; \
+	    luac -p "$${f}" || { 2>&1 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
+	done

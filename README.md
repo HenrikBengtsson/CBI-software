@@ -1,3 +1,5 @@
+[![shellcheck](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/HenrikBengtsson/CBI-software/actions/workflows/shellcheck.yml)
+
 # The UCSF Computation Biology Core (CBI) Software Repository
 
 ## File-system layout
@@ -57,5 +59,5 @@ $ make
 
 This will download the software, extract it, and install it to `${SOFTWARE_ROOT_CBI}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_ROOT_CBI}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.
 
-_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running Centos 7 and are configured similarly.  So of the software has also been verified to install on Ubuntu 18.04._
+_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running CentOS 7 and are configured similarly.  So of the software has also been verified to install on Ubuntu 18.04._
 

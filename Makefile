@@ -27,3 +27,8 @@ install: CBI.lua
 	cat "$${path}/$<"
 
 
+check: shellcheck
+
+shellcheck:
+	echo "ShellCheck $$(shellcheck --version | grep version:)"
+	shellcheck CBI.lua.tmpl.sh

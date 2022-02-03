@@ -36,6 +36,7 @@ whatis("URL: https://cbi.ucsf.edu/")
 whatis([[
 Description: Repository of modules shared by UCSF Computational Biology and Informatics. When loading this module, you will get access to a large number of software modules.  When unloading the module, any software modules from this CBI software repository still loaded when you unload this repository module, will remain in your list of loaded modules but will be inactivate (i.e. behave as they never were loaded) until you reload this repository module again.
 Example: \`module load CBI\` and then \`module avail\`.
+Maintainer: Henrik Bengtsson, CBI
 ]])
 
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")

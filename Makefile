@@ -16,8 +16,10 @@ install: repos/CBI.lua
 	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
 	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
 	path=$$(dirname "$${MODULE_ROOT_CBI}"); \
-	cp -R "$<" "$${path}"; \
+	mkdir -p "$${path}/repos"; \
+	cp "$<" "$${path}/repos"; \
 	echo "Installed: $${path}/$<"; \
+	ls -l "$${path}/$<"; \
 	cat "$${path}/$<"
 
 

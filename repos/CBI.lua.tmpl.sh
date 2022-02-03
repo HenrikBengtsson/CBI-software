@@ -29,13 +29,16 @@ module_root=${MODULE_ROOT_CBI:-${module_root}}
 [[ -z ${module_root} ]] && { >&2 echo "ERROR: Failed to infer 'MODULE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
 
 cat <<- HEREDOC
-help("Module Repository by Computational Biology and Informatics (CBI)")
+help("Module Repository by UCSF Computational Biology and Informatics (CBI)")
 
 local name = myModuleName()
 
 whatis("Keywords: UCSF, CBI")
 whatis("URL: https://cbi.ucsf.edu/")
-whatis("Description: Repository of modules shared by Computational Biology and Informatics (http://cbi.ucsf.edu/). When loading this module, you will get access to a large number of software modules.  When unloading the module, any software modules from this " .. name .. " repository still loaded when you unload this repository module, will remain in your list of loaded modules but will be inactivate (i.e. behave as they never were loaded) until you reload this repository module again.  Example: \`module load " .. name .. "\` and then \`module avail\`.")
+whatis([[
+Description: Repository of modules shared by UCSF Computational Biology and Informatics. When loading this module, you will get access to a large number of software modules.  When unloading the module, any software modules from this " .. name .. " repository still loaded when you unload this repository module, will remain in your list of loaded modules but will be inactivate (i.e. behave as they never were loaded) until you reload this repository module again.
+Example: \`module load " .. name .. "\` and then \`module avail\`.
+]])
 
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", "${module_root}")

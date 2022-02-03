@@ -13,8 +13,8 @@ install: repos/CBI.lua
 	export MODULEPATH=".:$${MODULEPATH}"; \
 	module load CBI; \
 	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
-	[[ -n $${MODULE_ROOT_CBI} ]] || { 2>&1 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
-	[[ -d "$${MODULE_ROOT_CBI}" ]] || { 2>&1 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
+	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
+	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
 	path=$$(dirname "$${MODULE_ROOT_CBI}"); \
 	cp -R "$<" "$${path}"; \
 	echo "Installed: $${path}/$<"; \
@@ -31,14 +31,14 @@ check.lua:
 	echo "luac $$(luac -v)"
 	for f in $$(find . -type f -name "*.lua" -print); do \
 	    echo "Checking: $${f}"; \
-	    luac -p "$${f}" || { 2>&1 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
+	    luac -p "$${f}" || { >&2 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
 	done
 
 check.lua.tmpl:
 	echo "luac $$(luac -v)"
 	for f in $$(find . -type f -name "*.lua.tmpl" -print); do \
 	    echo "Checking: $${f}"; \
-	    luac -p "$${f}" || { 2>&1 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
+	    luac -p "$${f}" || { >&2 echo "ERROR: Syntax error in $${f}"; exit 1; }; \
 	done
 
 urls:

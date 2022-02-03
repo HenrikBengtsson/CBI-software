@@ -6,15 +6,15 @@
 
 ## Infer defaults from the underlying file system
 if [[ -d "/wynton/home/cbi/shared/software/CBI" ]]; then
-   2>&1 echo "File system: Wynton (https://wynton.ucsf.edu/)"
+   >&2 echo "File system: Wynton (https://wynton.ucsf.edu/)"
    software_root="/wynton/home/cbi/shared/software/CBI"
    module_root="/wynton/home/cbi/shared/modulefiles/CBI"
 elif [[ -d "/software/c4/cbi/software/" ]]; then
-   2>&1 echo "File system: C4 (https://www.c4.ucsf.edu/)"
+   >&2 echo "File system: C4 (https://www.c4.ucsf.edu/)"
    software_root="/software/c4/cbi/software"
    module_root="/software/c4/cbi/modulefiles"
 elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
-   2>&1 echo "File system: TIPCC (legacy)"
+   >&2 echo "File system: TIPCC (legacy)"
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
    module_root="/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
 else
@@ -25,8 +25,8 @@ fi
 software_root=${SOFTWARE_ROOT_CBI:-${software_root}}
 module_root=${MODULE_ROOT_CBI:-${module_root}}
 
-[[ -z ${software_root} ]] && { 2>&1 echo "ERROR: Failed to infer 'SOFTWARE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
-[[ -z ${module_root} ]] && { 2>&1 echo "ERROR: Failed to infer 'MODULE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
+[[ -z ${software_root} ]] && { >&2 echo "ERROR: Failed to infer 'SOFTWARE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
+[[ -z ${module_root} ]] && { >&2 echo "ERROR: Failed to infer 'MODULE_ROOT_CBI' from the file system. Please set manually"; exit 1; }
 
 cat <<- HEREDOC
 help("Module Repository by Computational Biology and Informatics (CBI)")

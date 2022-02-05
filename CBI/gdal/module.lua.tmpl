@@ -6,8 +6,15 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: spatial, library")
-whatis("URL: https://gdal.org/, https://github.com/OSGeo/gdal")
+whatis("URL: https://gdal.org/, https://github.com/OSGeo/gdal/blob/master/NEWS.md (changelog), https://github.com/OSGeo/gdal (source code)")
 whatis("Description: GDAL is an open source X/MIT licensed translator library for raster and vector geospatial data formats. Example: `gdalinfo --version`")
+
+-- GDAL (>= 3.0.0), requires PROJ (>= 6.0.0)
+local v = version
+v = string.gsub(v, ".*", "")
+if v >= "3" then
+  depends_on("proj")
+end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

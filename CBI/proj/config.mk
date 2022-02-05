@@ -1,7 +1,6 @@
 NAME=proj
-VERSION=4.9.3
+VERSION=6.0.0
 
-URL_DOWNLOAD=https://proj.org/download.html
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=libtool
 INSTALL_TARGET_FILE=bin/proj

@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, alignment")
 whatis("URL: https://genome.ucsc.edu/goldenPath/help/blatSpec.html")
-whatis("Description: BLAT - client and server combined into a single program, first building the index, then using the index, and then exiting. Example: `blat`")
+whatis([[
+Description: BLAT - client and server combined into a single program, first building the index, then using the index, and then exiting.
+Example: `blat`
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

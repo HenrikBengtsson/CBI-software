@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: ")
-whatis("URL: https://bedops.readthedocs.io/, https://github.com/bedops/bedops")
-whatis("Description: BEDOPS is an open-source command-line toolkit that performs highly efficient and scalable Boolean and other set operations, statistical calculations, archiving, conversion and other management of genomic data of arbitrary scale. Tasks can be easily split by chromosome for distributing whole-genome analyses across a computational cluster.  Example: `bedops --version`")
+whatis("URL: https://bedops.readthedocs.io/, https://bedops.readthedocs.io/en/latest/content/revision-history.html (changelog), https://github.com/bedops/bedops (source code)")
+whatis([[
+Description: BEDOPS is an open-source command-line toolkit that performs highly efficient and scalable Boolean and other set operations, statistical calculations, archiving, conversion and other management of genomic data of arbitrary scale. Tasks can be easily split by chromosome for distributing whole-genome analyses across a computational cluster.
+Example: `bedops --version`
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

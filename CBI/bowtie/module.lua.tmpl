@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: http://bowtie-bio.sourceforge.net/index.shtml")
-whatis("Description: Bowtie is an ultrafast, memory-efficient short read aligner.  Note: This is Bowtie v1 - _not v2_.  Example: `bowtie --version` and `ls $BOWTIE_HOME/{genomes,indexes}`")
+whatis("URL: http://bowtie-bio.sourceforge.net/index.shtml, http://bowtie-bio.sourceforge.net/index.shtml (changelog), https://github.com/BenLangmead/bowtie (source code)")
+whatis([[
+Description: Bowtie is an ultrafast, memory-efficient short read aligner.
+Example: `bowtie --version` and `ls $BOWTIE_HOME/{genomes,indexes}`
+Note: This is Bowtie v1 - _not v2_.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

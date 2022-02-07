@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: terminal, SSH")
-whatis("URL: http://byobu.org, https://github.com/dustinkirkland/byobu")
-whatis("Description: Byobu is an elegant enhancement of the otherwise functional, plain, practical GNU Screen. Byobu includes an enhanced profile, configuration utilities, and system status notifications for the GNU screen window manager as well as the Tmux terminal multiplexer.  Example: `byobu --version`.  Warning: Only the most recent version of this software will be kept.")
+whatis("URL: https://www.byobu.org/, https://bazaar.launchpad.net/~kirkland/byobu/trunk/view/head:/debian/changelog (changelog), https://github.com/dustinkirkland/byobu (source code)")
+whatis([[
+Description: Byobu is an elegant enhancement of the otherwise functional, plain, practical GNU Screen. Byobu includes an enhanced profile, configuration utilities, and system status notifications for the GNU screen window manager as well as the Tmux terminal multiplexer.
+Example: `byobu --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

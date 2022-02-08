@@ -15,15 +15,9 @@ whatis("Keywords: programming, Python")
 whatis("URL: https://www.softwarecollections.org/en/scls/rhscl/" .. scl_name .. "/")
 whatis("Description: Enables the CentOS Software Collection (SCL) `" .. scl_name .. "` in the current environment.  This is an alternative to calling `source scl_source enable " .. scl_name .. "`, which is not officially supported by RedHat/CentOS.  Example: `python --version` and `pip --version`.  Warning: This module is DEPRECATED and should no longer be used because Python SCLs are deprecated, which in turn is because Python 3 is now available directly by CentOS.")
 
-
-require "posix"
-function isdir(fn)
-  return (posix.stat(fn, "type") == "directory")
-end
-
 local home = "/opt/rh/rh-python" .. version_sans_period
 
-if not isdir(home) then
+if not isDir(home) then
   LmodError("Module '" .. myModuleFullName() .. "' is not supported because this host '" .. os.getenv("HOSTNAME") ..
  "' does not have path '" .. home .. "'")
 end

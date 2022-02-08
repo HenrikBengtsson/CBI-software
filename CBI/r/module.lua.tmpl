@@ -9,14 +9,9 @@ whatis("Keywords: Programming, Statistics")
 whatis("URL: https://www.r-project.org/")
 whatis("Description: The R programming language. Examples: `R --version` and `Rscript --version`.")
 
-require "posix"
-function isdir(fn)
-  return (posix.stat(fn, "type") == "directory")
-end
-
 has_devtoolset = function(version)
   local path = pathJoin("/opt", "rh", "devtoolset-" .. version)
-  return(isdir(path))
+  return(isDir(path))
 end
 
 local name = "R"
@@ -84,6 +79,6 @@ pushenv("USE_SYSTEM_LIBGIT2", "true")
 -- manually specifying 'configure.args' during install unless we set the
 -- following environment variable
 local path = "/usr/include/udunits2"
-if (isdir(path)) then
+if (isDir(path)) then
   pushenv("UDUNITS2_INCLUDE", path)
 end

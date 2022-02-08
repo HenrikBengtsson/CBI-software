@@ -1,3 +1,4 @@
+## OBSOLETE: Use isDir() from Lmod instead
 require "posix"
 function isdir(fn)
   return (posix.stat(fn, "type") == "directory")

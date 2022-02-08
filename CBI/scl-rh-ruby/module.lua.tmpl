@@ -11,14 +11,8 @@ whatis("Keywords: programming, Ruby")
 whatis("URL: https://www.softwarecollections.org/en/scls/rhscl/" .. scl_name .. "/")
 whatis("Description: Enables the CentOS Software Collection (SCL) `" .. scl_name .. "` in the current environment.  This is an alternative to calling `source scl_source enable " .. scl_name .. "`, which is an approach that is not of ficially supported by RedHat/CentOS.  Example: `irb --help`, `ruby --help`, `ruby script.rb`.")
 
-
-require "posix"
-function isdir(fn)
-  return (posix.stat(fn, "type") == "directory")
-end
-
 local home = "/opt/rh/" .. scl_name
 
-if not isdir(home) then
+if not isDir(home) then
   LmodError("Module '" .. myModuleFullName() .. "' is not supported because this host '" .. os.getenv("HOSTNAME") .. "' does not have path '" .. home .. "'")
 end

@@ -12,14 +12,9 @@ whatis("URL: https://access.redhat.com/documentation/en-us/red_hat_developer_too
 whatis("Description: These Developer Toolset provides modern versions of the GNU Compiler Collection, GNU Debugger, and other development, debugging, and performance monitoring tools. Loading these modules enables the corresponding CentOS Software Collection (SCL) `devtoolset-<version>` in the current environment.  This is an alternative to calling `source scl_source enable devtoolset-<version>`, which is an approach that is not officially supported by RedHat/CentOS.  Example: `gcc --version`.  Warning: Older versions may be removed in the future.")
 
 
-require "posix"
-function isdir(fn)
-  return (posix.stat(fn, "type") == "directory")
-end
-
 local home = pathJoin("/opt", "rh", scl_name)
 
-if not isdir(home) then
+if not isDir(home) then
   LmodError("Module '" .. myModuleFullName() .. "' is not supported because this host '" .. os.getenv("HOSTNAME") .. "' does not have path '" .. home .. "'")
 end
 

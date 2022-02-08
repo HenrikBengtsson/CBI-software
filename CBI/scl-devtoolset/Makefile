@@ -30,3 +30,6 @@ $(MODULE_TARGET): $(VERSION).lua
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
 
+test: tests/all.sh tests/*.bats
+	echo "SHELL=$$SHELL"
+	tests/all.sh

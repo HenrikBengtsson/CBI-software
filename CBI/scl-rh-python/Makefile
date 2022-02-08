@@ -10,7 +10,7 @@ incl/%.lua: /opt/rh/rh-python%/enable
 	{ \
 	    echo "-- Don't edit! Created using: "; \
 	    echo "-- $(LMOD_DIR)/sh_to_modulefile $<"; \
-	    LD_LIBRARY_PATH="dummy" $(LMOD_DIR)/sh_to_modulefile "$<"; \
+	    LD_LIBRARY_PATH="dummy" PKG_CONFIG_PATH="dummy" XDG_DATA_DIRS="dummy" $(LMOD_DIR)/sh_to_modulefile "$<"; \
 	} > "$@.tmp"
 	if grep -q -F "setenv(" "$@.tmp"; then \
 	    echo "WARNING: Detected setenv() calls that might have to be edited to become prepend_path():"; \

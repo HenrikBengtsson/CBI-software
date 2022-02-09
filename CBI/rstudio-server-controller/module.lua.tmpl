@@ -5,9 +5,13 @@ RSC: An RStudio Server Controller
 local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
-whatis("Keywords: programming, R, GUI")
-whatis("URL: https://github.com/UCSF-CBI/rstudio-server-controller")
-whatis("Description: The RStudio Server Controller (RSC) is a tool for launching a personal instance of the RStudio Server on a Linux machine, which then can be access via the web browser, either directly or via SSH tunneling.  Example: `rsc --help` and `rsc start --port=uid`.  Warning: This is work under construction!")
+whatis("Keywords: programming, R, RStudio Server, GUI")
+whatis("URL: https://github.com/UCSF-CBI/rstudio-server-controller, https://github.com/UCSF-CBI/rstudio-server-controller/blob/main/NEWS.md (changelog)")
+whatis([[
+Description: The RStudio Server Controller (RSC) is a tool for launching a personal instance of the RStudio Server on a Linux machine, which then can be access via the web browser, either directly or via SSH tunneling.
+Examples: `rsc --help`, and `rsc start --port=uid`.
+Warning: This is work under construction!
+]])
 
 depends_on("r")
 depends_on("rstudio-server")

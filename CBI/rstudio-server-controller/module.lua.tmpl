@@ -15,6 +15,7 @@ Warning: This is work under construction!
 
 depends_on("r")
 depends_on("rstudio-server")
+try_load("expect")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

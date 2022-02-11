@@ -1,0 +1,21 @@
+help([[
+expect: 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, R, GUI")
+whatis("URL: https://core.tcl-lang.org/expect/index, https://sourceforge.net/projects/expect/files/Expect/ (download), https://github.com/rstudio/rstudio/ (source code)")
+whatis([[
+Description: Expect is a tool for automating interactive applications such as telnet, ftp, passwd, fsck, rlogin, tip, etc. Expect really makes this stuff trivial. Expect is also useful for testing these same applications.
+Example: `expect -version`, and `man expect`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "libs"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

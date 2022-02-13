@@ -51,10 +51,14 @@ end
 pushenv("R_BUILD_TAR", "tar")
 
 -- In-house env var for R repositories mirrored locally
-local r_repos_root = pathJoin(os.getenv("CBI_SHARED_ROOT"), "mirrors", "r-mirrors")
-pushenv("R_REPOS_ROOT", r_repos_root)
-pushenv("R_REPOS_CRAN", "file://" .. pathJoin(r_repos_root, "cran"))
-pushenv("R_LOCAL_CRAN", "file://" .. pathJoin(r_repos_root, "cran"))
+local r_repos_root = os.getenv("CBI_SHARED_ROOT")
+if (r_repos_root) then
+  LmodMessage("r_repos_root=" .. r_repos_root)
+  r_repos_root = pathJoin(r_repos_root, "mirrors", "r-mirrors")
+  pushenv("R_REPOS_ROOT", r_repos_root)
+  pushenv("R_REPOS_CRAN", "file://" .. pathJoin(r_repos_root, "cran"))
+  pushenv("R_LOCAL_CRAN", "file://" .. pathJoin(r_repos_root, "cran"))
+end
 
 -- R packages built from native code and installed using R from EPEL is *not*
 -- always compatible with ditto installed using R from the CBI software stack.

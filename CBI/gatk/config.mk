@@ -1,7 +1,5 @@
 NAME=gatk
-VERSION:=4.2.4.1
-URL_DOWNLOAD=https://github.com/broadinstitute/gatk/releases
-URL=https://software.broadinstitute.org/gatk/
+VERSION:=4.2.5.0
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false
 BUILD=false

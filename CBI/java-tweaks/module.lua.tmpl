@@ -11,21 +11,36 @@ Description: This hidden environment module, tweaks the `_JAVA_OPTIONS` environm
 Example: `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
 ]])
 
--- Make Java respect TMPDIR, if set
-local tmpdir=os.getenv("TMPDIR") or ""
-if tmpdir ~= "" then
-  if not isDir(tmpdir) then
-    LmodError("Environment variable TMPDIR specifies a non-existing folder: " .. tmpdir)
-  end
+if mode() == "load" then
+  -- Make Java respect TMPDIR, if set
+  local tmpdir=os.getenv("TMPDIR") or ""
+  if tmpdir ~= "" then
+    if not isDir(tmpdir) then
+      LmodError("Environment variable TMPDIR specifies a non-existing folder: " .. tmpdir)
+    end
 
-  -- Set -Djava.io.tmpdir=..., if not already set
-  local opts=os.getenv("_JAVA_OPTIONS")
-  if opts ~= nil and not string.find(opts, "-Djava[.]io[.]tmpdir=") then
-    opts = nil
+    -- Set -Djava.io.tmpdir=..., if not already set
+    local opts=os.getenv("_JAVA_OPTIONS")
+    if opts ~= nil and not string.find(opts, "-Djava[.]io[.]tmpdir=") then
+      opts = nil
+    end
+    if opts == nil then
+      local value="-Djava.io.tmpdir=" .. tmpdir
+      prepend_path("_JAVA_OPTIONS", value, " ")
+      setenv("_JAVA_TWEAKS_", value)
+    end
   end
-  if opts == nil then
-    prepend_path("_JAVA_OPTIONS", "-Djava.io.tmpdir=" .. tmpdir, " ")
+elseif mode() == "unload" then
+  local tweaks=os.getenv("_JAVA_TWEAKS_")
+  if tweaks ~= nul then
+    local tmpdir=os.getenv("TMPDIR") or ""
+    if tmpdir ~= "" then
+      remove_path("_JAVA_OPTIONS", tweaks, " ")
+      tweaked=pushenv("_JAVA_TWEAKS_", false)
+      tweaked=os.getenv("_JAVA_TWEAKS_")
+      if tweaked ~= nul then
+        LmodError("Failed to unset _JAVA_TWEAKS_")
+      end
+    end
   end
 end
-
-

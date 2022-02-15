@@ -227,6 +227,16 @@ ifndef MODULE_VERSION
   MODULE_VERSION=$(VERSION)
 endif
 
+ifndef MODULE_HIDDEN
+  MODULE_HIDDEN=false
+endif
+
+## An Lmod module is hidden from 'module avail' and 'module spider'
+## if it's version is prefixed with a period, e.g. java-tweaks/.0.1
+ifeq ($(MODULE_HIDDEN),true)
+  MODULE_VERSION:=.$(MODULE_VERSION)
+endif
+
 MODULE_NAME_VERSION=$(MODULE_NAME)/$(MODULE_VERSION)
 
 
@@ -308,6 +318,7 @@ debug:
 	@echo "MODULE_HOME: $(MODULE_HOME)"
 	@echo "MODULE_NAME: $(MODULE_NAME)"
 	@echo "MODULE_VERSION: $(MODULE_VERSION)"
+	@echo "MODULE_HIDDEN: $(MODULE_HIDDEN)"
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"

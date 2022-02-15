@@ -24,7 +24,7 @@ if tmpdir ~= "" then
     opts = nil
   end
   if opts == nil then
-    prepend_path("_JAVA_OPTIONS", "-Djava.io.tmpdir=" .. tmpdir)
+    prepend_path("_JAVA_OPTIONS", "-Djava.io.tmpdir=" .. tmpdir, " ")
   end
 end
 

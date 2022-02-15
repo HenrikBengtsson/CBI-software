@@ -17,3 +17,6 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
 
 set_alias("igv", home .. "/igv.sh")
+
+-- Tweak Java for the current environment
+depends_on("java-tweaks")

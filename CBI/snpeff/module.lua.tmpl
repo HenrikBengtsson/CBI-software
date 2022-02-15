@@ -26,3 +26,6 @@ set_alias("SnpSift", "java -jar " .. jarfile)
 local jarfile = pathJoin(home, "clinEff", "ClinEff.jar")
 pushenv("CLINEFF", jarfile)
 set_alias("ClinEff", "java -jar " .. jarfile)
+
+-- Tweak Java for the current environment
+depends_on("java-tweaks")

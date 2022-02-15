@@ -28,5 +28,5 @@ local jarfile = pathJoin(home, name .. "-" .. version .. ".jar")
 pushenv("MUTECT_JAR", jarfile)
 set_alias("mutect", "java -Xmx2g -jar " .. jarfile)
 
-
-
+-- Tweak Java for the current environment
+depends_on("java-tweaks")

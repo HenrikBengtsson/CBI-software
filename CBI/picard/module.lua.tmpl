@@ -25,3 +25,6 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 pushenv("PICARD_HOME", home)
 set_alias("picard", "java -jar " .. pathJoin(home, "picard.jar"))
+
+-- Tweak Java for the current environment
+depends_on("java-tweaks")

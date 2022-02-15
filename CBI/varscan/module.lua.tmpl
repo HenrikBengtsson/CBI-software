@@ -17,4 +17,5 @@ pushenv("VARSCAN_HOME", home)
 local jarfile = home .. "/" .. name .. ".v" .. version .. ".jar"
 set_alias("varscan", "java -jar " .. jarfile)
 
-
+-- Tweak Java for the current environment
+depends_on("java-tweaks")

@@ -20,7 +20,7 @@ if tmpdir ~= "" then
 
   -- Set -Djava.io.tmpdir=..., if not already set
   local opts=os.getenv("_JAVA_OPTIONS")
-  if opts ~= nil and string.find(opts, "-Djava[.]io[.]tmpdir=") then
+  if opts ~= nil and not string.find(opts, "-Djava[.]io[.]tmpdir=") then
     opts = nil
   end
   if opts == nil then

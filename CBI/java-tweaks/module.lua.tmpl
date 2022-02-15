@@ -1,0 +1,31 @@
+help([[
+Java Tweaks: Adjust Java Settings for the Current Compute Environment
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: java, settings")
+whatis([[
+Description: This hidden environment module, tweaks the `_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine.
+Example: `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
+]])
+
+-- Make Java respect TMPDIR, if set
+local tmpdir=os.getenv("TMPDIR") or ""
+if tmpdir ~= "" then
+  if not isDir(tmpdir) then
+    LmodError("Environment variable TMPDIR specifies a non-existing folder: " .. tmpdir)
+  end
+
+  -- Set -Djava.io.tmpdir=..., if not already set
+  local opts=os.getenv("_JAVA_OPTIONS")
+  if opts ~= nil and string.find(opts, "-Djava[.]io[.]tmpdir=") then
+    opts = nil
+  end
+  if opts == nil then
+    prepend_path("_JAVA_OPTIONS", "-Djava.io.tmpdir=" .. tmpdir)
+  end
+end
+
+

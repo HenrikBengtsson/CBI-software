@@ -247,10 +247,13 @@ endif
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"
+	make post_install_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load CBI
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
+
+post_install_module:
 
 install_module: $(MODULE_TARGET)
 

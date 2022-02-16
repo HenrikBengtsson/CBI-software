@@ -1,0 +1,19 @@
+help([[
+JupyterNotebook: Next-Generation Web-Based User Interface for Project Jupyter
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, python")
+whatis("URL: https://jupyter.org/, https://jupyter-notebook.readthedocs.io/en/stable/ (docs), https://jupyter-notebook.readthedocs.io/en/stable/changelog.html (change log), https://github.com/jupyter/ (source code)")
+whatis([[
+Description: 
+Example: `jupyter --help`, `jupyter --version`, `jupyter lab`, and `man ipython`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

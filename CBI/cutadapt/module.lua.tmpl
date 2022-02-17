@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, genome")
-whatis("URL: https://github.com/marcelm/cutadapt")
-whatis("Description: Cutadapt finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads. Example: `cutadapt --version` and `cutadapt --help`.")
+whatis("URL: https://github.com/marcelm/cutadapt, https://github.com/marcelm/cutadapt/blob/main/CHANGES.rst (changelog)")
+whatis([[
+Description: Cutadapt finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads.
+Examples: `cutadapt --version` and `cutadapt --help`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

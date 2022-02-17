@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: library")
-whatis("URL: https://www.gnu.org/software/gsl/")
-whatis("Description: The GNU Scientific Library (GSL) is a numerical library for C and C++ programmers. It is free software under the GNU General Public License. The library provides a wide range of mathematical routines such as random number generators, special functions and least-squares fitting. There are over 1000 functions in total with an extensive test suite. Example: `gsl-config --version`")
+whatis("URL: https://www.gnu.org/software/gsl/, https://git.savannah.gnu.org/cgit/gsl.git/tree/NEWS (changelog), https://git.savannah.gnu.org/cgit/gsl.git/ (source code)")
+whatis([[
+Description: The GNU Scientific Library (GSL) is a numerical library for C and C++ programmers. It is free software under the GNU General Public License. The library provides a wide range of mathematical routines such as random number generators, special functions and least-squares fitting. There are over 1000 functions in total with an extensive test suite.
+Examples: `gsl-config --version`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

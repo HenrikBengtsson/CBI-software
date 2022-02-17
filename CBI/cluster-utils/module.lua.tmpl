@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: slurm, scheduler, utility")
-whatis("URL: https://github.com/molgenis/cluster-utils/")
-whatis("Description: Collection of utilities / helper scripts to make life easier on HPC clusters.  Example: `ctop` and `ctopx` (silence 'Invalid user id' output). Warning: Only the most recent version of this software will be kept.")
+whatis("URL: https://github.com/molgenis/cluster-utils/, https://github.com/molgenis/cluster-utils/releases (changelog)")
+whatis([[
+Description: Collection of utilities / helper scripts to make life easier on HPC clusters.
+Examples: `ctop` and `ctopx` (silence 'Invalid user id' output).
+Warning: Only the most recent version of this software will be kept.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

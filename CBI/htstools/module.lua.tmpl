@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: https://github.com/mskcc/htstools")
-whatis("Description: Contains three tools (dnafrags, ppflag-fixer, snp-pileup) written by Alex Studer to process bam files for downstream copy number analysis.  Example: `snp-pileup --help`.")
+whatis("URL: https://github.com/mskcc/htstools, https://github.com/mskcc/htstools/releases (changelog)")
+whatis([[
+Description: Contains three tools (dnafrags, ppflag-fixer, snp-pileup) written by Alex Studer to process bam files for downstream copy number analysis.
+Examples: `snp-pileup --help`.
+]])
 
 depends_on("htslib")
 

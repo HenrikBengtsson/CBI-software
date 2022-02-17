@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: https://software.broadinstitute.org/cancer/cga/gistic, https://github.com/broadinstitute/gistic2, https://www.genepattern.org/modules/docs/GISTIC_2.0/7")
-whatis("Description: GISTIC2.0 facilitates sensitive and confident localization of the targets of focal somatic copy-number alteration in human cancers.  Example: `gistic2`.")
+whatis("URL: https://software.broadinstitute.org/cancer/cga/gistic, https://github.com/broadinstitute/gistic2/blob/master/support/README.txt (changelog), https://github.com/broadinstitute/gistic2 (source code), https://www.genepattern.org/modules/docs/GISTIC_2.0/7")
+whatis([[
+Description: GISTIC2.0 facilitates sensitive and confident localization of the targets of focal somatic copy-number alteration in human cancers.
+Examples: `gistic2`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

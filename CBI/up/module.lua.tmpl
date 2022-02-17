@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: utility, cli")
-whatis("URL: https://github.com/akavel/up")
-whatis("Description: A tool for writing Linux pipes in a terminal-based UI interactively, with instant live preview of command results. Interactively and incrementally explore textual data in Linux using text-processing utils such as grep, sort, cut, paste, awk, wc, perl, etc.  When done, press Ctrl-C to view final pipe commands, or Ctrl-X to save it to file.  Examples: `up --help`, `ls | up` (exit with Ctrl-C).  Warning: Only the most recent version of this software will be kept.")
+whatis("URL: https://github.com/akavel/up, https://github.com/akavel/up/releases (changelog)")
+whatis([[
+Description: A tool for writing Linux pipes in a terminal-based UI interactively, with instant live preview of command results. Interactively and incrementally explore textual data in Linux using text-processing utils such as grep, sort, cut, paste, awk, wc, perl, etc.  When done, press Ctrl-C to view final pipe commands, or Ctrl-X to save it to file.
+Examples: `up --help`, `ls | up` (exit with Ctrl-C).
+Warning: Only the most recent version of this software will be kept.
+]])
 
 -- Local variables
 local root = os.getenv("SOFTWARE_ROOT_CBI")

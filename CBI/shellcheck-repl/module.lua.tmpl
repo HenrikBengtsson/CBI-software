@@ -4,6 +4,8 @@ ShellCheck REPL: Validation of Shell Commands Before Evaluation
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "")
+
 whatis("Version: " .. version)
 whatis("Keywords: programming, shell, bash")
 whatis("URL: https://github.com/HenrikBengtsson/shellcheck-repl, https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/NEWS.md (changelog)")

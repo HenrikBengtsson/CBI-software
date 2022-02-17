@@ -4,6 +4,8 @@ Java Tweaks: Adjust Java Settings for the Current Compute Environment
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "")
+
 whatis("Version: " .. version)
 whatis("Keywords: java, settings")
 whatis([[

@@ -12,6 +12,12 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://github.com/HenrikBengtsson/shellcheck-repl/archive/refs/tags/$(TARBALL); \
 	tar xf $(TARBALL)
 
+## Make sure there is a default, so we can load the hidden module
+## without having to specify the version, which is irrelevant
+post_install_module:
+	cd "$$(dirname "$(MODULE_TARGET)")"; \
+	ln -fs "$(MODULE_TARGET)" default
+
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..

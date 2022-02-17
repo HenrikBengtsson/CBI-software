@@ -6,8 +6,12 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: programming, shell, sh, bash, dash, ksh")
-whatis("URL: https://www.shellcheck.net/, https://github.com/koalaman/shellcheck/")
-whatis("Description: ShellCheck finds bugs in your shell scripts.  Example: `shellcheck --version` and `shellcheck -x ~/.bashrc`.  Warning: Only the most recent version of this software will be kept.")
+whatis("URL: https://www.shellcheck.net/, https://github.com/koalaman/shellcheck/blob/master/CHANGELOG.md (changelog), https://github.com/koalaman/shellcheck/ (source code)")
+whatis([[
+Description: ShellCheck finds bugs in your shell scripts.
+Examples: `shellcheck --version` and `shellcheck -x ~/.bashrc`.
+Warning: Only the most recent version of this software will be kept.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

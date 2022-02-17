@@ -14,6 +14,7 @@ htstools
 mc
 fastqc
 bowtie
+wip-jupyternotebook
 clp
 libevent
 hisat2
@@ -33,6 +34,7 @@ kallisto
 annovar
 r
 hdf5
+wip-jupyterlab
 pandoc
 bwa
 gsl
@@ -70,6 +72,7 @@ sratoolkit
 jags
 emacs
 lazygit
+java-tweaks
 star
 samtools
 fzf

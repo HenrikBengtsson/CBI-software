@@ -1,0 +1,21 @@
+help([[
+ShellCheck REPL: Validation of Shell Commands Before Evaluation 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming, shell, bash")
+whatis("URL: https://github.com/HenrikBengtsson/shellcheck-repl, https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/NEWS.md (changelog)")
+whatis([[
+Description: ShellCheck is a great tool for validating your Unix shell scripts. It will parse the scripts and warn about mistakes, errors, and potential problems. This tool - shellcheck-repl - brings ShellCheck validation to the Bash read-eval-print loop (REPL), i.e. the Bash prompt. Getting this type of validation and feedback at the prompt lowers the risk of damaging mistakes and will help you become a better Bash user and developer.
+Examples: `echo \`ls\``, which will suggest `echo "$(ls)"`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+source_sh(pathJoin(home .. "shellcheck-repl.bash"))
+
+

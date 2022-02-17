@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: http://cole-trapnell-lab.github.io/cufflinks/, https://github.com/cole-trapnell-lab/cufflinks")
-whatis("Description: Cufflinks assembles transcripts, estimates their abundances, and tests for differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundances of these transcripts based on how many reads support each one, taking into account biases in library preparation protocols. Example: `cufflinks`.")
+whatis("URL: http://cole-trapnell-lab.github.io/cufflinks/, https://github.com/cole-trapnell-lab/cufflinks (source code)")
+whatis([[
+Description: Cufflinks assembles transcripts, estimates their abundances, and tests for differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundances of these transcripts based on how many reads support each one, taking into account biases in library preparation protocols.
+Examples: `cufflinks`
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

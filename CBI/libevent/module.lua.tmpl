@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: library, development")
-whatis("URL: http://libevent.org/, https://github.com/libevent/libevent")
-whatis("Description: The libevent API provides a mechanism to execute a callback function when a specific event occurs on a file descriptor or after a timeout has been reached. Furthermore, libevent also support callbacks due to signals or regular timeouts. Example: `event_rpcgen.py`.")
+whatis("URL: https://libevent.org/, https://github.com/libevent/libevent/releases (changelog), https://github.com/libevent/libevent (source code)")
+whatis([[
+Description: The libevent API provides a mechanism to execute a callback function when a specific event occurs on a file descriptor or after a timeout has been reached. Furthermore, libevent also support callbacks due to signals or regular timeouts.
+Examples: `event_rpcgen.py`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

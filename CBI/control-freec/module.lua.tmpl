@@ -5,8 +5,11 @@ Control FREEC: Control-FREE Copy Number and Genotype Caller
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: ")
-whatis("URL: http://boevalab.com/FREEC/, https://github.com/BoevaLab/FREEC/")
-whatis("Description: Prediction of copy numbers and allelic content using deep-sequencing data. Example: `freec`.")
+whatis("URL: http://boevalab.com/FREEC/, https://github.com/BoevaLab/FREEC/releases (changelog), https://github.com/BoevaLab/FREEC/ (source code)")
+whatis([[
+Description: Prediction of copy numbers and allelic content using deep-sequencing data.
+Examples: `freec`
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local name = "FREEC"

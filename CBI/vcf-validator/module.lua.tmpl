@@ -6,8 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: https://github.com/EBIvariation/vcf-validator")
-whatis("Description: Validator for the Variant Call Format (VCF) implemented using C++11. It includes all the checks from the vcftools suite, and some more that involve lexical, syntactic and semantic analysis of the VCF input. Example: `vcf_validator --help`, `vcf-debugulator --help`, and `vcf-assembly-checker --help`.")
+whatis("URL: https://github.com/EBIvariation/vcf-validator, https://github.com/EBIvariation/vcf-validator/releases (changelog)")
+whatis([[
+Description: Validator for the Variant Call Format (VCF) implemented using C++11. It includes all the checks from the vcftools suite, and some more that involve lexical, syntactic and semantic analysis of the VCF input.
+Examples: `vcf_validator --help`, `vcf-debugulator --help`, and `vcf-assembly-checker --help`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

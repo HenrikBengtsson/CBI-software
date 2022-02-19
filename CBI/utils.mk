@@ -306,6 +306,7 @@ debug:
 	@echo
 	@echo "BUILDING:"
 	@echo "BUILD: $(BUILD)"
+	@echo "BUILD_OPTS*: $(BUILD_OPTS)"
 	@echo "BUILD_SUFFIX*: $(BUILD_SUFFIX)"
 	@echo "BUILD_TARGET_FILE: $(BUILD_TARGET)"
 	@echo "BUILD_TARGET: $(BUILD_TARGET)"

@@ -1,5 +1,5 @@
 NAME=shellcheck-repl
-VERSION=0.1.2
+VERSION=0.1.3
 DOWNLOAD_TARGET_FILE=shellcheck-repl.bash
 CONFIG=false
 BUILD=false

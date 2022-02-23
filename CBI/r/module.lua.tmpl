@@ -22,6 +22,7 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib", "R", "lib"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
 local v = version

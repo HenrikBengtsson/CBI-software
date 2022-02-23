@@ -7,7 +7,9 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: programming, database")
 whatis("URL: https://tiledb.com/, https://github.com/TileDB-Inc/TileDB")
-whatis("Description: TileDB is a powerful engine for storing and accessing dense and sparse multi-dimensional arrays, which can help you model any complex data efficiently. It is an embeddable C++ library that works on Linux, macOS, and Windows.")
+whatis([[
+Description: TileDB is a powerful engine for storing and accessing dense and sparse multi-dimensional arrays, which can help you model any complex data efficiently. It is an embeddable C++ library that works on Linux, macOS, and Windows.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
 whatis("URL: https://combine-lab.github.io/salmon/, https://github.com/COMBINE-lab/salmon")
-whatis("Description: Highly-accurate & wicked fast transcript-level quantification from RNA-seq reads using selective alignment.  Example: `salmon --version`.")
+whatis([[
+Description: Highly-accurate & wicked fast transcript-level quantification from RNA-seq reads using selective alignment.
+Examples: `salmon --version`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

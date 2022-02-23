@@ -23,7 +23,7 @@ VERSION_Y := $(shell echo "$(VERSION_X_Y)" | sed -E 's/^[^.-]*[.-]//')
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef BUILD_HOME
   ifndef TMPDIR
-    $(error ERROR: Environment variable 'TMPDIR' is not set)
+    TMPDIR=/tmp
   endif
   BUILD_HOME=$(TMPDIR)/$(shell date +%Y%m%d)
 endif

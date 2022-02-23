@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: Programming, Statistics")
 whatis("URL: https://www.r-project.org/")
-whatis("Description: The R programming language. Examples: `R --version` and `Rscript --version`.")
+whatis([[
+Description: The R programming language.
+Examples: `R --version` and `Rscript --version`.
+]])
 
 has_devtoolset = function(version)
   local path = pathJoin("/opt", "rh", "devtoolset-" .. version)
@@ -19,6 +22,7 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib", "R", "lib"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
 local v = version

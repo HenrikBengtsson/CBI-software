@@ -10,7 +10,7 @@ repos/CBI.lua: repos/CBI.lua.tmpl.sh
 install: repos/CBI.lua
 	@module purge; \
 	unset MODULE_ROOT_CBI; \
-	export MODULEPATH=".:$${MODULEPATH}"; \
+	export MODULEPATH="repos:$${MODULEPATH}"; \
 	module load CBI; \
 	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
 	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \

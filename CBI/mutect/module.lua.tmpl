@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, genome")
 whatis("URL: https://github.com/broadinstitute/mutect, https://software.broadinstitute.org/cancer/cga/mutect")
-whatis("Description: MuTect is a method developed at the Broad Institute for the reliable and accurate identification of somatic point mutations in next generation sequencing data of cancer genomes. Example: `mutect`, which is short for `java -Xmx2g -jar \"$MUTECT_JAR\"`.")
+whatis([[
+Description: MuTect is a method developed at the Broad Institute for the reliable and accurate identification of somatic point mutations in next generation sequencing data of cancer genomes.
+Examples: `mutect`, which is short for `java -Xmx2g -jar \"$MUTECT_JAR\"`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

@@ -15,7 +15,8 @@ sudo apt install libbz2-dev
 sudo apt install liblzma-dev
 sudo apt install libpcre2-dev
 sudo apt install libcurl4-openssl-dev
-sudo apt install libicu-dev  ## optional, but required for ICU support
+sudo apt install libicu-dev   ## optional, but required for ICU support
+sudo apt install default-jdk  ## required rJava
 ```
 
 Note that I had several dependencies already installed prior to this, so this is not a complete list of required package dependencies.

@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: Programming, Statistics")
 whatis("URL: https://www.r-project.org/")
-whatis("Description: The R programming language. Examples: `R --version` and `Rscript --version`.")
+whatis([[
+Description: The R programming language.
+Examples: `R --version` and `Rscript --version`.
+]])
 
 has_devtoolset = function(version)
   local path = pathJoin("/opt", "rh", "devtoolset-" .. version)

@@ -8,7 +8,9 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: library")
 whatis("URL: https://www.coin-or.org/, https://github.com/coin-or/CoinUtils")
-whatis("Description: CoinUtils is an open-source collection of classes and helper functions that are generally useful to multiple COIN-OR projects. CoinUtils is written in C++ and is released as open source under the Eclipse Public License 2.0.")
+whatis([[
+Description: CoinUtils is an open-source collection of classes and helper functions that are generally useful to multiple COIN-OR projects. CoinUtils is written in C++ and is released as open source under the Eclipse Public License 2.0.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, genome")
 whatis("URL: https://github.com/FelixKrueger/TrimGalore")
-whatis("Description: A wrapper around Cutadapt and FastQC to consistently apply adapter and quality trimming to FastQ files, with extra functionality for RRBS data. Example: `trim_galore --version`, `trim_galore --help`, and `more \"$TRIMGALORE_HOME/Docs/Trim_Galore_User_Guide.md\"`.")
+whatis([[
+Description: A wrapper around Cutadapt and FastQC to consistently apply adapter and quality trimming to FastQ files, with extra functionality for RRBS data.
+Examples: `trim_galore --version`, `trim_galore --help`, and `more \"$TRIMGALORE_HOME/Docs/Trim_Galore_User_Guide.md\"`.
+]])
 
 depends_on("cutadapt")
 depends_on("fastqc")

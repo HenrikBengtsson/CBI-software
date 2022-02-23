@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: high-throughput sequencing")
 whatis("URL: https://dkoboldt.github.io/varscan/, https://github.com/dkoboldt/varscan")
-whatis("Description: VarScan is a platform-independent mutation caller for targeted, exome, and whole-genome resequencing data generated on Illumina, SOLiD, Life/PGM, Roche/454, and similar instruments. Example: `varscan`, which is an alias to `java -jar $VARSCAN_HOME/VarScan.jar`.")
+whatis([[
+Description: VarScan is a platform-independent mutation caller for targeted, exome, and whole-genome resequencing data generated on Illumina, SOLiD, Life/PGM, Roche/454, and similar instruments.
+Examples: `varscan`, which is an alias to `java -jar $VARSCAN_HOME/VarScan.jar`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 name = "VarScan"

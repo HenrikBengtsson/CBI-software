@@ -7,7 +7,10 @@ local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: genome")
 whatis("URL: https://yanglab.westlake.edu.cn/software/gcta/#Overview, https://cnsgenomics.com/software/gcta/")
-whatis("Description: A tool for Genome-wide Complex Trait Analysis (GCTA). Example: `gcta64`.")
+whatis([[
+Description: A tool for Genome-wide Complex Trait Analysis (GCTA).
+Example: `gcta64`.
+]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

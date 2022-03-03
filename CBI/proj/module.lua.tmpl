@@ -4,6 +4,7 @@ PROJ: PROJ Coordinate Transformation Software Library
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "")
 whatis("Version: " .. version)
 whatis("Keywords: statistics, spatial")
 whatis("URL: https://proj.org/, https://proj.org/news.html (changelog), https://github.com/OSGeo/PROJ (source code)")

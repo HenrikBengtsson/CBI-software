@@ -211,37 +211,43 @@ install: $(INSTALL_TARGET)
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MODULE
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef MODULE_HOME
-  $(error ERROR: Environment variable 'MODULE_HOME' is not set)
+ifndef INSTALL_MODULE
+  INSTALL_MODULE=true
 endif
 
-ifndef FULLNAME
-  FULLNAME=$(shell basename "$(PREFIX)")
-endif
-
-ifndef MODULE_NAME
-  MODULE_NAME=$(shell echo "$(NAME)" | tr A-Z a-z)
-endif
-
-ifndef MODULE_VERSION
-  MODULE_VERSION=$(VERSION)
-endif
-
-ifndef MODULE_HIDDEN
-  MODULE_HIDDEN=false
-endif
-
-## An Lmod module is hidden from 'module avail' and 'module spider'
-## if it's version is prefixed with a period, e.g. java-tweaks/.0.1
-ifeq ($(MODULE_HIDDEN),true)
-  MODULE_VERSION:=.$(MODULE_VERSION)
-endif
-
-MODULE_NAME_VERSION=$(MODULE_NAME)/$(MODULE_VERSION)
-
-
-ifndef MODULE_TARGET
-  MODULE_TARGET=$(MODULE_HOME)/$(MODULE_NAME_VERSION).lua
+ifeq ($(INSTALL_MODULE),true)
+  ifndef MODULE_HOME
+    $(error ERROR: Environment variable 'MODULE_HOME' is not set)
+  endif
+  
+  ifndef FULLNAME
+    FULLNAME=$(shell basename "$(PREFIX)")
+  endif
+  
+  ifndef MODULE_NAME
+    MODULE_NAME=$(shell echo "$(NAME)" | tr A-Z a-z)
+  endif
+  
+  ifndef MODULE_VERSION
+    MODULE_VERSION=$(VERSION)
+  endif
+  
+  ifndef MODULE_HIDDEN
+    MODULE_HIDDEN=false
+  endif
+  
+  ## An Lmod module is hidden from 'module avail' and 'module spider'
+  ## if it's version is prefixed with a period, e.g. java-tweaks/.0.1
+  ifeq ($(MODULE_HIDDEN),true)
+    MODULE_VERSION:=.$(MODULE_VERSION)
+  endif
+  
+  MODULE_NAME_VERSION=$(MODULE_NAME)/$(MODULE_VERSION)
+  
+  
+  ifndef MODULE_TARGET
+    MODULE_TARGET=$(MODULE_HOME)/$(MODULE_NAME_VERSION).lua
+  endif
 endif
 
 $(MODULE_TARGET): module.lua.tmpl
@@ -252,6 +258,10 @@ $(MODULE_TARGET): module.lua.tmpl
 	module load CBI
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
+
+ifeq ($(INSTALL_MODULE),false)
+$(MODULE_TARGET):
+endif
 
 post_install_module:
 
@@ -319,6 +329,7 @@ debug:
 	@echo "PREFIX: $(PREFIX)"
 	@echo
 	@echo "MODULES:"
+	@echo "INSTALL_MODULE: $(INSTALL_MODULE)"
 	@echo "MODULE_HOME: $(MODULE_HOME)"
 	@echo "MODULE_NAME: $(MODULE_NAME)"
 	@echo "MODULE_VERSION: $(MODULE_VERSION)"

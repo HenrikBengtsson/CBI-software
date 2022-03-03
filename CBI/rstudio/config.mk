@@ -1,8 +1,6 @@
 NAME=rstudio
-VERSION:=2021.09.2-382
+VERSION:=2022.02.0-443
 ARCH=x86_64-fedora
-URL_DOWNLOAD=https://rstudio.com/products/rstudio/download/#download
-URL=https://rstudio.com/products/rstudio/#rstudio-desktop
 DOWNLOAD_TARGET_FILE=bin/rstudio
 CONFIG_TARGET_FILE=ldd-checks.tmp
 BUILD=false

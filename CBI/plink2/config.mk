@@ -1,6 +1,5 @@
 NAME=plink2
 VERSION:=2.00a3LM
-URL_DOWNLOAD=https://www.cog-genomics.org/plink/2.0/
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false
 BUILD=false

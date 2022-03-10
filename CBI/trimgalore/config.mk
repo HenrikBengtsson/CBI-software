@@ -1,7 +1,5 @@
 NAME=TrimGalore
 VERSION:=0.6.7
-URL_DOWNLOAD=https://github.com/FelixKrueger/TrimGalore/releases
-URL=https://github.com/FelixKrueger/TrimGalore
 NAME2=trimgalore
 DOWNLOAD_TARGET_FILE=trim_galore
 CONFIG=false

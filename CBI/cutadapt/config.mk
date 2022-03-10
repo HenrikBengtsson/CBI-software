@@ -1,7 +1,5 @@
 NAME=cutadapt
-VERSION:=3.4
-URL_DOWNLOAD=https://github.com/marcelm/cutadapt/releases
-URL=https://github.com/marcelm/cutadapt
+VERSION:=3.7
 NAME2=trimgalore
 DOWNLOAD=false
 CONFIG=false

@@ -1,7 +1,5 @@
 NAME=cmake
-VERSION:=3.22.2
-URL_DOWNLOAD=https://cmake.org/download/
-URL=https://cmake.org/
+VERSION:=3.22.3
 DOWNLOAD_TARGET_FILE=bin/cmake
 CONFIG=false
 BUILD=false

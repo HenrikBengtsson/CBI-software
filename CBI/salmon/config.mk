@@ -1,5 +1,5 @@
 NAME=salmon
-VERSION:=1.7.0
+VERSION:=1.8.0
 DOWNLOAD_TARGET_FILE=bin/salmon
 CONFIG=false
 BUILD=false

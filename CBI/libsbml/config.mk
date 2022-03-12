@@ -1,6 +1,5 @@
 NAME=libsbml
 VERSION=5.19.0
-
 DOWNLOAD_TARGET_FILE=configure
 CONFIG_TARGET_FILE=config.log
 BUILD_TARGET_FILE=libsbml.pc

@@ -1,6 +1,5 @@
 NAME=bats-core
-VERSION:=1.5.0
-URL=https://github.com/bats-core/bats-core
+VERSION:=1.6.0
 DOWNLOAD_TARGET_FILE=bin/bats
 CONFIG=false
 BUILD=false

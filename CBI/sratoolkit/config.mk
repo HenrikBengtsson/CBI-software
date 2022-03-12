@@ -1,7 +1,5 @@
 NAME=sratoolkit
-VERSION:=2.11.3
-URL_DOWNLOAD=https://github.com/ncbi/sra-tools/releases
-URL=https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software, https://ncbi.github.io/sra-tools/
+VERSION:=3.0.0
 DOWNLOAD_TARGET_FILE=bin/fastq-dump
 CONFIG=false
 BUILD=false

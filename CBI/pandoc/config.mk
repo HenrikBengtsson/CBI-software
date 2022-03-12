@@ -1,7 +1,5 @@
 NAME=pandoc
-VERSION:=2.16.2
-URL_DOWNLOAD=https://github.com/jgm/pandoc/releases
-URL=https://github.com/jgm/pandoc/
+VERSION:=2.17.1.1
 DOWNLOAD_TARGET_FILE=bin/pandoc
 CONFIG=false
 BUILD=false

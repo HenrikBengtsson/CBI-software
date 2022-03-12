@@ -6,10 +6,10 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: Programming, Statistics")
-whatis("URL: https://www.r-project.org/")
+whatis("URL: https://www.r-project.org/, https://cran.r-project.org/doc/manuals/r-release/NEWS.html (changelog)")
 whatis([[
 Description: The R programming language.
-Examples: `R --version` and `Rscript --version`.
+Examples: `R`, `R --version`, and `Rscript --version`.
 ]])
 
 has_devtoolset = function(version)

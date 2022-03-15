@@ -20,10 +20,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
-
-## Patch for bug https://github.com/COMBINE-lab/salmon/issues/761
-ifeq ($(VERSION),1.8.0)
-post_install:
-	chmod -R go+r $(PREFIX)
-	chmod   ugo+x $(PREFIX)/{bin,lib,bin/salmon}
-endif

@@ -14,6 +14,7 @@ incl/conda.sh.lua: $(PREFIX)/etc/profile.d/conda.sh
 	    echo "-- $(LMOD_DIR)/sh_to_modulefile $<"; \
 	    $(LMOD_DIR)/sh_to_modulefile "$<"; \
 	} > "$@.tmp"
+	sed -i -E 's/setenv[(]"(CONDA_|_CE_)/pushenv("\1/g' "$@.tmp"
 	mv "$@.tmp" "$@"
 
 $(DOWNLOAD_TARGET):

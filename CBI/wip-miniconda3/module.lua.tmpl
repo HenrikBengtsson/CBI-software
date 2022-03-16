@@ -16,7 +16,7 @@ Examples: `conda --version`, `conda init && conda config --set auto_activate_bas
 )
 
 -- Assert that user doesn't already have their own conda installation
-if os.getenv("CONDA_EXE") then
+if mode() == "load" and os.getenv("CONDA_EXE") then
   LmodError("Cannot load " .. name .. " module, because another conda installation is already active. Have you installed conda on your own? (detected environment variable CONDA_EXE)")
 end
 

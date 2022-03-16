@@ -204,6 +204,7 @@ $(INSTALL_TARGET):
 endif
 
 post_install:
+	make write_protect_install
 
 install: $(INSTALL_TARGET)
 
@@ -264,6 +265,7 @@ $(MODULE_TARGET):
 endif
 
 post_install_module:
+	make write_protect_module
 
 install_module: $(MODULE_TARGET)
 
@@ -272,6 +274,14 @@ test_module: $(MODULE_TARGET)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
 
+
+write_protect_install: $(INSTALL_TARGET)
+	chmod -R ugo-w "$(PREFIX)"
+
+write_protect_module: $(MODULE_TARGET)
+	chmod ugo-w "$(MODULE_TARGET)"
+
+write_protect: write_protect_module write_protect_install
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -26,3 +26,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_HOME); \
 	cp -p -R $(NAME)-$(VERSION) $(PREFIX)/..
 	touch $@
+	make post_install
+	ls -la $(PREFIX)
+	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

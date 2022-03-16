@@ -22,6 +22,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	module --force purge; \
-	make install INSTALLDIR=$(PREFIX); \
+	make install INSTALLDIR=$(PREFIX)
+	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

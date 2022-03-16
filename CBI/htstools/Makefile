@@ -26,4 +26,6 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p "$(PREFIX)"
 	cp $(BUILD_PATH)/{dnafrags,ppflag-fixer,snp-pileup} "$(PREFIX)"
-	ls -la "$(PREFIX)"
+	make post_install
+	ls -la $(PREFIX)
+	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

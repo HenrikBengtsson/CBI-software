@@ -17,6 +17,8 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)"
 	cd "$(BUILD_PATH)"; \
 	cp *.md "$(PREFIX)"; \
-	cp -R bin "$(PREFIX)"; \
+	cp -R bin "$(PREFIX)"
+	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+

@@ -17,4 +17,6 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) $(PREFIX)
+	make post_install
+	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

@@ -6,3 +6,6 @@ include ../utils.mk
 post_install_module:
 	cd "$$(dirname "$(MODULE_TARGET)")"; \
 	ln -fs "$(MODULE_TARGET)" default
+	make write_protect_module
+
+

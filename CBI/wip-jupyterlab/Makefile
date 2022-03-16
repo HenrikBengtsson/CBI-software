@@ -40,3 +40,4 @@ incl/$(VERSION).lua: $(PREFIX)/bin/activate
 
 post_install_module: incl/$(VERSION).lua
 #	cat $< >> $(MODULE_TARGET)
+	make write_protect_module

@@ -17,6 +17,7 @@ $(DOWNLOAD_TARGET):
 post_install_module:
 	cd "$$(dirname "$(MODULE_TARGET)")"; \
 	ln -fs "$(MODULE_TARGET)" default
+	make write_protect_module
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

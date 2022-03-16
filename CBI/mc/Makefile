@@ -16,3 +16,4 @@ post_config:
 
 post_install:
 	cp "$(BUILD_PATH)/config.summary" "$(PREFIX)"
+	make write_protect_module

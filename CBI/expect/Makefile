@@ -22,6 +22,7 @@ post_install:
 	cd $(PREFIX); for ff in *.man; do \
 	    mv "$${ff}" "share/man/man1/$${ff/.man/.1}"; \
 	done
+	make write_protect_install
 
 $(INSTALL_TARGET): $(CONFIG_TARGET)
 	mkdir -p $(PREFIX)

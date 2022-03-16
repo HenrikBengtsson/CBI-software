@@ -207,6 +207,7 @@ post_install:
 	make write_protect_install
 
 install: $(INSTALL_TARGET)
+	make write_protect_install
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -268,6 +269,7 @@ post_install_module:
 	make write_protect_module
 
 install_module: $(MODULE_TARGET)
+	make write_protect_module
 
 test_module: $(MODULE_TARGET)
 	module --ignore-cache show $(MODULE_NAME_VERSION)

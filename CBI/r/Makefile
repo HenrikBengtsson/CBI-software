@@ -76,6 +76,8 @@ post_install:
 	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
 
+	make write_protect_module
+
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	cp "$<" "$@"

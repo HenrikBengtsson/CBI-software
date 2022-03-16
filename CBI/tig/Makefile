@@ -13,4 +13,4 @@ $(DOWNLOAD_TARGET):
 post_install:
 	cd "$(BUILD_PATH)"; \
 	make install-doc
-
+	make write_protect_module

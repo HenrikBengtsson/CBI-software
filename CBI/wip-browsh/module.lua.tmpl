@@ -1,0 +1,20 @@
+help([[
+browsh: The Modern Text-Based Browser
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell")
+whatis("URL: https://github.com/junegunn/fzf, https://github.com/junegunn/fzf/blob/master/CHANGELOG.md (changelog) https://github.com/junegunn/fzf/wiki (documentation)")
+whatis([[
+Description: Browsh is a fully-modern text-based browser. It renders anything that a modern browser can; HTML5, CSS3, JS, video and even WebGL. Its main purpose is to be run on a remote server and accessed via SSH/Mosh or the in-browser HTML service in order to significantly reduce bandwidth and thus both increase browsing speeds and decrease bandwidth costs.
+Requirements: Firefox (>= 57) on the system.
+Examples: `browsh --version` and `browsh --help`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+

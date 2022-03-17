@@ -254,6 +254,7 @@ endif
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
+	chmod u+w "$@"
 	cp "$<" "$@"
 	make post_install_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
@@ -268,8 +269,11 @@ endif
 post_install_module:
 	make write_protect_module
 
-install_module: $(MODULE_TARGET)
+module: $(MODULE_TARGET)
 	make write_protect_module
+
+## BACKWARD COMPATIBILTY
+install_module: module
 
 test_module: $(MODULE_TARGET)
 	module --ignore-cache show $(MODULE_NAME_VERSION)

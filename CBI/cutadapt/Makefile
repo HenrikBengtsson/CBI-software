@@ -7,12 +7,11 @@ include ../utils.mk
 $(INSTALL_TARGET):
 	module purge; \
 	module load CBI; \
-	module load python/2.7.15 2> /dev/null || true; \
-	python --version; \
 	module list; \
 	mkdir -p "$(PREFIX)/bin"; \
-	virtualenv "$(PREFIX)/venv"; \
+	virtualenv -p python3 "$(PREFIX)/venv"; \
 	. "$(PREFIX)/venv/bin/activate"; \
+	python --version; \
 	python -m pip install --upgrade pip; \
 	python -m pip install $(NAME)==$(VERSION)
 	ln -fs $(PREFIX)/venv/bin/cutadapt $(PREFIX)/bin/

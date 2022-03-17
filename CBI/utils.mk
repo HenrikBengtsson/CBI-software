@@ -254,7 +254,7 @@ endif
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
-	chmod u+w "$@"
+	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@"
 	make post_install_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)

@@ -11,7 +11,9 @@ install: repos/CBI.lua
 	@module purge; \
 	unset MODULE_ROOT_CBI; \
 	export MODULEPATH="repos:$${MODULEPATH}"; \
+	echo "MODULEPATH=$${MODULEPATH}"; \
 	module load CBI; \
+	module show CBI; \
 	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
 	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
 	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \

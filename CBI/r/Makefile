@@ -17,6 +17,7 @@ ifneq ($(GCC_VERSION),)
 	BUILD_SUFFIX=-gcc$(GCC_VERSION)
 	PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)$(BUILD_SUFFIX)
 	TARBALL=$(NAME)-$(VERSION).tar.gz        
+	MODULE_VERSION=$(VERSION)-gcc$(GCC_VERSION)
 endif
 MODULE_TARGET_DEFAULT=$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
 
@@ -80,6 +81,7 @@ post_install:
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
+	[[ -f "$@" ]] && chmod u+w "$@"
 	cp "$<" "$@"
 	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
 	if [[ ! -f "$(MODULE_TARGET_DEFAULT)" ]]; then ln -s "$@" "$(MODULE_TARGET_DEFAULT)"; fi

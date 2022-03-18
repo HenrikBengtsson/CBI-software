@@ -164,7 +164,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
 	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
-	make post_config
+	make --quiet post_config
 
 ifeq ($(CONFIG),false)
 $(CONFIG_TARGET):
@@ -181,7 +181,7 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	module list; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)
-	make post_build
+	make --quiet post_build
 
 ifeq ($(BUILD),false)
 $(BUILD_TARGET):
@@ -194,8 +194,8 @@ post_build:
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
-	make install
-	make post_install
+	make --quiet install
+	make --quiet post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
@@ -204,10 +204,9 @@ $(INSTALL_TARGET):
 endif
 
 post_install:
-	make write_protect_install
+	make --quiet write_protect_install
 
 install: $(INSTALL_TARGET)
-	make write_protect_install
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -256,7 +255,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
 	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@"
-	make post_install_module
+	make --quiet post_install_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load CBI
 	module load $(MODULE_NAME_VERSION)
@@ -267,10 +266,9 @@ $(MODULE_TARGET):
 endif
 
 post_install_module:
-	make write_protect_module
+	make --quiet write_protect_module
 
 module: $(MODULE_TARGET)
-	make write_protect_module
 
 ## BACKWARD COMPATIBILTY
 install_module: module

@@ -15,8 +15,9 @@ $(DOWNLOAD_TARGET):
 	mv Lmod-$(VERSION) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(CONFIG_TARGET)
-	mkdir -p $(PREFIX)
-	cp -R $(BUILD_PATH) $(PREFIX)/..
+	cd $(BUILD_PATH); make pre-install
+	echo PREFIX=$(PREFIX)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+

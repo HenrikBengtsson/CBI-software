@@ -3,9 +3,18 @@ SHELL=bash
 CBI.lua: repos/CBI.lua
 
 repos/CBI.lua: repos/CBI.lua.tmpl.sh
+	@module purge; \
+	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
+	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
+	[[ -n $${SOFTWARE_ROOT_CBI} ]] || { >&2 echo "SOFTWARE_ROOT_CBI not set"; exit 1; }; \
+	[[ -d "$${SOFTWARE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${SOFTWARE_ROOT_CBI}"; exit 1; }; \
+	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
+	echo "SOFTWARE_ROOT_CBI=$${SOFTWARE_ROOT_CBI}"; \
 	$< > "$@".tmp
+	## Validate
 	luac -p "$@".tmp
 	mv "$@".tmp "$@"
+	cat "$@"
 
 install: repos/CBI.lua
 	@module purge; \

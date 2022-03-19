@@ -4,12 +4,12 @@ CBI.lua: repos/CBI.lua
 
 repos/CBI.lua: repos/CBI.lua.tmpl.sh
 	@module purge; \
-	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
-	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
-	[[ -n $${SOFTWARE_ROOT_CBI} ]] || { >&2 echo "SOFTWARE_ROOT_CBI not set"; exit 1; }; \
-	[[ -d "$${SOFTWARE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${SOFTWARE_ROOT_CBI}"; exit 1; }; \
-	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
-	echo "SOFTWARE_ROOT_CBI=$${SOFTWARE_ROOT_CBI}"; \
+	[[ -n $${MODULE_HOME} ]] || { >&2 echo "ERROR: Environment variable MODULE_HOME is not set"; exit 1; }; \
+	[[ -d "$${MODULE_HOME}" ]] || { >&2 echo "ERROR: No such folder: $${MODULE_HOME}"; exit 1; }; \
+	[[ -n $${SOFTWARE_HOME} ]] || { >&2 echo "ERROR: Environment variable SOFTWARE_HOME is not set"; exit 1; }; \
+	[[ -d "$${SOFTWARE_HOME}" ]] || { >&2 echo "ERROR: No such folder: $${SOFTWARE_HOME}"; exit 1; }; \
+	echo "MODULE_HOME=$${MODULE_HOME}"; \
+	echo "SOFTWARE_HOME=$${SOFTWARE_HOME}"; \
 	$< > "$@".tmp
 	## Validate
 	luac -p "$@".tmp
@@ -24,8 +24,8 @@ install: repos/CBI.lua
 	module load CBI; \
 	module show CBI; \
 	echo "MODULE_ROOT_CBI=$${MODULE_ROOT_CBI}"; \
-	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "MODULE_ROOT_CBI not set"; exit 1; }; \
-	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
+	[[ -n $${MODULE_ROOT_CBI} ]] || { >&2 echo "INTERNAL ERROR: Environment variable MODULE_ROOT_CBI is not set"; exit 1; }; \
+	[[ -d "$${MODULE_ROOT_CBI}" ]] || { >&2 echo "INTERNAL ERROR: No such folder: $${MODULE_ROOT_CBI}"; exit 1; }; \
 	path=$$(dirname "$${MODULE_ROOT_CBI}"); \
 	mkdir -p "$${path}/repos"; \
 	cp "$<" "$${path}/repos"; \

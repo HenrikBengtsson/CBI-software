@@ -3,6 +3,7 @@ control-freec
 scl-devtoolset
 apache-ant
 geos
+lmod
 tmux
 tophat
 htop
@@ -35,6 +36,7 @@ annovar
 r
 hdf5
 wip-jupyterlab
+shellcheck-repl
 pandoc
 bwa
 gsl
@@ -59,6 +61,7 @@ qtop
 mutect
 vcftools
 varscan
+wip-browsh
 cufflinks
 dmtcp
 cutadapt
@@ -79,6 +82,7 @@ fzf
 blast
 rstudio
 gdal
+wip-bash
 lg3
 blat
 snpeff
@@ -89,3 +93,4 @@ cellranger
 plink
 tree
 bedtools2
+wip-miniconda3

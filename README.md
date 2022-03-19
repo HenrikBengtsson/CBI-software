@@ -3,53 +3,55 @@
 
 # The UCSF Computation Biology Core (CBI) Software Repository
 
-## File-system layout
+## Setup
 
-* `SOFTWARE_ROOT_CBI`: This is the folder where all CBI software are installed
-* `MODULE_ROOT_CBI`: This is the folder where all CBI modules are installed
+### Configure installation (always)
 
-For example, on the Wynton HPC environment, these are:
+Make sure to set environment variables `MODULE_HOME` and `SOFTWARE_HOME` to point to the folders where environment modules and software tools should be installed. For example, on the Wynton HPC environment, these are:
 
 ```sh
-SOFTWARE_ROOT_CBI=/wynton/home/cbi/shared/software/CBI
-MODULE_ROOT_CBI=/wynton/home/cbi/shared/modulefiles/CBI
+SOFTWARE_HOME=/wynton/home/cbi/shared/software/CBI
+MODULE_HOME=/wynton/home/cbi/shared/modulefiles/CBI
 ```
 
 and on the C4 environment, they are:
 
 ```sh
-SOFTWARE_ROOT_CBI=/software/c4/cbi/software
-MODULE_ROOT_CBI=/software/c4/cbi/modulefiles
+SOFTWARE_HOME=/software/c4/cbi/software
+MODULE_HOME=/software/c4/cbi/modulefiles
 ```
 
+### Install the CBI repository module (once)
 
-## Install the CBI repository module
-
-To build the `CBI.lua` repository module and install it to `${MODULE_ROOT_CBI}/repos/`, do:
+To build the `CBI.lua` repository module and install it to `${MODULE_HOME}/repos/CBI.lua`, do:
 
 ```sh
 $ make install
 ```
 
-If installing to a system other than the Wynton HPC and C4, make sure to set up:
+### Configure MODULEPATH for all users
+
+For users to get access to the CBI software stack, the above `CBI.lua` must be on the `MODULEPATH`. This can be by prepending folder `${MODULE_HOME}/repos/` to the `MODULEPATH` environment variable in a `/etc/profile.d/` script, e.g.
+
 
 ```sh
-SOFTWARE_ROOT_CBI=/path/to/software
-MODULE_ROOT_CBI=/path/to/modulefiles
+$ cat /etc/profile.d/lmod_custom.sh
+MODULEPATH="$MODULE_HOME/repos:$MODULEPATH"
+export MODULEPATH
 ```
 
-To test it, try with:
+To verify that `CBI.lua` can be found, open a new shell and call:
 
 ```sh
 $ module show CBI
 ```
 
-If the module cannot be found, make sure it's on the `MODULE_PATH` search path, e.g. by prepending it as `MODULE_PATH=${MODULE_ROOT_CBI}/repos:${MODULE_PATH}`.  This should be set configured centrally on the system, e.g. via `/etc/profile`.
+Note that this `MODULEPATH` allows for sibling software stacks next to the CBI stack, i.e. other groups will be able to share their software tools by adding a `${MODULE_HOME}/repos/{GROUP-NAME}.lua`.
 
 
-## Install individual CBI software tools and modules
+### Install individual CBI software tools
 
-_Note: In order to install individual CBI modules and the corresponding software tools, `module load CBI` must work._
+_Note: In order to install individual CBI modules and the corresponding software tools, above `module load CBI` must work._
 
 Here is an example how to install the latest version of the **bat** software, so that it's available via `module load CBI bat`.
 
@@ -58,7 +60,6 @@ $ cd CBI/bat/
 $ make
 ```
 
-This will download the software, extract it, and install it to `${SOFTWARE_ROOT_CBI}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_ROOT_CBI}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.
+This will download the software, extract it, and install it to `${SOFTWARE_HOME}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_HOME}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.
 
-_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running CentOS 7 and are configured similarly.  So of the software has also been verified to install on Ubuntu 18.04._
-
+_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running CentOS 7 and are configured similarly.  Some of the software has also been verified to install on Ubuntu 18.04 and Ubuntu 20.04._

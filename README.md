@@ -21,6 +21,9 @@ SOFTWARE_HOME=/software/c4/cbi/software
 MODULE_HOME=/software/c4/cbi/modulefiles
 ```
 
+These are only need to be set during installation. They are not needed when users use the CBI software stack.
+
+
 ### Install the CBI repository module (once)
 
 To build the `CBI.lua` repository module and install it to `${MODULE_HOME}/repos/CBI.lua`, do:

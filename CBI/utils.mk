@@ -153,7 +153,7 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MAKE RULES
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-all: debug install install_module
+all: debug install install_module check
 
 download: $(DOWNLOAD_TARGET)
 
@@ -286,6 +286,22 @@ write_protect_module: $(MODULE_TARGET)
 	chmod ugo-w "$(MODULE_TARGET)"
 
 write_protect: write_protect_module write_protect_install
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## checks
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+check:
+	if module load CBI bats-core &> /dev/null; then \
+	    MODULE_REPO="CBI"; \
+	    MODULE_NAME=$$(basename "$$(pwd)"); \
+	    export MODULE_REPO; \
+	    export MODULE_NAME; \
+	    bats ../.incl/tests/*.bats; \
+	    if [[ -d tests ]]; then \
+	        (cd tests; bats *.bats); \
+	    fi; \
+	fi
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

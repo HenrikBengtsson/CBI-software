@@ -81,7 +81,7 @@ post_install:
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"
-	[[ -f "$@" ]] && chmod u+w "$@"
+	if [[ -f "$@" ]]; then chmod u+w "$@"; fi
 	cp "$<" "$@"
 	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
 	if [[ ! -f "$(MODULE_TARGET_DEFAULT)" ]]; then ln -s "$@" "$(MODULE_TARGET_DEFAULT)"; fi

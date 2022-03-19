@@ -36,7 +36,7 @@ For users to get access to the CBI software stack, the above `CBI.lua` must be o
 
 ```sh
 $ cat /etc/profile.d/lmod_custom.sh
-MODULEPATH="$MODULE_HOME/repos:$MODULEPATH"
+MODULEPATH="/software/c4/cbi/modulefiles/repos:$MODULEPATH"
 export MODULEPATH
 ```
 

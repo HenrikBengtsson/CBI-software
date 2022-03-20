@@ -291,12 +291,15 @@ write_protect: write_protect_module write_protect_install
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## checks
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+export:
+	@echo "export MODULE_REPO=CBI"
+	@echo "export MODULE_NAME=$(MODULE_NAME)"
+	@echo "export INSTALL_TARGET=$(INSTALL_TARGET)"
+	@echo "export INSTALL_TARGET_NAME=$$(basename "$(INSTALL_TARGET)")"
+
 check:
-	if module load CBI bats-core &> /dev/null; then \
-	    MODULE_REPO="CBI"; \
-	    MODULE_NAME=$$(basename "$$(pwd)"); \
-	    export MODULE_REPO; \
-	    export MODULE_NAME; \
+	@if module load CBI bats-core &> /dev/null; then \
+	    eval "$$(make --quiet export 2> /dev/null)"; \
 	    bats ../.incl/tests/*.bats; \
 	    if [[ -d tests ]]; then \
 	        (cd tests; bats *.bats); \

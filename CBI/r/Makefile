@@ -1,4 +1,5 @@
 include config.mk
+include ../utils.mk
 
 ## Special cases (must come before including utils.mk)
 
@@ -9,6 +10,14 @@ else ifeq ($(findstring beta,$(VERSION)),beta)
 	BUILD_NAME=R-beta
 endif
 
+## Use modern GCC and Java versions?
+ifeq ($(VERSION_X),4)
+    ifeq ($(VERSION_X_Y),4.1)
+        GCC_VERSION:=8
+    else
+        GCC_VERSION:=11
+    endif
+endif
 
 ## Build using specific GCC version?
 ifneq ($(GCC_VERSION),)

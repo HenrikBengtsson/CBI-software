@@ -1,5 +1,5 @@
 include config.mk
-include ../utils.mk
+include ../version.mk
 
 ## Special cases (must come before including utils.mk)
 

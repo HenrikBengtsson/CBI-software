@@ -20,3 +20,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+post_install:
+	mkdir -p $(PREFIX)/share/man/man1
+	mv $(PREFIX)/*.1 $(PREFIX)/share/man/man1

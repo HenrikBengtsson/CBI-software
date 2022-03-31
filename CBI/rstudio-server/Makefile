@@ -37,7 +37,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd build; \
 	command -v ant &> /dev/null || module load CBI apache-ant; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools; \
-	cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX)
+	cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) || rm "$@"
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
@@ -46,6 +46,9 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	make install
+	[[ -f "$@" ]] || { >&2 echo "ERROR: Installation failed. No such target file: $@"; exit 1; }
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+

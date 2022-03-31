@@ -15,5 +15,7 @@ $(DOWNLOAD_TARGET):
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	cp Makefile Makefile.org; \
-	sed 's|^prefix = /usr|prefix = $(PREFIX)|' Makefile.org > Makefile
+	sed 's|^prefix = /usr|prefix = $(PREFIX)|' Makefile.org > Makefile.tmp; \
+	sed 's|^PREFIX=/usr/local|PREFIX=$(PREFIX)|' Makefile.tmp > Makefile; \
+	rm Makefile.tmp
 	touch $@

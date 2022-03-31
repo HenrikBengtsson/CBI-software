@@ -1,6 +1,5 @@
 NAME=blat
-VERSION=36x4
-URL=https://genome.ucsc.edu/goldenPath/help/blatSpec.html
+VERSION=37x1
 DOWNLOAD_TARGET_FILE=blat
 CONFIG=false
 BUILD=false

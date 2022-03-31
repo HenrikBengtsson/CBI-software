@@ -1,7 +1,5 @@
 NAME=rclone
-VERSION:=1.57.0
-URL_DOWNLOAD=https://github.com/rclone/rclone/releases
-URL=https://rclone.org/downloads/
+VERSION:=1.58.0
 DOWNLOAD_TARGET_FILE=rclone
 CONFIG=false
 BUILD=false

@@ -1,6 +1,7 @@
 NAME=tree
-VERSION:=1.8.0
-URL_DOWNLOAD=http://mama.indstate.edu/users/ice/tree/src/
+VERSION:=2.0.2
 DOWNLOAD_TARGET_FILE=Makefile
 BUILD_TARGET_FILE=tree
+## Requires a C90-compliant compiler
+BUILD_MODULES=CBI scl-devtoolset
 INSTALL_TARGET_FILE=bin/tree

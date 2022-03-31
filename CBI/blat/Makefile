@@ -14,6 +14,7 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -pR $(BUILD_PATH) $(SOFTWARE_HOME)
+	touch $(PREFIX)/*  ## workaround for time discrepancies
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

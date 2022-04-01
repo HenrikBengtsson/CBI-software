@@ -60,7 +60,7 @@ Here is an example how to install the latest version of the **bat** software, so
 
 ```sh
 $ cd CBI/bat/
-$ make
+$ make all
 ```
 
 This will download the software, extract it, and install it to `${SOFTWARE_HOME}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_HOME}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.

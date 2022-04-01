@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+## Find files that have been built with rpath
+##
+## Example:
+## SOFTWARE_ROOT=/software/c4/cbi/software
+## find "${SOFTWARE_ROOT}" -type f ! -size 0 -exec ./find-rpath {} ";" > RUNPATH.txt
+##
+## Author: Henrik Bengtsson (2022)
+if readelf -d "${1:?}" 2> /dev/null | grep -qF "RUNPATH"; then
+    echo "Detected RUNPATH in ${1}"
+fi    

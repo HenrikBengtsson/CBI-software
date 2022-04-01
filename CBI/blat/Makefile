@@ -13,7 +13,7 @@ $(DOWNLOAD_TARGET):
 	chmod ugo+x blat gfClient gfServer
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	cp -pR $(BUILD_PATH) $(SOFTWARE_HOME)
+	cp -R $(BUILD_PATH) $(SOFTWARE_HOME)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

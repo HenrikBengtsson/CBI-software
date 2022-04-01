@@ -1,6 +1,6 @@
 SHELL=bash
 
-include $(dir $(lastword $(MAKEFILE_LIST)))/version.mk
+include $(dir $(lastword $(MAKEFILE_LIST)))version.mk
 
 ifndef NAME
   $(error ERROR: Environment variable 'NAME' is not set)

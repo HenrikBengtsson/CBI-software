@@ -197,6 +197,12 @@ post_install:
 
 install: $(INSTALL_TARGET)
 
+uninstall:
+	if [[ -d "$(PREFIX)" ]]; then \
+	    chmod -R u+w "$(PREFIX)"; \
+	    rm -rf "$(PREFIX)"; \
+	fi
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MODULE
@@ -262,20 +268,28 @@ module: $(MODULE_TARGET)
 ## BACKWARD COMPATIBILTY
 install_module: module
 
+uninstall_module:
+	if [[ -f "$(MODULE_TARGET)" ]]; then \
+	    chmod u+w "$(MODULE_TARGET)"; \
+	    rm -rf "$(MODULE_TARGET)"; \
+	fi
+
 test_module: $(MODULE_TARGET)
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
 
 
-write_protect_install:
+write_protect_install: $(INSTALL_TARGET)
 	chmod -R ugo-w "$(PREFIX)"
 
-write_protect_module:
+write_protect_module: $(INSTALL_TARGET)
 	chmod ugo-w "$(MODULE_TARGET)"
 
 write_protect: write_protect_module write_protect_install
 
+
+.LOW_RESOLUTION_TIME: $(INSTALL_TARGET) $(MODULE_TARGET)
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## checks

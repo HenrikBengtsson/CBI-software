@@ -11,11 +11,13 @@ else ifeq ($(findstring beta,$(VERSION)),beta)
 endif
 
 ## Use modern GCC and Java versions?
+GCC_VERSION=
 ifeq ($(VERSION_X),4)
-    ifeq ($(VERSION_X_Y),4.1)
-        GCC_VERSION:=8
+    ifeq ($(VERSION_X_Y),4.0)
+    else ifeq ($(VERSION_X_Y),4.1)
+        GCC_VERSION=8
     else
-        GCC_VERSION:=11
+        GCC_VERSION=11
     endif
 endif
 

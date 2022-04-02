@@ -81,9 +81,9 @@ post_install:
 	cat "$(BUILD_PATH)/javareconf.log"
 
 	## Save log files
+	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/config.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/
-	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
 
 	make write_protect_module

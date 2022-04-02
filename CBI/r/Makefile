@@ -79,6 +79,7 @@ post_install:
 
 	## Configure R for Java (so that 'rJava' can be installed)
 	module load openjdk/$(OPENJDK_VERSION); \
+	[[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; }; \
 	$(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"
 	cat "$(BUILD_PATH)/javareconf.log"
 

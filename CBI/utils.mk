@@ -288,6 +288,8 @@ write_protect_module: $(INSTALL_TARGET)
 
 write_protect: write_protect_module write_protect_install
 
+write_unprotect_install: $(PREFIX)
+	chmod -R u+w "$(PREFIX)"
 
 .LOW_RESOLUTION_TIME: $(INSTALL_TARGET) $(MODULE_TARGET)
 

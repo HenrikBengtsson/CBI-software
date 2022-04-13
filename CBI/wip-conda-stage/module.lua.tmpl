@@ -8,12 +8,18 @@ whatis("Version: " .. version)
 whatis("Keywords: cli, shell")
 whatis("URL: https://github.com/HenrikBengtsson/conda-stage, https://github.com/HenrikBengtsson/conda-stage/tags (changelog)")
 whatis([[
-Description: The 'conda-stage' tool takes an active conda environment, packages it up into a tarball (using the 'conda-pack' tool), extracts it to a temporary folder, unpacks it, and re-enables it.
-Examples: `conda-stage`, `conda-stage --version`, `conda-stage --help`.
+Description: The 'conda-stage' tool takes the active conda environment and stage it to local disk. Working with a conda environment on local disk can greatly improve the performance as local disk is often much faster than a global, network-based file system, including multi-tenant parallel file systems such as BeeGFS and Lustre often found in high-performance compute (HPC) environments.
+Examples: `conda-stage`, `conda-stage --unstage`, `conda-stage --version`, `conda-stage --help`.
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
+
+-- Create conda-stage() function
+local body = 'source "' .. pathJoin(home, "bin", "conda-stage.sh") .. '"; '
+body = body .. 'conda-stage "$@"'
+LmodMessage(body)
+set_shell_function("conda-stage", body, '')
 

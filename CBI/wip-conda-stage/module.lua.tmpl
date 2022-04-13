@@ -17,9 +17,8 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 
--- Create conda-stage() function
+-- Create conda-stage() function, which will overwrite itself after the
+-- first invocation
 local body = 'source "' .. pathJoin(home, "bin", "conda-stage.sh") .. '"; '
 body = body .. 'conda-stage "$@"'
-LmodMessage(body)
 set_shell_function("conda-stage", body, '')
-

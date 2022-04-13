@@ -1,5 +1,5 @@
 NAME=conda-stage
-VERSION=0.0.0-9002
+VERSION=0.1.0
 DOWNLOAD_TARGET_FILE=bin/$(NAME)
 CONFIG=false
 BUILD=false

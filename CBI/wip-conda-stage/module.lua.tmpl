@@ -1,0 +1,19 @@
+help([[
+conda-stage: Stage Conda Environment on Local Disk
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell")
+whatis("URL: https://github.com/HenrikBengtsson/conda-stage, https://github.com/HenrikBengtsson/conda-stage/tags (changelog)")
+whatis([[
+Description: The 'conda-stage' tool takes an active conda environment, packages it up into a tarball (using the 'conda-pack' tool), extracts it to a temporary folder, unpacks it, and re-enables it.
+Examples: `conda-stage`, `conda-stage --version`, `conda-stage --help`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+

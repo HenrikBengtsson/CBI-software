@@ -98,7 +98,7 @@ post_install:
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
 
-	make write_protect_module
+	make write_protect_install
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"

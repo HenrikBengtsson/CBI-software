@@ -29,6 +29,10 @@ else ifeq ($(VERSION),1.90b6.25)
 	ZIPBALL=plink_linux_$(ARCH)_20220305.zip
 	DOWNLOAD_URL=https://s3.amazonaws.com/plink1-assets/$(ZIPBALL)
 	UNZIP_NAME=
+else ifeq ($(VERSION),1.90b6.26)
+	ZIPBALL=plink_linux_$(ARCH)_20220402.zip
+	DOWNLOAD_URL=https://s3.amazonaws.com/plink1-assets/$(ZIPBALL)
+	UNZIP_NAME=
 endif
 
 

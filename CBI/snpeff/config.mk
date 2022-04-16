@@ -1,5 +1,6 @@
 NAME=snpEff
-VERSION:=5.1
+VERSION:=5.0e
+#VERSION:=5.1 ## Requires Java 12. Wynton has openjdk/17, C4 has openjdk/11
 URL_DOWNLOAD=https://sourceforge.net/projects/snpeff/files/
 URL=http://snpeff.sourceforge.net/
 DOWNLOAD_TARGET_FILE=snpEff/snpEff.jar

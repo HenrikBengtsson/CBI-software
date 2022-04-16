@@ -16,6 +16,10 @@ local name = "snpEff"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
+if (version >= "5.1") then
+  depends_on("openjdk/17")
+end
+
 pushenv("SNPEFF_HOME", home)
 
 local jarfile = pathJoin(home, "snpEff", "snpEff.jar")

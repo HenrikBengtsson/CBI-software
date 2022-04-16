@@ -3,21 +3,27 @@ include ../version.mk
 
 ## Special cases (must come before including utils.mk)
 
-## Building alpha of beta version?
+## Building alpha, beta, or release-candidate version?
 ifeq ($(findstring alpha,$(VERSION)),alpha)
 	BUILD_NAME=R-alpha
 else ifeq ($(findstring beta,$(VERSION)),beta)
 	BUILD_NAME=R-beta
+else ifeq ($(findstring rc,$(VERSION)),rc)
+	BUILD_NAME=R-rc
 endif
 
 ## Use modern GCC and Java versions?
-GCC_VERSION=
-ifeq ($(VERSION_X),4)
+GCC_VERSION=11
+ifeq ($(VERSION_X),1)
+    GCC_VERSION=
+else ifeq ($(VERSION_X),2)
+    GCC_VERSION=
+else ifeq ($(VERSION_X),3)
+    GCC_VERSION=
+else ifeq ($(VERSION_X),4)
     ifeq ($(VERSION_X_Y),4.0)
     else ifeq ($(VERSION_X_Y),4.1)
         GCC_VERSION=8
-    else
-        GCC_VERSION=11
     endif
 endif
 
@@ -38,6 +44,9 @@ ifeq ($(findstring alpha,$(VERSION)),alpha)
 	TARBALL=R-latest.tar.gz
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
 else ifeq ($(findstring beta,$(VERSION)),beta)
+	TARBALL=R-latest.tar.gz
+	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
+else ifeq ($(findstring rc,$(VERSION)),rc)
 	TARBALL=R-latest.tar.gz
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
 else

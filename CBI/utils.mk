@@ -280,10 +280,10 @@ test_module: $(MODULE_TARGET)
 	module unload $(MODULE_NAME_VERSION)
 
 
-write_protect_install: $(INSTALL_TARGET)
+write_protect_install:
 	chmod -R ugo-w "$(PREFIX)"
 
-write_protect_module: $(INSTALL_TARGET)
+write_protect_module:
 	chmod ugo-w "$(MODULE_TARGET)"
 
 write_protect: write_protect_module write_protect_install

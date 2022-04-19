@@ -17,8 +17,7 @@ name = "VarScan"
 local home = pathJoin(root, name .. "-" .. version)
 pushenv("VARSCAN_HOME", home)
 
-local jarfile = home .. "/" .. name .. ".v" .. version .. ".jar"
-set_alias("varscan", "java -jar " .. jarfile)
+set_alias("varscan", "java -jar \"$VARSCAN_HOME/VarScan.jar\"")
 
 -- Tweak Java for the current environment
 depends_on("java-tweaks")

@@ -18,13 +18,13 @@ if (version_x == "1") then
   depends_on("openjdk/1.6.0")
 else
   -- As of version 2.0.1 (Nov. 2015) Picard requires Java 1.8 (jdk8u66)
-  depends_on("openjdk/1.8.0")
+--  depends_on("openjdk/1.8.0")
 end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 pushenv("PICARD_HOME", home)
-set_alias("picard", "java -jar " .. pathJoin(home, "picard.jar"))
+set_alias("picard", "java -jar \"$PICARD_HOME/picard.jar\"")
 
 -- Tweak Java for the current environment
 depends_on("java-tweaks")

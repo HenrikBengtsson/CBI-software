@@ -1,5 +1,5 @@
 NAME=R
-VERSION:=4.1.3
+VERSION:=4.2.0
 CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib --without-recommended-packages
 BUILD_TARGET_FILE=bin/exec/R
 BUILD_OPTS=-j 4

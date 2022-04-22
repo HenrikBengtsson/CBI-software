@@ -87,9 +87,16 @@ post_install:
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
 
 	## Configure R for Java (so that 'rJava' can be installed)
-	module load openjdk/$(OPENJDK_VERSION); \
-	[[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; }; \
-	$(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"
+	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
+	    [[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
+	else \
+	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
+	fi
+	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then \
+	    >&2 echo "ERROR: R CMD javareconf failed;"; \
+	    >&2 cat "$(BUILD_PATH)/javareconf.log"; \
+	    exit 1; \
+	fi
 	cat "$(BUILD_PATH)/javareconf.log"
 
 	## Save log files

@@ -61,6 +61,7 @@ debug2: debug
 	@echo "DOWNLOAD_URL_PATH=$(DOWNLOAD_URL_PATH)"
 	@echo "DOWNLOAD_URL=$(DOWNLOAD_URL)"
 	@echo "GCC_VERSION=$(GCC_VERSION)"
+	@echo "OPENJDK_VERSION=$(OPENJDK_VERSION)"
 	@echo "CONFIG_MODULES=$(CONFIG_MODULES)"
 	@echo "BUILD_MODULES=$(BUILD_MODULES)"
 
@@ -81,17 +82,18 @@ post_build:
 	R_LIBS_USER=dummy make check &> make-check.log
 
 post_install:
-	mkdir -p $(BUILD_PATH)
-
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
 
 	## Configure R for Java (so that 'rJava' can be installed)
-	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
-	    [[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
+	chmod -R ugo+w $(PREFIX)/lib*/R/{bin,etc}
+	chmod ugo+w $(PREFIX)/*
+	if module load openjdk/$(OPENJDK_VERSION); then \
+	    [[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; }; \
+	    true; \
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
-	fi
+	fi; \
 	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then \
 	    >&2 echo "ERROR: R CMD javareconf failed;"; \
 	    >&2 cat "$(BUILD_PATH)/javareconf.log"; \

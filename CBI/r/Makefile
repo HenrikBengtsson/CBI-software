@@ -89,8 +89,7 @@ post_install:
 	chmod -R ugo+w $(PREFIX)/lib*/R/{bin,etc}
 	chmod ugo+w $(PREFIX)/*
 	if module load openjdk/$(OPENJDK_VERSION); then \
-	    [[ -z $${JAVA_HOME} ]] && { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; }; \
-	    true; \
+	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
 	fi; \

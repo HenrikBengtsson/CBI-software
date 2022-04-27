@@ -86,8 +86,8 @@ post_install:
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
 
 	## Configure R for Java (so that 'rJava' can be installed)
-	chmod -R ugo+w $(PREFIX)/lib*/R/{bin,etc}
-	chmod ugo+w $(PREFIX)/*
+	chmod -R u+w $(PREFIX)/lib*/R/{bin,etc}
+	chmod u+w $(PREFIX)/*
 	if module load openjdk/$(OPENJDK_VERSION); then \
 	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
 	else \

@@ -13,7 +13,7 @@ else ifeq ($(findstring rc,$(VERSION)),rc)
 endif
 
 ## Use modern GCC and Java versions?
-GCC_VERSION=11
+GCC_VERSION=10
 ifeq ($(VERSION_X),1)
     GCC_VERSION=
 else ifeq ($(VERSION_X),2)

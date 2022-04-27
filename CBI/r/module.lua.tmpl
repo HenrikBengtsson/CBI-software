@@ -4,6 +4,7 @@ R: The R Programming Language
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: Programming, Statistics")
 whatis("URL: https://www.r-project.org/, https://cran.r-project.org/doc/manuals/r-release/NEWS.html (changelog)")

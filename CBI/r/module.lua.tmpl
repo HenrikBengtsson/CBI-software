@@ -79,9 +79,10 @@ pushenv("R_LIBS_USER", r_libs_user)
 -- WORKAROUND: utils::download.file(), which is for instance used by install.packages()
 -- have a built-in timeout at 60 seconds.  This might be too short for some larger
 -- Bioconductor annotation packages, e.g.
---  'SNPlocs.Hsapiens.dbSNP150.GRCh38' (2.10 GB)
---  'MafDb.gnomAD.r2.1.GRCh38' (6.04 GB)
-pushenv("R_DEFAULT_INTERNET_TIMEOUT", "600") -- 10 minutes timeout instead of 1 minute
+--  * 'SNPlocs.Hsapiens.dbSNP150.GRCh38' (2.10 GB)
+--  * 'MafDb.gnomAD.r2.1.GRCh38' (6.04 GB) => 6 GB/10 min = 600 MB/min = 10 MB/s = 80 Mb/s
+-- Use 20 minutes timeout instead of 1 minute, i.e. enought with 40 Mb/s for a 6 GB file
+pushenv("R_DEFAULT_INTERNET_TIMEOUT", "1200")
 
 -- WORKAROUND: gert 1.1.0 (2021-01-25) installs toward a static libgit2 that
 -- gives 'Illegal instruction' on some hosts (with older CPUs?)

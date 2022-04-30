@@ -95,3 +95,7 @@ local path = "/usr/include/udunits2"
 if (isDir(path)) then
   pushenv("UDUNITS2_INCLUDE", path)
 end
+
+-- WORKAROUND: nloptr 2.0.0 requires CMake (>= 3.15)
+-- See https://github.com/astamm/nloptr/issues/104#issuecomment-1111498876
+pushenv("CMAKE_BIN", "cmake3")

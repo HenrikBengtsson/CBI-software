@@ -114,6 +114,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	cp "$<" "$@"
 	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
 	if [[ ! -f "$(MODULE_TARGET_DEFAULT)" ]]; then ln -s "$@" "$(MODULE_TARGET_DEFAULT)"; fi
+	make write_protect_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)

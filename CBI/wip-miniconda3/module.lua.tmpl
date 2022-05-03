@@ -6,12 +6,15 @@ local warning = "Use at your own peril! Software tools installed via Conda are k
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: files, utility")
 whatis("URL: https://docs.conda.io/en/latest/, https://docs.conda.io/en/latest/miniconda.html (docs), https://github.com/conda/conda/blob/master/CHANGELOG.md (changelog), https://github.com/conda/conda (source code)")
 whatis([[
 Description: Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others.
-Examples: `conda --version`, `conda init && conda config --set auto_activate_base false` (first time), `conda create --name=myenv`, `conda info`, `conda activate myenv`, and `conda deactive`.
+Examples: `conda --version`, `conda create --name=myenv`, `conda info`, `conda activate myenv`, and `conda deactive`.
+Warning: For now, this module only work in Bash. Also, do _not_ do `conda init`. If you do by mistake, please undo by `conda init --reverse`.
+
 ]] .. "WARNING: " .. warning .. "\n"
 )
 
@@ -30,3 +33,11 @@ prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
 LmodMessage("WARNING: " .. warning)
 
+-- Emulate what 'conda init' does in ~/.bashrc
+local path = pathJoin(home, "etc", "profile.d")
+local script = pathJoin(path, "conda.sh")
+-- TODO:
+-- * How to detect Csh, and use 'conda.csh' instead?
+-- * How to give an error message for now supported shells?
+-- /HB 2022-05-03
+execute{cmd = "source " .. script, modeA = {"load"}}

@@ -6,6 +6,10 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 
+## -- IMPORTANT:
+## conda.sh.lua becomes incomplete when using Lmod 8.2.7
+## (2019-11-30), which is what's available on CentOS 7.
+## It works as wanted with Lmod 8.6 (2021-12-06).
 incl/conda.sh.lua: $(PREFIX)/etc/profile.d/conda.sh
 	mkdir -p "$(@D)"
 	module purge; \

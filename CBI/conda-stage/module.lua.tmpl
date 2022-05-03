@@ -18,8 +18,13 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 
+local script = pathJoin(home, "bin", "conda-stage." .. myShellType())
+if not isFile(script) then
+  LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "). No such file: " .. script)
+end
+
 -- Create conda-stage() function, which will overwrite itself after the
 -- first invocation
-local body = 'source "' .. pathJoin(home, "bin", "conda-stage.sh") .. '"; '
+local body = 'source "' .. script .. '"; '
 body = body .. 'conda-stage "$@"'
 set_shell_function("conda-stage", body, '')

@@ -302,6 +302,7 @@ export:
 	@echo "export INSTALL_TARGET=$(INSTALL_TARGET)"
 	@echo "export INSTALL_TARGET_NAME=$$(basename "$(INSTALL_TARGET)")"
 	@echo "export VERSION=$(VERSION)"
+	@echo "export MODULE_HIDDEN=$(MODULE_HIDDEN)"
 
 check:
 	@if module load CBI bats-core &> /dev/null; then \

@@ -1,6 +1,4 @@
 NAME=htop
-VERSION:=3.1.2
-URL_DOWNLOAD=https://github.com/htop-dev/htop/releases
-URL=https://htop.dev
+VERSION=3.2.0
 BUILD_TARGET_FILE=htop
 INSTALL_TARGET_FILE=bin/htop

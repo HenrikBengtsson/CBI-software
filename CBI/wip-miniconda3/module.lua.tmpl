@@ -19,10 +19,13 @@ Warning: For now, this module only work in Bash. Also, do _not_ do `conda init`.
 )
 
 -- Assert that user doesn't already have their own conda installation
-if mode() == "load" and os.getenv("CONDA_EXE") then
-  LmodError("Cannot load " .. name .. " module, because another conda installation is already active. Have you installed conda on your own? (detected environment variable CONDA_EXE)")
+if mode() == "load" then
+  -- FIXME: How to skip this if we call 'module load miniconda3-py39' twice?
+  if os.getenv("CONDA_EXE") then
+    LmodError("Cannot load " .. name .. " module, because another conda installation is already active. Have you installed conda on your own? (detected environment variable CONDA_EXE)")
+  end
+  LmodMessage("WARNING: " .. warning)
 end
-
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
@@ -31,13 +34,11 @@ prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
-LmodMessage("WARNING: " .. warning)
-
 -- Emulate what 'conda init' does in ~/.bashrc
 local path = pathJoin(home, "etc", "profile.d")
-local script = pathJoin(path, "conda.sh")
--- TODO:
--- * How to detect Csh, and use 'conda.csh' instead?
--- * How to give an error message for now supported shells?
--- /HB 2022-05-03
+local script = pathJoin(path, "conda." .. myShellType())
+if not isFile(script) then
+  LmodError("The " .. name .. " module is not supported for this shell: " .. myShellName())
+end
 execute{cmd = "source " .. script, modeA = {"load"}}
+

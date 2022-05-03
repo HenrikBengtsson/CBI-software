@@ -38,7 +38,7 @@ prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 local path = pathJoin(home, "etc", "profile.d")
 local script = pathJoin(path, "conda." .. myShellType())
 if not isFile(script) then
-  LmodError("The " .. name .. " module is not supported for this shell: " .. myShellName())
+  LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "). No such file: " .. script)
 end
 execute{cmd = "source " .. script, modeA = {"load"}}
 

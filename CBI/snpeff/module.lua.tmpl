@@ -9,7 +9,7 @@ whatis("Keywords: high-throughput sequencing")
 whatis("URL: https://pcingola.github.io/SnpEff/, https://github.com/pcingola/SnpEff/tags (changelog), https://github.com/pcingola/SnpEff (source code)")
 whatis([[
 Description: SnpEff is a variant annotation and effect prediction tool. It annotates and predicts the effects of variants on genes (such as amino acid changes).
-Examples: `snpEff -help`, `SnpSift -help`,  and `ClinEff -help`, which are aliases for `java -jar $SNPEFF_HOME/snpEff/snpEff.jar -help`, `java -jar $SNPEFF_HOME/snpEff/SnpSift.jar -help`, and `java -jar $SNPEFF_HOME/ClinEff/ClinEff.jar -help`.
+Examples: `snpEff -help` and `SnpSift -help`, which are aliases for `java -jar $SNPEFF_HOME/snpEff/snpEff.jar -help` and `java -jar $SNPEFF_HOME/snpEff/SnpSift.jar -help`.  In SnpEff (< 5.0), there is also `ClinEff -help`, which is an alias for `java -jar $SNPEFF_HOME/ClinEff/ClinEff.jar -help`.
 ]])
 
 local name = "snpEff"
@@ -31,8 +31,10 @@ pushenv("SNPSIFT", jarfile)
 set_alias("SnpSift", "java -jar \"$SNPEFF_HOME/snpEff/SnpSift.jar\"")
 
 local jarfile = pathJoin(home, "clinEff", "ClinEff.jar")
-pushenv("CLINEFF", jarfile)
-set_alias("ClinEff", "java -jar \"$SNPEFF_HOME/ClinEff/ClinEff.jar\"")
+if isFile(jarfile) then
+  pushenv("CLINEFF", jarfile)
+  set_alias("ClinEff", "java -jar \"$SNPEFF_HOME/ClinEff/ClinEff.jar\"")
+end
 
 -- Tweak Java for the current environment
 depends_on("java-tweaks")

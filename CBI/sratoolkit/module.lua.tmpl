@@ -32,4 +32,9 @@ prepend_path("PATH", pathJoin(home, "bin"))
 -- '--threads 2' [4]. As soon as we have verified that in a safe
 -- environment, we'll drop it
 -- [4] https://github.com/ncbi/sra-tools/issues/463#issuecomment-942410725
-set_shell_function("fasterq-dump", 'command fasterq-dump --threads 2 --temp "$(mktemp -d)" "$@"', '')
+
+-- Workaround only works in shells that support function, i.e. not in csh and tcsh
+if myShellType() == "sh" then
+  set_shell_function("fasterq-dump", 'command fasterq-dump --threads 2 --temp "$(mktemp -d)" "$@"', '')
+end
+

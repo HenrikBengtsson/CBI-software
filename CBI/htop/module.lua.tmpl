@@ -4,6 +4,7 @@ htop: An Interactive Process Viewer for Unix
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: system, utility")
 whatis("URL: https://htop.dev, https://github.com/htop-dev/htop/milestones?state=closed (changelog), https://github.com/htop-dev/htop (source code)")

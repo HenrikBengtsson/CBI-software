@@ -1,5 +1,5 @@
 NAME=rclone
-VERSION:=1.58.0
+VERSION:=1.58.1
 DOWNLOAD_TARGET_FILE=rclone
 CONFIG=false
 BUILD=false

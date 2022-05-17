@@ -1,7 +1,10 @@
 SHELL:=bash
 
 i/%:
-	cd "$(@F)"; make
+	cd "$(@F)"; make all
+
+m/%:
+	cd "$(@F)"; make module
 
 pkgs: PACKAGES
 	@cat PACKAGES | grep -vE "^#" | sort -u

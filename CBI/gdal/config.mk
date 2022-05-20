@@ -1,5 +1,5 @@
 NAME=gdal
-VERSION=3.0.0
+VERSION=2.4.4
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=apps/gdalinfo
 INSTALL_TARGET_FILE=bin/gdalinfo

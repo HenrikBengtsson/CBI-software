@@ -307,10 +307,14 @@ export:
 check:
 	@if module load CBI bats-core &> /dev/null; then \
 	    eval "$$(make --quiet export 2> /dev/null)"; \
-	    bats ../.incl/tests/*.bats; \
 	    if [[ -d tests ]]; then \
+	        echo "*** Software-specific checks ..."; \
 	        (cd tests; bats *.bats); \
+	    else \
+	        echo "*** Software-specific checks ... none (missing tests/ folder)"; \
 	    fi; \
+	    echo "*** Generic checks ..."; \
+	    bats ../.incl/tests/*.bats; \
 	fi
 
 

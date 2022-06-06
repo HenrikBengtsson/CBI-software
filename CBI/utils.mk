@@ -296,17 +296,22 @@ write_unprotect_install: $(PREFIX)
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## checks
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-export:
+check-export:
 	@echo "export MODULE_REPO=CBI"
 	@echo "export MODULE_NAME=$(MODULE_NAME)"
+	@if $(MODULE_HIDDEN); then \
+	    echo "export MODULE_VERSION=.$(VERSION)"; \
+	else \
+	    echo "export MODULE_VERSION=$(VERSION)"; \
+	fi
 	@echo "export INSTALL_TARGET=$(INSTALL_TARGET)"
 	@echo "export INSTALL_TARGET_NAME=$$(basename "$(INSTALL_TARGET)")"
 	@echo "export VERSION=$(VERSION)"
 	@echo "export MODULE_HIDDEN=$(MODULE_HIDDEN)"
 
 check:
-	@if module load CBI bats-core &> /dev/null; then \
-	    eval "$$(make --quiet export 2> /dev/null)"; \
+	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
+	    eval "$$(make --quiet check-export 2> /dev/null)"; \
 	    if [[ -d tests ]]; then \
 	        echo "*** Software-specific checks ..."; \
 	        (cd tests; bats *.bats); \

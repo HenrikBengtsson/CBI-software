@@ -9,7 +9,7 @@ whatis("Keywords: bash, shell, testing")
 whatis("URL: https://github.com/bats-core/bats-assert, https://github.com/bats-core/bats-assert/releases (changelog), https://bats-core.readthedocs.io/en/stable/faq.html?highlight=assert#how-can-i-use-helper-libraries-like-bats-assert (documentation)")
 whatis([[
 Description: This is a helper library providing common assertions for Bats.
-Examples: In Bats `setup()` function: `load "${BATS_SUPPORT_HOME}/load.bash"` and `load "${BATS_ARRAY_HOME}/load.bash"`
+Examples: In Bats `setup()` function: `load "${BATS_SUPPORT_HOME}/load.bash"` and `load "${BATS_ASSERT_HOME}/load.bash"`
 ]])
 
 depends_on("bats-support")
@@ -17,4 +17,4 @@ depends_on("bats-support")
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("BATS_ARRAY_HOME", home)
+prepend_path("BATS_ASSERT_HOME", home)

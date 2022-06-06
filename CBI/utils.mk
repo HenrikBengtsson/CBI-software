@@ -312,14 +312,14 @@ check-export:
 check:
 	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
 	    eval "$$(make --quiet check-export 2> /dev/null)"; \
+	    echo "*** Generic checks ..."; \
+	    bats ../.incl/tests/*.bats; \
 	    if [[ -d tests ]]; then \
 	        echo "*** Software-specific checks ..."; \
 	        (cd tests; bats *.bats); \
 	    else \
 	        echo "*** Software-specific checks ... none (missing tests/ folder)"; \
 	    fi; \
-	    echo "*** Generic checks ..."; \
-	    bats ../.incl/tests/*.bats; \
 	fi
 
 

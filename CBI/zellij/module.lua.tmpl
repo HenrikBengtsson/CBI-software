@@ -1,0 +1,20 @@
+help([[
+zellij: A Terminal Workspace with Batteries Included 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: terminal, SSH")
+whatis("URL: https://zellij.dev/, https://zellij.dev/documentation/ (documentation), https://github.com/zellij-org/zellij/blob/main/CHANGELOG.md (changelog), https://github.com/zellij-org/zellij (source code)")
+whatis([[
+Description: Zellij is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal. At its core, it is a terminal multiplexer (similar to tmux and screen), but this is merely its infrastructure layer. Zellij includes a layout system, and a plugin system allowing one to create plugins in any language that compiles to WebAssembly.
+Examples: `zellij --version` and `zellij --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH",  home)
+

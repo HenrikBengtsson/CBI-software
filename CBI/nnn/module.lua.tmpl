@@ -1,0 +1,19 @@
+help([[
+nnn: The Unorthodox Terminal File Manager
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: terminal")
+whatis("URL: https://github.com/jarun/nnn/wiki (documentation), https://github.com/jarun/nnn/blob/master/CHANGELOG (changelog), https://github.com/jarun/nnn (source code)")
+whatis([[
+Description: 'nnn' (n³) is a full-featured terminal file manager. It's tiny, nearly 0-config and incredibly fast.  It is designed to be unobtrusive with smart workflows to match the trains of thought. 'nnn' can analyze disk usage, batch rename, launch apps and pick files. The plugin repository has tons of plugins to extend the capabilities further e.g. live previews, (un)mount disks, find & list, file/dir diff, upload files.
+Examples: `nnn -V`, and `nnn -h`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

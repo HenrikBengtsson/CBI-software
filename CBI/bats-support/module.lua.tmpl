@@ -12,6 +12,8 @@ Description: This is a supporting library providing common functions to test hel
 Examples: In Bats `setup()` function: `load "${BATS_SUPPORT_HOME}/load.bash"`
 ]])
 
+depends_on("bats-core")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

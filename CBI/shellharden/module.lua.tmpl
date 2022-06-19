@@ -1,0 +1,18 @@
+help([[
+shellharden: The Corrective Bash Syntax Highlighter 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, shell, bash")
+whatis("URL: https://github.com/anordal/shellharden (source code), https://github.com/anordal/shellharden/releases (change log)")
+whatis([[
+Description: Shellharden is a syntax highlighter and a tool to semi-automate the rewriting of scripts to ShellCheck conformance, mainly focused on quoting.  The default mode of operation is like `cat`, but with syntax highlighting in foreground colors and suggestive changes in background colors.
+Examples: `shellharden --version`, `shellharden --help`, `shellharden <file> | more`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

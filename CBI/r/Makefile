@@ -103,6 +103,16 @@ post_install:
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
 	fi; \
+	JAVA_VERSION=$$(java -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
+	JAVAC_VERSION=$$(javac -version | head -1 | sed 's/.* //');                \
+	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');      \
+	JAVAC_VERSION_XY=$$(echo "$${JAVAC_VERSION:?}" | sed 's/[.][^.]*$$//');    \
+	echo "JAVA_VERSION_XY=$${JAVA_VERSION_XY:?}";                              \
+	echo "JAVAC_VERSION_XY=$${JAVAC_VERSION_XY:?}";                            \
+	if [[ "$${JAVA_VERSION_XY:?}" != "$${JAVAC_VERSION_XY:?}" ]]; then         \
+	    >&2 echo "ERROR: java and javac are of different versions: $${JAVA_VERSION} != $${JAVAC_VERSION}"; \
+	    exit 1;                                                                \
+        fi;                                                                        \
 	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then \
 	    >&2 echo "ERROR: R CMD javareconf failed;"; \
 	    >&2 cat "$(BUILD_PATH)/javareconf.log"; \

@@ -27,19 +27,29 @@ else ifeq ($(VERSION_X),4)
     endif
 endif
 
+## Check if CBI scl-devtoolset modules are available
+#module load CBI
+#module spider scl-devtoolset => exit code 0, if exists
+#module spider scl-devtoolset/GCC_VERSION => exit code 0, if exists
+#
+## TODO: Query 'gcc --version' for GCC_VERSION
+#gcc --version | head -1 | sed 's/.* //' | sed 's/[.].*//'
+
+
 ## Build using specific GCC version?
 ifneq ($(GCC_VERSION),)
 	CONFIG_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
 	BUILD_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
 	BUILD_SUFFIX=-gcc$(GCC_VERSION)
 	PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)$(BUILD_SUFFIX)
-	TARBALL=$(NAME)-$(VERSION).tar.gz        
-	MODULE_VERSION=$(VERSION)-gcc$(GCC_VERSION)
+	MODULE_VERSION=$(VERSION)$(BUILD_SUFFIX)
 endif
 MODULE_TARGET_DEFAULT=$(MODULE_HOME)/$(MODULE_NAME)/$(VERSION).lua
 
 include ../utils.mk
 
+## Make TARBALL ignore BUILD_SUFFIX
+TARBALL=$(NAME)-$(VERSION).tar.gz
 ifeq ($(findstring alpha,$(VERSION)),alpha)
 	TARBALL=R-latest.tar.gz
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease

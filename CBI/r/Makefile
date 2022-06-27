@@ -113,6 +113,7 @@ post_install:
 	    >&2 echo "ERROR: java and javac are of different versions: $${JAVA_VERSION} != $${JAVAC_VERSION}"; \
 	    exit 1;                                                                \
         fi;                                                                        \
+	mkdir -p "$(BUILD_PATH)";                                                   \
 	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then \
 	    >&2 echo "ERROR: R CMD javareconf failed;"; \
 	    >&2 cat "$(BUILD_PATH)/javareconf.log"; \

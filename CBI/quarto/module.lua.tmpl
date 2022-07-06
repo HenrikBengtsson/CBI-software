@@ -1,0 +1,23 @@
+help([[
+quarto-cli: Open-Source Scientific and Technical Publishing System Built on Pandoc
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: markdown")
+whatis("URL: https://quarto.org/, https://github.com/quarto-dev/quarto-cli/releases (changelog), https://github.com/quarto-dev/quarto-cli/tree/v0.9.644 (source code)")
+whatis([[
+Description: Quarto is an open-source scientific and technical publishing system built on Pandoc. Quarto documents are authored using markdown, an easy to write plain text format.
+Examples: `quarto --version` and `quarto --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+depends_on("pandoc")
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+

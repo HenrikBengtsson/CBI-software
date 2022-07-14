@@ -1,0 +1,21 @@
+help([[
+collectl: Profile CPU, Disk I/O, RAM, Network, Etc.
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, performance, profiling")
+whatis("URL: http://collectl.sourceforge.net/index.html, http://collectl.sourceforge.net/Releases.html (changelog), https://sourceforge.net/projects/collectl/ (download), http://collectl.sourceforge.net/Documentation.html (documentation), https://sourceforge.net/p/collectl/discussion/ (forum)")
+whatis([[
+Description: Collectl is a light-weight performance monitoring tool capable of reporting interactively as well as logging to disk. It reports statistics on cpu, disk, infiniband, lustre, memory, network, nfs, process, quadrics, slabs and more in easy to read format.
+Examples: `collectl --version` and `collectl --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "usr", "bin"))
+prepend_path("MANPATH", pathJoin(home, "usr", "share", "man", "man1"))

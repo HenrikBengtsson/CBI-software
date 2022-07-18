@@ -6,6 +6,7 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 
+## See https://docs.conda.io/en/latest/miniconda.html
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH); \
 	cd $(BUILD_PATH); \

@@ -1,0 +1,6 @@
+NAME=port4me
+VERSION=0.0.1
+DOWNLOAD_TARGET_FILE=bash/port4me
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=port4me

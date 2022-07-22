@@ -1,0 +1,19 @@
+help([[
+port4me:  Get the Same, Personal, Free TCP Port over and over
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/HenrikBengtsson/port4me, https://github.com/HenrikBengtsson/port4me/blob/develop/NEWS.md (change log)")
+whatis([[
+Description: 'port4me' attempts, with high probability, to provide the user with the same, free port each time, even when used on different days.
+Examples: `port4me --help`, `port4me`, `port4me --tool=jupyter`).
+Warning: This tool is under development.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

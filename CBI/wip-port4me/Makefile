@@ -14,9 +14,8 @@ $(DOWNLOAD_TARGET):
 	tar xf "$(TARBALL)"
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p $(PREFIX)
-	cp -r "$(BUILD_PATH)/bash/incl/" $(PREFIX)
-	cp "$(BUILD_PATH)/bash/port4me" $(PREFIX)
+	cd "$(BUILD_PATH)"; \
+	make install PREFIX=$(PREFIX)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

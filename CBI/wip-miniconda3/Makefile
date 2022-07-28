@@ -20,7 +20,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-
 ## -- IMPORTANT:
 ## conda.sh.lua becomes incomplete when using Lmod 8.2.7
 ## (2019-11-30), which is what's available on CentOS 7. It
@@ -37,10 +36,12 @@ incl/conda.sh.lua: $(PREFIX)/etc/profile.d/conda.sh
 	sed -i -E 's/setenv[(]"(CONDA_|_CE_)/pushenv("\1/g' "$@.tmp"
 	mv "$@.tmp" "$@"
 
-#$(MODULE_TARGET): module.lua.tmpl incl/conda.sh.lua
-#	mkdir -p "$(@D)"
-#	chmod u+w "$@"
-#	cat $^ > "$@"
-#	make post_install_module
+	cat $^ > "$@"
+
+$(MODULE_TARGET): module.lua.tmpl incl/conda.sh.lua
+	mkdir -p "$(@D)"
+	chmod u+w "$@"
+	cat $^ > "$@"
+	make post_install_module
 
 

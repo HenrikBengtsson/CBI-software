@@ -16,6 +16,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	module purge; \
 	bash "$<" -b -p "$(PREFIX)"
+	"$(PREFIX)"/bin/conda config --system --set notify_outdated_conda false
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
@@ -43,5 +44,3 @@ $(MODULE_TARGET): module.lua.tmpl incl/conda.sh.lua
 	chmod u+w "$@"
 	cat $^ > "$@"
 	make post_install_module
-
-

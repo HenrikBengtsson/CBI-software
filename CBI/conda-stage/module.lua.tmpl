@@ -18,6 +18,8 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 
+pushenv("CONDA_STAGE_PROLOGUE", "module load CBI " .. name)
+
 local script = pathJoin(home, "bin", "conda-stage." .. myShellType())
 if not isFile(script) then
   LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "). No such file: " .. script)

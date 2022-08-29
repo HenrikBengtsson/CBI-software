@@ -1,5 +1,5 @@
 NAME=tree
-VERSION:=2.0.2
+VERSION=2.0.3
 DOWNLOAD_TARGET_FILE=Makefile
 BUILD_TARGET_FILE=tree
 ## Requires a C90-compliant compiler

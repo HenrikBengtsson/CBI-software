@@ -1,6 +1,6 @@
 NAME=geos
 VERSION=3.10.2 ## Wait with this version until we install R 4.2.0
-VERSION=3.9.2
+VERSION=3.9.1
 URL_DOWNLOAD=https://trac.osgeo.org/geos/
 URL=https://trac.osgeo.org/geos/
 DOWNLOAD_FILE=configure

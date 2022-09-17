@@ -22,7 +22,7 @@ pushenv("CONDA_STAGE_PROLOGUE", "module load CBI " .. name)
 
 local script = pathJoin(home, "bin", "conda-stage." .. myShellType())
 if not isFile(script) then
-  LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "). No such file: " .. script)
+  LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "; SHELL=" .. os.getenv("SHELL") .. "). No such file: " .. script)
 end
 
 -- Create conda-stage() function, which will overwrite itself after the

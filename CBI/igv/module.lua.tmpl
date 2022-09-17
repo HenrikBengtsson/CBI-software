@@ -10,10 +10,11 @@ whatis("Keywords: sequencing")
 whatis("URL: https://software.broadinstitute.org/software/igv/, https://github.com/igvteam/igv/tags (changelog), https://github.com/igvteam/igv/ (source code)")
 whatis([[
 Description: The Integrative Genomics Viewer (IGV) is a high-performance visualization tool for interactive exploration of large, integrated genomic datasets. It supports a wide variety of data types, including array-based and next-generation sequence data, and genomic annotations.
-Examples: `igv`.  Note: IGV (>= 2.5.0) requires Java 11. Coincidentally, `igvtools` is integrated with IGV (>= 2.5.0).
+Examples: `igv --help`, `igv --version`, and `igv`.
+Warning: IGV (>= 2.5.0) requires Java 11.
 ]])
 
--- depends_on("jdk")
+--depends_on("openjdk/11")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

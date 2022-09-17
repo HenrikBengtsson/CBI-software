@@ -28,7 +28,7 @@ prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 if mode() == "load" then
   -- ASSERT: Make sure there is no other active conda environment
   if os.getenv("CONDA_EXE") then
-    LmodError("Cannot load " .. name .. " module, because another conda installation is already enabled (detected environment variable CONDA_EXE='" .. os.getenv("CONDA_EXE") .. "'). Have you installed conda on your own? If so, run 'conda config --set auto_activate_base false' and the log out and log back in again.")
+    LmodError("Cannot load " .. name .. " module, because another conda installation is already enabled (detected environment variable CONDA_EXE='" .. os.getenv("CONDA_EXE") .. "'). Have you installed conda on your own? If so, run 'conda config --set auto_activate_base false' and then log out and log back in again.  If that is not sufficient, please run 'conda init --reverse' and log out and back in again.")
   end
 
   pushenv("CONDA_EXE", pathJoin(home, "bin", "conda"))

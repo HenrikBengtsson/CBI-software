@@ -34,13 +34,15 @@ incl/conda.sh.lua: $(PREFIX)/etc/profile.d/conda.sh
 	    echo "-- $(LMOD_DIR)/sh_to_modulefile $<"; \
 	    $(LMOD_DIR)/sh_to_modulefile "$<"; \
 	} > "$@.tmp"
+	luac -p "$@.tmp"
 	sed -i -E 's/setenv[(]"(CONDA_|_CE_)/pushenv("\1/g' "$@.tmp"
+	luac -p "$@.tmp"
 	mv "$@.tmp" "$@"
-
-	cat $^ > "$@"
 
 $(MODULE_TARGET): module.lua.tmpl incl/conda.sh.lua
 	mkdir -p "$(@D)"
-	chmod u+w "$@"
-	cat $^ > "$@"
+	[[ ! -f "$@" ]] || chmod u+w "$@"
+	cat $^ > "$@.tmp"
+	luac -p "$@.tmp"
+	mv "$@.tmp" "$@"
 	make post_install_module

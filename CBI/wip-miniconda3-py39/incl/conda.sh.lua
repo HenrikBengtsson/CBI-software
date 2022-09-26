@@ -1,5 +1,11 @@
 -- Don't edit! Created using: 
--- /home/hb/shared/software/CBI/lmod-8.6/lmod/lmod/libexec/sh_to_modulefile /home/hb/shared/software/CBI/miniconda3-py39-4.12.0/etc/profile.d/conda.sh
+-- /usr/share/lmod/lmod/libexec/sh_to_modulefile /software/c4/cbi/software/miniconda3-py39-4.12.0/etc/profile.d/conda.sh
+pushenv("CONDA_EXE","/software/c4/cbi/software/miniconda3-py39-4.12.0/bin/conda")
+pushenv("CONDA_PYTHON_EXE","/software/c4/cbi/software/miniconda3-py39-4.12.0/bin/python")
+pushenv("CONDA_SHLVL","0")
+prepend_path("PATH","/software/c4/cbi/software/miniconda3-py39-4.12.0/condabin")
+pushenv("_CE_CONDA","")
+pushenv("_CE_M","")
 set_shell_function("__add_sys_prefix_to_path"," \
     if [ -n \"${_CE_CONDA}\" ] && [ -n \"${WINDIR+x}\" ]; then\
         SYSP=$(\\dirname \"${CONDA_EXE}\");\

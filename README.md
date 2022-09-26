@@ -5,6 +5,15 @@
 
 ## Setup
 
+### Requirements
+
+This repository requires:
+
+* Lmod (>= 8.6)
+
+_Comments_: We're deploying to two different CentOS 7.9 systems running Lmod 8.7.7 and Bash 4.2.46.
+
+
 ### Configure installation (always)
 
 Make sure to set environment variables `MODULE_HOME` and `SOFTWARE_HOME` to point to the folders where environment modules and software tools should be installed. For example, on the Wynton HPC environment, these are:

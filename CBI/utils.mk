@@ -144,6 +144,8 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 all: debug install install_module check
 
+remove: uninstall uninstall_module
+
 download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)

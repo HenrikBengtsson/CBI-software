@@ -1,0 +1,6 @@
+#%Module 1.0
+
+module-whatis "NVIDIA CUDA Toolkit libraries"
+prepend-path  PATH               /usr/local/cuda-11.0.3/bin
+prepend-path  LD_LIBRARY_PATH    /usr/local/cuda-11.0.3/lib64
+setenv        CUDA_LIB_PATH      /usr/local/cuda-11.0.3/lib64

@@ -19,6 +19,12 @@ if not isDir(home) then -- isDir() supports symlinked folders
     home = pathJoin(root, "jre" .. "-" .. version)
 end
 
+-- Assert that OpenJDK version still exists, because
+-- it happens at times that older versions are removed
+if not isDir(home) then
+  LmodError("INTERNAL ERROR: Module " .. name .. "/" .. version .. " is broken, because folder " .. home .. " no longer exists. Please report this to the sysadms.")
+end
+
 setenv("JAVA_HOME", home)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))

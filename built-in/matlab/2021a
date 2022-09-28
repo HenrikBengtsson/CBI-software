@@ -1,0 +1,6 @@
+#%Module 1.0
+
+module-whatis "Language for technical computing"
+prepend-path  PATH                /software/c4/matlab/2021a/bin
+setenv        MLM_LICENSE_FILE    27000@c4-license1
+

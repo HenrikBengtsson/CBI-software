@@ -1,8 +1,25 @@
 include config.mk
 include ../utils.mk
 
-VERSION_PLUS := $(shell echo "$(VERSION)" | sed -E 's/-([0-9]+)$$/+\1/g')
+TAIL:=$(VERSION)
+RSTUDIO_VERSION_MAJOR:=$(shell echo "$(TAIL)" | sed -E 's/[^[:digit:]][^.]*//g')
+TAIL:=$(shell echo "$(TAIL)" | sed "s/$(RSTUDIO_VERSION_MAJOR)[.]//")
+RSTUDIO_VERSION_MINOR:=$(shell echo "$(TAIL)" | sed -E 's/[^[:digit:]][^.]*//g')
+TAIL:=$(shell echo "$(TAIL)" | sed "s/$(RSTUDIO_VERSION_MINOR)[.]//")
+RSTUDIO_VERSION_PATCH:=$(shell echo "$(TAIL)" | sed -E 's/[^[:digit:]][^.]*//g')
+TAIL:=$(shell echo "$(TAIL)" | sed "s/$(RSTUDIO_VERSION_PATCH)//")
+RSTUDIO_VERSION_SUFFIX:=$(TAIL)
+
+VERSION_PLUS:=$(RSTUDIO_VERSION_MAJOR).$(RSTUDIO_VERSION_MINOR).$(RSTUDIO_VERSION_PATCH)$(shell echo "$(RSTUDIO_VERSION_SUFFIX)" | tr '-' '+')
 TARBALL=v$(VERSION_PLUS).tar.gz
+
+debug3:
+	@echo "VERSION=$(VERSION)"
+	@echo "RSTUDIO_VERSION_MAJOR=$(RSTUDIO_VERSION_MAJOR)"
+	@echo "RSTUDIO_VERSION_MINOR=$(RSTUDIO_VERSION_MINOR)"
+	@echo "RSTUDIO_VERSION_PATCH=$(RSTUDIO_VERSION_PATCH)"
+	@echo "RSTUDIO_VERSION_SUFFIX=$(RSTUDIO_VERSION_SUFFIX)"
+	@echo "VERSION_PLUS=$(VERSION_PLUS)"
 
 
 ## ----------------------------------------------------------
@@ -41,19 +58,31 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module try-load CBI cmake jq scl-devtoolset; \
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	module list; \
-	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools; \
+	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
+	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
+	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
+	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \
+	export RSTUDIO_VERSION_SUFFIX="$(RSTUDIO_VERSION_SUFFIX)"; \
 	cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) || rm "$@"
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
+	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
+	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
+	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
+	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \
+	export RSTUDIO_VERSION_SUFFIX="$(RSTUDIO_VERSION_SUFFIX)"; \
 	make preinstall
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
+	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
+	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
+	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
+	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \
+	export RSTUDIO_VERSION_SUFFIX="$(RSTUDIO_VERSION_SUFFIX)"; \
 	make install
 	[[ -f "$@" ]] || { >&2 echo "ERROR: Installation failed. No such target file: $@"; exit 1; }
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
-
-

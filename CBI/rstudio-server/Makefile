@@ -27,6 +27,8 @@ $(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
 	./install-npm-dependencies
 
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
+	module purge; \
+	module load CBI cmake jq scl-devtoolset; \
 	export RSTUDIO_TOOLS_ROOT=$<; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 

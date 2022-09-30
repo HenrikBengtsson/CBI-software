@@ -1,5 +1,5 @@
 NAME=rstudio
-VERSION:=2022.07.1-554
+VERSION:=2022.07.2-576
 ## Ubuntu 20.04:
 #ARCH=amd64-debian
 ## Centos 7.9:

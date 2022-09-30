@@ -55,7 +55,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p build; \
 	cd build; \
 	module purge; \
-	module try-load CBI cmake jq scl-devtoolset; \
+	module try-load CBI cmake jq scl-devtoolset r; \
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \

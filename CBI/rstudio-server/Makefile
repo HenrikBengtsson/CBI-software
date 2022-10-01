@@ -45,7 +45,7 @@ $(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
 
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	module purge; \
-	module try-load CBI cmake jq scl-devtoolset; \
+	module try-load $(CONFIG_MODULES); \
 	export RSTUDIO_TOOLS_ROOT=$<; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 
@@ -55,7 +55,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p build; \
 	cd build; \
 	module purge; \
-	module try-load CBI cmake jq scl-devtoolset r; \
+	module try-load $(CONFIG_MODULES); \
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
@@ -67,6 +67,10 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
+	module purge; \
+	module try-load $(CONFIG_MODULES); \
+	module list; \
+	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
 	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \

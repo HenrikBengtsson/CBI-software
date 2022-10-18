@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 ARCH=linux-amd64
+ARCH=linux-rhel7-amd64
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 
 ## ----------------------------------------------------------

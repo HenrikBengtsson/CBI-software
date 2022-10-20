@@ -1,0 +1,43 @@
+help([[
+Anaconda: A Free Installer for Conda
+]])
+
+local warning = "Use at your own peril! Software tools installed via Conda are known to cause conflicts with other software on the system, including core software provided by the operating system as well as other software from the CBI stack. For example, do not install R packages running R from the CBI stack, while conda is activated."
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: files, utility")
+whatis("URL: https://docs.conda.io/en/latest/ (docs), https://www.anaconda.com/products/distribution (releases), https://github.com/conda/conda/blob/master/CHANGELOG.md (changelog), https://github.com/conda/conda (source code)")
+whatis([[
+Description: Anaconda is a free installer for conda. It includes conda, Python, and 1,500 scientific packages.
+Examples: `conda --version`, `conda create --name=myenv`, `conda env list`, `conda activate myenv`, `conda info`, and `conda deactive`.
+Warning: For now, this module only work in Bash. Also, do _not_ do `conda init`. If you do by mistake, please undo by `conda init --reverse`.
+
+]] .. "WARNING: " .. warning .. "\n"
+)
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+
+if mode() == "load" then
+  -- ASSERT: Make sure there is no other active conda environment
+  if os.getenv("CONDA_EXE") then
+    LmodError("Cannot load " .. name .. " module, because another conda installation is already enabled (detected environment variable CONDA_EXE='" .. os.getenv("CONDA_EXE") .. "'). Have you installed conda on your own? If so, run 'conda config --set auto_activate_base false' and then log out and log back in again.  If that is not sufficient, please run 'conda init --reverse' and log out and back in again.")
+  end
+
+  pushenv("CONDA_EXE", pathJoin(home, "bin", "conda"))
+  pushenv("CONDA_PYTHON_EXE", pathJoin(home, "bin", "python"))
+  pushenv("_CE_M", "")
+  pushenv("_CE_CONDA", "")
+elseif mode() == "unload" then
+  pushenv("CONDA_EXE", false)
+  pushenv("CONDA_PYTHON_EXE", false)
+  pushenv("_CE_M", false)
+  pushenv("_CE_CONDA", false)
+end

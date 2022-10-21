@@ -1,22 +1,21 @@
 include config.mk
 include ../utils.mk
 
-ARCH=linux-amd64
-ARCH=linux-rhel7-amd64
-TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
+
 $(DOWNLOAD_TARGET):
-	mkdir -p $(BUILD_HOME); \
-	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/quarto-dev/quarto-cli/releases/download/v$(VERSION)/$(TARBALL); \
-	tar -xzf $(TARBALL)
+	mkdir -p $(BUILD_PATH); \
+	cd $(BUILD_PATH); \
+	curl -L -O https://github.com/igorshubovych/markdownlint-cli/archive/refs/tags/$(DOWNLOAD_TARGET_FILE)
+
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p "$(PREFIX)"/..
-	cp -R $(BUILD_PATH) $(PREFIX)/..
+	cd $(BUILD_PATH); \
+	module purge; \
+	npm install --prefix="$(PREFIX)" "$<"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

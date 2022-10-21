@@ -1,0 +1,19 @@
+help([[
+markdownlint-cli: MarkdownLint Command Line Interface 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, utility")
+whatis("URL: https://github.com/igorshubovych/markdownlint-cli (docs), https://github.com/igorshubovych/markdownlint-cli/releases/ (releases), https://github.com/igorshubovych/markdownlint-cli (source code)")
+whatis([[
+Description: 
+Examples: `markdownlint --version`, `markdownlint --help`, `markdownlint -- *.md`.
+]]
+)
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "node_modules", ".bin"))

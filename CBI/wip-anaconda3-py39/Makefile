@@ -1,6 +1,11 @@
 include config.mk
 include ../utils.mk
 
+ifeq ($(VERSION),22.9.0)
+  DOWNLOAD_VERSION=2022.10
+endif
+
+DOWNLOAD_TARGET_FILE=$(NAME2)-$(DOWNLOAD_VERSION)-Linux-x86_64.sh
 
 ## ----------------------------------------------------------
 ## SOFTWARE

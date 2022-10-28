@@ -1,0 +1,8 @@
+NAME=miniconda3-py39
+NAME2=Miniconda3-py39
+VERSION=4.12.0
+DOWNLOAD_TARGET_FILE=$(NAME2)_$(VERSION)-Linux-x86_64.sh
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/conda
+#MODULE_HIDDEN=true

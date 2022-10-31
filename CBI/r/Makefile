@@ -103,8 +103,8 @@ post_install:
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
 	fi; \
-	JAVA_VERSION=$$(java -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
-	JAVAC_VERSION=$$(javac -version | head -1 | sed 's/.* //');                \
+	JAVA_VERSION=$$(java   -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
+	JAVAC_VERSION=$$(javac -version 2>&1 | head -1 | sed 's/.* //');                \
 	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');      \
 	JAVAC_VERSION_XY=$$(echo "$${JAVAC_VERSION:?}" | sed 's/[.][^.]*$$//');    \
 	echo "JAVA_VERSION_XY=$${JAVA_VERSION_XY:?}";                              \

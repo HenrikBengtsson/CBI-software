@@ -31,4 +31,7 @@ clean:
 PACKAGES: FORCE
 	find . -type f -name "config.mk" -exec dirname {} + | sed -E 's/.\///' > "$@"
 
+changelog-urls:	
+	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
+
 FORCE:

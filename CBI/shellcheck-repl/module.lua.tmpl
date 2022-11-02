@@ -8,7 +8,7 @@ version = string.gsub(version, "^[.]", "")
 
 whatis("Version: " .. version)
 whatis("Keywords: programming, shell, bash")
-whatis("URL: https://github.com/HenrikBengtsson/shellcheck-repl, https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/README.md (docs), https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/NEWS.md (changelog)")
+whatis("URL: https://github.com/HenrikBengtsson/shellcheck-repl, https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/README.md (documentation), https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/NEWS.md (changelog)")
 whatis([[
 Description: ShellCheck is a great tool for validating your Unix shell scripts. It will parse the scripts and warn about mistakes, errors, and potential problems. This tool - shellcheck-repl - brings ShellCheck validation to the Bash read-eval-print loop (REPL), i.e. the Bash prompt. Getting this type of validation and feedback at the prompt lowers the risk of damaging mistakes and will help you become a better Bash user and developer.
 Examples: `shellcheck-repl` to activate. To deactive, start a new shell. Then, if we call `echo $words` at the pront, we will be instructed that it is safer to use `echo "$words"`.

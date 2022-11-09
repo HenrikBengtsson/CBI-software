@@ -1,0 +1,20 @@
+help([[
+pathpicker: 
+]])
+
+local name = myModuleName()
+name="PathPicker"
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, tui")
+whatis("URL: https://facebook.github.io/PathPicker/, https://github.com/facebook/PathPicker/releases (changelog), https://github.com/facebook/PathPicker (source code)")
+whatis([[
+Description: Facebook PathPicker is a simple command line tool that solves the perpetual problem of selecting files out of bash output.
+Examples: `fpp --help`, `fpp --version`, `git status | fpp`, `grep -r "FooBar" . | fpp`
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

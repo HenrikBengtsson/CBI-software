@@ -100,3 +100,25 @@ end
 -- WORKAROUND: nloptr 2.0.0 requires CMake (>= 3.15)
 -- See https://github.com/astamm/nloptr/issues/104#issuecomment-1111498876
 pushenv("CMAKE_BIN", "cmake3")
+
+
+
+-- Assert that there is no active Conda environment
+assert_no_conda_environment = function()  
+  local conda_env = os.getenv("CONDA_DEFAULT_ENV")
+  if conda_env ~= nil then
+    local action = os.getenv("CBI_ON_CONDA") or "warning"
+    local msg = "Using the " .. "'" .. myModuleName() .. "'" .. " module when a Conda environment is active risks resulting in hard-to-troubleshoot errors due to library conflicts. Make sure to deactivate the currently active Conda " .. "'" .. conda_env .. "'" .. " environment before loading this module, e.g. 'conda deactivate'."
+    if action == "error" then
+      LmodError(msg)
+    elseif action == "warning" then
+      LmodWarning(msg)
+    end
+  end
+end
+
+
+-- Protect against a conflicting Conda stack
+if (mode() == "load") then
+  assert_no_conda_environment()
+end

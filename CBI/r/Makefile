@@ -31,10 +31,6 @@ endif
 #module load CBI
 #module spider scl-devtoolset => exit code 0, if exists
 #module spider scl-devtoolset/GCC_VERSION => exit code 0, if exists
-#
-## TODO: Query 'gcc --version' for GCC_VERSION
-#gcc --version | head -1 | sed 's/.* //' | sed 's/[.].*//'
-
 
 ## Build using specific GCC version?
 ifneq ($(GCC_VERSION),)
@@ -76,16 +72,27 @@ debug2: debug
 	@echo "BUILD_MODULES=$(BUILD_MODULES)"
 
 
+assert_gcc_version:
+	@curr_version=$$(module try-load "$(CONFIG_MODULES)" && gcc --version | head -1 | sed 's/.* //' | sed 's/[.].*//'); \
+	echo "Requested GCC version: $(GCC_VERSION)"; \
+	echo "Provided GCC version: $${curr_version}"; \
+	[[ $${curr_version} == "$(GCC_VERSION)" ]] || { 2>&1 echo "ERROR: Provided GCC version (v$${curr_version}) not the same as the requested one (v$(GCC_VERSION))"; exit 1; }
+
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-$(DOWNLOAD_TARGET):
+$(DOWNLOAD_TARGET): assert_gcc_version
 	mkdir -p $(BUILD_HOME)/untar
 	cd $(BUILD_HOME); \
 	curl -O $(DOWNLOAD_URL); \
 	tar xvfz $(TARBALL) -C untar; \
 	mv untar/* $(BUILD_NAME); \
 	rmdir untar
+
+pre_config: assert_gcc_version
+
+pre_build: assert_gcc_version
 
 post_build:
 	cd $(BUILD_PATH); \

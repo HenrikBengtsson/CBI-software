@@ -149,6 +149,7 @@ remove: uninstall uninstall_module
 download: $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
+	make --quiet pre_config
 	module --force purge; \
 	module load $(CONFIG_MODULES); \
 	module list; \
@@ -163,10 +164,13 @@ endif
 
 config: $(CONFIG_TARGET)
 
+pre_config:
+
 post_config:
 
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
+	make --quiet pre_build
 	module --force purge; \
 	module load $(BUILD_MODULES); \
 	module list; \
@@ -180,9 +184,12 @@ endif
 
 build: $(BUILD_TARGET)
 
+pre_build:
+
 post_build:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
+	make --quiet pre_install
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	make --quiet install
@@ -193,6 +200,8 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 ifeq ($(INSTALL),false)
 $(INSTALL_TARGET):
 endif
+
+pre_install:
 
 post_install:
 	make --quiet write_protect_install
@@ -249,6 +258,7 @@ ifeq ($(INSTALL_MODULE),true)
 endif
 
 $(MODULE_TARGET): module.lua.tmpl
+	make --quiet pre_install_module
 	mkdir -p "$(@D)"
 	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@"
@@ -261,6 +271,8 @@ $(MODULE_TARGET): module.lua.tmpl
 ifeq ($(INSTALL_MODULE),false)
 $(MODULE_TARGET):
 endif
+
+pre_install_module:
 
 post_install_module:
 	make --quiet write_protect_module

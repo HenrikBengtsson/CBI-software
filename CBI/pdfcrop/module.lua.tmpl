@@ -1,0 +1,19 @@
+help([[
+PDFCrop: Crop and Rescale PDFs
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, tool")
+whatis("URL: https://pdfcrop.sourceforge.net/ (documentation), https://sourceforge.net/projects/pdfcrop/files/pdfcrop/ (changelog)")
+whatis([[
+Description: PDFCrop crops the white margins of PDF pages and rescales them to fit a standard size sheet of paper. It makes printed pages much easier to read. PDFCrop is particularly useful for resizing journal articles and converting between letter-size and A4 paper.
+Examples: `pdfcrop --help` and `pdfcrop A4 input.pdf`.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

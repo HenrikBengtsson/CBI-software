@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(grep -E "^#.*\bversion[[:space:]]+[[:digit:].]+" /home/hb/shared/software/CBI/pdfcrop-0.4b/pdfcrop | sed -E 's/.*version[[:space:]]+//')
+    version=$(grep -E "^#.*\bversion[[:space:]]+[[:digit:].]+" "$(command -v pdfcrop)" | sed -E 's/.*version[[:space:]]+//')
     assert_equal "${version}" "${VERSION}"
 }

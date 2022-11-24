@@ -1,5 +1,5 @@
 NAME=proj
-VERSION=6.0.0
+VERSION=8.2.1
 
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=libtool

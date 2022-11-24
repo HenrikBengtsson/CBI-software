@@ -28,3 +28,7 @@ $(BUILD_PATH)/check.log:
 	make check &> check.log
 
 post_build: $(BUILD_PATH)/check.log
+
+post_install:
+	cp "$(BUILD_PATH)/config.log" "$(PREFIX)"
+	cp "$(BUILD_PATH)/check.log" "$(PREFIX)"

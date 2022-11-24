@@ -98,10 +98,7 @@ post_build:
 	cd $(BUILD_PATH); \
 	R_LIBS_USER=dummy make check &> make-check.log
 
-post_install:
-	## Prevent package installations/updates in system library
-	chmod -R ugo-w $(PREFIX)/lib*/R/library
-
+r_javareconf:
 	## Configure R for Java (so that 'rJava' can be installed)
 	chmod -R u+w $(PREFIX)/lib*/R/{bin,etc}
 	chmod u+w $(PREFIX)/*
@@ -111,30 +108,38 @@ post_install:
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
 	fi; \
 	JAVA_VERSION=$$(java   -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
-	JAVAC_VERSION=$$(javac -version 2>&1 | head -1 | sed 's/.* //');                \
-	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');      \
-	JAVAC_VERSION_XY=$$(echo "$${JAVAC_VERSION:?}" | sed 's/[.][^.]*$$//');    \
-	echo "JAVA_VERSION_XY=$${JAVA_VERSION_XY:?}";                              \
-	echo "JAVAC_VERSION_XY=$${JAVAC_VERSION_XY:?}";                            \
-	if [[ "$${JAVA_VERSION_XY:?}" != "$${JAVAC_VERSION_XY:?}" ]]; then         \
+	JAVAC_VERSION=$$(javac -version 2>&1 | head -1 | sed 's/.* //');             \
+	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');        \
+	JAVAC_VERSION_XY=$$(echo "$${JAVAC_VERSION:?}" | sed 's/[.][^.]*$$//');      \
+	echo "JAVA_HOME=$${JAVA_HOME}";                                              \
+	echo "JAVA_VERSION_XY=$${JAVA_VERSION_XY:?}";                                \
+	echo "JAVAC_VERSION_XY=$${JAVAC_VERSION_XY:?}";                              \
+	if [[ "$${JAVA_VERSION_XY:?}" != "$${JAVAC_VERSION_XY:?}" ]]; then           \
 	    >&2 echo "ERROR: java and javac are of different versions: $${JAVA_VERSION} != $${JAVAC_VERSION}"; \
-	    exit 1;                                                                \
-        fi;                                                                        \
-	mkdir -p "$(BUILD_PATH)";                                                   \
-	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then \
-	    >&2 echo "ERROR: R CMD javareconf failed;"; \
-	    >&2 cat "$(BUILD_PATH)/javareconf.log"; \
-	    exit 1; \
+	    exit 1;                                                                  \
+        fi;                                                                          \
+	mkdir -p "$(BUILD_PATH)";                                                    \
+	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then  \
+	    >&2 echo "ERROR: R CMD javareconf failed;";                              \
+	    >&2 cat "$(BUILD_PATH)/javareconf.log";                                  \
+	    exit 1;                                                                  \
 	fi
 	cat "$(BUILD_PATH)/javareconf.log"
 
-	## Save log files
+	## Save log file
 	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
+	make write_protect_install
+
+
+post_install: r_javareconf
+	## Prevent package installations/updates in system library
+	chmod -R ugo-w $(PREFIX)/lib*/R/library
+	chmod u+w $(PREFIX)/*
 	cp "$(BUILD_PATH)/config.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
-
 	make write_protect_install
+
 
 $(MODULE_TARGET): module.lua.tmpl
 	mkdir -p "$(@D)"

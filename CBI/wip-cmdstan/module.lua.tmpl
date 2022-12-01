@@ -1,0 +1,19 @@
+help([[
+CmdStan: The Shell Interface to Stan
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: Programming, Statistics")
+whatis("URL: https://mc-stan.org/users/interfaces/cmdstan, https://mc-stan.org/docs/cmdstan-guide/index.html (docs), https://github.com/stan-dev/cmdstan/releases (changelog)")
+whatis([[
+Description: CmdStan is the command line interface to Stan, a package providing: (i) full Bayesian inference using the No-U-Turn sampler (NUTS), (ii) penalized maximum likelihood estimation (MLE) using optimization, (iii) approximate Bayesian inference using automatic differentiation variational inference (ADVI), (iv) a full first- and higher-order automatic differentiation library based on C++ template overloads, and (v) a supporting fully-templated matrix, linear algebra, and probability special function library.
+Examples: `stanc --help` and `stanc --version`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

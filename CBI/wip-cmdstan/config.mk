@@ -1,0 +1,6 @@
+NAME=cmdstan
+VERSION:=2.31.0
+CONFIG=false
+DOWNLOAD_TARGET_FILE=makefile
+BUILD_TARGET_FILE=bin/stanc
+INSTALL_TARGET_FILE=bin/stanc

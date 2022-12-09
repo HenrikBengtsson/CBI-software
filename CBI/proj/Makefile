@@ -3,11 +3,13 @@ include ../utils.mk
 
 ## PROJ (>= 6.3.0) requires sqlite3 (>= 3.11)
 ifeq ($(VERSION_X_Y),6.3)
-    CONFIG_MODULES=CBI sqlite
 else ifeq ($(VERSION_X),7)
     CONFIG_MODULES=CBI sqlite
 else ifeq ($(VERSION_X),8)
     CONFIG_MODULES=CBI sqlite
+else ifeq ($(VERSION_X),9)
+    CONFIG_MODULES=CBI sqlite
+    $(error Not yet supported: $NAME >= 9 requires CMake)
 endif
 
 

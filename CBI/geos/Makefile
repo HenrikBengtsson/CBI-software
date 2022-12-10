@@ -1,6 +1,12 @@
 include config.mk
 include ../utils.mk
 
+## GEOS (>= 3.10.0) requires CMake (>= 3.13)
+ifeq ($(VERSION_X_Y),3.10)
+  CONFIG_MODULES=CBI cmake
+else ifeq ($(VERSION_X_Y),3.11)
+  CONFIG_MODULES=CBI cmake
+endif
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
 

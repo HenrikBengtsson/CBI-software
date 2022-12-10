@@ -15,7 +15,11 @@ include ../utils.mk
 
 ## GDAL (>= 3.0.0) requires PROJ (>= 6.0.0)
 ifneq ($(VERSION_X),2)
-    CONFIG_MODULES=CBI proj/6.1.0 hdf5 sqlite
+    ifeq ($(VERSION_X_Y),3.6)
+        $(error Not yet supported: $NAME >= 3.6.0 requires CMake)
+    endif
+
+    CONFIG_MODULES=CBI proj/8.2.1 hdf5 sqlite
 
     ## WORKAROUND: gdal's configure doesn't find proj/6.0.0 from pkgconfig or LD_LIBRARY_PATH
     PROJ_HOME=$(shell module load $(CONFIG_MODULES); dirname "$$(dirname "$$(command -v proj)")")
@@ -23,14 +27,6 @@ ifneq ($(VERSION_X),2)
     HDF5_HOME=$(shell module load $(CONFIG_MODULES); dirname "$$(dirname "$$(command -v h5stat)")")
     SQLITE3_HOME=$(shell module load $(CONFIG_MODULES); dirname "$$(dirname "$$(command -v sqlite3)")")
     CONFIG_OPTS=--disable-rpath --with-hdf5="$(HDF5_HOME)" --with-proj="$(PROJ_HOME)" --with-sqlite3="$(SQLITE3_HOME)"
-
-    CONFIG_MODULES=CBI proj/6.0.0 hdf5
-
-    ## WORKAROUND: gdal's configure doesn't find proj/6.0.0 from pkgconfig or LD_LIBRARY_PATH
-    PROJ_HOME=$(shell module load $(CONFIG_MODULES); dirname "$$(dirname "$$(command -v proj)")")
-    ## WORKAROUND: gdal's configure doesn't find hdf5 from pkgconfig or LD_LIBRARY_PATH
-    HDF5_HOME=$(shell module load $(CONFIG_MODULES); dirname "$$(dirname "$$(command -v h5stat)")")
-    CONFIG_OPTS=--with-hdf5="$(HDF5_HOME)" --with-proj="$(PROJ_HOME)"
 endif
 BUILD_MODULES=$(CONFIG_MODULES)
 

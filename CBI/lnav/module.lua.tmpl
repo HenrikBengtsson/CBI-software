@@ -1,0 +1,20 @@
+help([[
+lnav: The Logfile Navigator
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://lnav.org/, https://lnav.org/docs (docs), https://github.com/tstack/lnav/releases (changelog), https://github.com/tstack/lnav (source code)")
+whatis([[
+Description: The Log File Navigator, lnav for short, is an advanced log file viewer for the small-scale. It is a terminal application that can understand your log files and make it easy for you to find problems with little to no setup.
+Examples: `lnav --help`, `lnav --version`, and `lnav`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "man"))

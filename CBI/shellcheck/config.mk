@@ -1,5 +1,5 @@
 NAME=shellcheck
-VERSION:=0.8.0
+VERSION:=0.9.0
 DOWNLOAD_TARGET_FILE=shellcheck
 CONFIG=false
 BUILD=false

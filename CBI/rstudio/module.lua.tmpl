@@ -18,5 +18,5 @@ depends_on("r")
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("PATH", home)
 

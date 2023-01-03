@@ -1,5 +1,5 @@
 NAME=cutadapt
-VERSION=4.1
+VERSION=4.2
 NAME2=trimgalore
 DOWNLOAD=false
 CONFIG=false

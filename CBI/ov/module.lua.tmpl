@@ -1,0 +1,20 @@
+help([[
+ov: Feature Rich Terminal Pager
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: terminal, utility, cli")
+whatis("URL: https://noborus.github.io/ov, https://github.com/noborus/ov/releases (changelog), https://github.com/noborus/ov (source code)")
+whatis([[
+Description: Feature-rich terminal-based text viewer. It is a so-called terminal pager.
+Examples: `ov --version`, `ov --help`, `ov file.sh`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH",  home)
+

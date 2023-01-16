@@ -1,0 +1,21 @@
+help([[
+redis: Remote Dictionary Server
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: database")
+whatis("URL: https://redis.io/, https://redis.io/docs/ (docs), https://github.com/redis/redis/releases (changelog), https://github.com/redis/redis (source code)")
+whatis([[
+Description: Redis is an in-memory database that persists on disk. The data model is key-value, but many different kind of values are supported: Strings, Lists, Sets, Sorted Sets, Hashes, Streams, HyperLogLogs, Bitmaps.
+Examples: `redis-cli --version`, `redis-cli --help`, `redis-server --version`, and `redis-server --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+

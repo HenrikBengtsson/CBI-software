@@ -1,0 +1,6 @@
+NAME=redis
+VERSION=7.0.8
+DOWNLOAD_TARGET_FILE=Makefile
+CONFIG=false
+BUILD_TARGET_FILE=src/redis-cli
+INSTALL_TARGET_FILE=bin/redis-cli

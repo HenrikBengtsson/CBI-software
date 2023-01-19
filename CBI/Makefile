@@ -31,7 +31,10 @@ clean:
 PACKAGES: FORCE
 	find . -type f -name "config.mk" -exec dirname {} + | sed -E 's/.\///' > "$@"
 
-changelog-urls:	
+changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
+
+changelog-latest:
+	for ff in -- */config.mk; do dd=$$(dirname "$$ff"); grep -qE "^changelog-latest:" "$$dd/Makefile" && (printf "%s: " "$$dd"; cd "$$dd"; make changelog-latest 2> /dev/null); done
 
 FORCE:

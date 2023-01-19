@@ -21,5 +21,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-changelog-latest:
-	@curl --head --silent https://github.com/quarto-dev/quarto-cli/releases/latest | grep -E "^location:"
+available-version:
+	@curl --head --silent https://github.com/quarto-dev/quarto-cli/releases/latest | grep -E "^location:" | sed -E 's/.*v//'

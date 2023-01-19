@@ -400,3 +400,7 @@ debug:
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"
+
+
+version:
+	@echo "$(VERSION)"

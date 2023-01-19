@@ -23,5 +23,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-changelog-latest:
-	@curl --silent https://raw.githubusercontent.com/sharkdp/bat/master/CHANGELOG.md | grep -E "^# +v[[:digit:].]+" | head -n 1
+available-version:
+	@curl --silent https://raw.githubusercontent.com/sharkdp/bat/master/CHANGELOG.md | grep -E "^# +v[[:digit:].]+" | head -n 1 | sed -E 's/^# *v//'

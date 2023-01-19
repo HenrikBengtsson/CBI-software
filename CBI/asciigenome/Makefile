@@ -17,6 +17,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-changelog-latest:
-	@curl --silent https://raw.githubusercontent.com/dariober/ASCIIGenome/master/CHANGELOG.md | grep -E "^New in" | head -1
+available-version:
+	@curl --silent https://raw.githubusercontent.com/dariober/ASCIIGenome/master/CHANGELOG.md | grep -E "^New in" | head -1 | sed -E 's/^New in *//'
 

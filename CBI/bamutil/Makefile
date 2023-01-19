@@ -29,3 +29,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 
 changelog-latest:
 	@curl --silent https://genome.sph.umich.edu/wiki/BamUtil | pandoc --from=html --to=plain | grep -E "BamUtil Version .* Released" | head -1
+
+available-version:
+	@curl --silent https://genome.sph.umich.edu/wiki/BamUtil | pandoc --from=html --to=plain | grep -E "BamUtil Version .* Released" | head -1 | sed -E 's/.*BamUtil Version ([[:digit:].]+).*Released.*/\1/g'

@@ -38,3 +38,7 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+
+available-version:
+	@curl --silent https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software/downloads.html | pandoc --from=html --to=plain | grep -E "^- +$(NAME).? Conversion Software v.*" | head -1 | sed -E 's/.*v([[:digit:].]+).*$$/\1/g'

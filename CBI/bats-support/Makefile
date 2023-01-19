@@ -18,6 +18,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-changelog-latest:
-	@curl --silent https://raw.githubusercontent.com/bats-core/bats-support/master/package.json | grep -E '"(name|version)":' | sed -E 's/^ +//g' | tr $$'\n' ' '
-	@echo
+available-version:
+	@curl --silent https://raw.githubusercontent.com/bats-core/$(NAME)/master/package.json | grep -A 1 -E '"name": * "$(NAME)"' | grep -E '"version":' | sed -E 's/.*://' | sed -E 's/(^ *"|".*)//g'

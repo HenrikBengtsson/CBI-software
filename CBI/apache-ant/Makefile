@@ -21,3 +21,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 
 changelog-latest:
 	@curl --silent "https://downloads.apache.org/ant/binaries/?C=M;O=D" | pandoc --from=html --to=plain | grep -F "apache-ant-" | head -n 1 | sed -E 's/^ +//g'
+
+available-version:
+	@curl --silent "https://downloads.apache.org/ant/binaries/?C=M;O=D" | pandoc --from=html --to=plain | grep -F "apache-ant-" | head -n 1 | sed -E 's/(^ *apache-ant-|-bin.*)//g'

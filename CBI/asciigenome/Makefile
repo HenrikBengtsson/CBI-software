@@ -16,3 +16,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+changelog-latest:
+	@curl --silent https://raw.githubusercontent.com/dariober/ASCIIGenome/master/CHANGELOG.md | grep -E "^New in" | head -1
+

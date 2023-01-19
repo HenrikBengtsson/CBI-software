@@ -18,3 +18,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+changelog-latest:
+	@curl --silent "https://downloads.apache.org/ant/binaries/?C=M;O=D" | pandoc --from=html --to=plain | grep -F "apache-ant-" | head -n 1 | sed -E 's/^ +//g'

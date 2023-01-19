@@ -26,3 +26,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+changelog-latest:
+	@curl --silent https://genome.sph.umich.edu/wiki/BamUtil | pandoc --from=html --to=plain | grep -E "BamUtil Version .* Released" | head -1

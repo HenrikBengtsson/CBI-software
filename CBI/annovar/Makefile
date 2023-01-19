@@ -23,3 +23,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+changelog-latest:
+	@curl --silent -L https://raw.githubusercontent.com/WGLab/doc-ANNOVAR/master/docs/misc/version_history.md | grep -E "^ *- +On " | tail -n 1 | cut -c 1-40

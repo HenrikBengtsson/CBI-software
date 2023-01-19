@@ -17,3 +17,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+changelog-latest:
+	@curl --silent https://raw.githubusercontent.com/bats-core/bats-support/master/package.json | grep -E '"(name|version)":' | sed -E 's/^ +//g' | tr $$'\n' ' '
+	@echo

@@ -2,7 +2,8 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(NAME)-$(VERSION).zip
-URL=https://github.com/broadinstitute/gatk/releases/download/$(VERSION)/$(TARBALL)
+GITHUB_REPO=https://github.com/broadinstitute/gatk
+URL=$(GITHUB_REPO)/releases/download/$(VERSION)/$(TARBALL)
 
 ifeq ($(VERSION_X),1)
 TARBALL=GenomeAnalysisTK-$(VERSION).tar.bz2
@@ -40,3 +41,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

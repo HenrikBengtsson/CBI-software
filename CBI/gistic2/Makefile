@@ -6,6 +6,8 @@ DOWNLOAD_TARGET_FILE:=$(TARBALL)
 
 include ../utils.mk
 
+GITHUB_REPO=https://github.com/broadinstitute/gistic2
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
@@ -35,3 +37,6 @@ post_install:
 	mv gistic2.tmp gistic2
 	make write_protect_module
 
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

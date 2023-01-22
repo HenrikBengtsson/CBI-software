@@ -2,7 +2,8 @@ include config.mk
 include ../utils.mk
 
 TARBALL=bedtools-$(VERSION).tar.gz
-URL=https://github.com/arq5x/bedtools2/releases/download/v$(VERSION)/$(TARBALL)
+GITHUB_REPO=https://github.com/arq5x/bedtools2
+URL=$(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL)
 EXTNAME=$(NAME)
 
 ifeq ($(VERSION_X_Y),2.16)
@@ -29,3 +30,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*v//'

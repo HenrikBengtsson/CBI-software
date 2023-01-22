@@ -31,6 +31,8 @@ endif
 BUILD_MODULES=$(CONFIG_MODULES)
 
 
+GITHUB_REPO=https://github.com/OSGeo/gdal
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
@@ -40,5 +42,5 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://download.osgeo.org/gdal/$(VERSION)/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
-
-
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

@@ -9,6 +9,7 @@ else ifeq ($(VERSION_X_Y),3.11)
 endif
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
+GITHUB_REPO=https://github.com/libgeos/geos
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -27,3 +28,6 @@ $(BUILD_PATH)/check.log:
 	make check &> check.log
 
 post_build: $(BUILD_PATH)/check.log
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

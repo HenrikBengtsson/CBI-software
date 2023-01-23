@@ -3,6 +3,7 @@ include ../utils.mk
 
 #TARBALL=v$(VERSION).tar.gz
 
+GITHUB_REPO=https://github.com/vcftools/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,5 +11,8 @@ include ../utils.mk
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/vcftools/$(NAME)/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar xzf $(TARBALL)
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

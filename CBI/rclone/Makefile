@@ -3,6 +3,7 @@ include ../utils.mk
 
 ZIPNAME=$(NAME)-v$(VERSION)-linux-amd64
 ZIPFILE=$(ZIPNAME).zip
+GITHUB_REPO=https://github.com/rclone/rclone
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -24,3 +25,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 post_install:
 	mkdir -p $(PREFIX)/share/man/man1
 	mv $(PREFIX)/*.1 $(PREFIX)/share/man/man1
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

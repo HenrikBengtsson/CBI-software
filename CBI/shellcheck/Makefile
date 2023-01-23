@@ -3,6 +3,7 @@ include ../utils.mk
 
 
 TARBALL=$(NAME)-v$(VERSION).linux.x86_64.tar.xz
+GITHUB_REPO=https://github.com/koalaman/shellcheck
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +11,7 @@ TARBALL=$(NAME)-v$(VERSION).linux.x86_64.tar.xz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/koalaman/shellcheck/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar Jxf $(TARBALL); \
 	mv $(NAME)-v$(VERSION) $(NAME)-$(VERSION)
 
@@ -20,3 +21,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

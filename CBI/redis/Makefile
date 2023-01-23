@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(VERSION).tar.gz
+GITHUB_REPO=https://github.com/redis/redis
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,7 +10,7 @@ TARBALL=$(VERSION).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/redis/redis/archive/refs/tags/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/archive/refs/tags/$(TARBALL); \
 	tar xf $(TARBALL)
 
 $(BUILD_PATH)/src/make_check.log:
@@ -35,4 +36,5 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make PREFIX="$(PREFIX)" install
 	make post_install
 
-
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

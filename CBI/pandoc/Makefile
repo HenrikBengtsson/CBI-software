@@ -4,6 +4,7 @@ include ../utils.mk
 
 ARCH=linux-amd64
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
+GITHUB_REPO=https://github.com/jgm/pandoc
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -11,7 +12,7 @@ TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/jgm/pandoc/releases/download/$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
@@ -20,3 +21,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

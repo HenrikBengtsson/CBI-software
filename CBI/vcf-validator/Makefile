@@ -3,6 +3,7 @@ include ../utils.mk
 
 VERSION_:=$(subst .,_,$(VERSION))
 ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
+GITHUB_REPO=https://github.com/EBIvariation/vcf-validator
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,9 +11,9 @@ ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)/$(NAME)-$(VERSION)
 	cd $(BUILD_HOME)/$(NAME)-$(VERSION); \
-	curl -L -O https://github.com/EBIvariation/vcf-validator/releases/download/v$(VERSION)/vcf_assembly_checker_linux; \
-	curl -L -O https://github.com/EBIvariation/vcf-validator/releases/download/v$(VERSION)/vcf_debugulator_linux; \
-	curl -L -O https://github.com/EBIvariation/vcf-validator/releases/download/v$(VERSION)/vcf_validator_linux
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/vcf_assembly_checker_linux; \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/vcf_debugulator_linux; \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/vcf_validator_linux
 
 $(BUILD_TARGET):
 	mkdir -p $(BUILD_HOME)/$(NAME)-$(VERSION)/build
@@ -27,3 +28,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

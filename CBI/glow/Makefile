@@ -3,6 +3,7 @@ include ../utils.mk
 
 ARCH=linux_x86_64
 TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz
+GITHUB_REPO=https://github.com/charmbracelet/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +11,7 @@ TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/charmbracelet/$(NAME)/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	cd $(BUILD_PATH); \
 	tar -xzf ../$(TARBALL)
 #	mv $(NAME)-v$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
@@ -20,3 +21,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'

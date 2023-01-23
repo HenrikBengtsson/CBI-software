@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(VERSION).tar.gz
+GITHUB_REPO=https://github.com/HenrikBengtsson/shellcheck-repl
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,7 +10,7 @@ TARBALL=$(VERSION).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/HenrikBengtsson/shellcheck-repl/archive/refs/tags/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/archive/refs/tags/$(TARBALL); \
 	tar xf $(TARBALL)
 
 ## Make sure there is a default, so we can load the hidden module

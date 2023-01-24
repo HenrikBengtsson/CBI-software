@@ -1,5 +1,5 @@
 NAME=pandoc
-VERSION:=2.19.2
+VERSION=3.0
 DOWNLOAD_TARGET_FILE=bin/pandoc
 CONFIG=false
 BUILD=false

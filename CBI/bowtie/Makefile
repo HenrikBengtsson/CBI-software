@@ -20,3 +20,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --silent https://bowtie-bio.sourceforge.net/index.shtml | grep -F "https://sourceforge.net/projects/bowtie-bio/files/bowtie/" | sed -E 's#(^.*https://sourceforge.net/projects/bowtie-bio/files/bowtie/|".*)##g'

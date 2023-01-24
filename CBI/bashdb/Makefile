@@ -19,3 +19,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --silent https://sourceforge.net/projects/bashdb/files/bashdb/ | pandoc --from=html --to=plain | grep -A 50 -E "Home */ *bashdb" | grep -E "[^[:digit:]]*\b([[:digit:].-]+)\b.*" | sed -E 's/[^[:digit:]]*\b([[:digit:].-]+)\b.*/\1/g' | sort -r -h | grep -E "^4" | head -1
+

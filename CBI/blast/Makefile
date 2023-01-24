@@ -20,3 +20,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --silent https://www.ncbi.nlm.nih.gov/books/NBK131777/ | pandoc --from=html --to=plain | grep -A 200 -F "BLAST+ Release Notes" | grep -E "^[[:space:]]*BLAST[+][[:space:]]+[[:digit:].]+:[[:space:]]+" | sed -E 's/^[[:space:]]*BLAST[+][[:space:]]+([[:digit:].]+):[[:space:]]+.*/\1/g' | head -1

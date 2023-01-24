@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(glow --version | sed -E 's/(.*version +| +[(].*)//g')
+    version=$(glow --version | sed -E 's/(.*version +v?| +[(].*)//g')
     assert_equal "${version}" "${VERSION}"
 }

@@ -15,4 +15,4 @@ $(DOWNLOAD_TARGET):
 	tar xzf $(TARBALL)
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

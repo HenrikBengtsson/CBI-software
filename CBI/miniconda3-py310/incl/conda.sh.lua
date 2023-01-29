@@ -1,7 +1,11 @@
 -- Don't edit! Created using: 
--- /usr/share/lmod/lmod/libexec/sh_to_modulefile /software/c4/cbi/software/miniconda3-py310-22.11.1/etc/profile.d/conda.sh
-pushenv("CONDA_EXE","/software/c4/cbi/software/miniconda3-py310-22.11.1/bin/conda")
-pushenv("CONDA_PYTHON_EXE","/software/c4/cbi/software/miniconda3-py310-22.11.1/bin/python")
+-- /usr/share/lmod/lmod/libexec/sh_to_modulefile /wynton/home/cbi/shared/software/CBI/miniconda3-py310-22.11.1/etc/profile.d/conda.sh
+pushenv("CONDA_EXE","/wynton/home/cbi/shared/software/CBI/miniconda3-py310-22.11.1/bin/conda")
+pushenv("CONDA_PYTHON_EXE","/wynton/home/cbi/shared/software/CBI/miniconda3-py310-22.11.1/bin/python")
+pushenv("CONDA_SHLVL","0")
+prepend_path("PATH","/wynton/home/cbi/shared/software/CBI/miniconda3-py310-22.11.1/condabin")
+pushenv("_CE_CONDA","")
+pushenv("_CE_M","")
 set_shell_function("__conda_activate"," \
     if [ -n \"${CONDA_PS1_BACKUP:+x}\" ]; then\
         PS1=\"$CONDA_PS1_BACKUP\";\

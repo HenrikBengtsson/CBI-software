@@ -30,4 +30,4 @@ $(BUILD_PATH)/check.log:
 post_build: $(BUILD_PATH)/check.log
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

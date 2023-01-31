@@ -3,6 +3,7 @@ include ../utils.mk
 
 ARCH=x86_64-unknown-linux-musl
 TARBALL=$(NAME)-v$(VERSION)-$(ARCH).tar.gz
+GITHUB_REPO=https://github.com/sharkdp/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +11,7 @@ TARBALL=$(NAME)-v$(VERSION)-$(ARCH).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/sharkdp/$(NAME)/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar -xzf $(TARBALL); \
 	mv $(NAME)-v$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
 
@@ -24,4 +25,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl --silent https://raw.githubusercontent.com/sharkdp/bat/master/CHANGELOG.md | grep -E "^# +v[[:digit:].]+" | head -n 1 | sed -E 's/^# *v//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

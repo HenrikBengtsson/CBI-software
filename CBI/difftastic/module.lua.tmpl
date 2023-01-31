@@ -1,0 +1,20 @@
+help([[
+difftastic: A Structural Diff that Understands Syntax
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, file viewer, cli, tui")
+whatis("URL: https://difftastic.wilfred.me.uk/, https://github.com/Wilfred/difftastic/blob/master/CHANGELOG.md (changelog), https://github.com/Wilfred/difftastic/ (source code)")
+whatis([[
+Description: Difftastic is a structural diff tool that understands syntax. It supports over 30 programming languages (https://difftastic.wilfred.me.uk/languages_supported.html) and when it works, it's fantastic.
+Examples: `difft --help`, `difft --version`, `difft old.R new.R`, and `GIT_EXTERNAL_DIFF=difft git diff`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

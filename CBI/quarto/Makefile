@@ -1,8 +1,11 @@
 include config.mk
 include ../utils.mk
 
-ARCH=linux-amd64
-ARCH=linux-rhel7-amd64
+ifeq ($(LINUX_NAME),Ubuntu)
+  ARCH=linux-amd64
+else
+  ARCH=linux-rhel7-amd64
+endif
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 GITHUB_REPO=https://github.com/quarto-dev/quarto-cli
 

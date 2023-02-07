@@ -17,6 +17,10 @@ elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    >&2 echo "File system: TIPCC (legacy)"
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
    module_root="/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
+elif [[ -d "$HOME/software/cbi/" ]]; then
+   >&2 echo 'File system: $HOME'
+   software_root="$HOME/software/cbi/software"
+   module_root="$HOME/software/cbi/modulefiles"
 else
    software_root=
    module_root=

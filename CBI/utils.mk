@@ -6,6 +6,19 @@ ifndef NAME
   $(error ERROR: Environment variable 'NAME' is not set)
 endif
 
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## LINUX DISTRIBUTION
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef LINUX_NAME
+  LINUX_NAME=$(shell test -f /etc/os-release && { source /etc/os-release; echo "$$NAME"; })
+endif
+
+ifndef LINUX_VERSION
+  ifeq ($(LINUX_NAME),Ubuntu)
+      LINUX_VERSION=$(shell test -f /etc/os-release && { source /etc/os-release; echo "$$VERSION_ID"; })
+  endif
+endif
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## CORE
@@ -400,6 +413,10 @@ debug:
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"
+	@echo
+	@echo "ARCHITECTURE:"
+	@echo "LINUX_NAME: $(LINUX_NAME)"
+	@echo "LINUX_VERSION: $(LINUX_VERSION)"
 
 
 version:

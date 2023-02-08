@@ -1,19 +1,17 @@
 include config.mk
 include ../version.mk
+include ../sysinfo.mk
 
 ## Special cases (must come before including utils.mk)
 
-## Building alpha, beta, or release-candidate version?
-ifeq ($(findstring alpha,$(VERSION)),alpha)
-	BUILD_NAME=R-alpha
-else ifeq ($(findstring beta,$(VERSION)),beta)
-	BUILD_NAME=R-beta
-else ifeq ($(findstring rc,$(VERSION)),rc)
-	BUILD_NAME=R-rc
-endif
-
 ## Use modern GCC and Java versions?
 GCC_VERSION=10
+ifeq ($(LINUX_NAME),Ubuntu)
+    ifeq ($(LINUX_VERSION),22.04)
+        GCC_VERSION=11
+    endif
+endif
+
 ifeq ($(VERSION_X),1)
     GCC_VERSION=
 else ifeq ($(VERSION_X),2)
@@ -25,6 +23,16 @@ else ifeq ($(VERSION_X),4)
     else ifeq ($(VERSION_X_Y),4.1)
         GCC_VERSION=8
     endif
+endif
+
+
+## Building alpha, beta, or release-candidate version?
+ifeq ($(findstring alpha,$(VERSION)),alpha)
+	BUILD_NAME=R-alpha
+else ifeq ($(findstring beta,$(VERSION)),beta)
+	BUILD_NAME=R-beta
+else ifeq ($(findstring rc,$(VERSION)),rc)
+	BUILD_NAME=R-rc
 endif
 
 ## Check if CBI scl-devtoolset modules are available
@@ -82,7 +90,8 @@ assert_gcc_version:
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-$(DOWNLOAD_TARGET): assert_gcc_version
+$(DOWNLOAD_TARGET):
+	make GCC_VERSION=$(GCC_VERSION) assert_gcc_version
 	mkdir -p $(BUILD_HOME)/untar
 	cd $(BUILD_HOME); \
 	curl -O $(DOWNLOAD_URL); \
@@ -102,7 +111,7 @@ r_javareconf:
 	## Configure R for Java (so that 'rJava' can be installed)
 	chmod -R u+w $(PREFIX)/lib*/R/{bin,etc}
 	chmod u+w $(PREFIX)/*
-	if module load openjdk/$(OPENJDK_VERSION); then \
+	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
 	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
@@ -128,17 +137,17 @@ r_javareconf:
 
 	## Save log file
 	cp "$(BUILD_PATH)/javareconf.log" $(PREFIX)/
-	make write_protect_install
+	make GCC_VERSION=$(GCC_VERSION) write_protect_install
 
 
 post_install: r_javareconf
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
-	chmod u+w $(PREFIX)/*
+	chmod u+w $(PREFIX) $(PREFIX)/*
 	cp "$(BUILD_PATH)/config.log" $(PREFIX)/
 	cp "$(BUILD_PATH)/make-check.log" $(PREFIX)/
 	grep -A 28 -F "R is now configured" "$(BUILD_PATH)/config.log" > "$(PREFIX)/config.log.summary"
-	make write_protect_install
+	make GCC_VERSION=$(GCC_VERSION) write_protect_install
 
 
 $(MODULE_TARGET): module.lua.tmpl
@@ -147,7 +156,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	cp "$<" "$@"
 	sed -i 's/myModuleVersion[(][)]/"$(MODULE_VERSION)"/' "$@"
 	if [[ ! -f "$(MODULE_TARGET_DEFAULT)" ]]; then ln -s "$@" "$(MODULE_TARGET_DEFAULT)"; fi
-	make write_protect_module
+	make GCC_VERSION=$(GCC_VERSION) write_protect_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)

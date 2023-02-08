@@ -1,22 +1,10 @@
 SHELL=bash
 
 include $(dir $(lastword $(MAKEFILE_LIST)))version.mk
+include $(dir $(lastword $(MAKEFILE_LIST)))sysinfo.mk
 
 ifndef NAME
   $(error ERROR: Environment variable 'NAME' is not set)
-endif
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## LINUX DISTRIBUTION
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef LINUX_NAME
-  LINUX_NAME=$(shell test -f /etc/os-release && { source /etc/os-release; echo "$$NAME"; })
-endif
-
-ifndef LINUX_VERSION
-  ifeq ($(LINUX_NAME),Ubuntu)
-      LINUX_VERSION=$(shell test -f /etc/os-release && { source /etc/os-release; echo "$$VERSION_ID"; })
-  endif
 endif
 
 

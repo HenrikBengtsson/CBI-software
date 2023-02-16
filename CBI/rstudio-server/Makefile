@@ -57,6 +57,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module purge; \
 	module try-load $(CONFIG_MODULES); \
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
+	command -v ant &> /dev/null || { 2>&1 echo "ERROR: Missing software: ant"; exit 1; }; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \

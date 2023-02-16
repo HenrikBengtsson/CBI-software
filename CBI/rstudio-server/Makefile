@@ -49,6 +49,7 @@ $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	export RSTUDIO_TOOLS_ROOT=$<; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 
+
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cd "$(BUILD_PATH)"; \
@@ -58,6 +59,8 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module try-load $(CONFIG_MODULES); \
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	command -v ant &> /dev/null || { 2>&1 echo "ERROR: Missing software: ant"; exit 1; }; \
+	JAVA_XY=$$(java -version 2>&1 | grep version | sed -E 's/(.* "|".*$$)//g'); \
+g	[[ $$JAVA_XY =~ 1.8.* ]] || { 2>&1 echo "ERROR: Requires Java v1.8: $$JAVA_XY"; exit 1; }; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
@@ -91,3 +94,5 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+FORCE:

@@ -1,6 +1,6 @@
 NAME=markdownlint-cli
-VERSION=0.32.2
+VERSION=0.33.0
 CONFIG=false
 BUILD=false
-DOWNLOAD_TARGET_FILE=v$(VERSION).tar.gz
+DOWNLOAD=false
 INSTALL_TARGET_FILE=node_modules/.bin/markdownlint

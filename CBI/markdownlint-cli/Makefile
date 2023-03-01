@@ -6,12 +6,6 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 
-$(DOWNLOAD_TARGET):
-	mkdir -p $(BUILD_PATH); \
-	cd $(BUILD_PATH); \
-	curl -L -O https://github.com/igorshubovych/markdownlint-cli/archive/refs/tags/$(DOWNLOAD_TARGET_FILE)
-
-
 ## WORKAROUND: It looks like we have to set 'npm_config_cache' to folder
 ## on the local drive, instead of the default $HOME/.npm/ folder, which
 ## lives on BeeGFS (on C4 and Wynton).  When using the default, we get
@@ -31,10 +25,14 @@ $(DOWNLOAD_TARGET):
 ## npm ERR!   sudo chown -R 581:509 "$HOME/.npm"
 ##
 ## /HB 2022-10-21
-$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
+$(INSTALL_TARGET):
 	cd $(BUILD_PATH); \
 	module purge; \
-	npm_config_cache="$$(mktemp -d)" npm install --prefix="$(PREFIX)" "$<"
+	npm_config_cache="$$(mktemp -d)" npm install --prefix="$(PREFIX)" markdownlint-cli
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	npm view markdownlint-cli version
+

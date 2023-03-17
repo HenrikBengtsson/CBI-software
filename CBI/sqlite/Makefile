@@ -25,3 +25,6 @@ $(BUILD_PATH)/check.log:
 	make test &> check.log
 
 #post_build: $(BUILD_PATH)/check.log
+
+available-version:
+	@curl --silent https://github.com/sqlite/sqlite/tags | pandoc --from=html --to=plain | grep -E "^[[:space:]]+Version " | head -1 | sed -E 's/[[:space:]]+Version //'

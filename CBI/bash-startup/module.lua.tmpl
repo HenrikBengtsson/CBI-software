@@ -1,0 +1,21 @@
+help([[
+bash-startup: Bash Startup Utility Functions
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "")
+
+whatis("Version: " .. version)
+whatis("Keywords: programming, shell, bash")
+whatis("URL: https://github.com/HenrikBengtsson/bashrc-startup, https://github.com/HenrikBengtsson/bash-startup#readme (documentation), https://github.com/HenrikBengtsson/bash-startup/blob/master/NEWS (changelog)")
+whatis([[
+Description: Provides the shell function `startup()` for loading personal Bash startup settings in seperate files and subfolders under ~/.bashrc.d/.
+Examples: `source "${BASH_STARTUP_HOME}/bash-startup" ~/.bashrc.d/`
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+setenv("BASH_STARTUP_HOME", home)

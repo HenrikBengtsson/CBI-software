@@ -1,7 +1,7 @@
 NAME=rstudio-server
 ## VERSION=2022.07.2-576 # broken, cf. https://github.com/HenrikBengtsson/CBI-software/issues/78
 ## Works: VERSION=2022.12.0-353
-VERSION=2023.03.0
+VERSION=2023.03.0+386
 DOWNLOAD_TARGET_FILE=INSTALL
 CONFIG_TARGET_FILE=build/Makefile
 BUILD_TARGET_FILE=build/src/cpp/server/crash-handler-proxy/crash-handler-proxy

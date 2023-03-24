@@ -1,5 +1,4 @@
 include config.mk
-include ../utils.mk
 
 TAIL:=$(VERSION)
 RSTUDIO_VERSION_MAJOR:=$(shell echo "$(TAIL)" | sed -E 's/[^[:digit:]][^.]*//g')
@@ -10,7 +9,12 @@ RSTUDIO_VERSION_PATCH:=$(shell echo "$(TAIL)" | sed -E 's/[^[:digit:]][^.]*//g')
 TAIL:=$(shell echo "$(TAIL)" | sed "s/$(RSTUDIO_VERSION_PATCH)//")
 RSTUDIO_VERSION_SUFFIX:=$(TAIL)
 
+VERSION_MINUS:=$(RSTUDIO_VERSION_MAJOR).$(RSTUDIO_VERSION_MINOR).$(RSTUDIO_VERSION_PATCH)$(shell echo "$(RSTUDIO_VERSION_SUFFIX)" | tr '+' '-')
 VERSION_PLUS:=$(RSTUDIO_VERSION_MAJOR).$(RSTUDIO_VERSION_MINOR).$(RSTUDIO_VERSION_PATCH)$(shell echo "$(RSTUDIO_VERSION_SUFFIX)" | tr '-' '+')
+VERSION:=$(VERSION_MINUS)
+
+include ../utils.mk
+
 TARBALL=v$(VERSION_PLUS).tar.gz
 
 debug3:
@@ -19,6 +23,7 @@ debug3:
 	@echo "RSTUDIO_VERSION_MINOR=$(RSTUDIO_VERSION_MINOR)"
 	@echo "RSTUDIO_VERSION_PATCH=$(RSTUDIO_VERSION_PATCH)"
 	@echo "RSTUDIO_VERSION_SUFFIX=$(RSTUDIO_VERSION_SUFFIX)"
+	@echo "VERSION_MINUS=$(VERSION_MINUS)"
 	@echo "VERSION_PLUS=$(VERSION_PLUS)"
 
 
@@ -32,6 +37,7 @@ $(DOWNLOAD_TARGET):
 	[[ -f "$(TARBALL)" ]] || curl -L -O "https://github.com/rstudio/rstudio/archive/refs/tags/$(TARBALL)"; \
 	tar zxf "$(TARBALL)"; \
 	mv rstudio-$(VERSION) $(NAME)-$(VERSION)
+	echo "Now run 'make rstudio-tools'"
 
 
 rstudio-tools: $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto
@@ -97,7 +103,7 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 
 available-version:
 #	@curl --silent https://docs.posit.co/ide/news/ | pandoc --from=html --to=plain | grep -E "RStudio [[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+\b" | sed -E 's/^(-[[:space:]]+|)RStudio //' | uniq | head -1
-	@curl --silent https://github.com/rstudio/rstudio/tags | pandoc --from=html --to=plain | grep -E "^v[[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+" | sed -E 's/^v//' | head -1
+	@curl --silent https://github.com/rstudio/rstudio/tags | pandoc --from=html --to=plain | grep -E "^v[[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+" | sed -E 's/^v//' | head -1 | sed 's/+/-/'
 
 FORCE:
 

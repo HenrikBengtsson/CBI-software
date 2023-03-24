@@ -95,4 +95,9 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
+available-version:
+#	@curl --silent https://docs.posit.co/ide/news/ | pandoc --from=html --to=plain | grep -E "RStudio [[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+\b" | sed -E 's/^(-[[:space:]]+|)RStudio //' | uniq | head -1
+	@curl --silent https://github.com/rstudio/rstudio/tags | pandoc --from=html --to=plain | grep -E "^v[[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+" | sed -E 's/^v//' | head -1
+
 FORCE:
+

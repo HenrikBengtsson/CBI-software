@@ -86,6 +86,29 @@ assert_gcc_version:
 	echo "Provided GCC version: $${curr_version}"; \
 	[[ $${curr_version} == "$(GCC_VERSION)" ]] || { 2>&1 echo "ERROR: Provided GCC version (v$${curr_version}) not the same as the requested one (v$(GCC_VERSION))"; exit 1; }
 
+assert_java_version:
+	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
+	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
+	else \
+	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
+	fi; \
+	JAVA_VERSION=$$(java   -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
+	JAVAC_VERSION=$$(javac -version 2>&1 | head -1 | sed 's/.* //');             \
+	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');        \
+	JAVAC_VERSION_XY=$$(echo "$${JAVAC_VERSION:?}" | sed 's/[.][^.]*$$//');      \
+	echo "JAVA_HOME=$${JAVA_HOME}";                                              \
+	echo "JAVA_VERSION_XY=$${JAVA_VERSION_XY:?}";                                \
+	echo "JAVAC_VERSION_XY=$${JAVAC_VERSION_XY:?}";                              \
+	if [[ "$${JAVA_VERSION_XY:?}" != "$${JAVAC_VERSION_XY:?}" ]]; then           \
+	    >&2 echo "ERROR: java and javac are of different versions: $${JAVA_VERSION} != $${JAVAC_VERSION}"; \
+            if [[ "$(LINUX_NAME)" == "Ubuntu" ]]; then \
+              >&2 echo "To fix this on Ubuntu, run:"; \
+              >&2 echo "  sudo update-alternatives --config java"; \
+              >&2 echo "  sudo update-alternatives --config javac"; \
+            fi; \
+	    exit 1;                                                                  \
+        fi;
+
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -99,15 +122,15 @@ $(DOWNLOAD_TARGET):
 	mv untar/* $(BUILD_NAME); \
 	rmdir untar
 
-pre_config: assert_gcc_version
+pre_config: assert_gcc_version assert_java_version
 
-pre_build: assert_gcc_version
+pre_build: assert_gcc_version assert_java_version
 
 post_build:
 	cd $(BUILD_PATH); \
 	R_LIBS_USER=dummy make check &> make-check.log
 
-r_javareconf:
+r_javareconf: assert_java_version
 	## Configure R for Java (so that 'rJava' can be installed)
 	chmod -R u+w $(PREFIX)/lib*/R/{bin,etc}
 	chmod u+w $(PREFIX)/*
@@ -160,3 +183,6 @@ $(MODULE_TARGET): module.lua.tmpl
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load $(MODULE_NAME_VERSION)
 	module unload $(MODULE_NAME_VERSION)
+
+available-version:
+	@curl --silent https://cran.r-project.org/src/base/R-4/ | grep -E ">R-[[:digit:]]?[.][[:digit:]]?[.][[:digit:]]?[.]tar.gz<" | sed -E 's/.*>R-([[:digit:]]?[.][[:digit:]]?[.][[:digit:]])?[.]tar.gz<.*/\1/' | sort -h | tail -1

@@ -60,7 +60,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	command -v ant &> /dev/null || { 2>&1 echo "ERROR: Missing software: ant"; exit 1; }; \
 	JAVA_XY=$$(java -version 2>&1 | grep version | sed -E 's/(.* "|".*$$)//g'); \
-g	[[ $$JAVA_XY =~ 1.8.* ]] || { 2>&1 echo "ERROR: Requires Java v1.8: $$JAVA_XY"; exit 1; }; \
+	[[ $$JAVA_XY =~ 1.8.* ]] || { 2>&1 echo "ERROR: Requires Java v1.8: $$JAVA_XY"; exit 1; }; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \

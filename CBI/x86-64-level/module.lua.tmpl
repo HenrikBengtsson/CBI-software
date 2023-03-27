@@ -1,0 +1,20 @@
+help([[
+x86-64-level: Get the x86-64 Microarchitecture Level on the Current Machine
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "")
+
+whatis("Version: " .. version)
+whatis("Keywords: tools, shell, bash")
+whatis("URL: https://github.com/HenrikBengtsson/x86-64-level/, https://github.com/HenrikBengtsson/x86-64-level/blob/develop/NEWS.md (changelog)")
+whatis([[
+Description: x86-64 is a 64-bit version of the x86 CPU instruction set supported by AMD and Intel CPUs among others. Since the first generations of CPUs, more low-level CPU features have been added over the years. The x86-64 CPU features can be grouped into four CPU microarchitecture levels: x86-64 v1, x86-64 v2, x86-64 v3, and x86-64 v4. This tool checks which CPU level the current machine supports.
+Examples: `x86-64-level` and `x86-64-level --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+prepend_path("PATH", home)

@@ -26,3 +26,9 @@ prepend_path("PATH", home)
 -- REFERENCES:
 -- * https://martian-lang.org/advanced-features/#job-management
 pushenv("MROFLAGS", "--localcores=1 --localmem=8 --limit-loadavg")
+
+-- Assert that the current machine supports x86-64 v2 or greater
+setenv("X86_64_LEVEL_ASSERT", "2")
+try_load("x86-64-level")
+setenv("X86_64_LEVEL_ASSERT", "")
+

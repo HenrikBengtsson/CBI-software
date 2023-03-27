@@ -18,3 +18,15 @@ Warning: Only the most recent version of this software will be kept.
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
+
+-- Assert x86-64-level on load?
+if (mode() == "load") then
+  local level = os.getenv("X86_64_LEVEL_ASSERT")
+  if level ~= nul and level ~= "" then
+    local error = capture("x86-64-level --assert=" .. level .. " 2>&1")
+    LmodError("error: " .. error)
+    if error ~= "" then
+      LmodError(error)
+    end
+  end
+end

@@ -24,7 +24,6 @@ if (mode() == "load") then
   local level = os.getenv("X86_64_LEVEL_ASSERT")
   if level ~= nul and level ~= "" then
     local error = capture("x86-64-level --assert=" .. level .. " 2>&1")
-    LmodError("error: " .. error)
     if error ~= "" then
       LmodError(error)
     end

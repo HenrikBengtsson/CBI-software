@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(VERSION).tar.gz
+GITHUB_REPO=https://github.com/UCSF-CBI/rstudio-server-controller
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +11,7 @@ TARBALL=$(VERSION).tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/UCSF-CBI/rstudio-server-controller/archive/refs/tags/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/archive/refs/tags/$(TARBALL); \
 	tar xf "$(TARBALL)"
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
@@ -22,3 +23,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
+available-version:
+	@curl --silent $(GITHUB_REPO)/tags | pandoc --from=html --to=plain | grep -E "^[[:digit:]][.][[:digit:]][.][[:digit:]]$$" | head -1 | sed -E 's/[[:space:]]+$(NAME) //'

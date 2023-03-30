@@ -21,3 +21,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@pattern=".*FastQC[[:space:]]+v([[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+).*"; \
+	curl --silent https://raw.githubusercontent.com/s-andrews/FastQC/master/RELEASE_NOTES.txt | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/"

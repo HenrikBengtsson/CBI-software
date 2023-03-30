@@ -22,3 +22,7 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R "$(DOWNLOAD_PATH)" "$(SOFTWARE_HOME)"
+
+available-version:
+	@pattern=".*[-][[:space:]]+([[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+)[[:space:]]Documentation.*"; \
+	curl --silent https://cmake.org/cmake/help/latest/release/index.html | pandoc --from=html --to=plain | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/"

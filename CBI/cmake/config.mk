@@ -1,5 +1,5 @@
 NAME=cmake
-VERSION:=3.25.1
+VERSION=3.26.2
 DOWNLOAD_TARGET_FILE=bin/cmake
 CONFIG=false
 BUILD=false

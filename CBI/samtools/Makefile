@@ -5,7 +5,9 @@ include config.mk
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
 
-URL=https://github.com/samtools/$(NAME)/releases/download/$(VERSION)/$(TARBALL)
+GITHUB_REPO=https://github.com/samtools/samtools
+
+URL=$(GITHUB_REPO)/releases/download/$(VERSION)/$(TARBALL)
 VERSION_X := $(shell echo "$(VERSION)" | sed -E 's/[.].*//')
 ifeq ($(VERSION_X),0)
   VERSION_NO_SUFFIX := $(shell echo "$(VERSION)" | sed -E 's/[a-z]$$//')
@@ -34,3 +36,9 @@ $(INSTALL_TARGET):
 	cd $(PREFIX); \
 	rm -- *.o bcftools/*.o misc/*.o
 endif
+
+
+available-version:
+	@curl --silent https://github.com/samtools/htslib/tags | pandoc --from=html --to=plain | grep -E "^[[:digit:]]+[.][[:digit:]]+" | head -1
+
+

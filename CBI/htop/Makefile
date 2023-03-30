@@ -1,6 +1,7 @@
 include config.mk
 include ../utils.mk
 
+GITHUB_REPO=https://github.com/htop-dev/htop
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -15,7 +16,7 @@ else
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L https://github.com/htop-dev/htop/archive/refs/tags/$(VERSION).tar.gz -o $(TARBALL); \
+	curl -L $(GITHUB_REPO)/archive/refs/tags/$(VERSION).tar.gz -o $(TARBALL); \
 	tar xfz $(TARBALL)
 endif
 
@@ -35,3 +36,6 @@ post_config:
 	cd $(BUILD_PATH); \
 	cp '.deps/$$(myhtopplatprogram).Po' .deps/htop.Po
 endif
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

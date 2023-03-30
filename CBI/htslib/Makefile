@@ -6,7 +6,7 @@ include ../utils.mk
 
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
-GITHUB_REPO=https://github.com/samtools/samtools
+GITHUB_REPO=https://github.com/samtools/htslib
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -18,6 +18,4 @@ $(DOWNLOAD_TARGET):
 	tar jxf $(TARBALL)
 
 available-version:
-	@curl --silent $(GITHUB_REPO)/develop/NEWS | grep -E "^Release [[:digit:]]" | head -1 | sed -E 's/(^Release *| .*)//g'
-
-
+	@curl --silent $(GITHUB_REPO)/tags | pandoc --from=html --to=plain | grep -E "^[[:digit:]]+[.][[:digit:]]+" | head -1

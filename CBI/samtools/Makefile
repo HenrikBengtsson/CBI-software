@@ -39,6 +39,4 @@ endif
 
 
 available-version:
-	@curl --silent https://github.com/samtools/htslib/tags | pandoc --from=html --to=plain | grep -E "^[[:digit:]]+[.][[:digit:]]+" | head -1
-
-
+	@curl --silent $(GITHUB_REPO)/tags | pandoc --from=html --to=plain | grep -E "^[[:digit:]]+[.][[:digit:]]+" | head -1

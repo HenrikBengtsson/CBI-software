@@ -4,13 +4,19 @@ include ../utils.mk
 JARFILE=$(NAME).v$(VERSION).jar
 GITHUB_REPO=https://github.com/dkoboldt/varscan
 
+## VERSION < 2.4.5
+URL_PATH=$(GITHUB_REPO)/releases/download/$(VERSION)
+
+## VERSION >= 2.4.5
+URL_PATH=$(GITHUB_REPO)/releases/download/v$(VERSION)
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
-	curl -L -O $(GITHUB_REPO)/releases/download/$(VERSION)/$(JARFILE)
+	curl -L -O $(URL_PATH)/$(JARFILE)
 
 $(BUILD_TARGET):
 	cd $(BUILD_PATH); \

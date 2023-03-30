@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
+GITHUB_REPO=https://raw.githubusercontent.com/samtools/bcftools
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -13,4 +14,4 @@ $(DOWNLOAD_TARGET):
 	tar jxf $(TARBALL)
 
 available-version:
-	@curl --silent https://raw.githubusercontent.com/samtools/bcftools/develop/NEWS | grep -E "^#+ Release [[:digit:]]" | head -1 | sed -E 's/(^#+ Release *| .*)//g'
+	@curl --silent $(GITHUB_REPO)/develop/NEWS | grep -E "^#+ Release [[:digit:]]" | head -1 | sed -E 's/(^#+ Release *| .*)//g'

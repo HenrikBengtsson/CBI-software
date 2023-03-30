@@ -24,3 +24,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@pattern="^v([[:digit:]]+[.][[:digit:]]+(|[[:alpha:]]))[[:space:]]*"; \
+	curl --silent https://github.com/pcingola/SnpEff/tags | pandoc --from=html --to=plain | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/" 

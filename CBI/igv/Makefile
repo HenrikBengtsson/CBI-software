@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 ZIPBALL=$(NAME)_$(VERSION).zip
+GITHUB_REPO=https://github.com/igvteam/igv
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -18,3 +19,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@pattern="^v([[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+)[[:space:]]*"; \
+	curl --silent "$(GITHUB_REPO)/tags" | pandoc --from=html --to=plain | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/"

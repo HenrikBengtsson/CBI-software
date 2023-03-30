@@ -18,3 +18,7 @@ $(INSTALL_TARGET):
 	ls -la "$(PREFIX)"
 	ls -la "$(PREFIX)/bin"
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@pattern=".*v([[:digit:]]+[.][[:digit:]]+)[[:space:]].*"; \
+	curl --silent https://github.com/marcelm/cutadapt/blob/main/CHANGES.rst | pandoc --from=html --to=plain | grep -A 5 -F "[]Changelog" | grep -E "$$pattern" | sed -E "s/$$pattern/\1/"

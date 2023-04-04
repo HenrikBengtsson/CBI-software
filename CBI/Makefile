@@ -28,25 +28,37 @@ check/%:
 
 all: install/PACKAGES
 
-check-results/%.out: FORCE
+check-results/%: FORCE
 	@ \
-	if [[ -f "$(@)"      ]]; then echo "already success";     exit 0; fi; \
-	if [[ -f "$(@).fail" ]]; then echo "already failed";      exit 0; fi; \
-	if [[ -f "$(@).skip" ]]; then echo "marked for skipping"; exit 0; fi; \
+	if [[ -f "$(@).out"           ]]; then echo "already success";     exit 0; fi; \
+	if [[ -f "$(@).fail"          ]]; then echo "already failed";      exit 0; fi; \
+	if [[ -f "$(@).skip"          ]]; then echo "marked for skipping"; exit 0; fi; \
+	if [[ -f "$(@).not-installed" ]]; then echo "not installed";       exit 0; fi; \
 	mkdir -p "$(@D)"; \
 	pkg=$(@F); \
 	pkg=$${pkg//.out}; \
-	cd "$${pkg}"; \
-	$(MAKE) check 2> /dev/null > ../$(@).tmp && mv ../$(@).tmp ../$(@) || mv ../$(@).tmp ../$(@).fail; \
-	echo "success"
+	if module -r spider "^$${pkg}$$" 2> /dev/null; then \
+	    cd "$${pkg}"; \
+	    $(MAKE) check 2> /dev/null > ../$(@).tmp && mv ../$(@).tmp ../$(@) || mv ../$(@).tmp ../$(@).fail; \
+	    cd ..; \
+	else \
+	    touch "$(@).not-installed"; \
+	    echo "not installed"; \
+	fi; \
+	if [[ -f "$(@).out"  ]]; then echo "success";     exit 0; fi; \
+	if [[ -f "$(@).fail" ]]; then echo "failed";      exit 0; fi;
 
 check-results/PACKAGES: PACKAGES
 	@ \
 	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \
 	for ii in $${!pkgs[@]}; do \
 	  pkg=$${pkgs[$$ii]}; \
-	  printf "%03d/%03d. make %s/%s.out ... " "$$((ii+1))" "$${#pkgs[@]}" "$(@D)" "$${pkg}"; \
-	  $(MAKE) --no-print-directory $(@D)/$${pkg}.out; \
+	  printf "%03d/%03d. " "$$((ii+1))" "$${#pkgs[@]}"; \
+	  $(MAKE) --no-print-directory $(@D)/$${pkg} > /dev/null; \
+	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then printf "[ OK ]"; fi; \
+	  if [[ -f "$(@D)/$${pkg}.fail" ]]; then printf "[FAIL]"; fi; \
+	  if [[ -f "$(@D)/$${pkg}.skip" ]]; then printf "[SKIP]"; fi; \
+	  echo " $${pkg}"; \
 	done;
 
 pkgs: PACKAGES
@@ -58,8 +70,24 @@ unclean:
 clean:
 	rm -- */.done
 
-PACKAGES: FORCE
-	find . -type f -name "config.mk" -exec dirname {} + | sed -E 's/.\///' > "$@"
+PACKAGES:
+	@echo "## Last updated: $$(date --rfc-3339=second)" > "$(@).tmp"; \
+	pkgs=($$(find . -type f -name "config.mk" -exec dirname {} + | grep -vF wip | sed -E 's/.\///')); \
+	echo "Number of installable packages: $${#pkgs[@]}"; \
+	count=0; \
+	for ii in $${!pkgs[@]}; do \
+	    printf "%03d/%03d. " "$$((ii+1))" "$${#pkgs[@]}"; \
+	    if module -r spider "^$${pkgs[ii]}$$" 2> /dev/null; then \
+	        echo "$${pkgs[ii]}" >> "$(@).tmp"; \
+	        printf "[x]"; \
+	        count=$$((count + 1)); \
+	    else \
+	        printf "[ ]"; \
+	    fi; \
+	    echo " $${pkgs[ii]}"; \
+	done; \
+	mv "$(@).tmp" "$(@)"; \
+	printf "%d out of %d modules available\n" "$${count}" "$${#pkgs[@]}"
 
 changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'

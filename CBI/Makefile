@@ -1,10 +1,13 @@
 SHELL:=bash
 
-i/%:
+install/%:
 	cd "$(@F)"; make all
 
-m/%:
+module/%:
 	cd "$(@F)"; make module
+
+check/%:
+	cd "$(@F)"; make check
 
 pkgs: PACKAGES
 	@cat PACKAGES | grep -vE "^#" | sort -u

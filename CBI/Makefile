@@ -39,7 +39,7 @@ check-results/%: FORCE
 	pkg=$${pkg//.out}; \
 	if module -r spider "^$${pkg}$$" 2> /dev/null; then \
 	    cd "$${pkg}"; \
-	    $(MAKE) check 2> /dev/null > ../$(@).tmp && mv ../$(@).tmp ../$(@) || mv ../$(@).tmp ../$(@).fail; \
+	    $(MAKE) check 2> /dev/null > ../$(@).tmp && mv ../$(@).tmp ../$(@).out || mv ../$(@).tmp ../$(@).fail; \
 	    cd ..; \
 	else \
 	    touch "$(@).not-installed"; \

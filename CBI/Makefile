@@ -1,29 +1,56 @@
-SHELL:=bash
+SHELL=bash
 
 install/%:
-	cd "$(@F)"; make all
+	cd "$(@F)"; $(MAKE) all
 
 module/%:
-	cd "$(@F)"; make module
+	cd "$(@F)"; $(MAKE) module
 
 check/%:
-	cd "$(@F)"; make check
+	cd "$(@F)"; $(MAKE) check
 
-pkgs: PACKAGES
-	@cat PACKAGES | grep -vE "^#" | sort -u
-
-all:
-	pkgs=($$(cat PACKAGES | grep -vE "^#" | sort -u)); \
+%/PACKAGES: PACKAGES
+	@cmd=$(@D); \
+	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \
 	for ii in $${!pkgs[@]}; do \
 	  pkg=$${pkgs[$$ii]}; \
-	  printf "%02d. %s ... " "$${ii}" "$${pkg}"; \
-	  if [[ -f "$${pkg}/.done" ]]; then \
+	  printf "%03d/%03d. make %s/%s.out ... " "$$((ii+1))" "$${#pkgs[@]}" "$${pkg}" "$${cmd}"; \
+	  if [[ -f "$${pkg}/$${cmd}.out" ]]; then \
 	    echo "already done"; \
+	    continue; \
+	  elif [[ -f "$${pkg}/$${cmd}.out.fail" ]]; then \
+	    echo "already failed"; \
 	    continue; \
 	  fi; \
           echo; \
-	  (cd "$${pkg}"; $(MAKE) all; touch ".done"); \
+	  $(MAKE) --no-print-directory $${pkg}/$${cmd}; \
 	done;
+
+all: install/PACKAGES
+
+check-results/%.out: FORCE
+	@ \
+	if [[ -f "$(@)"      ]]; then echo "already success";     exit 0; fi; \
+	if [[ -f "$(@).fail" ]]; then echo "already failed";      exit 0; fi; \
+	if [[ -f "$(@).skip" ]]; then echo "marked for skipping"; exit 0; fi; \
+	mkdir -p "$(@D)"; \
+	pkg=$(@F); \
+	pkg=$${pkg//.out}; \
+	cd "$${pkg}"; \
+	$(MAKE) check 2> /dev/null > ../$(@).tmp && mv ../$(@).tmp ../$(@) || mv ../$(@).tmp ../$(@).fail; \
+	echo "success"
+
+check-results/PACKAGES: PACKAGES
+	@ \
+	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \
+	for ii in $${!pkgs[@]}; do \
+	  pkg=$${pkgs[$$ii]}; \
+	  printf "%03d/%03d. make %s/%s.out ... " "$$((ii+1))" "$${#pkgs[@]}" "$(@D)" "$${pkg}"; \
+	  $(MAKE) --no-print-directory $(@D)/$${pkg}.out; \
+	done;
+
+pkgs: PACKAGES
+	@cat PACKAGES | grep -vE "^#" | sort -u
 
 unclean:
 	for pkg in *; do touch "$${pkg}/.done" 2> /dev/null; done

@@ -51,15 +51,17 @@ check-results/%: FORCE
 check-results/PACKAGES: PACKAGES
 	@ \
 	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \
+	ok=0; fail=0; skip=0; \
 	for ii in $${!pkgs[@]}; do \
 	  pkg=$${pkgs[$$ii]}; \
 	  printf "%03d/%03d. " "$$((ii+1))" "$${#pkgs[@]}"; \
 	  $(MAKE) --no-print-directory $(@D)/$${pkg} > /dev/null; \
-	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then printf "[ OK ]"; fi; \
-	  if [[ -f "$(@D)/$${pkg}.fail" ]]; then printf "[FAIL]"; fi; \
-	  if [[ -f "$(@D)/$${pkg}.skip" ]]; then printf "[SKIP]"; fi; \
+	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then printf "[ OK ]"; ok=$$((ok+1));     fi; \
+	  if [[ -f "$(@D)/$${pkg}.fail" ]]; then printf "[FAIL]"; fail=$$((fail+1)); fi; \
+	  if [[ -f "$(@D)/$${pkg}.skip" ]]; then printf "[SKIP]"; skip=$$((skip+1)); fi; \
 	  echo " $${pkg}"; \
-	done;
+	done; \
+	printf "\nRESULTS: %d SUCCESS, %d FAILED, %d SKIPPED\n" "$${ok}" "$${fail}" "$${skip}"; \
 
 pkgs: PACKAGES
 	@cat PACKAGES | grep -vE "^#" | sort -u

@@ -51,7 +51,7 @@ check-results/%: FORCE
 check-results/PACKAGES: PACKAGES
 	@ \
 	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \
-	ok=0; fail=0; skip=0; \
+	ok=0; half=0; fail=0; skip=0; \
 	for ii in $${!pkgs[@]}; do \
 	  pkg=$${pkgs[$$ii]}; \
 	  printf "%03d/%03d. " "$$((ii+1))" "$${#pkgs[@]}"; \
@@ -59,16 +59,17 @@ check-results/PACKAGES: PACKAGES
 	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then \
               if grep -q -F "missing tests/ folder" "$(@D)/$${pkg}.out"; then \
 	         printf "[HALF]"; \
+	         half=$$((half+1)); \
 	      else \
 	         printf "[ OK ]"; \
+	         ok=$$((ok+1)); \
 	      fi; \
-	      ok=$$((ok+1)); \
 	  fi; \
 	  if [[ -f "$(@D)/$${pkg}.fail" ]]; then printf "[FAIL]"; fail=$$((fail+1)); fi; \
 	  if [[ -f "$(@D)/$${pkg}.skip" ]]; then printf "[SKIP]"; skip=$$((skip+1)); fi; \
 	  echo " $${pkg}"; \
 	done; \
-	printf "\nRESULTS: %d SUCCESS, %d FAILED, %d SKIPPED\n" "$${ok}" "$${fail}" "$${skip}"; \
+	printf "\nRESULTS: %d SUCCESS, %d INCOMPLETE, %d FAILED, %d SKIPPED\n" "$${ok}" "$${half}" "$${fail}" "$${skip}"; \
 
 pkgs: PACKAGES
 	@cat PACKAGES | grep -vE "^#" | sort -u

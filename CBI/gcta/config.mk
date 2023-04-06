@@ -1,5 +1,5 @@
 NAME=gcta
-VERSION:=1.94.0beta
+VERSION=1.94.0beta
 DOWNLOAD_TARGET_FILE=gcta64
 CONFIG=false
 BUILD=false

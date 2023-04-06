@@ -56,7 +56,14 @@ check-results/PACKAGES: PACKAGES
 	  pkg=$${pkgs[$$ii]}; \
 	  printf "%03d/%03d. " "$$((ii+1))" "$${#pkgs[@]}"; \
 	  $(MAKE) --no-print-directory $(@D)/$${pkg} > /dev/null; \
-	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then printf "[ OK ]"; ok=$$((ok+1));     fi; \
+	  if [[ -f "$(@D)/$${pkg}.out"  ]]; then \
+              if grep -q -F "missing tests/ folder" "$(@D)/$${pkg}.out"; then \
+	         printf "[HALF]"; \
+	      else \
+	         printf "[ OK ]"; \
+	      fi; \
+	      ok=$$((ok+1)); \
+	  fi; \
 	  if [[ -f "$(@D)/$${pkg}.fail" ]]; then printf "[FAIL]"; fail=$$((fail+1)); fi; \
 	  if [[ -f "$(@D)/$${pkg}.skip" ]]; then printf "[SKIP]"; skip=$$((skip+1)); fi; \
 	  echo " $${pkg}"; \

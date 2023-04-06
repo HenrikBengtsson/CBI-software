@@ -16,7 +16,9 @@ local name = "snpEff"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-if (version >= "5.1") then
+if (version < "5.1") then
+  try_load("openjdk/11")
+elseif (version >= "5.1") then
   try_load("openjdk/17")
   try_load("openjdk/18")
 end

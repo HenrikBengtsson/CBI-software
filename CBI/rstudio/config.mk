@@ -1,6 +1,6 @@
 NAME=rstudio
 VERSION=2022.12.0-353
-VERSION=2023.03.0+386
+#VERSION=2023.03.0+386 ## to be installed
 
 DOWNLOAD_TARGET_FILE=rstudio
 CONFIG_TARGET_FILE=ldd-checks.tmp

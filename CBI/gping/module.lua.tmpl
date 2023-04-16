@@ -1,0 +1,20 @@
+help([[
+gping: Ping, but with a Graph
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: terminal, cli, utility")
+whatis("URL: https://github.com/orf/gping, https://github.com/orf/gping/releases (changelog), https://github.com/orf/gping (source code)")
+whatis([[
+Description: gping comes with the following super-powers: (i) graph the ping time for multiple hosts, (ii) graph the execution time for commands via the `--cmd` flag, and (iii) custom colours.
+Examples: `gping --version`, `gping --help`, `gping 8.8.8.8 9.9.9.9`, and `gping --cmd "curl -o /dev/null https://www.github.com" "wget -O /dev/null https://github.com"`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH",  home)
+

@@ -1,0 +1,21 @@
+help([[
+yq: Lightweight and Portable Command-Line YAML, JSON and XML Processor.
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: terminal, cli, utility")
+whatis("URL: https://github.com/mikefarah/yq, https://github.com/mikefarah/yq/releases (changelog), https://github.com/mikefarah/yq (source code)")
+whatis([[
+Description: `yq` is a lightweight and portable command-line YAML, JSON and XML processor. `yq` uses `jq` like syntax, but works with YAML files as well as JSON, XML, properties, CSV, and TSV.
+Examples: `yq --version`, `yq --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

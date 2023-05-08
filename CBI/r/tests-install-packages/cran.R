@@ -1,5 +1,8 @@
 message(sprintf("Start time: %s", Sys.time()))
 
+if (utils::file_test("-f", ".lock")) stop("There is already another process running")
+file.create(".lock")
+
 options(Ncpus = parallelly::availableCores())
 message(sprintf("Number of parallel installs: %d", getOption("Ncpus")))
 
@@ -39,5 +42,7 @@ for (kk in seq_along(sets)) {
 
   message(sprintf("Processing time: %s", dt))
 }
+
+file.remove(".lock")
 
 message(sprintf("Finish time: %s", Sys.time()))

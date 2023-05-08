@@ -17,7 +17,12 @@ module purge
 module load CBI r/.4.3.0-gcc10
 module load mpi/openmpi3-x86_64
 module load CBI hdf5 gdal
+module load CBI r-siteconfig  ## install from CRAN & Bioconductor repositories on the file system
 
+echo "Loaded modules:"
+module list
+
+echo "R version:"
 Rscript --version
 
 Rscript "cran.R"

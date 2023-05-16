@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(grep -E "^#.*\bversion[[:space:]]+[[:digit:].]+" "$(command -v pdfcrop)" | sed -E 's/.*version[[:space:]]+//')
+    version=$(pdfcrop --version | sed 's/.* v//g')
     assert_equal "${version}" "${VERSION}"
 }

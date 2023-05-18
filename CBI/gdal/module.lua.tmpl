@@ -8,7 +8,7 @@ whatis("Keywords: spatial, library")
 whatis("URL: https://gdal.org/, https://github.com/OSGeo/gdal/blob/master/NEWS.md (changelog), https://github.com/OSGeo/gdal (source code)")
 whatis([[
 Description: GDAL is an open source X/MIT licensed translator library for raster and vector geospatial data formats.
-Examples: `gdalinfo --version`
+Examples: `gdalinfo --version` and `man gdalinfo`.
 ]])
 
 -- GDAL (>= 3.0.0), requires PROJ (>= 6.0.0)
@@ -28,6 +28,8 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
+
+prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))
 
 -- linking
 prepend_path("LD_RUN_PATH", pathJoin(home, libdir))

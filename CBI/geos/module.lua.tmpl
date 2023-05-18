@@ -4,6 +4,7 @@ GEOS: Geometry Engine, Open Source
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: statistics, spatial")
 whatis("URL: https://libgeos.org/, https://libgeos.org/usage/download/ (changelog), https://github.com/libgeos/geos/issues (bug reports)")
@@ -14,13 +15,21 @@ Examples: `geos-config --version`.
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
+local libdir = "lib"
+local v = version
+v = string.gsub(v, "[.].*", "")
+if v >= "3" then
+  libdir = "lib64"
+end
 
 -- execution
 prepend_path("PATH", pathJoin(home, "bin"))
-prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
 -- linking
-prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
 -- building
 prepend_path("CPATH",  pathJoin(home, "include"))
 prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
-prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
+prepend_path("LDFLAGS", "-L" .. pathJoin(home, libdir), " ")
+
+

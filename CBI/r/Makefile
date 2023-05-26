@@ -84,7 +84,7 @@ assert_gcc_version:
 	@curr_version=$$(module try-load "$(CONFIG_MODULES)" && gcc --version | head -1 | sed 's/.* //' | sed 's/[.].*//'); \
 	echo "Requested GCC version: $(GCC_VERSION)"; \
 	echo "Provided GCC version: $${curr_version}"; \
-	[[ $${curr_version} == "$(GCC_VERSION)" ]] || { 2>&1 echo "ERROR: Provided GCC version (v$${curr_version}) not the same as the requested one (v$(GCC_VERSION))"; exit 1; }
+	[[ "$(GCC_VERSION)" == "" ]] || [[ $${curr_version} == "$(GCC_VERSION)" ]] || { 2>&1 echo "ERROR: Provided GCC version (v$${curr_version}) not the same as the requested one (v$(GCC_VERSION))"; exit 1; }
 
 assert_java_version:
 	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \

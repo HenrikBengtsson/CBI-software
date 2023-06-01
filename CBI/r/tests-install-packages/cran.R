@@ -21,8 +21,10 @@ pkgs <- setdiff(pkgs, skip)
 `%hence%` <- function(lhs, rhs) c(lhs, rhs)
 
 pkgs_excl <- c(
-  "biplotbootGUI",  # Gets stuck in an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
-
+  ## Gets stuck in an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
+  "biplotbootGUI",
+  "cncaGUI",
+  
   ## Packages that require CPLEX (https://www.ibm.com/products/ilog-cplex-optimization-studio)
   "Rcplex" %hence% c("ROI.plugin.cplex", "otinference", "CVXR", "designmatch", "relations", "sbw"),  ## configure: error: CPLEX include directory ./include does not exist
 
@@ -40,6 +42,9 @@ pkgs_excl <- c(
   ## Packages that require .NET framework
   "rawrr" %hence% c("MsBackendRawFileReader"), ##  The cross platform, open source .NET framework (mono) is not available. Consider to install 'apt-get install mono-runtime' on Linux
 
+  ## Packages that require the GLPK library
+  "Rglpk" %hence% c("cosso", "designmatch", "FRAPO", "LPmerge", "optrefine", "stratbr", "TukeyRegion", "Bergm", "ConcordanceTest", "eatATA", "ffsimulator", "fPortfolio", "gemtc", "hdme", "HyRiM", "ITRSelect", "kantorovich", "lpda", "MCDA", "MSCMT", "MultAlloc", "multinomineq", "natstrat", "npbr", "otinference", "parma", "ROI.models.miplib", "ROI.plugin.glpk", "sdcTable", "strand", "StratifiedSampling", "visaOTR"),
+  
   ## Packages that require OCI libraries
   "ROracle" %hence% c("ora"), ## OCI libraries not found
 
@@ -78,7 +83,7 @@ message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(unique(
 
 message(sprintf("Number of packages to install: %d", length(pkgs)))
 
-chunk_size <- 10L
+chunk_size <- 50L
 nchunks <- floor(length(pkgs) / chunk_size)
 sets <- parallel::splitIndices(length(pkgs), nchunks)
 message(sprintf("Number of install chunks: %d (%d packages per chunk)", length(sets), chunk_size))

@@ -2,31 +2,39 @@ help("GDAL: Geospatial Data Abstraction Library")
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: spatial, library")
 whatis("URL: https://gdal.org/, https://github.com/OSGeo/gdal/blob/master/NEWS.md (changelog), https://github.com/OSGeo/gdal (source code)")
 whatis([[
 Description: GDAL is an open source X/MIT licensed translator library for raster and vector geospatial data formats.
-Examples: `gdalinfo --version`
+Examples: `gdalinfo --version` and `man gdalinfo`.
 ]])
 
 -- GDAL (>= 3.0.0), requires PROJ (>= 6.0.0)
+local libdir = "lib"
 local v = version
 v = string.gsub(v, "[.].*", "")
 if v >= "3" then
   depends_on("proj")
+  -- ... and a modern SQLite3 and HDF5 (>= 1.8.13)
+  depends_on("sqlite")
+  depends_on("hdf5")
+  libdir = "lib64"
 end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
-prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
+
+prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))
 
 -- linking
-prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
 
 -- building
 prepend_path("CPATH",  pathJoin(home, "include"))
 prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
-prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
+prepend_path("LDFLAGS", "-L" .. pathJoin(home, libdir), " ")

@@ -1,11 +1,31 @@
 include config.mk
 include ../utils.mk
 
+## IMPORTANT:
+## geos (>= 3.8.0) requires a modern compiler toolchain, e.g.
+##
+##  - gcc (GCC) 7.3.1 20180303 (Red Hat 7.3.1-5)
+##
+## is too old and results in a 'make check' error on:
+##
+## *** Error in `*/tests/unit/.libs/lt-geos_unit': free(): invalid pointer: 0x00007ffc0a99d930 ***
+##
+## This was observed for geos 3.8.1 and geos 3.9.1
+##
+## module load scl-devtoolset/8 provides:
+##
+##  - gcc (GCC) 8.3.1 20190311 (Red Hat 8.3.1-3)
+##
+## which seems to suffice.
+
+## Use the most modern version of GCC installed
+CONFIG_MODULES=CBI scl-devtoolset
+
 ## GEOS (>= 3.10.0) requires CMake (>= 3.13)
 ifeq ($(VERSION_X_Y),3.10)
-  CONFIG_MODULES=CBI cmake
+  CONFIG_MODULES=CBI scl-devtoolset cmake
 else ifeq ($(VERSION_X_Y),3.11)
-  CONFIG_MODULES=CBI cmake
+  CONFIG_MODULES=CBI scl-devtoolset cmake
 endif
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2

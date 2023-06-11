@@ -1,2 +1,3 @@
 R_LIBS_USER=~/R/%p-library/%v-test
+R_PROFILE_USER=${R_PROFILE_USER:-~/.config/R/startup/Rprofile}
 

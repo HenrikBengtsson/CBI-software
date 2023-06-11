@@ -9,8 +9,8 @@ whatis("Keywords: sequencing")
 whatis("URL: https://broadinstitute.github.io/picard/, https://github.com/broadinstitute/picard/releases (changelog), https://github.com/broadinstitute/picard (source code)")
 whatis([[
 Description: Picard is a set of command line tools for manipulating high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF.
-Examples: `PicardCommandLine -h`, which is an alias for `java -jar "$PICARD_HOME/picard.jar" -h`.
-Warning: The old `picard` alias is deprecated. Use `PicardCommandLine` instead.
+Examples: `PicardCommandLine -h`, which is short for `java -jar "$PICARD_HOME/picard.jar" -h`.
+Warning: The old `picard` alias is deprecated. Use function `PicardCommandLine` instead.
 ]])
 
 local version_x = string.gsub(version, "[.].*", "")
@@ -26,9 +26,12 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 pushenv("PICARD_HOME", home)
 
--- Aliases
-set_alias("PicardCommandLine", "java -jar \"$PICARD_HOME/picard.jar\"")
--- Deprecated
+-- Functions
+local bash = 'java -jar "$PICARD_HOME/picard.jar" "$@"'
+local csh  = 'java -jar "$PICARD_HOME/picard.jar" $*'
+set_shell_function("PicardCommandLine", bash, csh)
+
+-- Aliases (deprecated)
 set_alias("picard", "java -jar \"$PICARD_HOME/picard.jar\"")
 
 -- Tweak Java for the current environment

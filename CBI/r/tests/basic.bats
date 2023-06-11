@@ -16,3 +16,10 @@ setup() {
     version=$(R --version | head -1 | sed -E 's/.*([[:digit:]]+[.][[:digit:]]+[.][[:digit:]]+).*/\1/g')
     assert_equal "${version}" "${VERSION}"
 }
+
+@test "validate R --help" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run R --help
+    assert_output --partial "Usage:"
+    assert_output --partial "--vanilla"
+}

@@ -20,7 +20,9 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
 
-set_alias("igv", home .. "/igv.sh")
+local bash = home .. '/igv.sh "$@"'
+local csh  = home .. '/igv.sh $*'
+set_shell_function("igv", bash, csh)
 
 -- Tweak Java for the current environment
 depends_on("java-tweaks")

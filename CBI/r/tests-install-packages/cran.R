@@ -3,6 +3,8 @@ message(sprintf("Start time: %s", Sys.time()))
 if (utils::file_test("-f", ".lock")) stop("There is already another process running")
 file.create(".lock")
 
+if (!requireNamespace("parallelly")) install.packages("parallelly")
+
 options(Ncpus = parallelly::availableCores())
 message(sprintf("Number of parallel installs: %d", getOption("Ncpus")))
 

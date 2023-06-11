@@ -10,3 +10,13 @@ setup() {
     version=$(ASCIIGenome --version | sed -E 's/.* //')
     assert_equal "${version}" "${VERSION}"
 }
+
+
+
+@test "validate command-line option --help" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run ASCIIGenome --help
+    assert_output --partial "ASCIIGenome"
+    assert_output --partial "--help"
+    assert_output --partial "Usage:"
+}

@@ -16,3 +16,12 @@ setup() {
     version=$(redis-server --version | sed 's/.*v=//' | sed 's/ .*//')
     assert_equal "${version}" "${VERSION}"
 }
+
+
+@test "validate command-line option --help" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run "redis-server" --help
+    assert_output --partial "redis-server"
+    assert_output --partial "--help"
+    assert_output --partial "Usage:"
+}

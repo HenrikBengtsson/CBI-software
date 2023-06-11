@@ -10,3 +10,11 @@ setup() {
     version=$(blat | head -1 | sed -E 's/(.*v[.] | .*)//g')
     assert_equal "${version}" "${VERSION}"
 }
+
+@test "validate command-line option --help" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run blat
+    assert_output --partial "${MODULE_NAME}"
+    assert_output --partial "--help"
+    assert_output --partial "usage:"
+}

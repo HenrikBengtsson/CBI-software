@@ -17,9 +17,9 @@ setup() {
     assert_equal "${version}" "${VERSION}"
 }
 
-@test "validate R --help" {
+@test "validate command-line option --help" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     run R --help
     assert_output --partial "Usage:"
-    assert_output --partial "--vanilla"
+    assert_output --partial "--help"
 }

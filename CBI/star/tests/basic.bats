@@ -10,3 +10,11 @@ setup() {
     version=$(STAR --version)
     assert_equal "${version}" "${VERSION}"
 }
+
+
+@test "validate command-line option --help" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run STAR --help
+    assert_output --partial "STAR"
+    assert_output --partial "Usage:"
+}

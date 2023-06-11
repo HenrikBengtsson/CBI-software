@@ -21,7 +21,7 @@ if (version == "1.0.27783") then
   if (cluster == "tipcc") then
     load("jdk/1.7.0")
   else
-    depends_on("openjdk/1.6.0")
+--    depends_on("openjdk/1.6.0")
   end
 end
 
@@ -29,7 +29,10 @@ name = "muTect"
 pushenv("MUTECT_HOME", home)
 local jarfile = name .. "-" .. version .. ".jar"
 pushenv("MUTECT_JAR", pathJoin(home, jarfile))
-set_alias("mutect", "java -Xmx2g -jar \"$MUTECT_HOME/" .. jarfile .. "\"")
+
+local bash = 'java -Xmx2g -jar "$MUTECT_HOME/' .. jarfile .. '" "$@"'
+local csh  = 'java -Xmx2g -jar "$MUTECT_HOME/' .. jarfile .. '" $*'
+set_shell_function("mutect", bash, csh)
 
 -- Tweak Java for the current environment
 depends_on("java-tweaks")

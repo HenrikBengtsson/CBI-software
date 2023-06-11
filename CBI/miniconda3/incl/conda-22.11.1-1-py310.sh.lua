@@ -1,9 +1,9 @@
 -- Don't edit! Created using: 
--- /usr/share/lmod/lmod/libexec/sh_to_modulefile /software/c4/cbi/software/miniconda3-22.11.1-1-py310/etc/profile.d/conda.sh
-pushenv("CONDA_EXE","/software/c4/cbi/software/miniconda3-22.11.1-1-py310/bin/conda")
-pushenv("CONDA_PYTHON_EXE","/software/c4/cbi/software/miniconda3-22.11.1-1-py310/bin/python")
+-- /usr/share/lmod/lmod/libexec/sh_to_modulefile /wynton/home/cbi/shared/software/CBI/miniconda3-22.11.1-1-py310/etc/profile.d/conda.sh
+pushenv("CONDA_EXE","/wynton/home/cbi/shared/software/CBI/miniconda3-22.11.1-1-py310/bin/conda")
+pushenv("CONDA_PYTHON_EXE","/wynton/home/cbi/shared/software/CBI/miniconda3-22.11.1-1-py310/bin/python")
 pushenv("CONDA_SHLVL","0")
-prepend_path("PATH","/software/c4/cbi/software/miniconda3-22.11.1-1-py310/condabin")
+prepend_path("PATH","/wynton/home/cbi/shared/software/CBI/miniconda3-22.11.1-1-py310/condabin")
 pushenv("_CE_CONDA","")
 pushenv("_CE_M","")
 set_shell_function("__conda_activate"," \

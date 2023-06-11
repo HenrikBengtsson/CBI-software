@@ -17,4 +17,8 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
-set_alias("ctopx", "ctop 2> >(grep -vF 'Invalid user id')")
+
+local bash = 'ctop 2> >(grep -vF "Invalid user id")'
+-- FIXME: Redirect to stderr might not work this way in csh /HB 2023-06-11
+local csh  = 'ctop 2> >(grep -vF "Invalid user id")'
+set_shell_function("ctopx", bash, csh)

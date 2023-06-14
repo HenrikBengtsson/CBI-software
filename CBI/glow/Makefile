@@ -2,7 +2,8 @@ include config.mk
 include ../utils.mk
 
 ARCH=linux_x86_64
-TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz
+## TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz ## glow (<= 1.5.0)
+TARBALL=$(NAME)_$(ARCH).tar.gz
 GITHUB_REPO=https://github.com/charmbracelet/$(NAME)
 
 ## ----------------------------------------------------------

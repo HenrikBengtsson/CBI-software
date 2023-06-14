@@ -1,5 +1,5 @@
 NAME=blast
-VERSION:=2.13.0
+VERSION=2.14.0
 DOWNLOAD_TARGET_FILE=bin/blastx
 CONFIG=false
 BUILD=false

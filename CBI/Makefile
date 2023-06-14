@@ -103,6 +103,6 @@ changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
 
 available-version:
-	@for ff in */config.mk; do dd=$$(dirname "$$ff"); grep -qE "^available-version:" "$$dd/Makefile" && (cd "$$dd"; v=$$(make --quiet version); av=$$(make --quiet available-version); [[ $$av == $$v ]] && [[ -z "$(FULL)" ]] || echo "$$dd: $$v -> $$av"; ); done
+	@for ff in */config.mk; do dd=$$(dirname "$$ff"); grep -qE "^available-version:" "$$dd/Makefile" && (cd "$$dd"; v=$$(make --quiet version 2> /dev/null); av=$$(make --quiet available-version 2> /dev/null); [[ $$av == $$v ]] && [[ -z "$(FULL)" ]] || echo "$$dd: $$v -> $$av"; ); done
 
 FORCE:

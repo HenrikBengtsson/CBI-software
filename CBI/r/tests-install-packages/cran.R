@@ -16,8 +16,8 @@ pkgs <- unclass(db[, "Package"])
 message(sprintf("Number of available packages: %d", length(pkgs)))
 
 db <- utils::installed.packages()
-skip <- unclass(db[, "Package"])
-message(sprintf("Number of installed packages: %d", length(skip)))
+skip <- pkgs_done <- unclass(db[, "Package"])
+message(sprintf("Number of installed packages: %d", length(pkgs_done)))
 pkgs <- setdiff(pkgs, skip)
 
 # -------------------------------------------------------------------------------------
@@ -135,5 +135,14 @@ for (kk in seq_along(sets)) {
 }
 
 file.remove(".lock")
+
+db <- utils::installed.packages()
+pkgs_done2 <- unclass(db[, "Package"])
+message(sprintf("Number of installed packages: %d", length(pkgs_done2)))
+new <- setdiff(pkgs_done2, pkgs_done)
+message(sprintf("Number of packages installed this round: %d", length(new)))
+
+pkgs_failed <- setdiff(pkgs, pkgs_done2)
+message(sprintf("Packages that failed to install: [n=%d] %s", length(pkg_failed), paste(unique(c(head(pkgs_failed, 6), "...", tail(pkgs_failed, 3))), collapse = ", ")))
 
 message(sprintf("Finish time: %s", Sys.time()))

@@ -3,10 +3,13 @@ message(sprintf("Start time: %s", Sys.time()))
 if (utils::file_test("-f", ".lock")) stop("There is already another process running")
 file.create(".lock")
 
-if (!requireNamespace("parallelly")) install.packages("parallelly")
+if (!requireNamespace("parallelly", quietly = TRUE)) install.packages("parallelly")
 
 options(Ncpus = parallelly::availableCores())
 message(sprintf("Number of parallel installs: %d", getOption("Ncpus")))
+
+repos <- getOption("repos")
+message(sprintf("R package repositories: [n=%d] %s", length(repos), paste(names(repos), sQuote(repos), sep = "=", collapse = ", ")))
 
 db <- utils::available.packages()
 pkgs <- unclass(db[, "Package"])
@@ -18,7 +21,7 @@ message(sprintf("Number of installed packages: %d", length(skip)))
 pkgs <- setdiff(pkgs, skip)
 
 # -------------------------------------------------------------------------------------
-# Packages requires dependencies not available on C4/Wynton
+# Packages requiring dependencies not available on C4/Wynton
 # -------------------------------------------------------------------------------------
 `%hence%` <- function(lhs, rhs) c(lhs, rhs)
 
@@ -84,6 +87,26 @@ pkgs_excl <- c(
 message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(unique(c(head(pkgs_excl, 6), "...", tail(pkgs_excl, 3))), collapse = ", ")))
 
 message(sprintf("Number of packages to install: %d", length(pkgs)))
+
+# -------------------------------------------------------------------------------------
+# Package requiring special care on Wynton/C4
+# -------------------------------------------------------------------------------------
+if (!nzchar(system.file(package = "Rmpi"))) {
+  install.packages("Rmpi", configure.args="--with-Rmpi-include=$MPI_INCLUDE --with-Rmpi-libpath=$MPI_LIB --with-Rmpi-type=OPENMPI")
+}
+
+if (!nzchar(system.file(package = "pbdMPI"))) {
+  install.packages("pbdMPI", configure.args="--with-mpi-libpath=$MPI_LIB --with-mpi-type=OPENMPI")
+}
+
+if (!nzchar(system.file(package = "bigGP"))) {
+  install.packages("bigGP", configure.args="--with-mpi-libpath=$MPI_LIB --with-mpi-type=OPENMPI")
+}
+
+if (!nzchar(system.file(package = "udunits2"))) {
+  install.packages("udunits2", configure.args="--with-udunits2-include=/usr/include/udunits2")
+}
+
 
 chunk_size <- 50L
 nchunks <- floor(length(pkgs) / chunk_size)

@@ -13,10 +13,16 @@
 printf "[%s] Installing all CRAN packages ...\n" "$(date --rfc-3339=seconds)"
 printf "Hostname: %s\n" "$(hostname)"
 
+export MODULEPATH=/c4/home/henrik/modulefiles:/software/c4/cbi/modulefiles:/software/c4/modulefiles/repos:/etc/modulefiles:/usr/share/modulefiles:/usr/share/modulefiles/Linux:/usr/share/modulefiles/Core:/usr/share/lmod/lmod/modulefiles/Core
+
 module purge
 module load CBI r/.4.3.0-gcc10
-module load mpi/openmpi3-x86_64
+module try-load mpi/openmpi-x86_64
+module try-load mpi/openmpi3-x86_64
 module load CBI hdf5 gdal
+module load CBI geos
+module load CBI gsl
+module load CBI jags
 module load CBI r-siteconfig  ## install from CRAN & Bioconductor repositories on the file system
 
 echo "Loaded modules:"
@@ -25,7 +31,7 @@ module list
 echo "R version:"
 Rscript --version
 
-Rscript "cran.R"
+xvfb-run Rscript "cran.R"
 
 ## End-of-job summary, if running as a job
 [[ -n "$JOB_ID" ]] && qstat -j "$JOB_ID"  # This is useful for debugging and usage purposes,

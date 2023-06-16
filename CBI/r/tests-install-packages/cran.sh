@@ -17,6 +17,7 @@ export MODULEPATH=/c4/home/henrik/modulefiles:/software/c4/cbi/modulefiles:/soft
 
 module purge
 module load CBI r/.4.3.0-gcc10
+module load CBI cmake
 module try-load mpi/openmpi-x86_64
 module try-load mpi/openmpi3-x86_64
 module load CBI hdf5 gdal

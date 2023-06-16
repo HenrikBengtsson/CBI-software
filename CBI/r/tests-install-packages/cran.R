@@ -3,6 +3,9 @@ message(sprintf("Start time: %s", Sys.time()))
 if (utils::file_test("-f", ".lock")) stop("There is already another process running")
 file.create(".lock")
 
+t0 <- Sys.time()
+message(sprintf("Current time: %s", t0))
+
 if (!requireNamespace("parallelly", quietly = TRUE)) install.packages("parallelly")
 
 options(Ncpus = parallelly::availableCores())
@@ -29,6 +32,7 @@ pkgs_excl <- c(
   ## Gets stuck in an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
   "biplotbootGUI",
   "cncaGUI",
+  "multibiplotGUI",
   
   ## Packages that require CPLEX (https://www.ibm.com/products/ilog-cplex-optimization-studio)
   "Rcplex" %hence% c("ROI.plugin.cplex", "otinference", "CVXR", "designmatch", "relations", "sbw"),  ## configure: error: CPLEX include directory ./include does not exist
@@ -81,10 +85,47 @@ pkgs_excl <- c(
   # Packages that require special libraries or dependencies
   "cncaGUI",  ## requires 'Tcl/Tk package BWidget'
 
+  # Packages requiring gmp or mpfr
+  "AlphaHull3D",
+  "Boov",
+  "cgalMeshes",
+  "cgalPolygons",
+  "delaunay",
+  "interpolation",
+  "jack",
+  "lazyNumbers",
+  "MeshesTools",
+  "MinkowskiSum",
+  "multibridge",
+  "PolygonSoup" %hence% c("Boov", "MeshesTools", "MinkowskiSum"),
+  "qspray" %hence% c("jack"),
+  "RationalMatrix",
+  "sphereTessellation",
+  "surveyvoi",
+
+  # Packages requiring OpenCV (https://opencv.org/)
+  "image.textlinedetector",
+
+  # Packages requiring SWI-Prolog
+  "rolog" %hence% c("mathml", "rswipl"),
+
+  # Packages requiring protobuf (but somehow fails)
+  "factset.protobuf.stach.v2",
+  "tfevents",
+  "traveltimeR",
+
+  # Packages that fail for other/unknown reasons
+  "landsepi",
+  "valse",
+
+  # Bioconductor packages currently broken in Bioc 3.17
+  "BGmix", "ChIC", "DeepBlueR", "FLAMES", "NanoMethViz", "omada", "OmicsLonDA", "Rarr", "tscR",
+  
   ""
 )
 
 message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(unique(c(head(pkgs_excl, 6), "...", tail(pkgs_excl, 3))), collapse = ", ")))
+pkgs <- setdiff(pkgs, pkgs_excl)
 
 message(sprintf("Number of packages to install: %d", length(pkgs)))
 
@@ -109,7 +150,7 @@ if (!nzchar(system.file(package = "udunits2"))) {
 
 
 chunk_size <- 50L
-nchunks <- floor(length(pkgs) / chunk_size)
+nchunks <- ceiling(length(pkgs) / chunk_size)
 sets <- parallel::splitIndices(length(pkgs), nchunks)
 message(sprintf("Number of install chunks: %d (%d packages per chunk)", length(sets), chunk_size))
 
@@ -143,6 +184,9 @@ new <- setdiff(pkgs_done2, pkgs_done)
 message(sprintf("Number of packages installed this round: %d", length(new)))
 
 pkgs_failed <- setdiff(pkgs, pkgs_done2)
-message(sprintf("Packages that failed to install: [n=%d] %s", length(pkg_failed), paste(unique(c(head(pkgs_failed, 6), "...", tail(pkgs_failed, 3))), collapse = ", ")))
+message(sprintf("Packages that failed to install: [n=%d] %s", length(pkgs_failed), paste(pkgs_failed, collapse = ", ")))
+
+dt <- Sys.time() - t0
+message(sprintf("Total processing time: %s", format(dt)))
 
 message(sprintf("Finish time: %s", Sys.time()))

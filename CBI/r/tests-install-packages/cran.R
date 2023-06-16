@@ -123,8 +123,9 @@ pkgs_excl <- c(
   
   ""
 )
+pkgs_excl <- sort(pkgs_excl)
 
-message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(unique(c(head(pkgs_excl, 6), "...", tail(pkgs_excl, 3))), collapse = ", ")))
+message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(pkgs_excl, collapse = ", ")))
 pkgs <- setdiff(pkgs, pkgs_excl)
 
 message(sprintf("Number of packages to install: %d", length(pkgs)))

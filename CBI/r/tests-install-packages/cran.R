@@ -123,7 +123,8 @@ pkgs_excl <- c(
   
   ""
 )
-pkgs_excl <- sort(pkgs_excl)
+pkgs_excl <- pkgs_excl[nzchar(pkgs_excl)]
+pkgs_excl <- unique(sort(pkgs_excl))
 
 message(sprintf("Packages excluded: [n=%d] %s", length(pkgs_excl), paste(pkgs_excl, collapse = ", ")))
 pkgs <- setdiff(pkgs, pkgs_excl)

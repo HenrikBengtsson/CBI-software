@@ -1,0 +1,18 @@
+help([[
+nsjail: A Process Isolation Tool for Linux
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, tool, sandboxing")
+whatis("URL: https://nsjail.dev/, https://github.com/google/nsjail/releases (changelog), https://github.com/google/nsjail/ (source code)")
+whatis([[
+Description: A light-weight process isolation tool, making use of Linux namespaces and seccomp-bpf syscall filters (with help of the kafel bpf language).
+Examples: `nsjail --help` and `nsjail --config "$NSJAIL_HOME/configs/bash-with-fake-geteuid.cfg"`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+prepend_path("PATH", home)
+setenv("NSJAIL_HOME", home)

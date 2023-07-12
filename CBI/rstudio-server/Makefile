@@ -56,7 +56,7 @@ $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 
 ## FIXME/TMP /2023-04-16
-PREFIX=/wynton/home/cbi/shared/software/CBI/rstudio-server-2023.03.0-386-1
+#PREFIX=/wynton/home/cbi/shared/software/CBI/rstudio-server-2023.03.0-386-1
 INSTALL_TARGET=$(PREFIX)/bin/rserver
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
@@ -92,13 +92,16 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	make preinstall
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
+	if [[ -f "$@" ]]; then \
+	  >&2 echo "ERROR: Installation failed. Target file already exists: $@"; \
+	  exit 1; \
+	fi
 	cd "$(BUILD_PATH)/build"; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
 	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
 	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \
 	export RSTUDIO_VERSION_SUFFIX="$(RSTUDIO_VERSION_SUFFIX)"; \
-	[[ -f "$@" ]] && { >&2 echo "ERROR: Installation failed. Target file already exists: $@"; exit 1; }
 	make install
 	[[ -f "$@" ]] || { >&2 echo "ERROR: Installation failed. No such target file: $@"; exit 1; }
 	make post_install

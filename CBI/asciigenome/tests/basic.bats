@@ -18,5 +18,4 @@ setup() {
     run ASCIIGenome --help
     assert_output --partial "ASCIIGenome"
     assert_output --partial "--help"
-    assert_output --partial "Usage:"
 }

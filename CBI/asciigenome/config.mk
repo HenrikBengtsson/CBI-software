@@ -1,7 +1,6 @@
 NAME=ASCIIGenome
 MODULE_NAME=asciigenome
-VERSION:=1.16.0
-URL=https://github.com/dariober/ASCIIGenome
+VERSION=1.17.0
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false
 BUILD=false

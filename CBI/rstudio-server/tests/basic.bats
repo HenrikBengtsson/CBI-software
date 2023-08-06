@@ -7,7 +7,7 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(rserver version | sed 's/ .*//' | sed 's/+/-/')
+    version=$(rstudio-server version | sed 's/ .*//' | sed 's/+/-/')
     assert_equal "${version}" "${VERSION}"
 }
 

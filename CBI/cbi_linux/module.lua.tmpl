@@ -1,0 +1,21 @@
+help([[
+cbi_linux: Identify the Linux Distribution
+]])
+
+local name = myModuleName()
+whatis("Keywords: utility, shell")
+whatis([[
+Description: Identifies the Linux distribution and sets environment variable 'CBI_LINUX'.
+Examples: `echo "$CBI_LINUX"` and `if \[\[ $CBI_LINUX == "rocky8" \]\]; then echo "Running Linux Rocky 8"; fi`.
+]])
+
+-- Set environment variable CBI_LINUX to 'centos7' or 'rocky8'
+if mode() == "load" then
+  if os.getenv("CBI_LINUX") == nil then
+    if isFile("/etc/os-release") then
+      execute{cmd = "CBI_LINUX=$(grep -E '^PRETTY_NAME=' /etc/os-release | sed -E 's/^PRETTY_NAME=\"//' | sed 's/ Linux //' | sed -E 's/[ .].*//'); CBI_LINUX=${CBI_LINUX,,}", modeA = {"load"}}
+    end
+  end
+elseif mode() == "unload" then
+   execute{cmd = "unset CBI_LINUX", modeA = {"unload"}}
+end

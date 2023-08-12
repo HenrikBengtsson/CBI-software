@@ -50,4 +50,5 @@ Maintainer: Henrik Bengtsson, CBI
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", "${module_root}")
 prepend_path("MODULEPATH", "${module_root}")
+try_load("cbi_linux/.1.0")
 HEREDOC

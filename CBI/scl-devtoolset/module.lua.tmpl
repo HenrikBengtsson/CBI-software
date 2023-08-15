@@ -12,7 +12,14 @@ whatis("URL: https://access.redhat.com/documentation/en-us/red_hat_developer_too
 whatis([[
 Description: These Developer Toolset provides modern versions of the GNU Compiler Collection, GNU Debugger, and other development, debugging, and performance monitoring tools. Loading these modules enables the corresponding CentOS Software Collection (SCL) `devtoolset-<version>` in the current environment.  This is an alternative to calling `source scl_source enable devtoolset-<version>`, which is an approach that is not officially supported by RedHat/CentOS.
 Examples: `gcc --version`.  Warning: Older versions may be removed in the future.
+Requirement: CentOS 7.
 ]])
+
+-- This module is only available on CentOS 7
+if os.getenv("CBI_LINUX") ~= "centos7" then
+  LmodError("Module '" .. myModuleFullName() .. "' is only available on CentOS 7 machines, but not on host '" .. os.getenv("HOSTNAME") .. "', which runs '" ..
+ os.getenv("CBI_LINUX") .. "'")
+end
 
 
 local home = pathJoin("/opt", "rh", scl_name)

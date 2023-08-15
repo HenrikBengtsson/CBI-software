@@ -50,5 +50,23 @@ Maintainer: Henrik Bengtsson, CBI
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", "${module_root}")
 prepend_path("MODULEPATH", "${module_root}")
-try_load("cbi_linux/.1.0")
+
+-- Identify Linux distribution and set CBI_LINUX accordingly
+if os.getenv("CBI_LINUX") == nil then
+  if isFile("/etc/os-release") then
+    local bfr = capture("cat /etc/os-release")
+    for line in string.gmatch(bfr, "[^\n]+") do
+      if (string.sub(line, 1, 13) == 'PRETTY_NAME="') then
+        line = string.sub(line, 14, string.len(line))
+        line = string.lower(line)
+        line = line:gsub(" linux ", "")
+        line = line:gsub("[ .].*", "")
+        pushenv("CBI_LINUX", line)
+        break
+      end
+    end
+  else
+    pushenv("CBI_LINUX", "unknown")
+  end
+end
 HEREDOC

@@ -18,4 +18,4 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)
-prepend_path("MANPATH", pathJoin(home, "man", "man1"))
+prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))

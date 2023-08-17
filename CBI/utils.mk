@@ -325,8 +325,7 @@ check-export:
 	@echo "export MODULE_HIDDEN=$(MODULE_HIDDEN)"
 
 check:
-	@module purge; \
-	if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
+	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
 	    eval "$$(make --quiet check-export 2> /dev/null)"; \
 	    echo "*** Generic checks ..."; \
 	    bats ../.incl/tests/*.bats; \

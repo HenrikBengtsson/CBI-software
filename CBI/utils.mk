@@ -323,6 +323,7 @@ check-export:
 	@echo "export INSTALL_TARGET_NAME=$$(basename "$(INSTALL_TARGET)")"
 	@echo "export VERSION=$(VERSION)"
 	@echo "export MODULE_HIDDEN=$(MODULE_HIDDEN)"
+	@echo "export PREFIX=$(PREFIX)"
 
 check:
 	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \

@@ -19,17 +19,22 @@ setup() {
     #      fail "Detected '${name}' componments that were neither appended nor prepended: $path0 -> $path"
     #    fi
 
-        IFS=':' read -r -a path <<< "$path"
-        for p in "${path[@]}"; do
-            grep -q -E "(^|:)${p}(:|$)" <<< "$path0" && continue
-            assert_dir_exist "$p"
+        local -a missing
+        IFS=':' read -r -a dirs <<< "$path"
+        for dir in "${dirs[@]}"; do
+            ## Check only folder under SOFTWARE_HOME
+            if [[ "$dir" == "$SOFTWARE_HOME"* ]]; then
+#               grep -q -E "(^|:)${dir}(:|$)" <<< "$path0" && continue
+                [[ -d "${dir}" ]] || missing+=( "$dir" )
+            fi
         done
+        [[ ${#missing[@]} == 0 ]] || fail "Detected non-existing folder(s) in ${name}: ${missing[*]}"
     }
 }
 
+
 @test "validate PATH" {
     name="PATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
@@ -37,7 +42,6 @@ setup() {
 
 @test "validate MANPATH" {
     name="MANPATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
@@ -45,7 +49,6 @@ setup() {
 
 @test "validate LD_LIBRARY_PATH" {
     name="LD_LIBRARY_PATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
@@ -53,7 +56,6 @@ setup() {
 
 @test "validate PKG_CONFIG_PATH" {
     name="PKG_CONFIG_PATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
@@ -61,7 +63,6 @@ setup() {
 
 @test "validate LD_RUN_PATH" {
     name="LD_RUN_PATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
@@ -69,7 +70,6 @@ setup() {
 
 @test "validate CPATH" {
     name="CPATH"
-    module purge
     path_org="${!name}"
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"

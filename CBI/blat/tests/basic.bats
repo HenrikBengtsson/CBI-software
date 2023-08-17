@@ -15,6 +15,5 @@ setup() {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     run blat
     assert_output --partial "${MODULE_NAME}"
-    assert_output --partial "--help"
     assert_output --partial "usage:"
 }

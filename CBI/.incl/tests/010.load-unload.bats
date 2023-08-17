@@ -4,10 +4,12 @@
 }
 
 @test "can load module" {
+    module purge
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
 }
 
 @test "can unload module" {
+    module purge
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     module unload "${MODULE_NAME}"
 }

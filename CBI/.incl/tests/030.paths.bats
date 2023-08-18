@@ -28,7 +28,7 @@ setup() {
                 [[ -d "${dir}" ]] || missing+=( "$dir" )
             fi
         done
-        [[ ${#missing[@]} == 0 ]] || fail "Detected non-existing folder(s) in ${name}: ${missing[*]}"
+        [[ ${#missing[@]} == 0 ]] || fail "Detected non-existing folder(s) in ${name}: [n=${#missing[@]}] ${missing[*]}"
     }
 }
 

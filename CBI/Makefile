@@ -9,6 +9,13 @@ module/%:
 check/%:
 	cd "$(@F)"; $(MAKE) check
 
+check-libs/ALL:
+	mapfile -t modules < <(find "$${MODULE_ROOT_CBI}" -maxdepth 1 -type d -exec basename {} \; | sort -u | grep -v -E "(miniconda3-py)"); \
+	for m in "$${modules[@]}"; do echo "$$m"; make "check-libs/$$m"; done
+
+check-libs/%:
+	cd "$(@F)"; $(MAKE) check-libs
+
 %/PACKAGES: PACKAGES
 	@cmd=$(@D); \
 	pkgs=($$(cat "$<" | grep -vE "^#" | sort -u)); \

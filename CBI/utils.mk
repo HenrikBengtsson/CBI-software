@@ -338,6 +338,13 @@ check:
 	    fi; \
 	fi
 
+check-libs:
+	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
+	    eval "$$(make --quiet check-export 2> /dev/null)"; \
+	    echo "*** Missing library checks ..."; \
+	    bats ../.incl/tests/*.libs.bats; \
+	fi
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## HELP

@@ -18,11 +18,11 @@ elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
    module_root="/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
 elif [[ -d "$HOME/shared/software/CBI" ]]; then
-   >&2 echo 'File system: $HOME'
+   >&2 echo "File system: \$HOME"
    software_root="$HOME/shared/software/CBI"
    module_root="$HOME/shared/modulefiles/CBI"
 elif [[ -d "$HOME/software/cbi/" ]]; then
-   >&2 echo 'File system: $HOME (legacy)'
+   >&2 echo "File system: \$HOME (legacy)"
    software_root="$HOME/software/cbi/software"
    module_root="$HOME/software/cbi/modulefiles"
 else

@@ -3,17 +3,15 @@ SHELL=bash
 CBI.lua: repos/CBI.lua
 
 repos/CBI.lua: repos/CBI.lua.tmpl.sh
-	@module purge; \
+	echo "MODULE_HOME=$${MODULE_HOME}"; \
+	echo "SOFTWARE_HOME=$${SOFTWARE_HOME}"; \
 	[[ -n $${MODULE_HOME} ]] || { >&2 echo "ERROR: Environment variable MODULE_HOME is not set"; exit 1; }; \
 	[[ -d "$${MODULE_HOME}" ]] || { >&2 echo "ERROR: No such folder: $${MODULE_HOME}"; exit 1; }; \
 	[[ -n $${SOFTWARE_HOME} ]] || { >&2 echo "ERROR: Environment variable SOFTWARE_HOME is not set"; exit 1; }; \
 	[[ -d "$${SOFTWARE_HOME}" ]] || { >&2 echo "ERROR: No such folder: $${SOFTWARE_HOME}"; exit 1; }; \
-	echo "MODULE_HOME=$${MODULE_HOME}"; \
-	echo "SOFTWARE_HOME=$${SOFTWARE_HOME}"; \
-	$< > "$@".tmp
-	## Validate
-	luac -p "$@".tmp
-	mv "$@".tmp "$@"
+	"$<" > "$@.tmp"  ## compile
+	luac -p "$@.tmp" ## validate
+	mv "$@.tmp" "$@" ## finalize
 	cat "$@"
 
 install: repos/CBI.lua

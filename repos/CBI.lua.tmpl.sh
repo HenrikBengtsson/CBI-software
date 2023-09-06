@@ -52,15 +52,58 @@ pushenv("MODULE_ROOT_CBI", "${module_root}")
 prepend_path("MODULEPATH", "${module_root}")
 
 -- Identify Linux distribution and set CBI_LINUX accordingly
+-- Examples:
+-- CentOS 7.9 -> "centos7"
+-- Rocky 8.8 -> "rocky8"
+-- Ubuntu 22.04.3 -> "ubuntu22_04"
 if os.getenv("CBI_LINUX") == nil then
+  -- /etc/os-release exists on CentOS, Rocky, Ubuntu (>= 16.04)
   if isFile("/etc/os-release") then
     local bfr = capture("cat /etc/os-release")
     for line in string.gmatch(bfr, "[^\n]+") do
       if (string.sub(line, 1, 13) == 'PRETTY_NAME="') then
         line = string.sub(line, 14, string.len(line))
+        -- Examples:
+        -- CentOS 7.9: "CentOS Linux 7 (Core)"
+        -- Rocky 8: "Rocky Linux 8.8 (Green Obsidian)"
+        -- Ubuntu 22.04.3: "Ubuntu 22.04.3 LTS"
+
+        -- Drop auxillary strings after the version
+        line = line:gsub("[ ]+[^0-9]*$", "")
+        -- Examples:
+        -- CentOS 7.9: "CentOS Linux 7"
+        -- Rocky 8: "Rocky Linux 8.8"
+        -- Ubuntu 22.04.3: "Ubuntu 22.04.3"
+
+        -- Work with lower-case strings
         line = string.lower(line)
-        line = line:gsub(" linux ", "")
-        line = line:gsub("[ .].*", "")
+        line = line:gsub(" linux ", "") -- for CentOS and Rocky
+        -- Examples:
+        -- CentOS 7.9: "centos 7"
+        -- Rocky 8: "rocky 8.8"
+        -- Ubuntu 22.04.3: "ubuntu 22.04.3"
+
+        -- Remove spaces
+        line = line:gsub("[ ]+", "")
+        -- Examples:
+        -- CentOS 7.9: "centos7"
+        -- Rocky 8: "rocky8.8"
+        -- Ubuntu 22.04.3: "ubuntu22.04.3"
+
+        -- Drop the last part of the version
+        line = line:gsub("[ .][0-9]+$", "")
+        -- Examples:
+        -- CentOS 7.9: "centos7"
+        -- Rocky 8: "rocky8"
+        -- Ubuntu 22.04.3: "ubuntu22.04"
+
+        -- Replace periods with underscores
+        line = line:gsub("[.]", "_")
+        -- Examples:
+        -- CentOS 7.9: "centos7"
+        -- Rocky 8: "rocky8"
+        -- Ubuntu 22.04.3: "ubuntu22_04"
+
         pushenv("CBI_LINUX", line)
         break
       end

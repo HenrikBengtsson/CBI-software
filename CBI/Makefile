@@ -1,5 +1,13 @@
 SHELL=bash
 
+modulerc: $(MODULE_HOME)/.modulerc.lua
+
+$(MODULE_HOME)/.modulerc.lua: .modulerc.lua.sh
+	echo "Updating: $@"
+	./"$<" > "$@".tmp
+	chmod ugo-w "$@" "$@".tmp
+	mv -f "$@".tmp "$@"
+
 install/%:
 	@cd "$(@F)"; $(MAKE) all
 

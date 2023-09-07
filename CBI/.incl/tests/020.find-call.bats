@@ -10,7 +10,8 @@ setup() {
 
 @test "can execute install target, if binary" {
     if [[ -x "${INSTALL_TARGET}" ]]; then
-       module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-       command -v "$(basename "${INSTALL_TARGET}")"
+      module load "${MODULE_REPO}"
+      module load "${MODULE_NAME}/${MODULE_VERSION}"
+      command -v "$(basename "${INSTALL_TARGET}")"
     fi
 }

@@ -4,10 +4,12 @@
 }
 
 @test "can load module" {
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
 }
 
 @test "can unload module" {
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     module unload "${MODULE_NAME}"
 }

@@ -36,42 +36,48 @@ setup() {
 @test "validate PATH" {
     name="PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 
 @test "validate MANPATH" {
     name="MANPATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 
 @test "validate LD_LIBRARY_PATH" {
     name="LD_LIBRARY_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 
 @test "validate PKG_CONFIG_PATH" {
     name="PKG_CONFIG_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 
 @test "validate LD_RUN_PATH" {
     name="LD_RUN_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 
 @test "validate CPATH" {
     name="CPATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    module load "${MODULE_REPO}"
+    module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
 

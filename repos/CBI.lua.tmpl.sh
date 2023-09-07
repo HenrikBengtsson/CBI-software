@@ -47,10 +47,6 @@ Example: \`module load CBI\` and then \`module avail\`.
 Maintainer: Henrik Bengtsson, CBI
 ]])
 
-pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
-pushenv("MODULE_ROOT_CBI", "${module_root}")
-prepend_path("MODULEPATH", "${module_root}")
-
 -- Identify Linux distribution and set CBI_LINUX accordingly
 -- Examples:
 -- CentOS 7.9 -> "centos7"
@@ -112,4 +108,12 @@ if os.getenv("CBI_LINUX") == nil then
     pushenv("CBI_LINUX", "unknown")
   end
 end
+
+if os.getenv("CBI_LINUX") ~= "unknown" then
+  prepend_path("MODULEPATH", "${module_root}-" .. os.getenv("CBI_LINUX"))
+end
+prepend_path("MODULEPATH", "${module_root}")
+
+pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
+pushenv("MODULE_ROOT_CBI", "${module_root}")
 HEREDOC

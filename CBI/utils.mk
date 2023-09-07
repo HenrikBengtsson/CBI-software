@@ -7,6 +7,14 @@ ifndef NAME
   $(error ERROR: Environment variable 'NAME' is not set)
 endif
 
+ifndef LINUX_DISTRO_SPECIFIC
+  LINUX_DISTRO_SPECIFIC=false
+else ifeq ($(LINUX_DISTRO_SPECIFIC),true)
+  ifndef _LINUX_DISTRO_
+    $(error ERROR: Environment variable '_LINUX_DISTRO_' is not set)
+  endif
+endif
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## CORE
@@ -123,6 +131,12 @@ ifeq ($(INSTALL),true)
     endif
   endif
 
+  ifeq ($(LINUX_DISTRO_SPECIFIC),true)
+    ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(SOFTWARE_HOME))),)
+      SOFTWARE_HOME:=$(SOFTWARE_HOME)-$(_LINUX_DISTRO_)
+    endif
+  endif
+
   ifndef INSTALL_TARGET
     ifndef INSTALL_TARGET_FILE
       $(error ERROR: Environment variable 'INSTALL_TARGET_FILE' is not set)
@@ -227,7 +241,13 @@ ifeq ($(INSTALL_MODULE),true)
   ifndef MODULE_HOME
     $(error ERROR: Environment variable 'MODULE_HOME' is not set)
   endif
-  
+
+  ifeq ($(LINUX_DISTRO_SPECIFIC),true)
+    ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(MODULE_HOME))),)
+      MODULE_HOME:=$(MODULE_HOME)-$(_LINUX_DISTRO_)
+    endif
+  endif
+
   ifndef FULLNAME
     FULLNAME=$(shell basename "$(PREFIX)")
   endif
@@ -365,6 +385,8 @@ debug:
 	@echo "VERSION_X: $(VERSION_X)"
 	@echo "VERSION_Y: $(VERSION_Y)"
 	@echo "URL: $(URL)"
+	@echo "LINUX_DISTRO_SPECIFIC: $(LINUX_DISTRO_SPECIFIC)"
+	@echo "_LINUX_DISTRO_: $(_LINUX_DISTRO_)"
 	@echo
 	@echo "CORE:"
 	@echo "TMPDIR*: $(TMPDIR)"

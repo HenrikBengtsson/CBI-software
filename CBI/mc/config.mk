@@ -1,5 +1,9 @@
 NAME=mc
-VERSION=4.8.29
+VERSION=4.8.30
+
+## This software needs to be built for each Linux distribution separately
+LINUX_DISTRO_SPECIFIC=true
+
 CONFIG_OPTS=--with-screen=ncurses
 BUILD_TARGET_FILE=bin/mc
 BUILD_OPTS=-j 4

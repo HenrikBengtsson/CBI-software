@@ -13,6 +13,12 @@ Examples: `samtools --version`.
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/[.]" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "." .. os.getenv("CBI_LINUX"))
+end
+
 local home = pathJoin(root, name .. "-" .. version)
 
 local version_x = string.gsub(version, "[.].*", "")

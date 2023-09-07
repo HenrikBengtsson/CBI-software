@@ -110,7 +110,7 @@ if os.getenv("CBI_LINUX") == nil then
 end
 
 if os.getenv("CBI_LINUX") ~= "unknown" then
-  prepend_path("MODULEPATH", "${module_root}-" .. os.getenv("CBI_LINUX"))
+  prepend_path("MODULEPATH", pathJoin("${module_root}", "." .. os.getenv("CBI_LINUX")))
 end
 prepend_path("MODULEPATH", "${module_root}")
 

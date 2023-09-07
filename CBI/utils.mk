@@ -11,6 +11,11 @@ ifndef LINUX_DISTRO_SPECIFIC
   LINUX_DISTRO_SPECIFIC=false
 else ifeq ($(LINUX_DISTRO_SPECIFIC),true)
   ifndef _LINUX_DISTRO_
+    ifdef CBI_LINUX
+      _LINUX_DISTRO_=$(CBI_LINUX)
+    endif
+  endif
+  ifndef _LINUX_DISTRO_
     $(error ERROR: Environment variable '_LINUX_DISTRO_' is not set)
   endif
 endif
@@ -133,7 +138,7 @@ ifeq ($(INSTALL),true)
 
   ifeq ($(LINUX_DISTRO_SPECIFIC),true)
     ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(SOFTWARE_HOME))),)
-      SOFTWARE_HOME:=$(SOFTWARE_HOME)-$(_LINUX_DISTRO_)
+      SOFTWARE_HOME:=$(SOFTWARE_HOME)/.$(_LINUX_DISTRO_)
     endif
   endif
 
@@ -244,7 +249,7 @@ ifeq ($(INSTALL_MODULE),true)
 
   ifeq ($(LINUX_DISTRO_SPECIFIC),true)
     ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(MODULE_HOME))),)
-      MODULE_HOME:=$(MODULE_HOME)-$(_LINUX_DISTRO_)
+      MODULE_HOME:=$(MODULE_HOME)/.$(_LINUX_DISTRO_)
     endif
   endif
 

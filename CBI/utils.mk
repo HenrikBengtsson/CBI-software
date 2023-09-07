@@ -138,7 +138,7 @@ ifeq ($(INSTALL),true)
 
   ifeq ($(LINUX_DISTRO_SPECIFIC),true)
     ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(SOFTWARE_HOME))),)
-      SOFTWARE_HOME:=$(SOFTWARE_HOME)/.$(_LINUX_DISTRO_)
+      SOFTWARE_HOME:=$(SOFTWARE_HOME)/_$(_LINUX_DISTRO_)
     endif
   endif
 
@@ -249,7 +249,7 @@ ifeq ($(INSTALL_MODULE),true)
 
   ifeq ($(LINUX_DISTRO_SPECIFIC),true)
     ifneq ($(patsubst %$(_LINUX_DISTRO_),,$(lastword $(MODULE_HOME))),)
-      MODULE_HOME:=$(MODULE_HOME)/.$(_LINUX_DISTRO_)
+      MODULE_HOME:=$(MODULE_HOME)/_$(_LINUX_DISTRO_)
     endif
   endif
 

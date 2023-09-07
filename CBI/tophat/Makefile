@@ -21,8 +21,8 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd "$${td}"; \
 	mapfile -t files < <(find . -type f -executable); \
 	for ff in "$${files[@]}"; do \
-	    sed -i -E "s/^python /python2 /g" "$${ff}"; \
-	    sed -i -E "s/^(#\!\/usr\/bin\/env python)( |$$)/\12\2/g" "$${ff}"; \
+	    sed -i -E "s/^python[[:space:]]+/python2 /g" "$${ff}"; \
+	    sed -i -E "s/^(#[[:space:]]*\!\/usr\/bin\/env[[:space:]]+python)([[:space:]]|$$)/\12\2/g" "$${ff}"; \
 	done; \
 	mv "$${td}" "$(BUILD_PATH)/.patched"; \
 	rm -rf "$${td}"

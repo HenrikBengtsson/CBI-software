@@ -13,6 +13,11 @@ Examples: `markdownlint --version`, `markdownlint --help`, `markdownlint -- *.md
 ]]
 )
 
+-- This module is not supported on Rocky 8
+if os.getenv("CBI_LINUX") == "rocky8" then
+  LmodError("Module '" .. myModuleFullName() .. "' is not available on Rocky 8, which has too old versions of npm and node")
+end
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

@@ -35,6 +35,8 @@ post_install:
 	chmod ugo+x gistic2.tmp; \
 	cp gistic2 gistic2.org; \
 	mv gistic2.tmp gistic2
+
+post_install_module:
 	make write_protect_module
 
 

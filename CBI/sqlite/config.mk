@@ -43,6 +43,13 @@ VERSION=3.42.0
 VERSION_ID=3420000
 VERSION_YEAR=2023
 
+VERSION=3.43.0
+VERSION_ID=3430000
+VERSION_YEAR=2023
+
+## This software needs to be built for each Linux distribution separately
+LINUX_DISTRO_SPECIFIC=true
+
 URL_DOWNLOAD=https://sqlite.org/download.html
 
 DOWNLOAD_TARGET_FILE=configure

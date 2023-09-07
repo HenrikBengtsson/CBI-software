@@ -4,6 +4,7 @@ SCL Python: Python with Additional Utilities via CentOS Software Collections
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 local scl_name = "rh-python" .. version
 
 whatis("Version: " .. version)

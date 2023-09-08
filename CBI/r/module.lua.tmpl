@@ -20,6 +20,12 @@ end
 
 local name = "R"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
@@ -41,7 +47,12 @@ else
   pushenv("R_INSTALL_STAGED", "true")
 end
 
-local r_libs_user="~/R/%p-library/%v-CBI"
+local r_libs_user
+if os.getenv("CBI_LINUX") == "centos7" then
+  r_libs_user="~/R/%p-library/%v-CBI"
+else
+  r_libs_user="~/R/" .. os.getenv("CBI_LINUX") .. "-" .. "%p-library/%v-CBI"
+end
 
 if (v >= "4.1.0") then
   local gv = string.gsub(version, v, "")

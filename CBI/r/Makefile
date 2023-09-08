@@ -5,11 +5,16 @@ include ../sysinfo.mk
 ## Special cases (must come before including utils.mk)
 
 ## Use modern GCC and Java versions?
+GCC_MODULE=
 GCC_VERSION=10
 ifeq ($(LINUX_NAME),Ubuntu)
     ifeq ($(LINUX_VERSION),22.04)
         GCC_VERSION=11
     endif
+else ifeq ($(LINUX_NAME),CentOS Linux)
+    GCC_MODULE=scl-devtoolset
+else ifeq ($(LINUX_NAME),Rocky Linux)
+    GCC_MODULE=scl-gcc-toolset
 endif
 
 ifeq ($(VERSION_X),1)
@@ -35,15 +40,17 @@ else ifeq ($(findstring rc,$(VERSION)),rc)
 	BUILD_NAME=R-rc
 endif
 
-## Check if CBI scl-devtoolset modules are available
+## Check if CBI $(GCC_MODULE) modules are available
 #module load CBI
-#module spider scl-devtoolset => exit code 0, if exists
-#module spider scl-devtoolset/GCC_VERSION => exit code 0, if exists
+#module spider $(GCC_MODULE) => exit code 0, if exists
+#module spider $(GCC_MODULE)/GCC_VERSION => exit code 0, if exists
 
 ## Build using specific GCC version?
 ifneq ($(GCC_VERSION),)
-	CONFIG_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
-	BUILD_MODULES=CBI scl-devtoolset/$(GCC_VERSION)
+	ifneq ($(GCC_MODULE),)
+		CONFIG_MODULES=CBI $(GCC_MODULE)/$(GCC_VERSION)
+		BUILD_MODULES=CBI $(GCC_MODULE)/$(GCC_VERSION)
+	endif
 	BUILD_SUFFIX=-gcc$(GCC_VERSION)
 	PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)$(BUILD_SUFFIX)
 	MODULE_VERSION=$(VERSION)$(BUILD_SUFFIX)
@@ -75,6 +82,7 @@ debug2: debug
 	@echo "DOWNLOAD_URL_PATH=$(DOWNLOAD_URL_PATH)"
 	@echo "DOWNLOAD_URL=$(DOWNLOAD_URL)"
 	@echo "GCC_VERSION=$(GCC_VERSION)"
+	@echo "GCC_MODULE=$(GCC_MODULE)"
 	@echo "OPENJDK_VERSION=$(OPENJDK_VERSION)"
 	@echo "CONFIG_MODULES=$(CONFIG_MODULES)"
 	@echo "BUILD_MODULES=$(BUILD_MODULES)"

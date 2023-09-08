@@ -25,6 +25,19 @@ if (version == "1.0.27783") then
   end
 end
 
+-- Validate proper Java version for older versions of MuTect
+if string.match(version, "^1[.][01]") then
+  local bfr = capture("java -version 2>&1")
+  for line in string.gmatch(bfr, "[^\n]+") do
+    if string.match(line, "version") then
+      if not string.match(line, "1[.]7") then
+        LmodWarning(myModuleFullName() .. " requires Java v1.7, but you are running " .. line)
+      end
+    end
+  end
+end
+
+
 name = "muTect"
 pushenv("MUTECT_HOME", home)
 local jarfile = name .. "-" .. version .. ".jar"

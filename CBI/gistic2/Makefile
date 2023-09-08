@@ -22,6 +22,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	tar -xzf $(BUILD_PATH)/$(TARBALL)
 	cd $(PREFIX)/MCR_Installer; \
 	unzip MCRInstaller.zip; \
+	module load matlab/2018b; \
 	./install -mode silent -agreeToLicense yes -destinationFolder "$(PREFIX)/MATLAB_Compiler_Runtime"
 	make post_install
 	ls -la $(PREFIX)

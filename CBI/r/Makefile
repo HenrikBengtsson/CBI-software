@@ -135,6 +135,7 @@ pre_config: assert_gcc_version assert_java_version
 pre_build: assert_gcc_version assert_java_version
 
 post_build:
+	echo "Running 'make check'"
 	cd $(BUILD_PATH); \
 	R_LIBS_USER=dummy make check &> make-check.log
 

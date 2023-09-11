@@ -36,3 +36,8 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+
+available-version:
+	@curl --silent https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/release-notes | pandoc --from html --to plain | grep -E "^Release notes for" | sed -E 's/^Release notes for [^[:digit:]]*([[:digit:].]+).*/\1/g' | head -1
+

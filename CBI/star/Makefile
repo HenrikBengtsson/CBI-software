@@ -13,7 +13,15 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(GITHUB_REPO)/archive/$(VERSION).zip; \
 	unzip $(VERSION).zip
 
-$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
+$(BUILD_TARGET): $(DOWNLOAD_TARGET)
+	cd $(BUILD_PATH); \
+	mv bin/Linux_x86_64_static/STAR bin/STAR.hide; \
+	mv bin/Linux_x86_64_static/* bin/; \
+	rm -rf bin/{Linux_x86_64,Linux_x86_64_static,MacOSX_x86_64}; \
+	rm .gitignore .gitmodules .travis.yml _config.yml; \
+	mv bin/STAR.hide bin/STAR
+
+$(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install

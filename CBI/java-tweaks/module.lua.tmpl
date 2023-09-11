@@ -9,7 +9,7 @@ version = string.gsub(version, "^[.]", "")
 whatis("Version: " .. version)
 whatis("Keywords: java, settings")
 whatis([[
-Description: This hidden environment module, tweaks the `_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine.
+Description: This hidden environment module, tweaks the `_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine. Specifically, it address the problem that Java does _not_ respect environment variable `TMPDIR`, which is set to a local `/scratch` folder on our HPC environment.  To fix this, this module adds `-Djava.io.tmpdir=$TMPDIR` to `_JAVA_OPTIONS` making Java to also use that.  Without this, Java uses the tiny local `/tmp` folder for temporary files with the result that `/tmp` quickly fills up, especially on multi-user machines, causing processes to fail and the machine to become unusable.
 Examples: `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
 ]])
 

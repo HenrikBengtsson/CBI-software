@@ -29,7 +29,7 @@ setup() {
     done
 
     if [[ ${#missing_libs[@]} > 0 ]]; then
-        mapfile -t missing_libs < <(uniq <<< $(printf "%s\n" "${missing_libs[@]}"))
-        fail "Detected missing library dependencies in ${#missing_files[@]} executables (${missing_files[*]}): [n=${#missing_libs[@]}] ${missing_libs[*]}"
+        mapfile -t missing_libs < <(printf "%s\n" "${missing_libs[@]}" | sort -u)
+        fail "Detected missing library dependencies in ${#missing_files[@]} executables: [n=${#missing_libs[@]}] ${missing_libs[*]}"
     fi
 }

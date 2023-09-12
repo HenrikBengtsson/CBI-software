@@ -35,7 +35,7 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
 
-prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))
+prepend_path("MANPATH", pathJoin(home, "man"))
 
 -- linking
 prepend_path("LD_RUN_PATH", pathJoin(home, libdir))

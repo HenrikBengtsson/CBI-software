@@ -69,6 +69,15 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	module purge; \
 	module load $(BUILD_MODULES); \
         cmake --build . --target install
+else
+$(INSTALL_TARGET): $(BUILD_TARGET)
+	mkdir -p $(PREFIX)
+	cd $(BUILD_PATH); \
+	make --quiet install-man; \
+	make --quiet install
+	make --quiet post_install
+	ls -la $(PREFIX)
+	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 endif
 
 BUILD_MODULES=$(CONFIG_MODULES)

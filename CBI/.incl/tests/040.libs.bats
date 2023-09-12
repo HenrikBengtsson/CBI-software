@@ -19,14 +19,17 @@ setup() {
     mapfile -t files < <(find "${PREFIX}" -type f -executable)
     echo "Scanning ${#files[@]} executable files under $home"
     for kk in $(seq "${#files[@]}"); do
-      file=${files[$((kk-1))]}
-      mapfile -t missing < <(ldd "${file}" 2>&1 | grep -F "not found" | sed -E "s/(^${PREFIX//\//\\/}[^[:space:]]+:[[:space:]]+|^[[:space:]]+| => .*| not found .*)//g" | sort -u | sed -E 's/: (version.*)/ [\1]/g' | sort -h)
-      if [[ ${#missing[@]} -gt 0 ]]; then
-          2>&1 echo "MISSING LIBRARY: ${file}: [n=${#missing[@]}] ${missing[*]}"
-          missing_files+=("${file}")
-          missing_libs+=("${missing[@]}")
-      fi	  
+        file=${files[$((kk-1))]}
+        mapfile -t missing < <(ldd "${file}" 2>&1 | grep -F "not found" | sed -E "s/(^${PREFIX//\//\\/}[^[:space:]]+:[[:space:]]+|^[[:space:]]+| => .*| not found .*)//g" | sort -u | sed -E 's/: (version.*)/ [\1]/g' | sort -h)
+        if [[ ${#missing[@]} -gt 0 ]]; then
+            2>&1 echo "MISSING LIBRARY: ${file}: [n=${#missing[@]}] ${missing[*]}"
+            missing_files+=("${file}")
+            missing_libs+=("${missing[@]}")
+        fi	  
     done
 
-    [[ ${#missing_libs[@]} == 0 ]] || fail "Detected missing library dependencies in ${#missing_files[@]} executables (${missing_files[*]}): [n=${#missing_libs[@]}] ${missing_libs[*]}"
+    if [[ ${#missing_libs[@]} > 0 ]]; then
+        mapfile -t missing_libs < <(uniq <<< $(printf "%s\n" "${missing_libs[@]}"))
+        fail "Detected missing library dependencies in ${#missing_files[@]} executables (${missing_files[*]}): [n=${#missing_libs[@]}] ${missing_libs[*]}"
+    fi
 }

@@ -2,6 +2,10 @@ setup() {
     load "${BATS_SUPPORT_HOME:?}/load.bash"
     load "${BATS_ASSERT_HOME:?}/load.bash"
     load "${BATS_FILE_HOME:?}/load.bash"
+    
+    if [[ -f "tests/000.init.sh" ]]; then
+        source "tests/000.init.sh"
+    fi
 }
 
 

@@ -30,6 +30,10 @@ setup() {
         done
         [[ ${#missing[@]} == 0 ]] || fail "Detected non-existing folder(s) in ${name}: [n=${#missing[@]}] ${missing[*]}"
     }
+
+    if [[ -f "tests/000.init.sh" ]]; then
+        source "tests/000.init.sh"
+    fi
 }
 
 

@@ -16,8 +16,8 @@ setup() {
     local -a missing_files
     module load "${MODULE_REPO}"
     module load "${MODULE_NAME}/${MODULE_VERSION}"
-    mapfile -t files < <(find "${PREFIX}" -type f -executable)
-    echo "Scanning ${#files[@]} executable files under $home"
+    mapfile -t files < <(find "${PREFIX}" \( -type f -o -type l \) -executable)
+    echo "Scanning ${#files[@]} executables under ${PREFIX}"
     for kk in $(seq "${#files[@]}"); do
         file=${files[$((kk-1))]}
         mapfile -t missing < <(ldd "${file}" 2>&1 | grep -F "not found" | sed -E "s/(^${PREFIX//\//\\/}[^[:space:]]+:[[:space:]]+|^[[:space:]]+| => .*| not found .*)//g" | sort -u | sed -E 's/: (version.*)/ [\1]/g' | sort -h)

@@ -26,18 +26,22 @@ if version_x == "1" then
   end
   pushenv("GATK_HOME", home)
 elseif version_x == "4" then
-  local success=false
-  for version = 17,30 do
-    module="openjdk/" .. version
-    if isAvail(module) then
-      load(module)
-      success=true
-      break
-    end
-  end
   if mode() == "load" then
+    local success=false
+    for version = 17,30 do
+      module="openjdk/" .. version
+      if isAvail(module) then
+        load(module)
+        success=true
+        break
+      end
+    end
     if not success then
-      LmodError(name .. " requires openjdk/17 or newer, but that is not available on " .. os.getenv("CBI_LINUX") .. " machine " .. os.getenv("HOSTNAME"))
+      msg = name .. " requires openjdk/17 or newer, but that is not available on " .. os.getenv("CBI_LINUX") .. " machine " .. os.getenv("HOSTNAME")
+      if os.getenv("SGE_CLUSTER_NAME") == "wynton_cluster" then
+        msg = msg .. ". Wynton HPC is moving to Rocky 8 on 2023-10-30, which has Java (>= 17). Until then, you can run GATK on the dedicated Rocky 8 test cluster, cf. https://wynton.ucsf.edu/hpc/software/rocky-8-linux.html"
+      end
+      LmodError(msg)
     end
   end
   prepend_path("PATH", home)

@@ -9,8 +9,8 @@ version = string.gsub(version, "^[.]", "")
 whatis("Version: " .. version)
 whatis("Keywords: java, settings")
 whatis([[
-Description: This hidden environment module, tweaks the `_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine. Specifically, it address the problem that Java does _not_ respect environment variable `TMPDIR`, which is set to a local `/scratch` folder on our HPC environment.  To fix this, this module adds `-Djava.io.tmpdir=$TMPDIR` to `_JAVA_OPTIONS` making Java to also use that.  Without this, Java uses the tiny local `/tmp` folder for temporary files with the result that `/tmp` quickly fills up, especially on multi-user machines, causing processes to fail and the machine to become unusable.
-Examples: `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
+Description: This hidden environment module, tweaks the `JDK_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine. Specifically, it address the problem that Java does _not_ respect environment variable `TMPDIR`, which is set to a local `/scratch` folder on our HPC environment.  To fix this, this module adds `-Djava.io.tmpdir=$TMPDIR` to `JDK_JAVA_OPTIONS` making Java to also use that.  Without this, Java uses the tiny local `/tmp` folder for temporary files with the result that `/tmp` quickly fills up, especially on multi-user machines, causing processes to fail and the machine to become unusable.  For Java (<= 1.8), `_JAVA_OPTIONS` is set instead, because there environment variable `JDK_JAVA_OPTIONS` is not recognized.
+Examples: `echo "JDK_JAVA_OPTIONS='${JDK_JAVA_OPTIONS}'"` or if Java (<= 1.8) `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
 ]])
 
 if mode() == "load" then
@@ -21,27 +21,43 @@ if mode() == "load" then
       LmodError("Environment variable TMPDIR specifies a non-existing folder: " .. tmpdir)
     end
 
+    local envvar="JDK_JAVA_OPTIONS"
+    local bfr = capture("java -version 2>&1")
+    if string.match(bfr, "1.8.") then
+       envvar="_JAVA_OPTIONS"
+    end
+
     -- Set -Djava.io.tmpdir=..., if not already set
-    local opts=os.getenv("_JAVA_OPTIONS")
+    local opts=os.getenv(envvar)
     if opts ~= nil and not string.find(opts, "-Djava[.]io[.]tmpdir=") then
       opts = nil
     end
+    
     if opts == nil then
       local value="-Djava.io.tmpdir=" .. tmpdir
-      prepend_path("_JAVA_OPTIONS", value, " ")
-      setenv("_JAVA_TWEAKS_", value)
+      prepend_path(envvar, value, " ")
+      setenv("_CBI_JAVA_TWEAKS_", value)
+      setenv("_CBI_JAVA_TWEAKS_ENVVAR_", envvar)
     end
   end
 elseif mode() == "unload" then
-  local tweaks=os.getenv("_JAVA_TWEAKS_")
-  if tweaks ~= nul then
+  local envvar=os.getenv("_CBI_JAVA_TWEAKS_ENVVAR_")
+  local tweaks=os.getenv("_CBI_JAVA_TWEAKS_")
+  if envvar ~= nul and tweaks ~= nul then
     local tmpdir=os.getenv("TMPDIR") or ""
     if tmpdir ~= "" then
-      remove_path("_JAVA_OPTIONS", tweaks, " ")
-      tweaked=pushenv("_JAVA_TWEAKS_", false)
-      tweaked=os.getenv("_JAVA_TWEAKS_")
+      remove_path(envvar, tweaks, " ")
+      -- Remove _CBI_JAVA_TWEAKS_ and _CBI_JAVA_TWEAKS_ENVVAR_
+      pushenv("_CBI_JAVA_TWEAKS_", false)
+      pushenv("_CBI_JAVA_TWEAKS_ENVVAR_", false)
+      -- Assert unset
+      tweaked=os.getenv("_CBI_JAVA_TWEAKS_")
       if tweaked ~= nul then
-        LmodError("Failed to unset _JAVA_TWEAKS_")
+        LmodError("Failed to unset _CBI_JAVA_TWEAKS_")
+      end
+      tweaked=os.getenv("_CBI_JAVA_TWEAKS_ENVVAR_")
+      if tweaked ~= nul then
+        LmodError("Failed to unset _CBI_JAVA_TWEAKS_ENVVAR_")
       end
     end
   end

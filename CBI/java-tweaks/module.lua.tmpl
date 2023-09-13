@@ -9,8 +9,8 @@ version = string.gsub(version, "^[.]", "")
 whatis("Version: " .. version)
 whatis("Keywords: java, settings")
 whatis([[
-Description: This hidden environment module, tweaks the `JDK_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine. Specifically, it address the problem that Java does _not_ respect environment variable `TMPDIR`, which is set to a local `/scratch` folder on our HPC environment.  To fix this, this module adds `-Djava.io.tmpdir=$TMPDIR` to `JDK_JAVA_OPTIONS` making Java to also use that.  Without this, Java uses the tiny local `/tmp` folder for temporary files with the result that `/tmp` quickly fills up, especially on multi-user machines, causing processes to fail and the machine to become unusable.  For Java (<= 1.8), `_JAVA_OPTIONS` is set instead, because there environment variable `JDK_JAVA_OPTIONS` is not recognized.
-Examples: `echo "JDK_JAVA_OPTIONS='${JDK_JAVA_OPTIONS}'"` or if Java (<= 1.8) `echo "_JAVA_OPTIONS='${_JAVA_OPTIONS}'"`.
+Description: This hidden environment module, tweaks the `JDK_JAVA_OPTIONS` environment variable to improve how Java runs on the current machine. Specifically, it address the problem that Java does _not_ respect environment variable `TMPDIR`, which is set to a local `/scratch` folder on our HPC environment.  To fix this, this module adds `-Djava.io.tmpdir=$TMPDIR` to `JDK_JAVA_OPTIONS` making Java to also use that.  Without this, Java uses the tiny local `/tmp` folder for temporary files with the result that `/tmp` quickly fills up, especially on multi-user machines, causing processes to fail and the machine to become unusable.  Because environment variable `JDK_JAVA_OPTIONS` is not recognized by older versions of Java, for Java 1.8, `JAVA_TOOLS_OPTIONS` is set, and for Java 1.6 `_JAVA_OPTIONS` is set. 
+Examples: `echo "JDK_JAVA_OPTIONS='${JDK_JAVA_OPTIONS}'"` or if Java 1.8, `echo "JAVA_TOOLS_OPTIONS='${JAVA_TOOLS_OPTIONS}'"`.
 ]])
 
 if mode() == "load" then
@@ -23,7 +23,9 @@ if mode() == "load" then
 
     local envvar="JDK_JAVA_OPTIONS"
     local bfr = capture("java -version 2>&1")
-    if string.match(bfr, "1.6.") or string.match(bfr, "1.8.") then
+    if string.match(bfr, "1.8.") then
+       envvar="JAVA_TOOL_OPTIONS"
+    elseif string.match(bfr, "1.6.") then
        envvar="_JAVA_OPTIONS"
     end
 

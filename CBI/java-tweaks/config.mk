@@ -1,5 +1,5 @@
 NAME=java-tweaks
-VERSION:=0.2
+VERSION=0.3
 DOWNLOAD=false
 CONFIG=false
 BUILD=false

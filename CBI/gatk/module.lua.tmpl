@@ -29,6 +29,8 @@ if version_x == "1" then
 elseif version_x == "4" then
   if mode() == "load" then
     local success=false
+
+    -- try all possible openjdk/(>= 17) versions
     for version = 17,30 do
       module="openjdk/" .. version
       if isAvail(module) then
@@ -37,6 +39,19 @@ elseif version_x == "4" then
         break
       end
     end
+    
+    -- try oraclejdk/(>= 17) versions
+    if not success then
+      for version = 17,30 do
+        module="oraclejdk/" .. version
+        if isAvail(module) then
+          load(module)
+          success=true
+          break
+        end
+      end
+    fi
+    
     if not success then
       msg = name .. " requires openjdk/17 or newer, but that is not available on " .. os.getenv("CBI_LINUX") .. " machine " .. os.getenv("HOSTNAME")
       if os.getenv("SGE_CLUSTER_NAME") == "wynton_cluster" then

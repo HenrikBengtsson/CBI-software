@@ -23,7 +23,7 @@ if mode() == "load" then
 
     local envvar="JDK_JAVA_OPTIONS"
     local bfr = capture("java -version 2>&1")
-    if string.match(bfr, "1.8.") then
+    if string.match(bfr, "1.6.") or string.match(bfr, "1.8.") then
        envvar="_JAVA_OPTIONS"
     end
 

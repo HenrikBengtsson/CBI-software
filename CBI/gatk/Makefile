@@ -35,9 +35,28 @@ $(DOWNLOAD_TARGET):
 endif
 
 
-$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p $(PREFIX)
-	cp -R $(BUILD_PATH) $(PREFIX)/..
+## Patch code: 'python' -> 'python3'
+$(BUILD_TARGET): $(DOWNLOAD_TARGET)
+	td=$$(mktemp -d); \
+	rm -rf "$${td}"; \
+	cp -p -R "$(BUILD_PATH)" "$${td}"; \
+	cd "$${td}"; \
+	mapfile -t files < <(find . -type f -executable); \
+	for ff in "$${files[@]}"; do \
+	    echo "$ff"; \
+	    sed -i -E "s/^(python)[[:space:]]+/\13 /g" "$${ff}"; \
+	    sed -i -E "s/^(#[[:space:]]*\!\/usr\/bin\/env[[:space:]]+python)([[:space:]]|$$)/\13\2/g" "$${ff}"; \
+	done; \
+	mv "$${td}" "$(BUILD_PATH)/.patched"; \
+	rm -rf "$${td}"
+	diff -u -w "$(BUILD_PATH)" "$(BUILD_PATH)/.patched" || true
+	touch "$(BUILD_PATH)/.patched/done"
+
+
+$(INSTALL_TARGET): $(BUILD_TARGET)
+	echo cp -R "$(BUILD_PATH)/.patched" "$$(dirname "$(PREFIX)")"
+	cp -R "$(BUILD_PATH)/.patched" "$$(dirname "$(PREFIX)")"
+	mv "$$(dirname "$(PREFIX)")/.patched" "$(PREFIX)"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

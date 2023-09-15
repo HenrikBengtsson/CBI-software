@@ -18,6 +18,11 @@ has_devtoolset = function(version)
   return(isDir(path))
 end
 
+has_gcc_toolset = function(version)
+  local path = pathJoin("/opt", "rh", "gcc-toolset-" .. version)
+  return(isDir(path))
+end
+
 local name = "R"
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 
@@ -65,6 +70,8 @@ if (v >= "4.1.0") then
     r_libs_user = r_libs_user .. "-gcc" .. gv
     if has_devtoolset(gv) then
       depends_on("scl-devtoolset/" .. gv)
+    elseif has_gcc_toolset(gv) then
+      depends_on("scl-gcc-toolset/" .. gv)
     end
   end
 end

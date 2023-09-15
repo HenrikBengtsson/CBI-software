@@ -30,6 +30,6 @@ setup() {
 
     if [[ ${#missing_libs[@]} > 0 ]]; then
         mapfile -t missing_libs < <(printf "%s\n" "${missing_libs[@]}" | sort -u)
-        fail "Detected missing library dependencies in ${#missing_files[@]} executables: [n=${#missing_libs[@]}] ${missing_libs[*]}"
+        fail "[${MODULE_NAME}/${MODULE_VERSION}] Detected missing library dependencies in ${#missing_files[@]} executables: [n=${#missing_libs[@]}] ${missing_libs[*]}"
     fi
 }

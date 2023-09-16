@@ -7,7 +7,7 @@ include ../utils.mk
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/stedolan/jq/releases/download/$(NAME)-$(VERSION)/$(TARBALL); \
+	curl -L -O https://github.com/jqlang/jq/releases/download/$(NAME)-$(VERSION)/$(TARBALL); \
 	tar xf "$(TARBALL)"
 
 #$(INSTALL_TARGET): $(DOWNLOAD_TARGET)

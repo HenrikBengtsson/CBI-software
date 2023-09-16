@@ -14,7 +14,7 @@ debug2:
 $(BUILD_PATH)/virtualenv:
 	module load CBI; \
 	module try-load scl-rh-python/38; \
-	$(PYTHON3) -m pip install --target="$(@D)" virtualenv
+	$(PYTHON3) -m pip install --target="$(@D)" virtualenv pip
 
 ## Based on the official instructions in Section 'Shared installation (on a cluster)'
 ## of the 'Installation' document
@@ -28,9 +28,8 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	$(BUILD_PATH)/bin/virtualenv -p $(PYTHON3) "$(PREFIX)/venv"; \
 	. "$(PREFIX)/venv/bin/activate"; \
 	python --version; \
-	pip --version; \
-	pip install --upgrade pip3; \
-	pip install $(NAME)==$(VERSION)
+	python -m pip install --upgrade pip; \
+	python -m pip install $(NAME)==$(VERSION)
 	ln -fs $(PREFIX)/venv/bin/cutadapt $(PREFIX)/bin/
 	ls -la "$(PREFIX)"
 	ls -la "$(PREFIX)/bin"

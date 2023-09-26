@@ -8,6 +8,8 @@ TARBALL=$(NAME)-$(VERSION).tar.gz
 ## SOFTWARE
 ## ----------------------------------------------------------
 $(DOWNLOAD_TARGET):
+	## Assert that 'print' command exists
+	command -v print
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
 	curl -L -O https://downloads.sourceforge.net/project/bashdb/$(NAME)/$(VERSION)/$(TARBALL); \

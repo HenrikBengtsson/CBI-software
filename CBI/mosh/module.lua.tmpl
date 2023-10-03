@@ -1,0 +1,20 @@
+help([[
+mosh: Mobile Shell
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: files, utility")
+whatis("URL: https://www.mosh.org/, https://github.com/mobile-shell/mosh/releases (changelog), https://github.com/mobile-shell/mosh (source code)")
+whatis([[
+Description: Remote terminal application that allows roaming, supports intermittent connectivity, and provides intelligent local echo and line editing of user keystrokes. Mosh is a replacement for interactive SSH terminals. It's more robust and responsive, especially over Wi-Fi, cellular, and long-distance links.
+Examples: `mosh --version`, `mosh --help`, and `mosh remote.server.org`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

@@ -23,11 +23,23 @@ check-libs/ALL:
 	for kk in $$(seq "$${#modules[@]}"); do \
 	    mm="$${modules[$$((kk - 1))]}"; \
 	    echo "$${kk}/$${#modules[@]}: $${mm}"; \
-            [[ -d "$${mm}" ]] && make --quiet "check-libs/$${mm}"; \
+            [[ -d "$${mm}" ]] && make --quiet "$(@D)/$${mm}"; \
+	done
+
+check-rpath/ALL:
+	@mapfile -t modules < <(find "$${MODULE_ROOT_CBI}" -maxdepth 1 -type d -exec basename {} \; | sort -u | grep -v -E "(miniconda3-py)"); \
+	echo "Scanning $${#modules[@]} modules:"; \
+	for kk in $$(seq "$${#modules[@]}"); do \
+	    mm="$${modules[$$((kk - 1))]}"; \
+	    echo "$${kk}/$${#modules[@]}: $${mm}"; \
+            [[ -d "$${mm}" ]] && make --quiet "$(@D)/$${mm}"; \
 	done
 
 check-libs/%:
-	@cd "$(@F)"; $(MAKE) check-libs
+	@cd "$(@F)"; $(MAKE) $(@D)
+
+check-rpath/%:
+	@cd "$(@F)"; $(MAKE) $(@D)
 
 %/PACKAGES: PACKAGES
 	@cmd=$(@D); \

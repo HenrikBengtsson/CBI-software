@@ -36,6 +36,6 @@ setup() {
     if [[ ${#rpath_deps[@]} -gt 0 ]]; then
         mapfile -t rpath_files < <(printf "%s\n" "${rpath_files[@]}" | sort -u)
         mapfile -t rpath_deps < <(printf "%s\n" "${rpath_deps[@]}" | sort -u)
-        fail "[${MODULE_NAME}/${MODULE_VERSION}] Detected ${#rpath_files[@]} binaries with RUNPATH dependencies: ${#rpath_deps[@]} ${rpath_deps[*]}"
+        fail "[${MODULE_NAME}/${MODULE_VERSION}] Detected ${#rpath_files[@]} binaries ($(sed -E "s|${PREFIX}/||g" <<< "${rpath_files[*]}")) with RUNPATH dependencies: [n=${#rpath_deps[@]}] ${rpath_deps[*]}"
     fi
 }

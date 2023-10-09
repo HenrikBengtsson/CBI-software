@@ -16,7 +16,7 @@ setup() {
     
     module load "${MODULE_REPO}"
     module load "${MODULE_NAME}/${MODULE_VERSION}"
-    mapfile -t files < <(find "${PREFIX}" -type f -executable | grep -v -E "[.]so$")
+    mapfile -t files < <(find "${PREFIX}" -type f -executable)
     
     echo "Scanning ${#files[@]} executables under ${PREFIX}"
     for kk in $(seq "${#files[@]}"); do

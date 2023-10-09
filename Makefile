@@ -37,6 +37,7 @@ check: shellcheck check.lua check.lua.tmpl
 shellcheck:
 	echo "ShellCheck $$(shellcheck --version | grep version:)"
 	shellcheck repos/CBI.lua.tmpl.sh
+#	(cd CBI/.incl/; shellcheck -x tests/*.bats)
 
 check.lua:
 	echo "luac $$(luac -v)"

@@ -11,8 +11,8 @@ setup() {
 
 @test "No absolute paths" {
     local -a files
-    local -a missing
     local -a missing_files
+    local -a unique_kinds
     
     module load "${MODULE_REPO}"
     module load "${MODULE_NAME}/${MODULE_VERSION}"
@@ -22,13 +22,25 @@ setup() {
     for kk in $(seq "${#files[@]}"); do
         file=${files[$((kk-1))]}
         if grep -q -F "${PREFIX}" "${file}" 2>&1; then        
+            kind="$(file --brief --mime "${file}")"
+            unique_kinds+=("${kind}")
             file=$(sed "s|${PREFIX}|\$PREFIX|g" <<< "${file}")
-#            2>&1 echo "ABSOLUTE PATH: ${file}"
-            missing_files+=("${file}")
+#            2>&1 echo "ABSOLUTE PATH: ${file} [${kind}]"
+            missing_files+=("${file} [${kind}]")
         fi	  
     done
 
     if [[ ${#missing_files[@]} -gt 0 ]]; then
-        fail "[${MODULE_NAME}/${MODULE_VERSION}] Detected absolute paths in executables: [n=${#missing_files[@]}] ${missing_files[*]}"
+        mapfile -t unique_kinds < <(printf "%s\n" "${unique_kinds[@]}" | sort -u)
+        2>&1 echo        
+        2>&1 echo "Type of files:"
+        for kk in $(seq "${#unique_kinds[@]}"); do
+            kind=${unique_kinds[$((kk-1))]}
+#            2>&1 printf "%s\n" "${missing_files[@]}" | grep -F "${kind}"
+            mapfile -t files < <(printf "%s\n" "${missing_files[@]}" | grep -F "${kind}" | sed -E "s| *[[]${kind}[]]||g")
+           2>&1 printf "  %d. %s: [n=%d] %s\n" "${kk}" "${kind}" "${#files[@]}" "${files[*]}"
+        done
+        2>&1 echo        
+        fail "[${MODULE_NAME}/${MODULE_VERSION}] Detected absolute paths in executables: [n=${#missing_files[@]}] $(echo "${missing_files[*]}" | sed -E "s| *[[][^]]*[]]||g")"
     fi
 }

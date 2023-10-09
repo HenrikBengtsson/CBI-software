@@ -22,6 +22,8 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)"/..
 	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install
+	## PATCH for bug https://github.com/quarto-dev/quarto-cli/issues/7024
+	chmod u+w "$(PREFIX)/share/formats/html/pandoc/template.html"
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 

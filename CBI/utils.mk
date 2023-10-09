@@ -377,6 +377,13 @@ check-rpath:
 	    bats ../.incl/tests/*.rpath.bats; \
 	fi
 
+check-absolute-paths:
+	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
+	    eval "$$(make --quiet check-export 2> /dev/null)"; \
+	    echo "*** RUNPATH checks ..."; \
+	    bats ../.incl/tests/*.absolute-paths.bats; \
+	fi
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## HELP

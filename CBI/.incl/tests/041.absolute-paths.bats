@@ -22,6 +22,7 @@ setup() {
     for kk in $(seq "${#files[@]}"); do
         file=${files[$((kk-1))]}
         if grep -q -F "${PREFIX}" "${file}" 2>&1; then        
+            file=$(sed "s|${PREFIX}|\$PREFIX|g" <<< "${file}")
 #            2>&1 echo "ABSOLUTE PATH: ${file}"
             missing_files+=("${file}")
         fi	  

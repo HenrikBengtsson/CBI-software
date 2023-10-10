@@ -18,3 +18,6 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
+-- AD HOC: Some system libraries might be missing on login hosts
+-- prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib64"))
+

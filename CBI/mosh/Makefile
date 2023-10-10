@@ -10,3 +10,4 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://mosh.org/$(TARBALL); \
 	tar xf $(TARBALL)
+

@@ -5,7 +5,7 @@ modulerc: $(MODULE_HOME)/.modulerc.lua
 $(MODULE_HOME)/.modulerc.lua: .modulerc.lua.sh FORCE
 	echo "Updating: $@"
 	./"$<" > "$@".tmp
-	chmod ugo-w "$@" "$@".tmp
+	chmod ugo-w "$@".tmp
 	mv -f "$@".tmp "$@"
 
 install/%:

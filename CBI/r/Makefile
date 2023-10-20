@@ -117,6 +117,28 @@ assert_java_version:
 	    exit 1;                                                                  \
         fi;
 
+assert_config: $(CONFIG_TARGET)
+	grep -E "C[+][+]11 compiler:[[:space:]]*[^[:space:]]" "$<"
+# FIXME: Make this agile to R version
+#	grep -E "C[+][+]14 compiler:[[:space:]]*[^[:space:]]" "$<"
+#	grep -E "C[+][+]17 compiler:[[:space:]]*[^[:space:]]" "$<"
+#	grep -E "C[+][+]20 compiler:[[:space:]]*[^[:space:]]" "$<"
+	grep -E "Interfaces supported:.*\bX11\b" "$<"
+	grep -E "Interfaces supported:.*\btcltk\b" "$<"
+	grep -E "External libraries:.*\bpcre2\b" "$<"
+	grep -E "External libraries:.*\breadline\b" "$<"
+	grep -E "External libraries:.*\bcurl\b" "$<"
+	grep -E "Additional capabilities:.*\bPNG\b" "$<"
+	grep -E "Additional capabilities:.*\bJPEG\b" "$<"
+	grep -E "Additional capabilities:.*\bTIFF\b" "$<"
+	grep -E "Additional capabilities:.*\bNLS\b" "$<"
+	grep -E "Additional capabilities:.*\bcairo\b" "$<"
+	grep -E "Additional capabilities:.*\bICU\b" "$<"
+	grep -E "Options enabled:.*\bshared R library\b" "$<"
+	grep -E "Options enabled:.*\bshared BLAS\b" "$<"
+	grep -E "Options enabled:.*\bprofiling\b" "$<"
+	grep -E "Options enabled:.*\bmemory profiling\b" "$<"
+
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -131,6 +153,8 @@ $(DOWNLOAD_TARGET):
 	rmdir untar
 
 pre_config: assert_gcc_version assert_java_version
+
+post_config: assert_config
 
 pre_build: assert_gcc_version assert_java_version
 

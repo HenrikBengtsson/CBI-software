@@ -1,7 +1,7 @@
 ## nsjail requires CGroups v2, which is _not_ supported by CentOS 7
 
 NAME=nsjail
-VERSION=3.3
+VERSION=3.4
 DOWNLOAD_TARGET_FILE=Makefile
 CONFIG_TARGET_FILE=Makefile
 BUILD_TARGET_FILE=nsjail

@@ -1,5 +1,5 @@
 NAME=markdownlint-cli
-VERSION=0.35.0
+VERSION=0.37.0
 CONFIG=false
 BUILD=false
 DOWNLOAD=false

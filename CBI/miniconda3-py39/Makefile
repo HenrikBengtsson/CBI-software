@@ -8,11 +8,11 @@ include ../utils.mk
 
 ## See https://docs.conda.io/en/latest/miniconda.html
 $(DOWNLOAD_TARGET):
-	>&2 echo "ERROR: This is a defunction CBI software tool - don't install it. Instead, install the 'miniconda3' tool"
+	>&2 echo "ERROR: This is a defunct CBI software tool - don't install it. Instead, install the 'miniconda3' tool"
 	exit 1
 
 $(INSTALL_TARGET):
-	>&2 echo "ERROR: This is a defunction CBI software tool - don't install it. Instead, install the 'miniconda3' tool"
+	>&2 echo "ERROR: This is a defunct CBI software tool - don't install it. Instead, install the 'miniconda3' tool"
 	exit 1
 
 

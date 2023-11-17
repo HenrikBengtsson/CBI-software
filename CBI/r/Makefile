@@ -25,8 +25,12 @@ else ifeq ($(VERSION_X),3)
     GCC_VERSION=
 else ifeq ($(VERSION_X),4)
     ifeq ($(VERSION_X_Y),4.0)
+        GCC_VERSION=
     else ifeq ($(VERSION_X_Y),4.1)
-        GCC_VERSION=8
+        GCC_VERSION=
+        ifeq ($(LINUX_NAME),CentOS Linux)
+            GCC_VERSION=8
+        endif
     endif
 endif
 

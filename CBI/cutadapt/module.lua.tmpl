@@ -9,6 +9,7 @@ whatis("Keywords: sequencing, genome")
 whatis("URL: https://cutadapt.readthedocs.io/en/stable/, https://github.com/marcelm/cutadapt/blob/main/CHANGES.rst (changelog), https://github.com/marcelm/cutadapt (source code)")
 whatis([[
 Description: Cutadapt finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads.
+Requirements: CentOS 7.
 Examples: `cutadapt --version` and `cutadapt --help`.
 ]])
 
@@ -16,6 +17,10 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 -- Specific to the Linux distribution?
 if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
   root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+if os.getenv("CBI_LINUX") ~= "centos7" then
+  LmodError("The '" .. name .. "' module is not yet supported on " .. os.getenv("CBI_LINUX") .. ". See https://github.com/HenrikBengtsson/CBI-software/issues/102 for updates on this problem.")
 end
 
 local home = pathJoin(root, name .. "-" .. version)

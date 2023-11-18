@@ -122,11 +122,17 @@ assert_java_version:
         fi;
 
 assert_config: $(CONFIG_TARGET)
-	grep -E "C[+][+]11 compiler:[[:space:]]*[^[:space:]]" "$<"
-# FIXME: Make this agile to R version
-#	grep -E "C[+][+]14 compiler:[[:space:]]*[^[:space:]]" "$<"
-#	grep -E "C[+][+]17 compiler:[[:space:]]*[^[:space:]]" "$<"
-#	grep -E "C[+][+]20 compiler:[[:space:]]*[^[:space:]]" "$<"
+	grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+][[:digit:]]+\b" "$<"
+#	## Has C++11 compiler
+	grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]11\b" "$<"
+#	## Has C++14 compiler
+	if [[ $${VERSION_X} -ge 4 ]]; then \
+	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]14\b" "$<"; \
+	fi
+#	## Has C++17 compiler
+	if [[ $${VERSION_X} -ge 4 ]]; then \
+	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]17\b" "$<"; \
+	fi
 	grep -E "Interfaces supported:.*\bX11\b" "$<"
 	grep -E "Interfaces supported:.*\btcltk\b" "$<"
 	grep -E "External libraries:.*\bpcre2\b" "$<"

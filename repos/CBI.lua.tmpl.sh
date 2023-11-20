@@ -116,18 +116,4 @@ prepend_path("MODULEPATH", "${module_root}")
 
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", "${module_root}")
-
-if mode() == "load" and os.getenv("CBI_LINUX") == "rocky8" and os.getenv("CBI_ROCKY8_WARNED") ~= "true" and string.find(os.getenv("HOSTNAME"), "dev") then
-  path = pathJoin(os.getenv("HOME"), ".cache", "CBI")
-  if not isDir(path) then
-    os.execute("mkdir -p '" .. path .. "'")
-  end
-
-  file = pathJoin(path, "rocky8-nowarn")
-  if not isFile(file) then
-    LmodWarning("Be aware that you are currently using a Rocky 8 Linux development node (" .. os.getenv("HOSTNAME") .. "). It is not the same as CentOS 7 Linux, which Wynton has been used since 2017. If this was not intended, please log out and use either 'dev1' or the 'dev2' development nodes, which still uses CentOS 7. For more details, see <https://wynton.ucsf.edu/hpc/software/rocky-8-linux.html>. To muffle this warning permantently, call 'touch " .. file .. "'")
-  end
-
-  pushenv("CBI_ROCKY8_WARNED", "true")
-end
 HEREDOC

@@ -65,13 +65,15 @@ if (v >= "4.1.0") then
   gv = string.gsub(gv, "-beta", "")
   gv = string.gsub(gv, "-rc", "")
   gv = string.gsub(gv, "-gcc", "")
-  gv = tonumber(gv)
-  if (gv > 4) then
-    r_libs_user = r_libs_user .. "-gcc" .. gv
-    if has_devtoolset(gv) then
-      depends_on("scl-devtoolset/" .. gv)
-    elseif has_gcc_toolset(gv) then
-      depends_on("scl-gcc-toolset/" .. gv)
+  if (gv ~= "") then                                                                                           
+    gv = tonumber(gv)
+    if (gv > 4) then
+      r_libs_user = r_libs_user .. "-gcc" .. gv
+      if has_devtoolset(gv) then
+        depends_on("scl-devtoolset/" .. gv)
+      elseif has_gcc_toolset(gv) then
+        depends_on("scl-gcc-toolset/" .. gv)
+      end
     end
   end
 end

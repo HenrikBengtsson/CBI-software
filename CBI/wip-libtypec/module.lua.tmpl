@@ -1,0 +1,18 @@
+help([[
+libtypec: Generic USB Port Management
+]])
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell, tool")
+whatis("URL: https://github.com/Rajaram-Regupathy/libtypec, https://github.com/Rajaram-Regupathy/libtypec/releases (changelog), https://github.com/Rajaram-Regupathy/libtypec/wiki (documentation)")
+whatis([[
+Description: libtypec is aimed to provide a generic interface abstracting all platform complexity for user space to develop tools for efficient USB-C port management. The library can also enable development of diagnostic and debug tools to debug system issues around USB-C/USB PD topology.
+Examples: `lstypec`, `typecstatus --ro`, and `lstypec -h`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("LD_LIBRARY_PATH", home)

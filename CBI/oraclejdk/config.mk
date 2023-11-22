@@ -1,5 +1,5 @@
 NAME=oraclejdk
-VERSION=17.0.8
+VERSION=17.0.9
 DOWNLOAD_TARGET_FILE=bin/java
 CONFIG=false
 BUILD=false

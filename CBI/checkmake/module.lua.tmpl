@@ -1,0 +1,19 @@
+help([[
+checkmake: Experimental Linter/Analyzer for Makefiles 
+]])
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell, tool")
+whatis("URL: https://github.com/mrtazz/checkmake, https://github.com/mrtazz/checkmake/releases (changelog)")
+whatis([[
+Description: checkmake is an experimental tool for linting and checking Makefiles. 
+Examples: `checkmake Makefile`, `checkmake --help`, `checkmake --version`, and `man checkmake`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

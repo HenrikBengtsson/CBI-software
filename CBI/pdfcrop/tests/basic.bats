@@ -10,3 +10,12 @@ setup() {
     version=$(pdfcrop --version | sed 's/.* v//g')
     assert_equal "${version}" "${VERSION}"
 }
+
+
+@test "validate expected help output" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    run pdfcrop --help
+    assert_success
+    assert_output --partial "--help"
+    assert_output --partial "PDFCROP"
+}

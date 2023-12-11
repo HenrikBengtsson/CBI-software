@@ -128,29 +128,28 @@ assert_config: $(CONFIG_TARGET)
 
 #	## Has C++11 compiler with version
 #	## Has C++11 compiler
-	if [[ $${VERSION_X} -ge 4 ]] || [[ $${VERSION_X} -ge 3 ]] && [[ $${VERSION_Y} -ge 4 ]]; then \
+	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 4 ]]; then \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+][[:digit:]]+\b" "$<"; \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]11\b" "$<"; \
 	fi
 #	## Has C++14 compiler
 #	## Has C++17 compiler
-	if [[ $${VERSION_X} -ge 4 ]]; then \
+	if [[ $(VERSION_X) -ge 4 ]]; then \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]14\b" "$<"; \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]17\b" "$<"; \
 	fi
 
 	grep -E "Interfaces supported:.*\bX11\b" "$<"
-	if [[ $${VERSION_X} -ge 4 ]]; then \
-	    grep -E "Interfaces supported:.*\btcltk\b" "$<"; \
-	fi
+	grep -E "Interfaces supported:.*\btcltk\b" "$<"; \
 
 	grep -E "External libraries:.*\breadline\b" "$<"
-	if [[ $${VERSION_X} -ge 4 ]]; then \
+	grep -E "External libraries:.*\blzma\b" "$<"
+	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 3 ]]; then \
 	    grep -E "External libraries:.*\bpcre2\b" "$<"; \
 	    grep -E "External libraries:.*\bcurl\b" "$<"; \
-	    grep -E "Additional capabilities:.*\bICU\b" "$<"; \
 	fi
 
+	grep -E "Additional capabilities:.*\bICU\b" "$<"; \
 	grep -E "Additional capabilities:.*\bPNG\b" "$<"
 	grep -E "Additional capabilities:.*\bJPEG\b" "$<"
 	grep -E "Additional capabilities:.*\bTIFF\b" "$<"

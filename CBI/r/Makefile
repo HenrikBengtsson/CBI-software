@@ -138,19 +138,24 @@ assert_config: $(CONFIG_TARGET)
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]14\b" "$<"; \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]17\b" "$<"; \
 	fi
+
 	grep -E "Interfaces supported:.*\bX11\b" "$<"
-	grep -E "Interfaces supported:.*\btcltk\b" "$<"
+	if [[ $${VERSION_X} -ge 4 ]]; then \
+	    grep -E "Interfaces supported:.*\btcltk\b" "$<"; \
+	fi
+
+	grep -E "External libraries:.*\breadline\b" "$<"
 	if [[ $${VERSION_X} -ge 4 ]]; then \
 	    grep -E "External libraries:.*\bpcre2\b" "$<"; \
-	fi     
-	grep -E "External libraries:.*\breadline\b" "$<"
-	grep -E "External libraries:.*\bcurl\b" "$<"
+	    grep -E "External libraries:.*\bcurl\b" "$<"; \
+	    grep -E "Additional capabilities:.*\bICU\b" "$<"; \
+	fi
+
 	grep -E "Additional capabilities:.*\bPNG\b" "$<"
 	grep -E "Additional capabilities:.*\bJPEG\b" "$<"
 	grep -E "Additional capabilities:.*\bTIFF\b" "$<"
 	grep -E "Additional capabilities:.*\bNLS\b" "$<"
 	grep -E "Additional capabilities:.*\bcairo\b" "$<"
-	grep -E "Additional capabilities:.*\bICU\b" "$<"
 	grep -E "Options enabled:.*\bshared R library\b" "$<"
 	grep -E "Options enabled:.*\bshared BLAS\b" "$<"
 	grep -E "Options enabled:.*\bprofiling\b" "$<"

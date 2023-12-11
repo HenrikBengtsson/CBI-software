@@ -35,10 +35,7 @@ setup() {
     assert_output --partial "fifo=TRUE"
     assert_output --partial "http/ftp=TRUE"
     assert_output --partial "iconv=TRUE"
-    assert_output --partial "ICU=TRUE"
     assert_output --partial "jpeg=TRUE"
-    assert_output --partial "libcurl=TRUE"
-    assert_output --partial "long.double=TRUE"
     assert_output --partial "NLS=TRUE"
     assert_output --partial "png=TRUE"
     assert_output --partial "profmem=TRUE"
@@ -46,6 +43,11 @@ setup() {
     assert_output --partial "tcltk=TRUE"
     assert_output --partial "tiff=TRUE"
     assert_output --partial "X11=TRUE"
+    if [[ ${MODULE_VERSION_X} -ge 4 ]] || [[ ${MODULE_VERSION_X} -ge 3 ]] && [[ ${MODULE_VERSION_Y} -ge 2 ]]; then
+        assert_output --partial "ICU=TRUE"
+        assert_output --partial "libcurl=TRUE"
+        assert_output --partial "long.double=TRUE"
+    fi
     if [[ ${MODULE_VERSION_X} -ge 4 ]] && [[ ${MODULE_VERSION_Y} -ge 2 ]]; then
         assert_output --partial "libxml=FALSE"
         assert_output --partial "Rprof=TRUE"

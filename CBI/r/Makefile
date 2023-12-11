@@ -169,7 +169,13 @@ $(DOWNLOAD_TARGET):
 	mv untar/* $(BUILD_NAME); \
 	rmdir untar
 
-pre_config: assert_gcc_version assert_java_version
+## In R (<= 3.3.0), 'configure' fails to infer zlib version if >= 1.2.10"
+## https://github.com/HenrikBengtsson/CBI-software/issues/116
+patch_config_zlib: $(BUILD_PATH)/configure
+	sed -i '/^#ifdef ZLIB_VERSION/i#ifdef ZLIB_VERNUM\n  if (ZLIB_VERNUM < 0x1250) {\n    exit(1);\n  }\n  exit(0);' "$<"
+	sed -i '/^#ifdef ZLIB_VERSION/,/  exit(strncmp(ZLIB_VERSION, "1.2.5", 5) < 0);/d' "$<"
+
+pre_config: assert_gcc_version assert_java_version patch_config_zlib
 
 post_config: assert_config
 

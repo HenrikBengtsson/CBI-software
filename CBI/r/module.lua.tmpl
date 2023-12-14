@@ -101,6 +101,14 @@ end
 -- one specific to the CBI stack.
 pushenv("R_LIBS_USER", r_libs_user)
 
+-- The R package 'renv' (https://cran.r-project.org/package=renv) is used to create
+-- folder-specific R package library folder that help with reproducibility and long-term
+-- stability.  By setting RENV_PATHS_PREFIX_AUTO=TRUE, these folders are also specific
+-- for the current Linux distribution, which avoids problems occurring when updating
+-- from, say, CentOS 7 to Rocky 8.  This is likely to become the default behavior in
+-- 'renv' (https://github.com/rstudio/renv/issues/1211)
+pushenv("RENV_PATHS_PREFIX_AUTO", "TRUE")
+
 -- WORKAROUND: utils::download.file(), which is for instance used by install.packages()
 -- have a built-in timeout at 60 seconds.  This might be too short for some larger
 -- Bioconductor annotation packages, e.g.

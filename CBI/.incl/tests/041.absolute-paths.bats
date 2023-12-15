@@ -14,7 +14,9 @@ setup() {
     local -a missing_files
     local -a unique_kinds
     
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     mapfile -t files < <(find "${PREFIX}" -type f -executable)
     

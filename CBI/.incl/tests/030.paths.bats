@@ -40,7 +40,9 @@ setup() {
 @test "validate PATH" {
     name="PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
@@ -48,7 +50,9 @@ setup() {
 @test "validate MANPATH" {
     name="MANPATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
@@ -56,7 +60,9 @@ setup() {
 @test "validate LD_LIBRARY_PATH" {
     name="LD_LIBRARY_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
@@ -64,7 +70,9 @@ setup() {
 @test "validate PKG_CONFIG_PATH" {
     name="PKG_CONFIG_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
@@ -72,7 +80,9 @@ setup() {
 @test "validate LD_RUN_PATH" {
     name="LD_RUN_PATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }
@@ -80,7 +90,9 @@ setup() {
 @test "validate CPATH" {
     name="CPATH"
     path_org="${!name}"
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     assert_path_exist "${name}" "${path_org}"
 }

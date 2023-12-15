@@ -14,7 +14,9 @@ setup() {
     local -a missing
     local -a missing_libs
     local -a missing_files
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     mapfile -t files < <(find "${PREFIX}" \( -type f -o -type l \) -executable)
     echo "Scanning ${#files[@]} executables under ${PREFIX}"

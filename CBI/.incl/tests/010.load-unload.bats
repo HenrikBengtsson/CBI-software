@@ -14,12 +14,16 @@ setup() {
 }
 
 @test "can load module" {
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
 }
 
 @test "can unload module" {
-    module load "${MODULE_REPO}"
+    if [[ -n "${MODULE_REPO}" ]]; then
+        module load "${MODULE_REPO}"
+    fi
     module load "${MODULE_NAME}/${MODULE_VERSION}"
     module unload "${MODULE_NAME}"
 }

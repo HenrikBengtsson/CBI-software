@@ -24,6 +24,10 @@ prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
+-- Miniconda (>= 23.11.0) [2023-11-30]:
+-- Prevent conda from add shortcuts to user's Desktop.
+pushenv("CONDA_SHORTCUTS", false)
+
 if mode() == "load" then
   -- ASSERT: Make sure there is no other active conda environment
   if os.getenv("CONDA_EXE") then

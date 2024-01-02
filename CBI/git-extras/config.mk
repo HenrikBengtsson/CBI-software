@@ -1,0 +1,6 @@
+NAME=git-extras
+VERSION=7.1.0
+DOWNLOAD_TARGET_FILE=AUTHORS
+CONFIG=false
+BUILD_TARGET_FILE=bin/git-extras
+INSTALL_TARGET_FILE=bin/git-extras

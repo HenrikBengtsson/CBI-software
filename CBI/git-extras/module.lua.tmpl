@@ -1,0 +1,20 @@
+help([[
+git-extras: Little git extras
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: version control")
+whatis("URL: https://github.com/tj/git-extras, https://github.com/tj/git-extras/releases (releases), https://github.com/tj/git-extras/blob/main/History.md (changelog)")
+whatis(
+[[Description: GIT utilities -- repo summary, repl, changelog population, author commit percentages and more.
+Examples: `git extras --version` and `git extras --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

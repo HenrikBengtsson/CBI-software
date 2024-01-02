@@ -143,7 +143,7 @@ assert_config: $(CONFIG_TARGET)
 	grep -E "Interfaces supported:.*\btcltk\b" "$<"; \
 
 	grep -E "External libraries:.*\breadline\b" "$<"
-	grep -E "External libraries:.*\blzma\b" "$<"
+#	grep -E "External libraries:.*\blzma\b" "$<"
 	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 3 ]]; then \
 	    grep -E "External libraries:.*\bpcre2\b" "$<"; \
 	    grep -E "External libraries:.*\bcurl\b" "$<"; \

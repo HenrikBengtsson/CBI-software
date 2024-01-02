@@ -5,7 +5,8 @@ NAME=rstudio-server
 ## Increasing the timeout can help. To do that set:
 ## $ yarn config set network-timeout 1000000
 
-VERSION=2023.09.1-494
+VERSION=2023.12.0-369
+
 DOWNLOAD_TARGET_FILE=INSTALL
 CONFIG_TARGET_FILE=build/Makefile
 BUILD_TARGET_FILE=build/src/cpp/server/crash-handler-proxy/crash-handler-proxy

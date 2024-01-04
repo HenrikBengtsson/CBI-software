@@ -16,5 +16,9 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
-prepend_path("MANPATH", pathJoin(home, "share", "man"))
-prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+if version >= "4.0" then
+    prepend_path("MANPATH", pathJoin(home, "share", "man"))
+    prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+else
+    prepend_path("MANPATH", pathJoin(home, "man"))
+end

@@ -1,0 +1,6 @@
+NAME=github-cli
+VERSION=2.41.0
+DOWNLOAD_TARGET_FILE=bin/gh
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/gh

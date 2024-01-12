@@ -20,7 +20,8 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
 
-local bash = home .. '/igv.sh "$@"'
+local javainfo = '>&2 echo "Java: $(java -version 2>&1 | grep -F "version") [should be Java 11 or newer]"; '
+local bash = javainfo .. home .. '/igv.sh "$@"'
 local csh  = home .. '/igv.sh $*'
 set_shell_function("igv", bash, csh)
 

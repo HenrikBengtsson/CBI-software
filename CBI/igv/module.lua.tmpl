@@ -20,8 +20,9 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
 
-local javainfo = '>&2 echo "Java: $(java -version 2>&1 | grep -F "version") [should be Java 11 or newer]"; '
-local bash = javainfo .. home .. '/igv.sh "$@"'
+local java_check = 'ver=$(java -version 2>&1 | grep -F "version" | sed -E "s/(.* version |\\")//g"); >&2 echo "Java version: ${ver} [IGV requires Java 11 or newer]"; ver_x=$(sed -E "s/^1[.]//" <<< "${ver}" | sed "s/[.].*//"); if [[ ${ver_x} -lt 11 ]]; then >&2 echo "ERROR: Java ${ver_x} detected, but IGV requires Java 11 or newer: $(java -version 2>&1 | grep -F "version")"; return 1; fi;'
+
+local bash = java_check .. ' ' .. home .. '/igv.sh "$@"'
 local csh  = home .. '/igv.sh $*'
 set_shell_function("igv", bash, csh)
 

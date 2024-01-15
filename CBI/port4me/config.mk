@@ -1,5 +1,5 @@
 NAME=port4me
-VERSION=0.6.0
+VERSION=0.7.0
 DOWNLOAD_TARGET_FILE=Makefile
 CONFIG=false
 BUILD=false

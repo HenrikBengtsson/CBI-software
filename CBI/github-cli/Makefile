@@ -2,7 +2,7 @@ include config.mk
 include ../utils.mk
 
 ARCH=linux_amd64
-TARNAME=gh_2.41.0_$(ARCH)
+TARNAME=gh_$(VERSION)_$(ARCH)
 TARBALL=$(TARNAME).tar.gz
 GITHUB_REPO=https://github.com/cli/cli
 

@@ -20,6 +20,12 @@ if isDir("/wynton") then
   -- Update default to: rsc start --auth=auth-via-env --random-password
   pushenv("RSC_AUTH", "auth-via-env")
   pushenv("RSC_PASSWORD", "random")
+  local home = os.getenv("HOME")
+  if home and string.find(home, "/protected/") then
+      pushenv("RSC_SSH_LOGIN_HOSTNAME", "plog1.wynton.ucsf.edu")
+  else
+      pushenv("RSC_SSH_LOGIN_HOSTNAME", "log1.wynton.ucsf.edu")
+  end
 else
   try_load("expect")
 end

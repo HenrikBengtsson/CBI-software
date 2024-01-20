@@ -167,7 +167,7 @@ all: debug install install_module modulerc check
 modulerc:
 	cd ..; make MODULE_HOME=$(MODULE_HOME_ORG) '$@'
 
-remove: uninstall uninstall_module
+remove: uninstall_module uninstall
 
 download: $(DOWNLOAD_TARGET)
 

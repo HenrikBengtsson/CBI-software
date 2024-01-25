@@ -15,17 +15,20 @@ Examples: `rsc --help`, `rsc start`, and `rsc stop`.
 depends_on("r")
 depends_on("rstudio-server")
 
--- Authenticate via one-time random password by default?
+local home = os.getenv("HOME")
+
+-- System-specific settings
 if isDir("/wynton") then
   -- Update default to: rsc start --auth=auth-via-env --random-password
   pushenv("RSC_AUTH", "auth-via-env")
   pushenv("RSC_PASSWORD", "random")
-  local home = os.getenv("HOME")
   if home and string.find(home, "/protected/") then
-      pushenv("RSC_SSH_LOGIN_HOSTNAME", "plog1.wynton.ucsf.edu")
+    pushenv("RSC_SSH_LOGIN_HOSTNAME", "plog1.wynton.ucsf.edu")
   else
-      pushenv("RSC_SSH_LOGIN_HOSTNAME", "log1.wynton.ucsf.edu")
+    pushenv("RSC_SSH_LOGIN_HOSTNAME", "log1.wynton.ucsf.edu")
   end
+elseif isDir("/c4") then
+    pushenv("RSC_SSH_LOGIN_HOSTNAME", "c4-log1.ucsf.edu")
 else
   try_load("expect")
 end

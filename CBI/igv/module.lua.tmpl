@@ -14,13 +14,29 @@ Examples: `igv --help`, `igv --version`, and `igv`.
 Warning: IGV (>= 2.5.0) requires Java 11. Only the most recent version of this software will be kept.
 ]])
 
---depends_on("openjdk/11")
-
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", home)
 
-local java_check = 'ver=$(java -version 2>&1 | grep -F "version" | sed -E "s/(.* version |\\")//g"); >&2 echo "Java version: ${ver} [IGV requires Java 11 or newer]"; ver_x=$(sed -E "s/^1[.]//" <<< "${ver}" | sed "s/[.].*//"); if [[ ${ver_x} -lt 11 ]]; then >&2 echo "ERROR: Java ${ver_x} detected, but IGV requires Java 11 or newer: $(java -version 2>&1 | grep -F "version")"; return 1; fi;'
+-- Parse version x.y.z into x and y
+version_x=string.gsub(version, "[.].*$", "")
+version_xy=string.gsub(version, version_x .. "[.]", "")
+version_y=string.gsub(version_xy, "[.].*$", "")
+version_x=tonumber(version_x)
+version_y=tonumber(version_y)
+
+-- Identify required Java version
+local min_java_version=8
+if (version_x >= 2) then
+  if (version_y >= 17) then
+    min_java_version=17
+  elseif (version_y >= 2.5) then
+    min_java_version=11
+  end
+end
+
+
+local java_check = 'ver=$(java -version 2>&1 | grep -F "version" | sed -E "s/(.* version |\\")//g"); >&2 echo "Java version: ${ver} [IGV ' .. version .. ' requires Java ' .. min_java_version .. ' or newer]"; ver_x=$(sed -E "s/^1[.]//" <<< "${ver}" | sed "s/[.].*//"); if [[ ${ver_x} -lt ' .. min_java_version .. ' ]]; then >&2 echo "ERROR: Java ${ver_x} detected, but IGV requires Java ' .. min_java_version .. ' or newer: $(java -version 2>&1 | grep -F "version")"; return 1; fi;'
 
 local bash = java_check .. ' ' .. home .. '/igv.sh "$@"'
 local csh  = home .. '/igv.sh $*'

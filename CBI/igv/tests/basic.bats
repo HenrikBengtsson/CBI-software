@@ -7,7 +7,7 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    module load openjdk/11
+    module load openjdk/17
     version=$(${SOFTWARE_ROOT_CBI}/IGV-${VERSION}/igv.sh --version 2> /dev/null | grep -E "^[[:digit:].]+$")
     assert_equal "${version}" "${VERSION}"
 }

@@ -1,0 +1,20 @@
+help([[
+speedtest-go: Test Internet Speed using Speedtest.net 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/showwin/speedtest-go,  https://github.com/showwin/speedtest-go/releases (releases)")
+whatis([[
+Description: Command Line Interface and pure Go API to Test Internet Speed using speedtest.net.
+Examples: `speedtest-go --version`, `speedtest-go --help`, and `speedtest-go --saving-mode`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

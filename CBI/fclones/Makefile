@@ -4,7 +4,7 @@ include ../utils.mk
 
 ARCH=linux-glibc-x86_64
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
-GITHUB_REPOSITORY=https://github.com/pkolaczk/fclones
+GITHUB_REPO=https://github.com/pkolaczk/fclones
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -12,7 +12,7 @@ GITHUB_REPOSITORY=https://github.com/pkolaczk/fclones
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_HOME); \
-	curl -L -O $(GITHUB_REPOSITORY)/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	cd $(BUILD_PATH); \
 	tar xf "../$(TARBALL)"
 
@@ -22,3 +22,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

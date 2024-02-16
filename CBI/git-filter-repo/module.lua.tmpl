@@ -1,0 +1,20 @@
+help([[
+git-filter-repo: Quickly Rewrite Git Repository History 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: version control")
+whatis("URL: https://github.com/newren/git-filter-repo, https://github.com/newren/git-filter-repo/releases (releases), https://htmlpreview.github.io/?https://github.com/newren/git-filter-repo/blob/docs/html/git-filter-repo.html (documentation)")
+whatis(
+[[Description: `git filter-repo` is a versatile tool for rewriting history. It roughly falls into the same space of tool as `git filter-branch`, but without the capitulation-inducing poor performance, with far more capabilities, and with a design that scales usability-wise beyond trivial rewriting cases. `git filter-repo` is now recommended by the git project instead of `git filter-branch`.
+Examples: `git filter-repo --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "Documentation"))

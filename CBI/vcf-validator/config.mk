@@ -1,5 +1,5 @@
 NAME=vcf-validator
-VERSION=0.9.5
+VERSION=0.9.6
 DOWNLOAD_TARGET_FILE=vcf_validator_linux
 CONFIG=false
 BUILD_TARGET_FILE=build/vcf_validator

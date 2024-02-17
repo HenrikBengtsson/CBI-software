@@ -1,5 +1,5 @@
 NAME=github-cli
-VERSION=2.42.1
+VERSION=2.44.1
 DOWNLOAD_TARGET_FILE=bin/gh
 CONFIG=false
 BUILD=false

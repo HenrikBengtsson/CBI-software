@@ -1,0 +1,19 @@
+help([[
+appscope: Gain Observability into any Linux Command or Application with No Code Modification
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, tui, shell")
+whatis("URL: https://github.com/criblio/appscope, https://appscope.dev/docs/changelog/ (changelog), https://github.com/criblio/appscope/releases (download)")
+whatis([[
+Description: It’s like 'strace' meets 'tcpdump' - but with consumable output for events like file access, DNS, and network activity, and StatsD-style metrics for applications.
+Examples: `scope version` and `scope --help`. `scope <some-cmd-call>` followed by `scope metrics`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

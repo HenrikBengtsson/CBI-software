@@ -10,16 +10,19 @@ whatis("URL: https://broadinstitute.github.io/picard/, https://github.com/broadi
 whatis([[
 Description: Picard is a set of command line tools for manipulating high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF.
 Examples: `PicardCommandLine -h`, which is short for `java -jar "$PICARD_HOME/picard.jar" -h`.
-Warning: The old `picard` alias is deprecated. Use function `PicardCommandLine` instead.
+Warning: The old `picard` alias is deprecated. Use function `PicardCommandLine` instead. Picard 3 requires Java 17, Picard 2 requires Java 1.8.
 ]])
 
 local version_x = string.gsub(version, "[.].*", "")
 if (version_x == "1") then
   -- Pindel 1.64 requires Java (<= 1.6)
   depends_on("openjdk/1.6.0")
-else
+elseif (version_x == "2") then
   -- As of version 2.0.1 (Nov. 2015) Picard requires Java 1.8 (jdk8u66)
   depends_on("openjdk/1.8.0")
+elseif (version_x == "3") then
+  -- As of version 3.0.0 (Feb. 2023) Picard requires Java 17
+  depends_on("openjdk/17")
 end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")

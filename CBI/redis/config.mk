@@ -1,5 +1,5 @@
 NAME=redis
-VERSION=7.2.3
+VERSION=7.2.4
 DOWNLOAD_TARGET_FILE=Makefile
 CONFIG=false
 BUILD_TARGET_FILE=src/redis-cli

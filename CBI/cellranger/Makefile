@@ -39,5 +39,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 
 
 available-version:
-	@curl --silent https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/release-notes | pandoc --from html --to plain | grep -E "^Release notes for" | sed -E 's/^Release notes for [^[:digit:]]*([[:digit:].]+).*/\1/g' | head -1
+	@curl --silent https://www.10xgenomics.com/support/software/cell-ranger/downloads | sed -E 's/.*cellranger-([[:digit:].]+)[.]tar[.]gz.*/\1/g'
 

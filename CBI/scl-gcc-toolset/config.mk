@@ -1,5 +1,5 @@
 NAME=scl-gcc-toolset
-VERSION=13
+VERSION=12
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true

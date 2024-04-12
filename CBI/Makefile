@@ -147,6 +147,6 @@ changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
 
 available-version:
-	@for ff in */config.mk; do dd=$$(dirname "$$ff"); grep -qE "^available-version:" "$$dd/Makefile" && printf "[....] %s " "$$dd"; (cd "$$dd"; v=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); printf "%s" "$$v"; av=$$(timeout 5s make --quiet available-version 2> /dev/null | tr $$'\r' $$'\n'); if [[ -z $$av ]]; then printf "\r[ ?? ] %s %s\n" "$$dd" "$$v"; elif [[ $$av == $$v ]] && [[ -z "$(FULL)" ]]; then printf "\r[ OK ] %s %s\n" "$$dd" "$$v"; else printf "\r[NOTE] %s %s -> %s\n" "$$dd" "$$v" "$$av"; fi); done
+	@for ff in */config.mk; do dd=$$(dirname "$$ff"); grep -qE "^available-version:" "$$dd/Makefile" && printf "[....] %s " "$$dd"; (cd "$$dd"; v=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); printf "%s" "$$v"; av=$$(timeout 5s make --quiet available-version 2> /dev/null | tr $$'\r' $$'\n'); if [[ -z $$av ]]; then printf "\r[ ?? ] %s %s\n" "$$dd" "$$v"; elif [[ $$av == $$v ]] && [[ -z "$(FULL)" ]]; then printf "\r[ OK ] %s %s\n" "$$dd" "$$v"; elif [[ $$av.0 == $$v ]] && [[ -z "$(FULL)" ]]; then printf "\r[ OK ] %s %s\n" "$$dd" "$$v"; else printf "\r[NOTE] %s %s -> %s\n" "$$dd" "$$v" "$$av"; fi); done
 
 FORCE:

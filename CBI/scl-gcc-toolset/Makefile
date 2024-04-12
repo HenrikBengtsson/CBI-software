@@ -33,3 +33,6 @@ $(MODULE_TARGET): $(VERSION).lua
 test: tests/all.sh tests/*.bats
 	echo "SHELL=$$SHELL"
 	tests/all.sh
+
+available-version:
+	@scl list-collections | grep gcc-toolset | sed 's/gcc-toolset-//' | sort -r -h | head -1

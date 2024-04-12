@@ -1,5 +1,5 @@
 NAME=emacs
-VERSION=29.1
+VERSION=29.3
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true

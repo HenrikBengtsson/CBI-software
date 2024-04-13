@@ -2,6 +2,7 @@ include config.mk
 include ../utils.mk
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2
+GITHUB_REPO=https://github.com/lh3/bwa
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -27,3 +28,6 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

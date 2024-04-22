@@ -1,15 +1,15 @@
 help([[
-markdownlint-cli: MarkdownLint Command Line Interface 
+markdown-link-check: Checks Links in Markdown Files
 ]])
 
 local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: cli, utility")
-whatis("URL: https://github.com/igorshubovych/markdownlint-cli (documentation), https://github.com/igorshubovych/markdownlint-cli/releases/ (releases), https://github.com/igorshubovych/markdownlint-cli (source code)")
+whatis("URL: https://github.com/tcort/markdown-link-check, https://github.com/tcort/markdown-link-check/releases (releases)")
 whatis([[
-Description: 
-Examples: `markdownlint --version`, `markdownlint --help`, `markdownlint -- *.md`.
+Description: Checks all of the hyperlinks in a markdown text to determine if they are alive or dead.
+Examples: `markdown-link-check --version`, `markdown-link-check --help`, `markdown-link-check -- *.md`.
 ]]
 )
 

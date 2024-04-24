@@ -6,7 +6,7 @@ include ../sysinfo.mk
 
 ## Use modern GCC and Java versions?
 GCC_MODULE=
-GCC_VERSION=10
+GCC_VERSION=13
 ifeq ($(LINUX_NAME),Ubuntu)
     ifeq ($(LINUX_VERSION),22.04)
         GCC_VERSION=11

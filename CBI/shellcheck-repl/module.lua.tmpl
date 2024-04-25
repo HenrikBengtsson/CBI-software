@@ -11,7 +11,7 @@ whatis("Keywords: programming, shell, bash")
 whatis("URL: https://github.com/HenrikBengtsson/shellcheck-repl, https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/README.md (documentation), https://github.com/HenrikBengtsson/shellcheck-repl/blob/master/NEWS.md (changelog)")
 whatis([[
 Description: ShellCheck is a great tool for validating your Unix shell scripts. It will parse the scripts and warn about mistakes, errors, and potential problems. This tool - shellcheck-repl - brings ShellCheck validation to the Bash read-eval-print loop (REPL), i.e. the Bash prompt. Getting this type of validation and feedback at the prompt lowers the risk of damaging mistakes and will help you become a better Bash user and developer.
-Examples: `shellcheck-repl` to activate. To deactive, start a new shell. Then, if we call `echo $words` at the pront, we will be instructed that it is safer to use `echo "$words"`.
+Examples: Try `echo $HOME` before and after loading this module. To deactive, unload module, or start a new shell.
 Warning: Only the most recent version of this software will be kept.
 ]])
 
@@ -19,14 +19,11 @@ depends_on("shellcheck")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
+local shell = os.getenv("SHELL")
 local script = pathJoin(home, "shellcheck-repl.bash")
 
--- FIXME: Not sure why the below doesn't work /HB 2022-02-17
-if LmodVersion() > "8.6" then
---   source_sh(pathJoin(script))
-else
---   execute{cmd = "source " .. script, modeA = {"load"}}
-end
+-- Enable on load
+execute{cmd = "source " .. script, modeA = {"load"}}
 
--- WORKAROUND
-set_alias("shellcheck-repl", "source '" .. script .. "'")
+-- Disable on unload
+execute{cmd = "sc_repl_disable", modeA = {"unload"}}

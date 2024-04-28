@@ -16,6 +16,9 @@ VERSION:=$(VERSION_MINUS)
 include ../utils.mk
 
 TARBALL=v$(VERSION_PLUS).tar.gz
+ifeq ($(VERSION),2023.12.1-402)
+TARBALL=$(VERSION_PLUS).tar.gz
+endif
 
 debug3:
 	@echo "VERSION=$(VERSION)"

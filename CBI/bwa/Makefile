@@ -1,8 +1,20 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME)-$(VERSION).tar.bz2
 GITHUB_REPO=https://github.com/lh3/bwa
+
+## bwa (< 0.7.18)
+TARBALL=$(NAME)-$(VERSION).tar.bz2
+URL=https://sourceforge.net/projects/bio-bwa/files/$(TARBALL)/download
+$(DOWNLOAD_TARGET):
+	mkdir -p $(BUILD_HOME); \
+	cd $(BUILD_HOME); \
+	curl -j -L -O $(URL); \
+	tar xf $(TARBALL)
+
+## bwa (>= 0.7.18)
+TARBALL=v$(VERSION).tar.gz
+URL=$(GITHUB_REPO)/archive/refs/tags/$(TARBALL)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,8 +22,8 @@ GITHUB_REPO=https://github.com/lh3/bwa
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -J -L -O https://sourceforge.net/projects/bio-bwa/files/$(TARBALL)/download; \
-	tar jxf $(TARBALL)
+	curl -L -O $(URL); \
+	tar xf $(TARBALL)
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \

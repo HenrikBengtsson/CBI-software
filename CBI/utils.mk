@@ -298,8 +298,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	make --quiet post_install_module
 	module --ignore-cache show $(MODULE_NAME_VERSION)
 	module load CBI
-	module load $(MODULE_NAME_VERSION)
-	module unload $(MODULE_NAME_VERSION)
+	module load $(MODULE_NAME_VERSION); module unload $(MODULE_NAME_VERSION)
 
 ifeq ($(INSTALL_MODULE),false)
 $(MODULE_TARGET):

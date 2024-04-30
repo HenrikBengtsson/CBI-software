@@ -4,7 +4,10 @@ path=$(realpath "${BASH_SOURCE%/*}")
 module load CBI
 module load bats-core
 
-for version in 9 10 11 12; do
-  echo "# Testing ${MODULE_NAME}/${version}"
-  bats --timing "${path}"/modules.bats
+export MODULE_NAME=scl-gcc-toolset
+
+for version in 13 12 11 10 9; do
+    export MODULE_VERSION=${version}
+    echo "# Testing ${MODULE_NAME}/${MODULE_VERSION}"
+    bats --timing "${path}"/modules.bats
 done

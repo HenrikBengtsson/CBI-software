@@ -66,17 +66,19 @@ pkgs_cran_excl <- c(
   ## Packages that require 'SYMPHONY' library
   "Rsymphony" %hence% c("adea", "PortfolioOptim", "prioriactions", "ROI.plugin.symphony"),
 
-  # Packages requiring gmp or mpfr
-  "Apollonius",
+  # Packages requiring GMP (GNU Multiple Precision Arithmetic Library)
   "interpolation" %hence% c("weird"),
+  "RationalMatrix" %hence% c("qspray"),
+  "qspray" %hence% c("jack", "polyhedralCubature"),
+  
+  # Packages requiring GMP and MPFR (GNU Multiple Precision Floating-Point Reliable Library)
+  "Apollonius",
   "jack",
   "multibridge",
-  "qspray" %hence% c("jack", "polyhedralCubature"),
   "ratioOfQsprays",
-  "RationalMatrix" %hence% c("qspray"),
   "sphereTessellation",
-  "surveyvoi",
   "symbolicQspray",
+  "surveyvoi",  ## ... depends on many more libraries too
 
   # Packages requiring OpenCV (https://opencv.org/)
   "opencv",
@@ -97,9 +99,6 @@ pkgs_cran_excl <- c(
   # Packages requiring ZeroMQ/ZMQ
   "rzmq",
   
-  # Packages requiring gsl
-  "landsepi",
-
   # Packages that fail for other/unknown reasons
   "rgoslin"  ## Bioc [compile error]
 )
@@ -186,7 +185,7 @@ pkgs_excl_bioc_3_18 <- c(
   "HilbertVisGUI",
 
   # Packages requires libsbml
-  "rsbml" %hence% c("BiGGR")
+  "rsbml" %hence% c("HilbertVisGUI", "BiGGR")
 )
 
 # Bioconductor 3.19 [2024-05-03]
@@ -196,7 +195,7 @@ pkgs_excl_bioc_3_19 <- c(
   "easyRNASeq",
   
   # Packages requires libsbml
-  "rsbml" %hence% c("BiGGR")
+  "rsbml" %hence% c("HilbertVisGUI", "BiGGR")
 )
 
 bioc_version <- Sys.getenv("R_BIOC_VERSION", "3.19")
@@ -208,7 +207,7 @@ if (bioc_version == "3.19") {
   pkgs_excl_bioc <- c(pkgs_excl_bioc, pkgs_excl_bioc_3_17)
 }
 
-pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc)
+pkgs_excl <- c(pkgs_cran_excl, pkgs_excl_bioc)
 
 pkgs_excl <- pkgs_excl[nzchar(pkgs_excl)]
 pkgs_excl <- unique(sort(pkgs_excl))
@@ -247,6 +246,12 @@ if (!nzchar(system.file(package = "tfevents"))) {
   stop("Package 'tfevents' requires GCC (<= 12); make sure to 'module load CBI scl-gcc-toolset/12' before starting R")
   install.packages("tfevents")
 }
+
+if (!nzchar(system.file(package = "landsepi"))) {
+  # Packages requiring gsl
+  install.packages("landsepi")
+}
+
 
 chunk_size <- 50L
 nchunks <- ceiling(length(pkgs) / chunk_size)

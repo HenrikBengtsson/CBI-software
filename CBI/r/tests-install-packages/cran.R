@@ -31,11 +31,6 @@ pkgs <- setdiff(pkgs, skip)
 `%hence%` <- function(lhs, rhs) c(lhs, rhs)
 
 pkgs_cran_excl <- c(
-  ## Gets stuck in an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
-  "biplotbootGUI",
-  "cncaGUI",
-  "multibiplotGUI",
-  
   ## Packages that require CPLEX (https://www.ibm.com/products/ilog-cplex-optimization-studio)
   "Rcplex" %hence% c("ROI.plugin.cplex", "otinference", "CVXR", "designmatch", "relations", "sbw"),  ## configure: error: CPLEX include directory ./include does not exist
 
@@ -56,9 +51,6 @@ pkgs_cran_excl <- c(
   ## Packages that require OCI libraries
   "ROracle" %hence% c("ora"), ## OCI libraries not found
 
-  ## Packages that require OpenBabel (https://openbabel.org/)
-  "ChemmineOB" %hence% c("RMassBank"),  ## Requires <openbabel/obutil.h>
-
   ## Packages requiring 'OpenBUGS' library (https://openbugs.net)
   ## OpenBUGS is a 32-bit library and requires special build tools
   "BRugs" %hence% c("bcrm", "dclone", "miscF", "R2WinBUGS"),
@@ -73,9 +65,6 @@ pkgs_cran_excl <- c(
 
   ## Packages that require 'SYMPHONY' library
   "Rsymphony" %hence% c("adea", "PortfolioOptim", "prioriactions", "ROI.plugin.symphony"),
-
-  # Packages that require special libraries or dependencies
-  "cncaGUI",  ## requires 'Tcl/Tk package BWidget'
 
   # Packages requiring gmp or mpfr
   "Apollonius",
@@ -121,7 +110,10 @@ pkgs_cran_excl <- c(
 # --------------------------------------------------------------
 pkgs_cran_tcl_86 <- c(
   "loon" %hence% c("loon.ggplot", "loon.shiny", "loon.tourr", "rfviz", "zenplots", "diveR"),
-  "switchboard"  ## error: [tcl] invalid command name "ttk::style"
+  "switchboard",  ## error: [tcl] invalid command name "ttk::style"
+
+  # Packages that require special libraries or dependencies
+  "cncaGUI"       ## requires 'Tcl/Tk package BWidget'
 )
 
 ## Comment: To see version, call: tclsh <<< "puts [info patchlevel]"
@@ -130,6 +122,18 @@ pkgs_cran_tcl_86 <- c(
 ## * Ubuntu 22.04: Tcl 8.6.12
 if (numeric_version(tcltk::tclVersion()) < "8.6") {
   pkgs_cran_excl <- c(pkgs_cran_excl, pkgs_cran_tcl_86)
+}
+
+
+## Packages that get stuck an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
+pkgs_cran_tcltk2_x11 <- c(
+  "biplotbootGUI",
+  "cncaGUI",
+  "multibiplotGUI"
+)
+
+if (!isTRUE(capabilities("X11"))) {
+  pkgs_cran_excl <- c(pkgs_cran_excl, pkgs_cran_tcltk2_x11)
 }
 
 
@@ -155,6 +159,12 @@ pkgs_cran_archived <- c(
 # --------------------------------------------------------------
 # Bioconductor
 # --------------------------------------------------------------
+# Bioconductor package with missing system libraries
+pkgs_excl_bioc <- c(
+  ## Packages that require OpenBabel (https://openbabel.org/)
+  "ChemmineOB" %hence% c("RMassBank")  ## Requires <openbabel/obutil.h>
+)
+
 # Bioconductor 3.17
 pkgs_excl_bioc_3_17 <- c(
   ## Broken [2023-05]
@@ -189,15 +199,16 @@ pkgs_excl_bioc_3_19 <- c(
   "rsbml" %hence% c("BiGGR")
 )
 
-pkgs_excl <- pkgs_cran_excl
 bioc_version <- Sys.getenv("R_BIOC_VERSION", "3.19")
 if (bioc_version == "3.19") {
-  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_19)
+  pkgs_excl_bioc <- c(pkgs_excl_bioc, pkgs_excl_bioc_3_19)
 } else if (bioc_version == "3.18") {
-  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_18)
+  pkgs_excl_bioc <- c(pkgs_excl_bioc, pkgs_excl_bioc_3_18)
 } else if (bioc_version == "3.17") {
-  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_17)
+  pkgs_excl_bioc <- c(pkgs_excl_bioc, pkgs_excl_bioc_3_17)
 }
+
+pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc)
 
 pkgs_excl <- pkgs_excl[nzchar(pkgs_excl)]
 pkgs_excl <- unique(sort(pkgs_excl))

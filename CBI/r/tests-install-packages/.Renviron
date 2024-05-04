@@ -1,3 +1,5 @@
-R_LIBS_USER=~/R/%p-library/%v-test
-R_PROFILE_USER=${R_PROFILE_USER:-~/.config/R/startup/Rprofile}
+R_LIBS_USER=~/R/rocky8-%p-library/%v-test
+R_BIOCONDUCTORX_TIMEMACHINE=false
+R_BIOC_VERSION=release
+
 

@@ -1,6 +1,6 @@
 message(sprintf("Start time: %s", Sys.time()))
 
-if (utils::file_test("-f", ".lock")) stop("There is already another process running")
+if (utils::file_test("-f", ".lock")) stop("There is already another process running (./.lock file exists)")
 file.create(".lock")
 
 t0 <- Sys.time()
@@ -11,12 +11,14 @@ if (!requireNamespace("parallelly", quietly = TRUE)) install.packages("parallell
 options(Ncpus = parallelly::availableCores())
 message(sprintf("Number of parallel installs: %d", getOption("Ncpus")))
 
+if (getOption("repos")[["CRAN"]] == "@CRAN@") chooseCRANmirror(ind = 1L)
+
 repos <- getOption("repos")
 message(sprintf("R package repositories: [n=%d] %s", length(repos), paste(names(repos), sQuote(repos), sep = "=", collapse = ", ")))
 
 db <- utils::available.packages()
-pkgs <- unclass(db[, "Package"])
-message(sprintf("Number of available packages: %d", length(pkgs)))
+pkgs <- pkgs_avail <- unclass(db[, "Package"])
+message(sprintf("Number of available packages: %d", length(pkgs_avail)))
 
 db <- utils::installed.packages()
 skip <- pkgs_done <- unclass(db[, "Package"])
@@ -28,7 +30,7 @@ pkgs <- setdiff(pkgs, skip)
 # -------------------------------------------------------------------------------------
 `%hence%` <- function(lhs, rhs) c(lhs, rhs)
 
-pkgs_excl <- c(
+pkgs_cran_excl <- c(
   ## Gets stuck in an endless "tcltk2" loop if X11 is not available, cf. strace -p <PID>
   "biplotbootGUI",
   "cncaGUI",
@@ -40,9 +42,6 @@ pkgs_excl <- c(
   ## Packages that require OpenCL (https://www.khronos.org/opencl/)
   "gpuMagic",
   "OpenCL",
-
-  ## Packages that require JAGS, i.e. 'module load CBI jags'
-  # "rjags" %hence% c("pexm"),
 
   ## Packages requiring 'MeCab' library
   "RcppMeCab", ## Error: package or namespace load failed for ‘RcppMeCab’ in dyn.load(file, DLLpath = DLLpath, ...): ... undefined symbol: mecab_model_new_tagger
@@ -72,57 +71,134 @@ pkgs_excl <- c(
   # Packages that requires 'QuantLib' library (https://www.quantlib.org/)
   "RQuantLib" %hence% c("bizdays", "rtsdata"),
 
-  ## Packages requiring 'rrdtool-devel' (installed on C4 but not Wynton)
-  # "rrd", ## rrdtool-devel (Fedora, CentOS, RHEL)
-
   ## Packages that require 'SYMPHONY' library
-  "Rsymphony" %hence% c("PortfolioOptim", "prioriactions", "ROI.plugin.symphony"),
-
-  ## Packages requiring Tcl version 8.6
-  "loon" %hence% c("loon.ggplot", "loon.shiny", "loon.tourr", "rfviz", "zenplots", "diveR"),
-  "switchboard", ## error: [tcl] invalid command name "ttk::style"
+  "Rsymphony" %hence% c("adea", "PortfolioOptim", "prioriactions", "ROI.plugin.symphony"),
 
   # Packages that require special libraries or dependencies
   "cncaGUI",  ## requires 'Tcl/Tk package BWidget'
 
   # Packages requiring gmp or mpfr
-  "AlphaHull3D",
-  "Boov",
-  "cgalMeshes",
-  "cgalPolygons",
-  "delaunay",
-  "interpolation",
+  "Apollonius",
+  "interpolation" %hence% c("weird"),
   "jack",
-  "lazyNumbers",
-  "MeshesTools",
-  "MinkowskiSum",
   "multibridge",
-  "PolygonSoup" %hence% c("Boov", "MeshesTools", "MinkowskiSum"),
-  "qspray" %hence% c("jack"),
-  "RationalMatrix",
+  "qspray" %hence% c("jack", "polyhedralCubature"),
+  "ratioOfQsprays",
+  "RationalMatrix" %hence% c("qspray"),
   "sphereTessellation",
   "surveyvoi",
+  "symbolicQspray",
 
   # Packages requiring OpenCV (https://opencv.org/)
+  "opencv",
   "image.textlinedetector",
 
   # Packages requiring SWI-Prolog
   "rolog" %hence% c("mathml", "rswipl"),
 
-  # Packages requiring protobuf (but somehow fails)
-  "factset.protobuf.stach.v2",
-  "tfevents",
-  "traveltimeR",
+  # Packages requiring grpc (grpc-devel)
+  "bigrquerystorage",
+
+  # Packages requiring fluidsynth
+  "fluidsynth",
+
+  # Packages requiring COIN-Or Clp
+  "pcaL1",
+
+  # Packages requiring ZeroMQ/ZMQ
+  "rzmq",
+  
+  # Packages requiring gsl
+  "landsepi",
 
   # Packages that fail for other/unknown reasons
-  "landsepi",
-  "valse",
-
-  # Bioconductor packages currently broken in Bioc 3.17
-  "BGmix", "ChIC", "DeepBlueR", "FLAMES", "NanoMethViz", "omada", "OmicsLonDA", "Rarr", "tscR",
-  
-  ""
+  "rgoslin"  ## Bioc [compile error]
 )
+
+
+# --------------------------------------------------------------
+## Packages requiring Tcl (>= 8.6) [December 2012]
+# --------------------------------------------------------------
+pkgs_cran_tcl_86 <- c(
+  "loon" %hence% c("loon.ggplot", "loon.shiny", "loon.tourr", "rfviz", "zenplots", "diveR"),
+  "switchboard"  ## error: [tcl] invalid command name "ttk::style"
+)
+
+## Comment: To see version, call: tclsh <<< "puts [info patchlevel]"
+## * CentOS 7: Tcl 8.5.13
+## * Rocky 8: Tcl 8.6.8
+## * Ubuntu 22.04: Tcl 8.6.12
+if (numeric_version(tcltk::tclVersion()) < "8.6") {
+  pkgs_cran_excl <- c(pkgs_cran_excl, pkgs_cran_tcl_86)
+}
+
+
+# --------------------------------------------------------------
+# LEGACY: Archived CRAN packages
+# --------------------------------------------------------------
+pkgs_cran_archived <- c(
+  ## Packages requiring 'rrdtool-devel' (installed on C4 but not Wynton)
+  "rrd",          ## archived on 2022-10-03
+  
+  # Packages requiring gmp or mpfr
+  "PolygonSoup" %hence% c("Boov", "MeshesTools", "MinkowskiSum"), ## archived on 2023-08-03
+  "Boov",         ## archived on 2023-08-03
+  "MeshesTools",  ## archived on 2023-08-03
+  "MinkowskiSum", ## archived on 2023-08-03
+  "AlphaHull3D",  ## archived on 2023-08-15
+  "cgalMeshes",   ## archived on 2023-08-15
+  "delaunay",     ## archived on 2023-08-15
+  "cgalPolygons", ## archived on 2023-08-28
+  "lazyNumbers"   ## archived on 2023-08-28
+)
+
+# --------------------------------------------------------------
+# Bioconductor
+# --------------------------------------------------------------
+# Bioconductor 3.17
+pkgs_excl_bioc_3_17 <- c(
+  ## Broken [2023-05]
+  "BGmix", "ChIC", "DeepBlueR", "FLAMES", "NanoMethViz", "omada", "OmicsLonDA", "Rarr", "tscR"
+)
+
+# Bioconductor 3.18
+pkgs_excl_bioc_3_18 <- c(
+  ## Depends on archived CRAN packages
+  "autonomics",        ## 'assertive.{base,files,numbers,sets} archived on 2024-04-12
+  "clusterExperiment", ## 'howmany' archived on 2024-03-24
+  "netSmooth",         ## 'howmany' archived on 2024-03-24
+  
+  ## Broken [2024-05-03]
+  "BASiCS" %hence% c("BASiCStan"), ## Error : in method for ‘Summary’ with signature ‘x="BASiCS_Chain"’:  arguments (‘na.rm’) after ‘...’ in the generic must appear in the method, in the same place at the end of the argument list
+  "IFAA", ## Error: object ‘crossprod’ is not exported by 'namespace:MatrixExtra'
+
+  # Packages requiring gtkmm
+  "HilbertVisGUI",
+
+  # Packages requires libsbml
+  "rsbml" %hence% c("BiGGR")
+)
+
+# Bioconductor 3.19 [2024-05-03]
+pkgs_excl_bioc_3_19 <- c(
+  # Broken
+  "MetaScope", "cliqueMS", "isomiRs", "nanotatoR", "netOmics", "Pi", "RandomWalkRestartMH", "RLSeq", "TissueEnrich",
+  "easyRNASeq",
+  
+  # Packages requires libsbml
+  "rsbml" %hence% c("BiGGR")
+)
+
+pkgs_excl <- pkgs_cran_excl
+bioc_version <- Sys.getenv("R_BIOC_VERSION", "3.19")
+if (bioc_version == "3.19") {
+  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_19)
+} else if (bioc_version == "3.18") {
+  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_18)
+} else if (bioc_version == "3.17") {
+  pkgs_excl <- c(pkgs_excl, pkgs_excl_bioc_3_17)
+}
+
 pkgs_excl <- pkgs_excl[nzchar(pkgs_excl)]
 pkgs_excl <- unique(sort(pkgs_excl))
 
@@ -150,6 +226,16 @@ if (!nzchar(system.file(package = "udunits2"))) {
   install.packages("udunits2", configure.args="--with-udunits2-include=/usr/include/udunits2")
 }
 
+if (!nzchar(system.file(package = "valse"))) {
+  ## CRAN package 'valse' uses RcppGSL:::LdFlags() in its Makefile without declaring a dependency on 'RcppGSL'
+  install.packages("RcppGSL")
+}
+
+if (!nzchar(system.file(package = "tfevents"))) {
+  ## CRAN package 'tfevents' fail to compile with GCC (>= 13), cf. https://github.com/traveltime-dev/traveltime-sdk-r/issues/35
+  stop("Package 'tfevents' requires GCC (<= 12); make sure to 'module load CBI scl-gcc-toolset/12' before starting R")
+  install.packages("tfevents")
+}
 
 chunk_size <- 50L
 nchunks <- ceiling(length(pkgs) / chunk_size)
@@ -183,6 +269,7 @@ db <- utils::installed.packages()
 pkgs_done2 <- unclass(db[, "Package"])
 message(sprintf("Number of installed packages: %d", length(pkgs_done2)))
 new <- setdiff(pkgs_done2, pkgs_done)
+message(sprintf("Number of available packages: %d", length(pkgs_avail)))
 message(sprintf("Number of packages installed this round: %d", length(new)))
 
 pkgs_failed <- setdiff(pkgs, pkgs_done2)

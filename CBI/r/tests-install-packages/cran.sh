@@ -24,6 +24,7 @@ module load CBI hdf5 gdal
 module load CBI geos
 module load CBI gsl
 module load CBI jags
+module load CBI jq
 module load CBI r-siteconfig  ## install from CRAN & Bioconductor repositories on the file system
 
 echo "Loaded modules:"
@@ -31,6 +32,9 @@ module list
 
 echo "R version:"
 Rscript --version
+
+echo "R settings:"
+Rscript -e 'cat(sprintf("R_LIBS_USER=%s\n", Sys.getenv("R_LIBS_USER")))' -e 'repos <- getOption("repos"); cat(sprintf("repos:\n%s\n", paste(sprintf(" %s=%s", names(repos), repos), collapse = "\n")))'
 
 xvfb-run Rscript "cran.R"
 

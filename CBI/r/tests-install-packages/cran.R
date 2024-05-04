@@ -190,9 +190,20 @@ pkgs_excl_bioc_3_18 <- c(
 
 # Bioconductor 3.19 [2024-05-03]
 pkgs_excl_bioc_3_19 <- c(
+  # Deprecated
+  "cliqueMS",
+  
   # Broken
-  "MetaScope", "cliqueMS", "isomiRs", "nanotatoR", "netOmics", "Pi", "RandomWalkRestartMH", "RLSeq", "TissueEnrich",
+  "isomiRs",
+  "netOmics",
+  "RLSeq",
   "easyRNASeq",
+
+  ## Archive CRAN packages
+  "qlcMatrix" %hence% c("MetaScope"),            ## archived on 2023-11-29
+  "dnet" %hence% c("Pi", "RandomWalkRestartMH"), ## archived on 2024-01-30
+  "XML2R" %hence% c("VarfromPDB", "nanotatoR"),  ## archived on 2024-03-24
+  "ensurer" %hence% c("TissueEnrich"),           ## archived on 2024-04-12
   
   # Packages requires libsbml
   "rsbml" %hence% c("HilbertVisGUI", "BiGGR")

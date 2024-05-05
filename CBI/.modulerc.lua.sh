@@ -12,7 +12,7 @@ echo ""
 ## Hide too specific R versions
 echo "-- Hide R module versions that include GCC version;"
 echo "-- it's suffient expose their shorter aliases"
-mapfile -t versions < <(find "${MODULE_HOME}/r" \( -type f -o -type l \) -name '*gcc*' -printf '%f\n' | sed -E 's/[.]lua//' | grep -v -E "^[.]")
+mapfile -t versions < <(find "${MODULE_HOME}/_"* \( -type f -o -type l \) -name '*gcc*' -printf '%f\n' | sed -E 's/[.]lua//' | grep -v -E "^[.]")
 for version in "${versions[@]}"; do
     printf "hide_version(\"r/%s\")\n" "${version}"
 done

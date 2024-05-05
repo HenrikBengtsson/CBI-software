@@ -26,7 +26,7 @@ prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
 -- Miniconda (>= 23.11.0) [2023-11-30]:
 -- Prevent conda from add shortcuts to user's Desktop.
-pushenv("CONDA_SHORTCUTS", false)
+pushenv("CONDA_SHORTCUTS", "false")
 
 if mode() == "load" then
   -- ASSERT: Make sure there is no other active conda environment
@@ -39,8 +39,9 @@ if mode() == "load" then
   pushenv("_CE_M", "")
   pushenv("_CE_CONDA", "")
 elseif mode() == "unload" then
-  pushenv("CONDA_EXE", false)
-  pushenv("CONDA_PYTHON_EXE", false)
-  pushenv("_CE_M", false)
-  pushenv("_CE_CONDA", false)
+  pushenv("CONDA_EXE", "false")
+  pushenv("CONDA_PYTHON_EXE", "false")
+  pushenv("_CE_M", "false")
+  pushenv("_CE_CONDA", "false")
 end
+

@@ -2,7 +2,8 @@ include config.mk
 include ../utils.mk
 
 
-TARBALL=$(NAME)-linux-portable.zip
+GITHUB_REPO=https://github.com/ahrm/sioyek
+TARBALL=$(NAME)-release-linux-portable.zip
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,7 +11,7 @@ TARBALL=$(NAME)-linux-portable.zip
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH); \
 	cd $(BUILD_PATH); \
-	curl -L -O https://github.com/ahrm/sioyek/releases/download/v$(VERSION)/$(TARBALL); \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	unzip "$(TARBALL)"
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

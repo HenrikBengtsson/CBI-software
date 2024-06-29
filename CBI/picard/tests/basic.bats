@@ -13,8 +13,8 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(java -jar "$PICARD_HOME/picard.jar" MarkDuplicates --version 2>&1 | grep -v -F "_JAVA_OPTIONS" | sed 's/Version://g' | sed 's/-SNAPSHOT//')
-    assert_equal "${version}" "${VERSION}"
+    run bash -c 'java -jar "$PICARD_HOME/picard.jar" MarkDuplicates --version 2>&1 | grep -v -F "_JAVA_OPTIONS" | sed "s/Version://g"'
+    assert_output --regexp "^${VERSION}"
 }
 
 @test "validate command-line option --help" {

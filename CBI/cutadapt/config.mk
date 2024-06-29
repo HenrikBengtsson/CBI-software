@@ -1,6 +1,5 @@
 NAME=cutadapt
-## VERSION=4.3 is not available
-VERSION=4.4
+VERSION=4.9
 
 NAME2=trimgalore
 DOWNLOAD=false

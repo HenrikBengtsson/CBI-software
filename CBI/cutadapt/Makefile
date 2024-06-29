@@ -1,7 +1,7 @@
 include config.mk
 include ../utils.mk
 
-PYTHON3=python3.8
+PYTHON3=python3.11
 
 ifeq ($(LINUX_NAME),CentOS Linux)
 PYTHON3=python3
@@ -13,7 +13,6 @@ debug2:
 
 $(BUILD_PATH)/virtualenv:
 	module load CBI; \
-	module try-load scl-rh-python/38; \
 	$(PYTHON3) -m pip install --target="$(@D)" virtualenv pip
 
 ## Based on the official instructions in Section 'Shared installation (on a cluster)'
@@ -22,7 +21,6 @@ $(BUILD_PATH)/virtualenv:
 $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	module purge; \
 	module load CBI; \
-	module try-load CBI scl-rh-python/38; \
 	module list; \
 	mkdir -p "$(PREFIX)/bin"; \
 	$(BUILD_PATH)/bin/virtualenv -p $(PYTHON3) "$(PREFIX)/venv"; \
@@ -37,4 +35,4 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 
 available-version:
 	@pattern=".*v([[:digit:]]+[.][[:digit:]]+)[[:space:]].*"; \
-	curl --silent https://github.com/marcelm/cutadapt/blob/main/CHANGES.rst | pandoc --from=html --to=plain | grep -A 5 -F "[]Changelog" | grep -E "$$pattern" | sed -E "s/$$pattern/\1/"
+	curl --silent https://raw.githubusercontent.com/marcelm/cutadapt/main/CHANGES.rst | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/"

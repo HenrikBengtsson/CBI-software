@@ -19,4 +19,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl --silent https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/ | grep -E "blat.*BLAT[[:space:]]+v" | sed -E 's/blat.*BLAT[[:space:]]+v[^[:space:]]*[[:space:]]+([^[:space:]]+)[[:space:]]+.*/\1/g'
+#	@curl --silent https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/ | grep -E "blat.*BLAT[[:space:]]+v" | sed -E 's/blat.*BLAT[[:space:]]+v[^[:space:]]*[[:space:]]+([^[:space:]]+)[[:space:]]+.*/\1/g'
+	@curl --silent https://raw.githubusercontent.com/ucscGenomeBrowser/kent/master/src/inc/genoFind.h | grep -E "^#define gfVersion" | sed -E 's/(^[^[:digit:]]+|[^[:digit:]]+$$)//g'

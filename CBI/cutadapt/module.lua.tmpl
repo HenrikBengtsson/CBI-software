@@ -19,9 +19,9 @@ if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
   root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
 end
 
-if os.getenv("CBI_LINUX") ~= "centos7" then
-  LmodError("The '" .. name .. "' module is not yet supported on " .. os.getenv("CBI_LINUX") .. ". See https://github.com/HenrikBengtsson/CBI-software/issues/102 for updates on this problem.")
-end
+-- if os.getenv("CBI_LINUX") ~= "centos7" then
+--   LmodError("The '" .. name .. "' module is not yet supported on " .. os.getenv("CBI_LINUX") .. ". See https://github.com/HenrikBengtsson/CBI-software/issues/102 for updates on this problem.")
+-- end
 
 local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))

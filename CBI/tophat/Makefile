@@ -30,7 +30,7 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	touch "$(BUILD_PATH)/.patched/done"
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p "$(SOFTWARE_HOME)"
+	mkdir -p "$(PREFIX)"
 	chmod -R u+w "$(PREFIX)"
 	rm -rf "$(PREFIX)"
 	mkdir -p "$(PREFIX)"

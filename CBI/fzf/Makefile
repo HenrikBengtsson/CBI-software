@@ -2,7 +2,7 @@ include config.mk
 include ../utils.mk
 
 
-TARBALL=$(VERSION).tar.gz
+TARBALL=v$(VERSION).tar.gz
 GITHUB_REPO=https://github.com/junegunn/$(NAME)
 
 ## ----------------------------------------------------------

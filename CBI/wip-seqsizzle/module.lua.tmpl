@@ -1,0 +1,19 @@
+help([[
+seqsizzle: View and Search FASTQ files
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: tui, shell")
+whatis("URL: https://github.com/ChangqingW/SeqSizzle, https://github.com/ChangqingW/SeqSizzle/blob/master/CHANGELOG.md (changelog), https://github.com/ChangqingW/SeqSizzle/releases (releases)")
+whatis([[
+Description: SeqSizzle is a pager for viewing FASTQ files with fuzzy matching, allowing different adaptors to be colored differently.
+Examples: `seqsizzle file.fq`, seqsizzle --version`, and `seqsizzle --help`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+

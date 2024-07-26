@@ -1,0 +1,6 @@
+NAME=seqsizzle
+VERSION=0.1.4
+DOWNLOAD_TARGET_FILE=seqsizzle
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=seqsizzle

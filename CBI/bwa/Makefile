@@ -10,6 +10,7 @@ $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
 	curl -j -L -O $(URL); \
+	mv download $(TARBALL); \
 	tar xf $(TARBALL)
 
 ## bwa (>= 0.7.18)

@@ -15,5 +15,6 @@ Examples: `go version` and `go help`.
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
+setenv("GOROOT", home)
 prepend_path("PATH", pathJoin(home, "bin"))
 

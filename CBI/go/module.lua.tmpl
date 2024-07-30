@@ -1,0 +1,19 @@
+help([[
+go: The Go Programming Language
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, shell")
+whatis("URL: https://go.dev/, https://go.dev/doc/devel/release (changelog), https://go.dev/dl/ (releases), https://github.com/golang (source code)")
+whatis([[
+Description: Build simple, secure, scalable systems with Go.
+Examples: `go version` and `go help`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+

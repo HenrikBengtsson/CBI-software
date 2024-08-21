@@ -14,11 +14,15 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_PATH); \
 	curl -L -O $(GITHUB_REPO)/releases/download/$(CONDA_VERSION)/$(DOWNLOAD_TARGET_FILE)
 
+post_install:
+	"$(PREFIX)"/bin/conda config --system --set notify_outdated_conda false
+	"$(PREFIX)"/bin/conda config --system --set channel_priority strict
+	make --quiet write_protect_install
+
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	module purge; \
 	bash "$<" -b -p "$(PREFIX)"
-	"$(PREFIX)"/bin/conda config --system --set notify_outdated_conda false
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

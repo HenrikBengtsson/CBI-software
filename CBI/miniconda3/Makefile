@@ -17,6 +17,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	module purge; \
 	bash "$<" -b -p "$(PREFIX)"
 	"$(PREFIX)"/bin/conda config --system --set notify_outdated_conda false
+	"$(PREFIX)"/bin/conda config --system --remove channels defaults
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

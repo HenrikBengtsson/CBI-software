@@ -1,5 +1,5 @@
 help([[
-RStudio Desktop: The RStudio Desktop IDE for R
+[DEPRECATED] RStudio Desktop: The RStudio Desktop IDE for R
 ]])
 
 local name = myModuleName()
@@ -11,6 +11,7 @@ whatis([[
 Description: The RStudio Desktop is an integrated development environment (IDE) for R, a programming language for statistical computing and graphics.
 Examples: `rstudio`.  If you get a blank window, retry with `QMLSCENE_DEVICE=softwarecontext rstudio`.
 Warning: This software works only on the development nodes. It requires an SSH connection with X11 Forwarding enabled. It does _not_ work with X2Go (gives error \"GLX 1.3 or later is required\"). For best performance, use SSH compression when using X11 Forwarding, i.e. `ssh -X -C ...`.
+Warning: This module is no longer maintained; please use the 'rstudio-server' tool instead.
 ]])
 
 depends_on("r")
@@ -20,3 +21,6 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)
 
+if mode() == "load" then
+    LmodWarning("[DEPRECATION WARNING] The CBI '" .. name .. "/" .. version .. "' module is deprecated in favor of 'rstudio-server'; please use that module instead")
+end

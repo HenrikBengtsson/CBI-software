@@ -17,6 +17,7 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) "$$(dirname "$(PREFIX)")"
+	mv "$(PREFIX)/manpages" "$(PREFIX)/man1"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

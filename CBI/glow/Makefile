@@ -1,24 +1,22 @@
 include config.mk
 include ../utils.mk
 
-ARCH=linux_x86_64
-## TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz ## glow (<= 1.5.0)
-TARBALL=$(NAME)_$(ARCH).tar.gz
+ARCH=Linux_x86_64
+TARBALL=$(NAME)_$(VERSION)_$(ARCH).tar.gz ## glow (<= 1.5.0)
 GITHUB_REPO=https://github.com/charmbracelet/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
 $(DOWNLOAD_TARGET):
-	mkdir -p $(BUILD_PATH); \
+	mkdir -p $(BUILD_HOME)
 	cd $(BUILD_HOME); \
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
-	cd $(BUILD_PATH); \
-	tar -xzf ../$(TARBALL)
-#	mv $(NAME)-v$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
+	tar -xzf $(TARBALL); \
+	mv $(NAME)_$(VERSION)_$(ARCH) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	cp -R $(BUILD_PATH) $(PREFIX)
+	cp -R $(BUILD_PATH) "$$(dirname "$(PREFIX)")"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

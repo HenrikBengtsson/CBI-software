@@ -29,7 +29,7 @@ setup() {
             file=$(sed "s|${PREFIX}|\$PREFIX|g" <<< "${file}")
 #            2>&1 echo "ABSOLUTE PATH: ${file} [${kind}]"
             missing_files+=("${file} [${kind}]")
-        fi	  
+        fi
     done
 
     if [[ ${#missing_files[@]} -gt 0 ]]; then

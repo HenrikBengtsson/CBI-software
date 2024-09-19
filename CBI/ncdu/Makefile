@@ -22,4 +22,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl -L https://dev.yorhel.nl/ncdu/changes2 | pandoc -f html -t plain | grep "[.]tar[.]gz" | grep -F "closeFile" | sed -E 's/(.* *ncdu-|[.]tar[.]gz)//g' | head -1
+	@curl --silent -L https://dev.yorhel.nl/ncdu/changes2 | pandoc -f html -t plain | grep "[.]tar[.]gz" | sed -E 's/(.* *ncdu-|[.]tar[.]gz.*)//g' | head -1

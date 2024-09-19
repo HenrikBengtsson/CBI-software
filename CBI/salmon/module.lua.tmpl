@@ -6,10 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing")
-whatis("URL: https://combine-lab.github.io/salmon/, https://github.com/COMBINE-lab/salmon/releases (changelog), https://github.com/COMBINE-lab/salmon (source code)")
+whatis("URL: https://combine-lab.github.io/salmon/, https://salmon.readthedocs.io/en/latest/ (documentation), https://github.com/COMBINE-lab/salmon/releases (changelog), https://github.com/COMBINE-lab/salmon (source code)")
 whatis([[
 Description: Highly-accurate & wicked fast transcript-level quantification from RNA-seq reads using selective alignment.
-Examples: `salmon --version`.
+Examples: `salmon --version`, `salmon --help`, and `salmon quant --threads=1 ...`.
+Warning: This tool runs on all available CPU cores by default, which is bad practice. Please specify option `--threads=ncores` to avoid this, e.g. `--threads=1`.
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")

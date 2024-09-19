@@ -29,7 +29,7 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	diff -u -w "$(BUILD_PATH)" "$(BUILD_PATH)/.patched" || true
 	touch "$(BUILD_PATH)/.patched/done"
 
-$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
+$(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p "$(PREFIX)"
 	chmod -R u+w "$(PREFIX)"
 	rm -rf "$(PREFIX)"

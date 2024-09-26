@@ -11,7 +11,7 @@ This repository requires:
 
 * Lmod (>= 8.6)
 
-_Comments_: We're deploying to two different CentOS 7.9 systems running Lmod 8.7.7 and Bash 4.2.46.
+_Comments_: We're deploying to two different Rocky 8 systems running Lmod 8.7.32 and Bash 4.4.20.
 
 
 ### Configure installation (always)
@@ -74,4 +74,4 @@ $ make all
 
 This will download the software, extract it, and install it to `${SOFTWARE_HOME}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_HOME}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.
 
-_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running CentOS 7 and are configured similarly.  Some of the software has also been verified to install on Ubuntu 18.04 and Ubuntu 20.04._
+_Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running Rocky 8 and are configured similarly.  Some of the software has also been verified to install on Ubuntu 22.04._

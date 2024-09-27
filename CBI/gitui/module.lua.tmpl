@@ -1,0 +1,20 @@
+help([[
+gitui: Blazing Fast Terminal-UI for Git Written in Rust
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, git")
+whatis("URL: https://github.com/extrawurst/gitui/blob/master/CHANGELOG.md (changelog), https://github.com/extrawurst/gitui (source code)")
+whatis([[
+Description: GitUI provides you with the comfort of a git GUI but right in your terminal.
+Examples: `gitui --help`, `gitui --version`, and `gitui`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+
+

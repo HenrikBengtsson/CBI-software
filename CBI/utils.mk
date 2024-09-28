@@ -163,6 +163,7 @@ endif
 ## MAKE RULES
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 all: debug install install_module modulerc check
+	echo "Installation successful: ${MODULE_NAME}/${MODULE_VERSION}"
 
 modulerc:
 	cd ..; make MODULE_HOME=$(MODULE_HOME_ORG) '$@'

@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(speedtest-go --version 2>&1)
+    version=$(speedtest-go --version 2>&1 | sed -E 's/(.* v| .*)//g')
     assert_equal "${version}" "${VERSION}"
 }

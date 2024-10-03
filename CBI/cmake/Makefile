@@ -13,10 +13,12 @@ endif
 
 TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
 
+GITHUB_REPO=https://github.com/Kitware/CMake
+
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl --insecure -L -O https://github.com/Kitware/CMake/releases/download/v$(VERSION)/$(TARBALL); \
+	curl --insecure -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar xfz $(TARBALL); \
 	mv $(NAME)-$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
 
@@ -24,5 +26,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R "$(DOWNLOAD_PATH)" "$(SOFTWARE_HOME)"
 
 available-version:
-	@pattern=".*[-][[:space:]]+([[:digit:]]+([.][[:digit:]]+)+)\b.*"; \
-	curl --silent https://cmake.org/cmake/help/latest/release/index.html | pandoc --from=html --to=plain | grep -E "$$pattern" | head -1 | sed -E "s/$$pattern/\1/"
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

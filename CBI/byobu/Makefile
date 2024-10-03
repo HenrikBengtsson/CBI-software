@@ -20,5 +20,5 @@ test: $(BUILD_TARGET)
 	cd $(BUILD_PATH); \
 	make check
 
-available-versions:
+available-version:
 	@curl --silent https://launchpad.net/byobu/+download | grep -E "[[:digit:].]+[[:blank:]]+release" | head -n 1 | sed -E 's/(^[[:blank:]]+|[[:blank:]]+release.*)//g'

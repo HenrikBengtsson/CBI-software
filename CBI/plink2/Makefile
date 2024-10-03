@@ -35,5 +35,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 
 available-version:
 	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
-
-#	git tag | grep -E "^v2" | grep -v -E '[-][[:digit:]]{6}' | sed -E 's/^v//' | sed 's/a/.0./' | sed -E 's/-final$/.0/'

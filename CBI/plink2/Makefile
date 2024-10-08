@@ -12,6 +12,9 @@ else ifeq ($(VERSION),2.00a3LM)
 else ifeq ($(VERSION),2.00a5.14)
         DATE=20240820
 	UNZIP_NAME=
+else ifeq ($(VERSION),2.0.0-a.5.15)
+        DATE=20241007
+	UNZIP_NAME=
 endif
 ZIPBALL=plink2_linux_$(ARCH)_$(DATE).zip
 

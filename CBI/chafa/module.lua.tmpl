@@ -8,8 +8,8 @@ whatis("Version: " .. version)
 whatis("Keywords: cli, shell")
 whatis("URL: https://hpjansson.org/chafa/, https://github.com/hpjansson/chafa/blob/master/NEWS (changelog) https://github.com/hpjansson/chafa/releases (releases), https://github.com/hpjansson/chafa (source code)")
 whatis([[
-Description: Chafa is a command-line utility that converts image data, including animated GIFs, into graphics formats or ANSI/Unicode character art suitable for display in a terminal.
-Examples: `chafa image.png`, `chafa --version` and `chafa --help`.
+Description: Chafa is a command-line utility that converts image data, including animated GIFs, into graphics formats or ANSI/Unicode character art suitable for display in a terminal. Supports modern terminal graphics formats (Sixels, Kitty, iTerm2, Unicode mosaics) - pick the one that your local terminal supports.
+Examples: `chafa image.png`, `chafa --format=iterm image.png`, `chafa --format=kitty image.png`, `chafa --version` and `chafa --help`.
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")

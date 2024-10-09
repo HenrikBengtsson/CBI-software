@@ -46,7 +46,9 @@ elseif mode() == "unload" then
 end
 
 
-LmodWarning("[DEPRECATED] The CBI '" .. name .. "/" .. version .. "' module is deprecated as of 2024-08-21, and it will eventually become defunct. Please use 'miniforge3' instead. The reason for this is license issues introduced by Anconda Inc.")
+if mode() == "load" then
+  LmodWarning("[DEPRECATED] The CBI '" .. name .. "/" .. version .. "' module is deprecated as of 2024-08-21, and it will eventually become defunct. Please use 'miniforge3' instead. The reason for this is license issues introduced by Anconda Inc.")
+end
 
 
 

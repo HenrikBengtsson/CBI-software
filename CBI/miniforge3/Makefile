@@ -52,3 +52,6 @@ $(MODULE_TARGET): module.lua.tmpl incl/conda-$(VERSION).sh.lua
 	luac -p "$@.tmp"
 	mv "$@.tmp" "$@"
 	make post_install_module
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

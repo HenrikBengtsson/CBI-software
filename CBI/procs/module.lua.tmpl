@@ -1,0 +1,20 @@
+help([[
+procs: A Modern Replacement for 'ps' written in Rust
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, tui")
+whatis("URL: https://github.com/dalance/procs/, https://github.com/dalance/procs/blob/master/CHANGELOG.md(changelog)")
+whatis([[
+Description: An alternative to `ps`, `pstree`, and `top`.
+Examples: `procs --version`, `procs --help`, `procs`, `procs --tree`, and `procs --watch --nand root`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

@@ -5,7 +5,7 @@ NAME=rstudio-server
 ## Increasing the timeout can help. To do that set:
 ## $ yarn config set network-timeout 1000000
 
-VERSION=2024.09.0-375
+VERSION=2024.09.1-394
 
 DOWNLOAD_TARGET_FILE=INSTALL
 CONFIG_TARGET_FILE=build/Makefile

@@ -67,6 +67,10 @@ VERSION=3.46.1
 VERSION_ID=3460100
 VERSION_YEAR=2024
 
+VERSION=3.47.0
+VERSION_ID=3470000
+VERSION_YEAR=2024
+
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true

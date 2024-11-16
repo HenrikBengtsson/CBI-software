@@ -5,20 +5,20 @@ ARCH=x86_64
 DATE=
 ifeq ($(VERSION),2.00a2LM)
         DATE=20190810
-	UNZIP_NAME=
 else ifeq ($(VERSION),2.00a3LM)
         DATE=20200727
-	UNZIP_NAME=
 else ifeq ($(VERSION),2.00a5.14)
         DATE=20240820
-	UNZIP_NAME=
 else ifeq ($(VERSION),2.0.0-a.5.15)
         DATE=20241007
-	UNZIP_NAME=
+else ifeq ($(VERSION),2.0.0-a.6.1)
+        DATE=20241114
 endif
+
 ZIPBALL=plink2_linux_$(ARCH)_$(DATE).zip
 
 GITHUB_REPO=https://github.com/chrchang/plink-ng
+ALPHA_VERSION=$(shell echo $(VERSION) | sed -E 's/.*a\.([0-9]+).*/\1/')
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -26,7 +26,7 @@ GITHUB_REPO=https://github.com/chrchang/plink-ng
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://s3.amazonaws.com/plink2-assets/alpha5/$(ZIPBALL); \
+	curl -L -O https://s3.amazonaws.com/plink2-assets/alpha$(ALPHA_VERSION)/$(ZIPBALL); \
 	unzip -d $(NAME)-$(VERSION) $(ZIPBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

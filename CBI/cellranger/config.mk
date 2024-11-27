@@ -1,5 +1,5 @@
 NAME=cellranger
-VERSION=8.0.1
+VERSION=9.0.0
 DOWNLOAD_TARGET_FILE=cellranger-shell
 CONFIG=false
 BUILD=false

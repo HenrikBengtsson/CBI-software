@@ -1,5 +1,5 @@
 NAME=apache-ant
-VERSION=1.10.14
+VERSION=1.10.15
 DOWNLOAD_TARGET_FILE=bin/ant
 CONFIG=false
 BUILD=false

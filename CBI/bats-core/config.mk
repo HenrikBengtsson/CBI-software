@@ -1,5 +1,5 @@
 NAME=bats-core
-VERSION=1.11.0
+VERSION=1.11.1
 DOWNLOAD_TARGET_FILE=bin/bats
 CONFIG=false
 BUILD=false

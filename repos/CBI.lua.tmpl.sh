@@ -52,7 +52,8 @@ Maintainer: Henrik Bengtsson, CBI
 -- CentOS 7.9 -> "centos7"
 -- Rocky 8.8 -> "rocky8"
 -- Ubuntu 22.04.3 -> "ubuntu22_04"
-if os.getenv("CBI_LINUX") == nil then
+local cbi_linux = os.getenv("CBI_LINUX")
+if cbi_linux == nil then
   -- /etc/os-release exists on CentOS, Rocky, Ubuntu (>= 16.04)
   if isFile("/etc/os-release") then
     local bfr = capture("cat /etc/os-release")
@@ -100,20 +101,24 @@ if os.getenv("CBI_LINUX") == nil then
         -- Rocky 8: "rocky8"
         -- Ubuntu 22.04.3: "ubuntu22_04"
 
-        pushenv("CBI_LINUX", line)
+        cbi_linux = line
+        pushenv("CBI_LINUX", cbi_linux)
         break
       end
     end
   else
-    pushenv("CBI_LINUX", "unknown")
+    cbi_linux = "unknown"
+    pushenv("CBI_LINUX", cbi_linux)
   end
 end
 
-if os.getenv("CBI_LINUX") ~= "unknown" then
-  prepend_path("MODULEPATH", pathJoin("${module_root}", "_" .. os.getenv("CBI_LINUX")))
+local module_root = "${module_root}"
+
+if cbi_linux ~= "unknown" then
+  prepend_path("MODULEPATH", pathJoin(module_root, "_" .. cbi_linux))
 end
-prepend_path("MODULEPATH", "${module_root}")
+prepend_path("MODULEPATH", module_root)
 
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
-pushenv("MODULE_ROOT_CBI", "${module_root}")
+pushenv("MODULE_ROOT_CBI", module_root)
 HEREDOC

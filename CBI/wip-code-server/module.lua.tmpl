@@ -1,0 +1,20 @@
+help([[
+code-server: VS Code in the Browser 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, file viewer")
+whatis("URL: https://coder.com/, https://coder.com/docs/code-server (documentation), https://github.com/coder/code-server (source code), https://github.com/coder/code-server/blob/main/CHANGELOG.md (change log)")
+whatis([[
+Description: Run VS Code on any machine anywhere and access it in the browser.
+Examples: `code-server --version`, `code-server --help`, and `PORT="$(port4me)" code-server`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

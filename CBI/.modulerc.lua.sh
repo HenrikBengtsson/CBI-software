@@ -18,9 +18,9 @@ for version in "${versions[@]}"; do
 done
 echo
 
-## Hide "false" modules specific Linux distros
-echo "-- Hide modules in folders specific to Linux distributions"
-mapfile -t modules < <(cd "${MODULE_HOME}"; find . \( -type f -o -type l \) -name '*.lua' -print | sed -E 's/(^[.]\/|[.]lua$)//g' | grep -E "^_")
+## Hide "false" modules specific Linux distros and host types
+echo "-- Hide modules in folders specific to Linux distributions and host types"
+mapfile -t modules < <(cd "${MODULE_HOME}"; find -L . \( -type f -o -type l \) -name '*.lua' -print | sed -E 's/(^[.]\/|[.]lua$)//g' | grep -E "^_")
 for module in "${modules[@]}"; do
     printf "hide_version(\"%s\")\n" "${module}"
 done

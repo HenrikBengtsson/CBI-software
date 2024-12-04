@@ -47,6 +47,17 @@ Example: \`module load CBI\` and then \`module avail\`.
 Maintainer: Henrik Bengtsson, CBI
 ]])
 
+-- Use subset of modules on select host types?
+local module_root = "${module_root}"
+local hostname = os.getenv("HOSTNAME") or "unknown"
+if hostname:match("log%d$") then
+   -- Login hosts
+   module_root = pathJoin(module_root, "_login-host")
+elseif hostname:match("dt%d$") then
+   -- Data-transfer hosts
+   module_root = pathJoin(module_root, "_dt-host")
+end
+
 -- Identify Linux distribution and set CBI_LINUX accordingly
 -- Examples:
 -- CentOS 7.9 -> "centos7"
@@ -111,8 +122,6 @@ if cbi_linux == nil then
     pushenv("CBI_LINUX", cbi_linux)
   end
 end
-
-local module_root = "${module_root}"
 
 if cbi_linux ~= "unknown" then
   prepend_path("MODULEPATH", pathJoin(module_root, "_" .. cbi_linux))

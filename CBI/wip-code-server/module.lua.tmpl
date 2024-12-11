@@ -4,6 +4,7 @@ code-server: VS Code in the Browser
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: utility, file viewer")
 whatis("URL: https://coder.com/, https://coder.com/docs/code-server (documentation), https://github.com/coder/code-server (source code), https://github.com/coder/code-server/blob/main/CHANGELOG.md (change log)")

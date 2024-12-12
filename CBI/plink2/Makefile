@@ -13,6 +13,8 @@ else ifeq ($(VERSION),2.0.0-a.5.15)
         DATE=20241007
 else ifeq ($(VERSION),2.0.0-a.6.1)
         DATE=20241114
+else ifeq ($(VERSION),2.0.0-a.6.4)
+        DATE=20241206
 endif
 
 ZIPBALL=plink2_linux_$(ARCH)_$(DATE).zip

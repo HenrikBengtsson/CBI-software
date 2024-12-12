@@ -1,7 +1,0 @@
-NAME=anaconda3-py39
-NAME2=Anaconda3
-VERSION=22.9.0
-CONFIG=false
-BUILD=false
-INSTALL_TARGET_FILE=bin/conda
-MODULE_HIDDEN=true

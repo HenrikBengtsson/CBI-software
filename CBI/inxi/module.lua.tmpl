@@ -1,0 +1,21 @@
+help([[
+inxi: A Full Featured System Information Script
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://smxi.org/docs/inxi.htm, https://smxi.org/docs/inxi-changelog.htm (changelog), https://codeberg.org/smxi/inxi (source code), https://codeberg.org/smxi/inxi/tags (releases)")
+whatis([[
+Description: Command line system information tool for console and IRC. 
+Examples: `inxi --version`, `inxi --help`, and `inxi -v4 -c6`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))

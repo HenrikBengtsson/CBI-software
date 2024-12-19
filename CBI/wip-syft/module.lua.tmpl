@@ -1,0 +1,20 @@
+help([[
+syft: Generate a Software Bill of Materials from Container Images and Filesystems
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, file viewer, cli, tui")
+whatis("URL: https://github.com/anchore/syft, https://github.com/anchore/syft/wiki (documentation), https://github.com/anchore/syft/releases (changelog)")
+whatis([[
+Description: A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems. Exceptional for vulnerability detection when used with a scanner like Grype.
+Examples: `syft --version` and `syft --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

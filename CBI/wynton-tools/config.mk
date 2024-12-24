@@ -1,5 +1,5 @@
 NAME=wynton-tools
-VERSION=0.9.0
+VERSION=0.11.0
 DOWNLOAD_TARGET_FILE=bin/wynton
 CONFIG=false
 BUILD=false

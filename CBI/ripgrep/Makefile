@@ -18,6 +18,8 @@ $(DOWNLOAD_TARGET):
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
+	mkdir -p $(PREFIX)/share/man/man1
+	ln -s $(PREFIX)/doc/rg.1 $(PREFIX)/share/man/man1
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

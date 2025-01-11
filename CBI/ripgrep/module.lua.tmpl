@@ -6,11 +6,11 @@ local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: utility, files, search")
-whatis("URL: https://github.com/BurntSushi/ripgrep, https://github.com/BurntSushi/ripgrep/blob/master/CHANGELOG.md (changelog)")
+whatis("URL: https://github.com/BurntSushi/ripgrep, https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md (documentation), https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md (FAQ), https://github.com/BurntSushi/ripgrep/blob/master/CHANGELOG.md (changelog)")
 whatis([[
 Description: ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files. ripgrep is similar to other popular search tools like The Silver Searcher, ack and grep.
-Examples: `rg --version` and `rg -i 'lorem ipsum'`.
-Warning: Only the most recent version of this software will be kept.
+Examples: `rg --help`, `man rg`, and `rg --threads=2 -i 'lorem ipsum'`.
+Warning: This tool uses 12 parallel threads by default; please specify `--threads=2`. Only the most recent version of this software will be kept.
 ]])
 
 -- Local variables
@@ -18,3 +18,4 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "doc"))

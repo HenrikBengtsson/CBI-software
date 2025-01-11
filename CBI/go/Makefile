@@ -21,5 +21,7 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-#available-version:
-#	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+available-version:
+	@curl --silent https://go.dev/dl/ | xmllint --html --xpath '//span[contains(text(), "go")]' 2> /dev/null - | grep -E "^<span>go[[:digit:]]+([.][[:digit:]]+)+</span>$$" | head -1 | sed -E 's#(^<span>go|</span>$$)##g'
+
+

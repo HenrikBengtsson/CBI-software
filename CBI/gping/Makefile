@@ -4,7 +4,7 @@ include ../utils.mk
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-ARCH=x86_64-unknown-linux-musl
+ARCH=Linux-musl-x86_64
 TARBALL=$(NAME)-$(ARCH).tar.gz
 
 GITHUB_REPO=https://github.com/orf/gping

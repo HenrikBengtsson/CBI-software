@@ -22,6 +22,6 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl --silent https://go.dev/dl/ | xmllint --html --xpath '//span[contains(text(), "go")]' 2> /dev/null - | grep -E "^<span>go[[:digit:]]+([.][[:digit:]]+)+</span>$$" | head -1 | sed -E 's#(^<span>go|</span>$$)##g'
+	@curl --silent https://go.dev/dl/ | grep -E "<span>go[[:digit:]]+([.][[:digit:]]+)+</span>" | head -1 | sed -E 's#(.*<span>go|</span>.*)##g'
 
 

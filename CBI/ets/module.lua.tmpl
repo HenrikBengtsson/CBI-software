@@ -1,0 +1,21 @@
+help([[
+ets: Command Output Timestamper 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/zmwangx/ets, https://github.com/zmwangx/ets/releases (releases)")
+whatis([[
+Description: ets is a command output timestamper - it prefixes each line of a command's output with a timestamp. The purpose of ets is similar to that of moreutils ts(1), but ets differentiates itself from similar offerings by running commands directly within ptys, hence solving thorny issues like pipe buffering and commands disabling color and interactive features when detecting a pipe as output.
+Examples: `ets --help`, `man ets`, and `ets ping localhost`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "share", "man", "man1"))

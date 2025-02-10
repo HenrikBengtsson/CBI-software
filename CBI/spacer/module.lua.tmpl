@@ -1,0 +1,20 @@
+help([[
+spacer: Insert Spacers whenever Command Output Stalls
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/zmwangx/ets, https://github.com/zmwangx/ets/releases (releases)")
+whatis([[
+Description: If you're the type of person that habitually presses enter a few times in your log tail to know where the last request ended and the new one begins, this tool is for you!
+Examples: `spacer --help`, `tail -f file.log | spacer`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

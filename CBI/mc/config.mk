@@ -1,5 +1,5 @@
 NAME=mc
-VERSION=4.8.32
+VERSION=4.8.33
 
 CONFIG_OPTS=--with-screen=ncurses
 BUILD_TARGET_FILE=bin/mc

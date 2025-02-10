@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(bat --version | sed -E 's/(^[^ ]+ | .*)//g')
+    version=$(ets --version)
     assert_equal "${version}" "${VERSION}"
 }

@@ -8,7 +8,7 @@ include ../utils.mk
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O http://gnu.mirrors.hoobly.com/emacs/$(TARBALL); \
+	curl -O https://ftp.gnu.org/gnu/emacs/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
 available-version:

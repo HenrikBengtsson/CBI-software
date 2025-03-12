@@ -1,0 +1,20 @@
+help([[
+wush: Transfer Files Between Computers via Wireguard
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/coder/wush, https://github.com/coder/wush/releases (releases)")
+whatis([[
+Description: `wush` is a command line tool that lets you easily transfer files and open shells over a peer-to-peer WireGuard connection. Main features are: (a) No requirement to set up or trust a relay server for authentication; (b) Powered by WireGuard for secure, fast, and reliable connections; (c) Automatic peer-to-peer connections over UDP; (d) Endless possibilities; `rsync`, `ssh`, etc.
+Examples: `wush --help`, `wush serve`, and `wush cp local-file.txt`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

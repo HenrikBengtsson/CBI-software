@@ -1,0 +1,21 @@
+help([[
+kubo: Comprehensive Toolbox for InterPlanetary File System (IPFS)
+
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://ipfs.tech/, https://docs.ipfs.tech/ (docs) https://dist.ipfs.tech/#kubo (releases)")
+whatis([[
+Description: kubo (go-ipfs) is the earliest and most widely used implementation of IPFS. It includes: (a) an IPFS daemon server, (b) extensive command line tooling, (c) an HTTP RPC API for controlling the node, and (d) an HTTP Gateway for serving content to HTTP browsers.
+Examples: `ipfs --help`, `ipfs init`, `ipfs daemon`, and `ipfs get bafybeicn7i3soqdgr7dwnrwytgq4zxy7a5jpkizrvhm5mv6bgjd32wm3q4`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

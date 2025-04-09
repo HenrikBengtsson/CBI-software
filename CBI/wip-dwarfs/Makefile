@@ -2,7 +2,7 @@ include config.mk
 include ../utils.mk
 
 ARCH=Linux-x86_64
-TARBALL=$(NAME)-universal-$(VERSION)-$(ARCH)-clang
+TARBALL=$(NAME)-universal-$(VERSION)-$(ARCH)
 GITHUB_REPO=https://github.com/mhx/$(NAME)
 
 ## ----------------------------------------------------------

@@ -1,5 +1,6 @@
 NAME=R
 VERSION=4.4.3
+VERSION=4.5.0-beta
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true

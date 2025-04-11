@@ -1,0 +1,20 @@
+help([[
+aws-lambda-rie: AWS Lambda Runtime Interface Emulator
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, files")
+whatis("URL: https://github.com/aws/aws-lambda-runtime-interface-emulator, https://github.com/aws/aws-lambda-runtime-interface-emulator/releases (releases)")
+whatis([[
+Description: 
+Examples: `... --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

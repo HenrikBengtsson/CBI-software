@@ -1,0 +1,20 @@
+help([[
+dwarfs: The Deduplicating Warp-speed Advanced Read-only File System
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, files")
+whatis("URL: https://github.com/mhx/dwarfs/, https://github.com/mhx/dwarfs/releases (releases)")
+whatis([[
+Description: DwarFS is a read-only file system with a focus on achieving very high compression ratios in particular for very redundant data.
+Examples: `mkdwarfs --man` and `mkdwarfs --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

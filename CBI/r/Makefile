@@ -70,6 +70,7 @@ ifeq ($(findstring alpha,$(VERSION)),alpha)
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
 else ifeq ($(findstring beta,$(VERSION)),beta)
 	TARBALL=R-latest.tar.gz
+        TARBALL=R-beta_2025-04-02_r88102.tar.gz
 	DOWNLOAD_URL_PATH=https://cran.r-project.org/src/base-prerelease
 else ifeq ($(findstring rc,$(VERSION)),rc)
 	TARBALL=R-latest.tar.gz
@@ -130,7 +131,7 @@ assert_config: $(CONFIG_TARGET)
 #	## Has C++11 compiler
 	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 4 ]]; then \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+][[:digit:]]+\b" "$<"; \
-	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]11\b" "$<"; \
+	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+](11|17)\b" "$<"; \
 	fi
 #	## Has C++14 compiler
 #	## Has C++17 compiler

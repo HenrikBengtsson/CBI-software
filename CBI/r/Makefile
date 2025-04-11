@@ -131,7 +131,7 @@ assert_config: $(CONFIG_TARGET)
 #	## Has C++11 compiler
 	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 4 ]]; then \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+][[:digit:]]+\b" "$<"; \
-	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]11\b" "$<"; \
+	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+](11|17)\b" "$<"; \
 	fi
 #	## Has C++14 compiler
 #	## Has C++17 compiler

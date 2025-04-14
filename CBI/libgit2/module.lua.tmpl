@@ -1,0 +1,23 @@
+help("libgit2: Cross-platform, Linkable Library Implementation of Git")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: spatial, library")
+whatis("URL: https://libgit2.org/, https://github.com/libgit2/libgit2 (source code), https://github.com/libgit2/libgit2/releases (release)")
+whatis([[
+Description: A cross-platform, linkable library implementation of Git that you can use in your application.
+Examples: `git2 --version` and `git2 --help`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
+prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")

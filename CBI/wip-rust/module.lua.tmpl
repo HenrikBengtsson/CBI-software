@@ -4,6 +4,7 @@ rust: The Rust Programming Language
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: programming")
 whatis("URL: https://www.rust-lang.org/, https://www.rust-lang.org/learn (documentation), https://github.com/rust-lang/rust (source code), https://github.com/rust-lang/rust/releases/tag/1.86.0 (releases)")
@@ -24,4 +25,6 @@ prepend_path("MANPATH", pathJoin(home, "cargo/share/man"))
 prepend_path("PATH", pathJoin(home, "rustc/bin"))
 prepend_path("MANPATH", pathJoin(home, "rustc/share/man"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "rustc/lib"))
+
+pushenv("RUSTFLAGS", "--sysroot=" .. pathJoin(home, "rust-std-x86_64-unknown-linux-gnu"))
 

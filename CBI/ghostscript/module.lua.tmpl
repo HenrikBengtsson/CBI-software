@@ -1,0 +1,20 @@
+help([[
+mc: Midnight Commander
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, files, cli, tui")
+whatis("URL: https://ghostscript.com/, https://ghostscript.readthedocs.io/ (docuementation), https://ghostscript.readthedocs.io/en/latest/News.html (changelog), https://bugs.ghostscript.com/ (bug reports), https://github.com/ArtifexSoftware/ghostpdl (source code), https://github.com/ArtifexSoftware/ghostpdl/tags (releases)")
+whatis([[
+Description: .
+Examples: `mc` and `mc --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "man"))

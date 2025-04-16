@@ -16,8 +16,10 @@ else ifeq ($(VERSION),2.0.0-a.6.1)
 else ifeq ($(VERSION),2.0.0-a.6.4)
         DATE=20241206
 endif
-
 ZIPBALL=plink2_linux_$(ARCH)_$(DATE).zip
+
+
+ZIPBALL=plink$(VERSION)_linux_avx2.zip
 
 GITHUB_REPO=https://github.com/chrchang/plink-ng
 ALPHA_VERSION=$(shell echo $(VERSION) | sed -E 's/.*a\.([0-9]+).*/\1/')
@@ -28,7 +30,7 @@ ALPHA_VERSION=$(shell echo $(VERSION) | sed -E 's/.*a\.([0-9]+).*/\1/')
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://s3.amazonaws.com/plink2-assets/alpha$(ALPHA_VERSION)/$(ZIPBALL); \
+	curl -L -O https://www.cog-genomics.org/static/bin/$(ZIPBALL); \
 	unzip -d $(NAME)-$(VERSION) $(ZIPBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

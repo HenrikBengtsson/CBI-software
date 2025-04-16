@@ -1,0 +1,30 @@
+help([[
+rust: The Rust Programming Language
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: programming")
+whatis("URL: https://www.rust-lang.org/, https://www.rust-lang.org/learn (documentation), https://github.com/rust-lang/rust (source code), https://github.com/rust-lang/rust/releases/tag/1.86.0 (releases)")
+whatis([[
+Description: Rust is a general-purpose programming language emphasizing performance, type safety, and concurrency. It enforces memory safety, meaning that all references point to valid memory. It does so without a conventional garbage collector; instead, memory safety errors and data races are prevented by the "borrow checker", which tracks the object lifetime of references at compile time.
+Examples: `rustc --help` and `cargo --help`.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Cargo
+prepend_path("PATH", pathJoin(home, "cargo/bin"))
+prepend_path("MANPATH", pathJoin(home, "cargo/share/man"))
+
+-- Rustc
+prepend_path("PATH", pathJoin(home, "rustc/bin"))
+prepend_path("MANPATH", pathJoin(home, "rustc/share/man"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "rustc/lib"))
+
+pushenv("RUSTFLAGS", "--sysroot=" .. pathJoin(home, "rust-std-x86_64-unknown-linux-gnu"))
+

@@ -1,0 +1,6 @@
+NAME=rust
+VERSION=1.86.0
+DOWNLOAD_TARGET_FILE=cargo/bin/cargo
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/rustc

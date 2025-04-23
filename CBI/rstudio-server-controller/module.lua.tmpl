@@ -27,10 +27,13 @@ if isDir("/wynton") then
   else
     pushenv("RSC_SSH_LOGIN_HOSTNAME", "log1.wynton.ucsf.edu")
   end
+  pushenv("RSC_HELP_URL", "https://wynton.ucsf.edu/hpc/howto/rstudio.html")
 elseif isDir("/c4") then
     pushenv("RSC_SSH_LOGIN_HOSTNAME", "c4-log1.ucsf.edu")
+    pushenv("RSC_HELP_URL", "https://www.c4.ucsf.edu/howto/rstudio.html")
 else
   try_load("expect")
+  pushenv("RSC_HELP_URL", "https://github.com/UCSF-CBI/rstudio-server-controller#readme")
 end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")

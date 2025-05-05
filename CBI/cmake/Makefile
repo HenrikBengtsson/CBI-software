@@ -5,7 +5,9 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 ARCH=linux-x86_64
-ifeq ($(VERSION_X), 2)
+ifeq ($(VERSION_X), 4)
+    ARCH=linux-x86_64
+else ifeq ($(VERSION_X), 2)
     ARCH=Linux-x86_64
 else ifeq ($(shell test "$(VERSION_Y)" -lt 20; echo $$?), 0)
     ARCH=Linux-x86_64

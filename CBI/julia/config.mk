@@ -1,0 +1,7 @@
+NAME=julia
+VERSION=1.11.5
+
+DOWNLOAD_TARGET_FILE=bin/julia
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/julia

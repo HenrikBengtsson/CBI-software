@@ -1,0 +1,28 @@
+help([[
+julia: The Julia Programming Language
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: system, utility, cli, tui")
+whatis("URL: https://julialang.org/ (changelog), https://docs.julialang.org/ (docs), https://github.com/JuliaLang/julia/blob/master/NEWS.md (changelog), https://github.com/JuliaLang/julia/releases (releases), https://github.com/JuliaLang/julia (source code)")
+whatis([[
+Description: Julia was designed for high performance. Julia programs automatically compile to efficient native code via LLVM, and support multiple platforms. Julia is dynamically typed, feels like a scripting language, and has good support for interactive use, but can also optionally be separately compiled.
+Examples: `julia --version`, `julia --help`, and `julia`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib", "julia"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

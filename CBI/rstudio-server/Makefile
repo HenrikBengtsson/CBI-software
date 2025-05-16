@@ -40,7 +40,18 @@ $(DOWNLOAD_TARGET):
 	echo "Now run 'make rstudio-tools'"
 
 
-rstudio-tools: $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto $(BUILD_PATH)/rstudio-tools/panmirror
+RSTUDIO_TOOLS := $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto $(BUILD_PATH)/rstudio-tools/panmirror
+
+ifeq ($(VERSION_X),2025)
+RSTUDIO_TOOLS += $(BUILD_PATH)/rstudio-tools/copilot-language-server
+endif
+
+debug2: debug
+	@echo
+	@echo "RSTUDIO_TOOLS=$(RSTUDIO_TOOLS)"
+
+
+rstudio-tools: $(RSTUDIO_TOOLS)
 	echo "Now run 'make all'"
 
 $(BUILD_PATH)/rstudio-tools: $(DOWNLOAD_TARGET)

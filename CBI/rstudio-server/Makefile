@@ -25,6 +25,7 @@ debug3:
 	@echo "RSTUDIO_VERSION_SUFFIX=$(RSTUDIO_VERSION_SUFFIX)"
 	@echo "VERSION_MINUS=$(VERSION_MINUS)"
 	@echo "VERSION_PLUS=$(VERSION_PLUS)"
+	@echo "TARBALL=$(TARBALL)"
 
 
 ## ----------------------------------------------------------

@@ -1,0 +1,19 @@
+help([[
+DuckDB: DuckDB is an Analytical in-Process SQL Database Management System
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://duckdb.org/, https://duckdb.org/docs/stable/ (documentation) https://github.com/duckdb/duckdb-r/ (source), https://github.com/duckdb/duckdb/releases (releases)")
+whatis([[
+Description: 
+Examples: `duckdb --help`, ...
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

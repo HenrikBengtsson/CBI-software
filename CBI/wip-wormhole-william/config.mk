@@ -1,0 +1,6 @@
+NAME=wormhole-william
+VERSION=1.0.8
+DOWNLOAD_TARGET_FILE=$(NAME)
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=wormhole

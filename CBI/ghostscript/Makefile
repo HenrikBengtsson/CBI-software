@@ -6,6 +6,9 @@ VERSION_FLAT=10050
 GITHUB_REPO=https://github.com/ArtifexSoftware/ghostpdl-downloads
 TARBALL=ghostscript-$(VERSION).tar.xz
 
+LDFLAGS += -lstdc++fs
+LDLIBS += -lstdc++fs
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------

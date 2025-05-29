@@ -16,7 +16,7 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)"
-	cp -R $(BUILD_HOME)/$(NAME) $(PREFIX)
+	cp -R $(BUILD_PATH)/$(NAME) $(PREFIX)
 	ln -s $(PREFIX)/$(NAME) $(PREFIX)/wormhole
 	make post_install
 	ls -la $(PREFIX)

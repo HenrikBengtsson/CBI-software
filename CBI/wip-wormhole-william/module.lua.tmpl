@@ -1,0 +1,20 @@
+help([[
+wormhole-william: End-to-End Encrypted File Transfer
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, files")
+whatis("URL: https://github.com/psanford/wormhole-william, https://github.com/psanford/wormhole-william/releases (releases)")
+whatis([[
+Description: End-to-end encrypted file transfer. A magic wormhole CLI and API in Go.
+Examples: `wormhole --help`, `wormhole --version`, `wormhole send local-file.txt`, and `wormhole receive <secret code>`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

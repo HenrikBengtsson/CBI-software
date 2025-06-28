@@ -4,6 +4,7 @@ wormhole-william: End-to-End Encrypted File Transfer
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: utility, cli, files")
 whatis("URL: https://github.com/psanford/wormhole-william, https://github.com/psanford/wormhole-william/releases (releases)")

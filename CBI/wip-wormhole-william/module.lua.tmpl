@@ -16,6 +16,12 @@ Warning: Only the most recent version of this software will be kept.
 
 -- Local variables
 local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)

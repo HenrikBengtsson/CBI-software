@@ -75,3 +75,10 @@ $ make all
 This will download the software, extract it, and install it to `${SOFTWARE_HOME}/bat-<version>/`. The corresponding module file will be installed to `${MODULE_HOME}/bat/<version>.lua`.  Some software like **bat** is prebuilt for Linux when downloaded, whereas other software like **R** will be built from source code.
 
 _Comment: All modules have been verified to install on the Wynton HPC and the C4 environments.  These are both running Rocky 8 and are configured similarly.  Some of the software has also been verified to install on Ubuntu 22.04._
+
+
+
+## License
+
+This tool set is licensed under the GNU Public License (GPL) v3. Copyright holder is Henrik Bengtsson.
+   

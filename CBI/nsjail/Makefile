@@ -21,5 +21,9 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
+post_install:
+	sudo chown root:root $(INSTALL_TARGET)
+	sudo chmod u+s $(INSTALL_TARGET)
+
 available-version:
 	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

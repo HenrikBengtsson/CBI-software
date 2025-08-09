@@ -1,5 +1,5 @@
 NAME=aws-cli
-VERSION=1.38.30
+VERSION=1.42.6
 DOWNLOAD=false
 BUILD_TARGET_FILE=bin/aws
 CONFIG=false

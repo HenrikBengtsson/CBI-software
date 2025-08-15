@@ -1,5 +1,5 @@
 NAME=fclones
-VERSION=0.34.0
+VERSION=0.35.0
 DOWNLOAD_TARGET_FILE=usr/bin/fclones
 CONFIG=false
 BUILD=false

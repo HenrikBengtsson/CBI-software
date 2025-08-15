@@ -1,5 +1,5 @@
 NAME=julia
-VERSION=1.11.5
+VERSION=1.11.6
 
 DOWNLOAD_TARGET_FILE=bin/julia
 CONFIG=false

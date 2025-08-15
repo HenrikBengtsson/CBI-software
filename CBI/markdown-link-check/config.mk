@@ -1,5 +1,5 @@
 NAME=markdown-link-check
-VERSION=3.13.6
+VERSION=3.13.7
 CONFIG=false
 BUILD=false
 DOWNLOAD=false

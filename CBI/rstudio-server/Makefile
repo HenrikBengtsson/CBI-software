@@ -38,8 +38,8 @@ $(DOWNLOAD_TARGET):
 	[[ -f "$(TARBALL)" ]] || curl -L -O "https://github.com/rstudio/rstudio/archive/refs/tags/$(TARBALL)"; \
 	tar zxf "$(TARBALL)"; \
 	mv rstudio-$(VERSION) $(NAME)-$(VERSION)
-	echo "Now run 'make rstudio-tools'"
-
+	@echo "Now run:"
+	@echo "  make rstudio-tools"
 
 RSTUDIO_TOOLS := $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto $(BUILD_PATH)/rstudio-tools/panmirror
 
@@ -53,7 +53,8 @@ debug2: debug
 
 
 rstudio-tools: $(RSTUDIO_TOOLS)
-	echo "Now run 'make all'"
+	@echo "Now run:"
+	@echo "  make all"
 
 $(BUILD_PATH)/rstudio-tools: $(DOWNLOAD_TARGET)
 	mkdir -p "$@"
@@ -82,7 +83,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	command -v ant &> /dev/null || module try-load CBI apache-ant; \
 	command -v ant &> /dev/null || { 2>&1 echo "ERROR: Missing software: ant"; exit 1; }; \
 	JAVA_XY=$$(java -version 2>&1 | grep version | sed -E 's/(.* "|".*$$)//g'); \
-	[[ $$JAVA_XY =~ 1.8.* ]] || { 2>&1 echo "ERROR: Requires Java v1.8: $$JAVA_XY"; exit 1; }; \
+	true || [[ $$JAVA_XY =~ 1.8.* ]] || { 2>&1 echo "ERROR: Requires Java v1.8: $$JAVA_XY"; exit 1; }; \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \

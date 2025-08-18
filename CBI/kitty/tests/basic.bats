@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(kitten --version | sed -E 's/(^[^ ]+ | .*)//g')
+    version=$(kitty --version | sed -E 's/(^[^ ]+ | .*)//g')
     assert_equal "${version}" "${VERSION}"
 }

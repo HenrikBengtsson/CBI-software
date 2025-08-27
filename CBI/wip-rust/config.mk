@@ -1,5 +1,5 @@
 NAME=rust
-VERSION=1.88.0
+VERSION=1.89.0
 DOWNLOAD_TARGET_FILE=cargo/bin/cargo
 CONFIG=false
 BUILD=false

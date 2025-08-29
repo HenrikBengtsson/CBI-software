@@ -1,0 +1,20 @@
+help([[
+sendme: A Tool to Send Files and Directories, Based on Iroh
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://www.iroh.computer/sendme, https://github.com/n0-computer/sendme (source code), https://github.com/n0-computer/sendme/releases (releases)")
+whatis([[
+Description: Sendme is like 'scp' without needing to know the IP address. Add some files to 'sendme', and it will give you a pastable ticket that you can give to anyone who needs your files. Sendme will connect your devices directly & transfer the data without any accounts or configuration.
+Examples: `sendme --help`, `sendme --version`, and `sendme send file.txt`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

@@ -1,25 +1,22 @@
 include config.mk
 include ../utils.mk
 
-ARCH=x86_64
-TARBALL=$(NAME)-$(VERSION)-$(ARCH).txz
-GITHUB_REPO=https://github.com/kovidgoyal/$(NAME)
+ARCH=Linux-64bit
+TARBALL=$(NAME)_v$(VERSION)_$(ARCH).tar.gz
+GITHUB_REPO=https://github.com/schollz/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH); \
-	cd $(BUILD_PATH); \
+	cd $(BUILD_HOME); \
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
-	touch .downloaded
-#        chmod ugo+x $(TARBALL); \
-#	mv $(TARBALL) $(NAME2)
+	tar -xzf $(TARBALL) -C $(BUILD_PATH)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p "$(PREFIX)"
-	tar xf $(BUILD_PATH)/$(TARBALL) -C $(PREFIX)
-	touch $(INSTALL_TARGET)
+	mkdir -p "$(PREFIX)/.."
+	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

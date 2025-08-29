@@ -1,0 +1,20 @@
+help([[
+croc: Easily and Securely Send Things from One Computer to Another
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/schollz/croc (source code), https://github.com/schollz/croc/releases (releases)")
+whatis([[
+Description: 'croc' is a tool that allows any two computers to simply and securely transfer files and folders. 
+Examples: `croc --help`, `croc --version`, and `croc send file.txt`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

@@ -9,7 +9,7 @@ whatis("Keywords: utility, cli")
 whatis("URL: https://sw.kovidgoyal.net/kitty/, https://github.com/kovidgoyal/kitty/releases (releases), https://github.com/kovidgoyal/kitty (source code)")
 whatis([[
 Description: Kitty is an alternative terminal. It supports graphics (images and animatitions), ligatures, emojis, variable fonts and font features, and hyperlinks.
-Examples: `kitten --help`, `kitten --version`, and `kitten`.
+Examples: `kitty --help`, `kitty --version`, and `kitty`.
 Warning: Only the most recent version of this software will be kept.
 ]])
 
@@ -17,4 +17,7 @@ Warning: Only the most recent version of this software will be kept.
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", home)
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

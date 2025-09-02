@@ -11,10 +11,13 @@ $(BUILD_PATH)/virtualenv:
 	module load CBI; \
 	python3 -m pip install --target="$(@D)" virtualenv pip
 
+## Hide 'python' from PATH
 post_install:
 	rm -f "$(PREFIX)"/bin/activate*
 	rm -f "$(PREFIX)"/bin/pip*
-#	rm -f "$(PREFIX)"/bin/python?*
+	rm -f "$(PREFIX)"/bin/python?*
+	mv "$(PREFIX)"/bin/python "$(PREFIX)"/bin/.python3
+	sed -i -E 's|/bin/python$$|/bin/.python3|' "$(PREFIX)"/bin/trash*
 
 $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	module purge; \

@@ -1,0 +1,22 @@
+help([[
+trash-cli: Command Line Interface to FreeDesktop.org Trash
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, files")
+whatis("URL: https://github.com/aws/aws-cli")
+whatis([[
+Description: trash-cli trashes files recording the original path, deletion date, and permissions. It provides commands: `trash put` to trash files and directories, `trash empty` to empty the trashca, `trash list` to list trashed files, `trash restore` to restore a trashed file, and `trash rm` to remove individual files from the trashcan.
+Examples: `trash --version`, `trash --help`, and `man trash`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+

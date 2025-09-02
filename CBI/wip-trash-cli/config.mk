@@ -1,0 +1,7 @@
+NAME=trash-cli
+VERSION=0.24.5.26
+DOWNLOAD=false
+BUILD_TARGET_FILE=bin/trash
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/trash

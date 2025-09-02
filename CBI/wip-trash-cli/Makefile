@@ -1,6 +1,9 @@
 include config.mk
 include ../utils.mk
 
+GITHUB_OWNER=andreafrancia
+GITHUB_REPONAME=$(NAME)
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
@@ -27,3 +30,7 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	ls -la "$(PREFIX)"
 	ls -la "$(PREFIX)/bin"
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+available-version:
+	@curl --silent "https://api.github.com/repos/$(GITHUB_OWNER)/$(GITHUB_REPONAME)/tags" | grep -E '"name":' | sed -E 's/(.* |"|,)//g' | grep -E "^[[:digit:].]+$$" | head -n 1
+

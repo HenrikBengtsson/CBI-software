@@ -4,12 +4,13 @@ trash-cli: Command Line Interface to FreeDesktop.org Trash
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: utility, files")
 whatis("URL: https://github.com/andreafrancia/trash-cli, https://github.com/andreafrancia/trash-cli?tab=readme-ov-file#faq (FAQ), https://github.com/andreafrancia/trash-cli/discussions (forum), https://pypi.org/project/trash-cli/#history (change log)")
 whatis([[
-Description: trash-cli trashes files recording the original path, deletion date, and permissions. It provides commands: `trash put` to trash files and directories, `trash empty` to empty the trashca, `trash list` to list trashed files, `trash restore` to restore a trashed file, and `trash rm` to remove individual files from the trashcan.
-Examples: `trash --version`, `trash --help`, and `man trash`.
+Description: trash-cli trashes files recording the original path, deletion date, and permissions. It provides commands: `trash-put` to trash files and directories, `trash-list` to list trashed files, `trash-restore` to restore a trashed file, `trash-rm` to remove individual files from the trashcan, and `trash-empty` to empty the trashcan.
+Examples: `trash --version`, `trash --help`, and `man trash`. `trash file.txt`, `trash dir/`, `trash-list`, `trash-empty`.
 Warning: Only the most recent version of this software will be kept.
 ]])
 
@@ -19,4 +20,3 @@ local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
-

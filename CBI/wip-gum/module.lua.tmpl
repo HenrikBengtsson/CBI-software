@@ -1,0 +1,19 @@
+help([[
+gum: A Tool for Glamorous Shell Scripts
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, tui")
+whatis("URL: https://github.com/charmbracelet/gum,  https://github.com/charmbracelet/gum/releases (releases)")
+whatis([[
+Description: 
+Examples: `gum --version`, `gum --help`, and `man gum`. Also, `gum input --header "Enter your username:" --placeholder="alice"` and `gum choose --header="Pick a fruit:" "apple" "banana" "citron"`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "man"))

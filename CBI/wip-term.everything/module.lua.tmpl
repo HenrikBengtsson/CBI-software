@@ -1,0 +1,19 @@
+help([[
+term.everything: Run Any GUI App in The Terminal
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, tui")
+whatis("URL: https://github.com/mmulet/term.everything, https://github.com/mmulet/term.everything/releases (releases)")
+whatis([[
+Description: Run every GUI app in the terminal! Works on both X11 and Wayland host systems. The quality of the window is limited to the number of rows and columns in your terminal. If you increase the resolution, the quality will go up, but performance may go down.
+Examples: `term.everything --version`, `term.everything --help`, `term.everything firefox`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

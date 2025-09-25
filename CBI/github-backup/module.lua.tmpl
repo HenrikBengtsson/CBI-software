@@ -1,0 +1,20 @@
+help([[
+github-backup: Automatically Back Up your GitHub Repositories 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github-backup.sierrasoftworks.com/, https://github.com/SierraSoftworks/github-backup/releases (changelog), https://github.com/SierraSoftworks/github-backup/ (source code)")
+whatis([[
+Description: 
+Examples: `github-backup --version` and `github-backup --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

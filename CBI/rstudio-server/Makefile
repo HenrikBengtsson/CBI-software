@@ -98,7 +98,6 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	module try-load $(CONFIG_MODULES); \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
-	export RSTUDIO_TOOLS_ROOT=$(BUILD_PATH)/rstudio-tools;     \
 	export RSTUDIO_VERSION_MAJOR="$(RSTUDIO_VERSION_MAJOR)";   \
 	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
 	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \

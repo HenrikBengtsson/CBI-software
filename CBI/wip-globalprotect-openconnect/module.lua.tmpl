@@ -1,0 +1,14 @@
+help([[
+globalprotect-openconnect: GlobalProtect VPN client for Linux
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/yuezk/GlobalProtect-openconnect, https://github.com/yuezk/GlobalProtect-openconnect/releases (releases)")
+whatis([[
+Description: A GUI for GlobalProtect VPN, based on OpenConnect, supports the SSO authentication method.
+Examples: `gplient --version`, `gplient --help`, `sudo gpclient --fix-openssl connect --as-gateway gp-ucsf.ucsf.edu`, and `sudo gpclient disconnect`.
+]])

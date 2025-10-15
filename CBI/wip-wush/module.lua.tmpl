@@ -4,6 +4,7 @@ wush: Transfer Files Between Computers via Wireguard
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: utility, cli")
 whatis("URL: https://github.com/coder/wush, https://github.com/coder/wush/releases (releases)")

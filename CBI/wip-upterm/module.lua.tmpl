@@ -4,6 +4,7 @@ upterm: Instant Terminal Sharing
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: utility, cli")
 whatis("URL: https://upterm.dev/, https://github.com/owenthereal/upterm/releases (releases)")

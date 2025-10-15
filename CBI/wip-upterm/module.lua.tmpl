@@ -1,0 +1,22 @@
+help([[
+upterm: Instant Terminal Sharing
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://upterm.dev/, https://github.com/owenthereal/upterm/releases (releases)")
+whatis([[
+Description: Upterm is an open-source tool enabling developers to share terminal sessions securely over the web. It’s perfect for remote pair programming, accessing computers behind NATs/firewalls, remote debugging, and more.
+Examples: `upterm --help`, `upterm help host`, `man upterm`, and `upterm version`. To share your terminal view in read-only mode with one or more viewers, use `upterm host --read-only -- "$SHELL"`. To share your terminal with write-access mode with one or more GitHub users, use `upterm host --github-user alice,bob,carol -- "$SHELL"`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("MANPATH", pathJoin(home, "etc", "man"))
+

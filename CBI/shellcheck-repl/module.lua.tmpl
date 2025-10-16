@@ -22,8 +22,11 @@ local home = pathJoin(root, name .. "-" .. version)
 local shell = os.getenv("SHELL")
 local script = pathJoin(home, "shellcheck-repl.bash")
 
--- Enable on load
-execute{cmd = "source " .. script, modeA = {"load"}}
 
--- Disable on unload
-execute{cmd = "sc_repl_disable", modeA = {"unload"}}
+-- Shellcheck REPL can only be activated in interactive mode
+if os.getenv("PS1") ~= nil then
+  -- Enable on load
+  execute{cmd = "source " .. script, modeA = {"load"}}
+  -- Disable on unload
+  execute{cmd = "sc_repl_disable", modeA = {"unload"}}
+end

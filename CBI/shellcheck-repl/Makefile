@@ -28,4 +28,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl --silent $(GITHUB_REPO)/tags | pandoc --from=html --to=plain | grep -E "^[[:space:]]+$(NAME) " | head -1 | sed -E 's/[[:space:]]+$(NAME) //'
+	@curl --silent $(GITHUB_REPO)/tags | pandoc --from=html --to=plain | grep -E "^[[:space:]]+$(NAME) " | head -1 | sed -E 's/[[:space:]]+$(NAME) //' | sed -E 's/[[:space:]]+.*//'

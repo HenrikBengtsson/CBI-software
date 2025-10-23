@@ -4,10 +4,7 @@ include ../utils.mk
 VERSION_:=$(subst .,_,$(VERSION))
 
 ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
-DOWNLOAD_URL=https://sourceforge.net/projects/snpeff/files/$(ZIPBALL)/download
-
-ZIPBALL=$(NAME)_latest_core.zip
-DOWNLOAD_URL=https://snpeff.blob.core.windows.net/versions/$(ZIPBALL)
+DOWNLOAD_URL=https://snpeff.odsp.astrazeneca.com/versions/$(ZIPBALL)
 
 ## ----------------------------------------------------------
 ## SOFTWARE

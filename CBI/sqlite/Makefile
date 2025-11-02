@@ -22,12 +22,15 @@ $(DOWNLOAD_TARGET):
 ## We set CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 $${CFLAGS}" because [1,2]
 ## [1] https://www.sqlite.org/compile.html#enable_column_metadata
 ## [2] https://stackoverflow.com/a/62947251/1072091
+## We add CFLAGS="-DSQLITE_ENABLE_RTREE=1" because [3] and GDAL requires SQLite with RTree
+## [3] https://sqlite.org/rtree.html
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	make --quiet pre_config
 	module --force purge; \
 	module load $(CONFIG_MODULES); \
 	module list; \
 	export CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 $${CFLAGS}"; \
+	export CFLAGS="-DSQLITE_ENABLE_RTREE=1 $${CFLAGS}"; \
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	echo "CFLAGS=$${CFLAGS}"; \
 	cd $(BUILD_PATH); \

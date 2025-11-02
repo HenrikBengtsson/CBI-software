@@ -20,10 +20,18 @@ end
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
+local libdir
+if (version >= "9.0.0") then
+  libdir = "lib64"
+else
+  libdir = "lib"
+end
+
+
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
-prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
-prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, libdir, "pkgconfig"))
 
 
 -- From 'make install':

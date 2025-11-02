@@ -7,6 +7,7 @@ include ../utils.mk
 ## libtiff >= 4.0 (optional), curl >= 7.29.0 (optional)
 ## All available on Rocky 8, except C++17 requires scl-gcc-toolset
 ifeq ($(VERSION_X),9)
+    ## PROJ 9.0.0 was released on 2022-03-01
     CONFIG_MODULES=CBI scl-gcc-toolset
 endif
 
@@ -50,15 +51,14 @@ $(BUILD_TARGET): $(CONFIG_TARGET)
 	module --force purge; \
 	module load $(BUILD_MODULES); \
 	module list; \
-	make check &> check.log
+	make; \
+	[[ -f check.log ]] || make check &> check.log
+
+$(INSTALL_TARGET): $(BUILD_TARGET)
+	cd $(BUILD_PATH); \
+	make install
 endif
 
-
-#post_build: $(BUILD_PATH)/check.log
-
-#post_install:
-#	cp "$(BUILD_PATH)/config.log" "$(PREFIX)"
-#	cp "$(BUILD_PATH)/check.log" "$(PREFIX)"
 
 available-version:
 	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

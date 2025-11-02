@@ -16,8 +16,7 @@ $(DOWNLOAD_TARGET):
 	tar xfz $(TARBALL); \
 	mv $(TARNAME) $(NAME)-$(VERSION)
 	ls -la "$(BUILD_PATH)"
-	grep -q -E "^[[:space:]]*VERSION='?$(VERSION)'?" $(DOWNLOAD_TARGET) || { 1>&2 echo "VERSION $(VERSION) != $$(cat "$(BUILD_PATH)/VERSION")"; exit 1; }
-
+	grep -q -E '^#define SQLITE_VERSION[[:space:]]+"$(VERSION)"' $(BUILD_PATH)/sqlite3.h || { 1>&2 echo "VERSION $(VERSION) != $$(cat "$(BUILD_PATH)/VERSION")"; exit 1; }
 
 ## NOTES:
 ## We set CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 $${CFLAGS}" because [1,2]

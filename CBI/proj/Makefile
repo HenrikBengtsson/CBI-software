@@ -9,7 +9,7 @@ else ifeq ($(VERSION_X),8)
     CONFIG_MODULES=CBI sqlite
 else ifeq ($(VERSION_X),9)
     CONFIG_MODULES=CBI sqlite
-    $(error Not yet supported: $NAME >= 9 requires CMake)
+    $(error Not yet supported: $NAME >= 9 requires adjusting to CMake)
 endif
 
 GITHUB_REPO=https://github.com/OSGeo/PROJ

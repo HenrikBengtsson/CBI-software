@@ -1,6 +1,5 @@
 NAME=proj
-VERSION=4.9.3
-## VERSION=8.2.1  ## to be installed
+VERSION=8.2.1
 
 DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=libtool

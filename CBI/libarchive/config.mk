@@ -1,0 +1,6 @@
+NAME=libarchive
+VERSION=3.8.2
+DOWNLOAD_TARGET_FILE=configure
+CONFIG_TARGET_FILE=config.log
+BUILD_TARGET_FILE=bsdunzip
+INSTALL_TARGET_FILE=bin/bsdunzip

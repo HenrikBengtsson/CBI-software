@@ -1,0 +1,26 @@
+help("libarchive: Multi-Format Archive and Compression Library")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.libarchive.org/, https://github.com/libarchive/libarchive/ (source code), https://github.com/libarchive/libarchive/releases (release)")
+whatis([[
+Description: Libarchive is an open-source BSD-licensed C programming library that provides streaming access to a variety of different archive formats, including tar, cpio, pax, Zip, and ISO9660 images. The distribution also includes bsdtar and bsdcpio, full-featured implementations of tar and cpio that use libarchive.
+Examples: `bsdcat --version`, `bsdcat --help`, and `man libarchive`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- building
+prepend_path("PKG_CONFIG_PATH",  pathJoin(home, "lib", "pkgconfig"))
+
+-- prepend_path("CPATH",  pathJoin(home, "include"))
+-- prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
+-- prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")

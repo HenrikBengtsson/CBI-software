@@ -11,16 +11,47 @@ Description: GDAL is an open source X/MIT licensed translator library for raster
 Examples: `gdalinfo --version` and `man gdalinfo`.
 ]])
 
+-- Compare two version strings a and b
+-- Returns true if a >= b
+function version_ge(a, b)
+  local function split(ver)
+    local parts = {}
+    for num in ver:gmatch("(%d+)") do
+      table.insert(parts, tonumber(num))
+    end
+    return parts
+  end
+
+  local va = split(a)
+  local vb = split(b)
+  local len = math.max(#va, #vb)
+
+  for i = 1, len do
+    local na = va[i] or 0
+    local nb = vb[i] or 0
+    if na > nb then return true end
+    if na < nb then return false end
+  end
+  return true  -- equal
+end
+
+
 -- GDAL (>= 3.0.0), requires PROJ (>= 6.0.0)
 local libdir = "lib"
-local v = version
-v = string.gsub(v, "[.].*", "")
-if v >= "3" then
+local mandir = "man"
+
+if version_ge(version, "3") then
   depends_on("proj")
   -- ... and a modern SQLite3 and HDF5 (>= 1.8.13)
   depends_on("sqlite")
   depends_on("hdf5")
+
   libdir = "lib64"
+
+  if version_ge(version, "3.7") then
+    depends_on("libarchive")
+    mandir = pathJoin("share", "man")
+  end
 end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
@@ -35,7 +66,7 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
 
-prepend_path("MANPATH", pathJoin(home, "man"))
+prepend_path("MANPATH", pathJoin(home, mandir))
 
 -- linking
 prepend_path("LD_RUN_PATH", pathJoin(home, libdir))

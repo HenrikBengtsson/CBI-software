@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(gdalinfo --version | sed -E 's/(GDAL |,.*)//g')
+    version=$(gdalinfo --version | sed -E 's/(GDAL |,.*)//' | sed 's/ .*//')
     assert_equal "${version}" "${VERSION}"
 }

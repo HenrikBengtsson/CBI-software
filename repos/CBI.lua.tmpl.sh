@@ -13,6 +13,10 @@ elif [[ -d "/software/c4/cbi/software/" ]]; then
    >&2 echo "File system: C4 (https://www.c4.ucsf.edu/)"
    software_root="/software/c4/cbi/software"
    module_root="/software/c4/cbi/modulefiles"
+elif [[ ${HOSTNAME} == *".corehpc.ucsf.edu" ]]; then
+   >&2 echo "File system: CoreHPC (https://it.ucsf.edu/service/corehpc)"
+   software_root="$HOME/shared/cbi/software"
+   module_root="$HOME/shared/cbi/modulefiles"
 elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    >&2 echo "File system: TIPCC (legacy)"
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
@@ -62,6 +66,7 @@ end
 -- Examples:
 -- CentOS 7.9 -> "centos7"
 -- Rocky 8.8 -> "rocky8"
+-- Rocky 9.6 -> "rocky9"
 -- Ubuntu 22.04.3 -> "ubuntu22_04"
 local cbi_linux = os.getenv("CBI_LINUX")
 if cbi_linux == nil then
@@ -73,14 +78,16 @@ if cbi_linux == nil then
         line = string.sub(line, 14, string.len(line))
         -- Examples:
         -- CentOS 7.9: "CentOS Linux 7 (Core)"
-        -- Rocky 8: "Rocky Linux 8.8 (Green Obsidian)"
+        -- Rocky 8.8: "Rocky Linux 8.8 (Green Obsidian)"
+        -- Rocky 9.6: "Rocky Linux 9.6 (Blue Onyx)"
         -- Ubuntu 22.04.3: "Ubuntu 22.04.3 LTS"
 
         -- Drop auxillary strings after the version
         line = line:gsub("[ ]+[^0-9]*$", "")
         -- Examples:
         -- CentOS 7.9: "CentOS Linux 7"
-        -- Rocky 8: "Rocky Linux 8.8"
+        -- Rocky 8.8: "Rocky Linux 8.8"
+        -- Rocky 9.6: "Rocky Linux 9.6"
         -- Ubuntu 22.04.3: "Ubuntu 22.04.3"
 
         -- Work with lower-case strings
@@ -88,14 +95,16 @@ if cbi_linux == nil then
         line = line:gsub(" linux ", "") -- for CentOS and Rocky
         -- Examples:
         -- CentOS 7.9: "centos 7"
-        -- Rocky 8: "rocky 8.8"
+        -- Rocky 8.8: "rocky 8.8"
+        -- Rocky 9.6: "rocky 9.6"
         -- Ubuntu 22.04.3: "ubuntu 22.04.3"
 
         -- Remove spaces
         line = line:gsub("[ ]+", "")
         -- Examples:
         -- CentOS 7.9: "centos7"
-        -- Rocky 8: "rocky8.8"
+        -- Rocky 8.8: "rocky8.8"
+        -- Rocky 9.6: "rocky9.6"
         -- Ubuntu 22.04.3: "ubuntu22.04.3"
 
         -- Drop the last part of the version
@@ -103,6 +112,7 @@ if cbi_linux == nil then
         -- Examples:
         -- CentOS 7.9: "centos7"
         -- Rocky 8: "rocky8"
+        -- Rocky 9: "rocky9"
         -- Ubuntu 22.04.3: "ubuntu22.04"
 
         -- Replace periods with underscores
@@ -110,6 +120,7 @@ if cbi_linux == nil then
         -- Examples:
         -- CentOS 7.9: "centos7"
         -- Rocky 8: "rocky8"
+        -- Rocky 9: "rocky9"
         -- Ubuntu 22.04.3: "ubuntu22_04"
 
         cbi_linux = line

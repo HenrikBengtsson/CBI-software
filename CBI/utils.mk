@@ -297,8 +297,9 @@ $(MODULE_TARGET): module.lua.tmpl
 	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@"
 	make --quiet post_install_module
+	module load CBI; \
 	module --ignore-cache show $(MODULE_NAME_VERSION)
-	module load CBI
+	module load CBI; \
 	module load $(MODULE_NAME_VERSION); module unload $(MODULE_NAME_VERSION)
 
 ifeq ($(INSTALL_MODULE),false)
@@ -322,8 +323,11 @@ uninstall_module:
 	fi
 
 test_module: $(MODULE_TARGET)
+	module purge
+	module load CBI; \
 	module --ignore-cache show $(MODULE_NAME_VERSION)
-	module load $(MODULE_NAME_VERSION)
+	module load CBI; \
+	module load $(MODULE_NAME_VERSION); \
 	module unload $(MODULE_NAME_VERSION)
 
 

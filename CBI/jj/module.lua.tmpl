@@ -1,0 +1,21 @@
+help([[
+jj: Jujutsu - A Version Control System
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://jj-vcs.github.io/jj/latest/, https://github.com/jj-vcs/jj (source code), https://github.com/jj-vcs/jj/releases (releases)")
+whatis([[
+Description: Jujutsu is a Git-compatible version-control system (VCS) that is both simple and powerful .
+Examples: `jj --help`, `jj --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

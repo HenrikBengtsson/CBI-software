@@ -26,6 +26,7 @@ include ../utils.mk
 ##
 ## /HB 2022-10-21
 $(INSTALL_TARGET):
+	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
 	module purge; \
 	npm_config_cache="$$(mktemp -d)" npm install --prefix="$(PREFIX)" markdownlint-cli

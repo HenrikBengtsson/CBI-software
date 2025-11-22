@@ -29,11 +29,11 @@ $(INSTALL_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
 	module purge; \
-	npm_config_cache="$$(mktemp -d)" npm install --prefix="$(PREFIX)" markdownlint-cli
+	npm_config_cache="$$(mktemp -d)" npm install --engine-strict --prefix="$(PREFIX)" markdownlint-cli@$(VERSION)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	npm view markdownlint-cli version
+	npm_config_cache="$$(mktemp -d)" npm view markdownlint-cli version
 

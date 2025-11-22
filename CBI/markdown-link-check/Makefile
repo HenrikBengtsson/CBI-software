@@ -26,13 +26,14 @@ include ../utils.mk
 ##
 ## /HB 2022-10-21
 $(INSTALL_TARGET):
+	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
 	module purge; \
-	npm_config_cache="$$(mktemp -d)" npm install --prefix="$(PREFIX)" markdown-link-check
+	npm_config_cache="$$(mktemp -d)" npm install --engine-strict --prefix="$(PREFIX)" markdown-link-check@$(VERSION)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	npm view markdown-link-check version
+	npm_config_cache="$$(mktemp -d)" npm view markdown-link-check version
 

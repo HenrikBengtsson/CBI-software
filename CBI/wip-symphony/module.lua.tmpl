@@ -1,0 +1,24 @@
+help([[
+symphony: A Solver for Mixed-Integer Linear Programs (MILPs)
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://github.com/coin-or/SYMPHONY, https://github.com/coin-or/SYMPHONY (documentation), https://github.com/coin-or/SYMPHONY/releases/ (releases), https://github.com/coin-or/SYMPHONY (source code)")
+whatis([[
+Description: SYMPHONY is an open-source solver, callable library, and development framework for mixed-integer linear programs (MILPs) written in C with a number of unique features 
+Examples: `symphony --version`, `symphony --help`, and `clp`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+-- prepend_path("CPATH", pathJoin(home, "include"))
+
+-- Required to by R package 'Rsymphony'
+prepend_path("CPLUS_INCLUDE_PATH", pathJoin(home, "include"))

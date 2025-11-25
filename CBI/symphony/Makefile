@@ -22,7 +22,7 @@ $(DOWNLOAD_TARGET):
 ## WORKAROUND: We need to build with '--tests=main', because the default
 ## '--tests=all' triggers error on when "Running Osi unit test", at least
 ## for SYMPHONY 5.7.3 with Osi 0.108.11.
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	./coinbrew build SYMPHONY --prefix="$(PREFIX)" --tests=main --verbosity=1
 

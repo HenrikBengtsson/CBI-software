@@ -15,7 +15,7 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://julialang-s3.julialang.org/bin/linux/x64/$(VERSION_X_Y)/$(TARBALL); \
 	tar xf "$(TARBALL)"
 
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -R $(BUILD_PATH) $(PREFIX)/..
 	make post_install

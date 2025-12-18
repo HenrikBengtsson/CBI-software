@@ -30,8 +30,8 @@ elif [[ -d "$HOME/software/cbi/" ]]; then
    software_root="$HOME/software/cbi/software"
    module_root="$HOME/software/cbi/modulefiles"
 else
-   software_root=
-   module_root=
+   software_root=${SOFTWARE_HOME:?}
+   module_root=${MODULE_HOME:?}
 fi
 
 software_root=${SOFTWARE_ROOT_CBI:-${software_root}}

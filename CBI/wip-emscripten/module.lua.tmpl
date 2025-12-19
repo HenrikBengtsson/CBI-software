@@ -1,0 +1,23 @@
+help("emsdk: Emscripten SDK")
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: files, transfers")
+whatis("URL: https://emscripten.org/, https://emscripten.org/docs/getting_started/downloads.html (documentation), https://github.com/emscripten-core/emscripten/blob/main/ChangeLog.md (change log), https://github.com/emscripten-core/emscripten (source code)")
+whatis([[
+Description: Emscripten is An LLVM-to-WebAssembly Compiler.
+Examples: `emsdk help`, `emsdk activate latest`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+
+local script = pathJoin(home, "emsdk_env." .. myShellType())
+if not isFile(script) then
+  LmodError("The " .. name .. " module is not supported for your shell (" .. myShellType() .. "; SHELL=" .. os.getenv("SHELL") .. "). No such file: " .. script)
+end
+execute{cmd = "source " .. script, modeA = {"load"}}

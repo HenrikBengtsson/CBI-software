@@ -1,5 +1,5 @@
 NAME=nnn
-VERSION=4.7
+VERSION=5.1
 DOWNLOAD_TARGET_FILE=nnn-static
 CONFIG=false
 BUILD=false

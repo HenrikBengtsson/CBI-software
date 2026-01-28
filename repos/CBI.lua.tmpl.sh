@@ -15,8 +15,8 @@ elif [[ -d "/software/c4/cbi/software/" ]]; then
    module_root="/software/c4/cbi/modulefiles"
 elif [[ ${HOSTNAME} == *".corehpc.ucsf.edu" ]]; then
    >&2 echo "File system: CoreHPC (https://it.ucsf.edu/service/corehpc)"
-   software_root="$HOME/shared/cbi/software"
-   module_root="$HOME/shared/cbi/modulefiles"
+   software_root="/mnt/software/cbi/software"
+   module_root="/mnt/software/cbi/modulefiles"
 elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    >&2 echo "File system: TIPCC (legacy)"
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"

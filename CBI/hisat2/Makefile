@@ -3,6 +3,7 @@ include ../utils.mk
 
 VERSION_NO_DOTS=$(subst .,,$(VERSION))
 ZIPBALL=$(NAME)-$(VERSION_NO_DOTS)-Linux_x86_64.zip
+GITHUB_REPO=https://github.com/DaehwanKimLab/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -39,3 +40,6 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
+
+available-version:
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

@@ -179,7 +179,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module list; \
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
-	./configure $(CONFIG_OPTS) --prefix=$(PREFIX)
+	./configure $(CONFIG_OPTS) --prefix=$(PREFIX) || { mv "$(CONFIG_TARGET)" "$(CONFIG_TARGET).fail"; >&2 echo "ERROR: See '$(CONFIG_TARGET).fail' for details"; exit 1; }
 	make --quiet post_config
 
 ifeq ($(CONFIG),false)

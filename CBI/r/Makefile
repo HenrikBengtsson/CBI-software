@@ -201,6 +201,10 @@ r_javareconf: assert_java_version
 	else \
 	    >&2 echo "WARNING: Failed to load module 'openjdk/$(OPENJDK_VERSION)'; leaving it to 'R CMD javareconf' to locate a proper Java version (JAVA_HOME)"; \
 	fi; \
+	if ! module try-load $(CONFIG_MODULES) 2> /dev/null; then \
+	    >&2 echo "ERROR: Failed to load module '$(CONFIG_MODULES)'"; \
+	    exit 1; \
+	fi; \
 	JAVA_VERSION=$$(java   -version 2>&1 | head -1 | sed -E 's/.*"(.*)".*/\1/'); \
 	JAVAC_VERSION=$$(javac -version 2>&1 | head -1 | sed 's/.* //');             \
 	JAVA_VERSION_XY=$$(echo "$${JAVA_VERSION:?}" | sed 's/[.][^.]*$$//');        \
@@ -214,6 +218,11 @@ r_javareconf: assert_java_version
         fi;                                                                          \
 	mkdir -p "$(BUILD_PATH)";                                                    \
 	if ! $(PREFIX)/bin/R CMD javareconf &> "$(BUILD_PATH)/javareconf.log"; then  \
+	    >&2 echo "ERROR: R CMD javareconf failed;";                              \
+	    >&2 cat "$(BUILD_PATH)/javareconf.log";                                  \
+	    exit 1;                                                                  \
+	fi
+	if grep -q "gcc: error" "$(BUILD_PATH)/javareconf.log"; then                 \
 	    >&2 echo "ERROR: R CMD javareconf failed;";                              \
 	    >&2 cat "$(BUILD_PATH)/javareconf.log";                                  \
 	    exit 1;                                                                  \

@@ -75,6 +75,10 @@ VERSION=3.50.4
 VERSION_ID=3500400
 VERSION_YEAR=2025
 
+VERSION=3.51.2
+VERSION_ID=3510200
+VERSION_YEAR=2026
+
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true
@@ -84,3 +88,5 @@ URL_DOWNLOAD=https://sqlite.org/download.html
 DOWNLOAD_TARGET_FILE=configure
 BUILD_TARGET_FILE=sqlite3
 INSTALL_TARGET_FILE=bin/sqlite3
+
+CONFIG_MODULES=CBI scl-gcc-toolset

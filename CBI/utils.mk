@@ -410,6 +410,7 @@ help:
 debug:
 	@echo "NAME: $(NAME)"
 	@echo "VERSION: $(VERSION)"
+	@echo "VERSION_X_Y_Z_ZZ: $(VERSION_X_Y_Z_ZZ)"
 	@echo "VERSION_X_Y_Z: $(VERSION_X_Y_Z)"
 	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "VERSION_X: $(VERSION_X)"

@@ -12,6 +12,8 @@ Description: FastQC is a program designed to spot potential problems in high thr
 Examples: `fastqc --version`.
 ]])
 
+depends_on("openjdk")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, "FastQC" .. "-" .. version)
 

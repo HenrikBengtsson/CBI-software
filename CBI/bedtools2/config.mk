@@ -7,3 +7,7 @@ CONFIG=false
 BUILD_TARGET_FILE=bin/bedtools
 INSTALL_TARGET_FILE=bin/bedtools
 
+CONFIG_MODULES=CBI scl-gcc-toolset
+
+
+DEPENDS_ON=bzip2-devel

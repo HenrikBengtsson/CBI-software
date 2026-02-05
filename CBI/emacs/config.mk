@@ -7,3 +7,10 @@ LINUX_DISTRO_SPECIFIC=true
 CONFIG_OPTS=--with-xpm=no --with-gif=no --with-gnutls=no
 BUILD_TARGET_FILE=src/emacs
 INSTALL_TARGET_FILE=bin/emacs
+
+CONFIG_MODULES=CBI scl-gcc-toolset
+
+
+DEPENDS_ON=ncurses-devel
+
+

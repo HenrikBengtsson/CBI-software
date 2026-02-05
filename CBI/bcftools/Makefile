@@ -32,6 +32,10 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make --quiet pre_install
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH)/.patched; \
+	if ! module try-load $(CONFIG_MODULES) 2> /dev/null; then \
+	    >&2 echo "ERROR: Failed to load module '$(CONFIG_MODULES)'"; \
+	    exit 1; \
+	fi; \
 	make --quiet install
 	make --quiet post_install
 	ls -la $(PREFIX)

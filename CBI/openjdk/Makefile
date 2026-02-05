@@ -3,9 +3,13 @@ include ../utils.mk
 
 ARCH=linux-x64
 TARBALL=$(NAME)-$(VERSION)_$(ARCH)_bin.tar.gz
+DOWNLOAD_VERSION=$(VERSION_X_Y_Z_ZZ)
 
 ifeq ($(VERSION),17.0.0.1+2)
   DOWNLOAD_URL=https://download.java.net/openjdk/jdk$(VERSION_X_Y_Z_ZZ)/ri/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
+else ifeq ($(VERSION),21+35)
+  DOWNLOAD_URL=https://download.java.net/openjdk/jdk$(VERSION_X)/ri/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
+  DOWNLOAD_VERSION=$(VERSION_X)
 else ifeq ($(VERSION_X),25)
   DOWNLOAD_HASH=b1e0dfa218384cb9959bdcb897162d4e
   DOWNLOAD_URL=https://download.java.net/java/GA/jdk$(VERSION)/$(DOWNLOAD_HASH)/10/GPL/$(TARBALL)
@@ -28,8 +32,8 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O "$(DOWNLOAD_URL)"; \
 	tar -xzf $(TARBALL)
-	[[ -d "$(BUILD_HOME)/jdk-$(VERSION_X_Y_Z_ZZ)" ]] || { echo "UNEXPECTED VERSION: jdk-$(VERSION_X_Y_Z_ZZ)/ does not exits"; ls -l $(BUILD_HOME); exit 1; }
-	mv "$(BUILD_HOME)/jdk-$(VERSION_X_Y_Z_ZZ)" "$(BUILD_PATH)"
+	[[ -d "$(BUILD_HOME)/jdk-$(DOWNLOAD_VERSION)" ]] || { echo "UNEXPECTED VERSION: jdk-$(DOWNLOAD_VERSION)/ does not exits"; ls -l $(BUILD_HOME); exit 1; }
+	mv "$(BUILD_HOME)/jdk-$(DOWNLOAD_VERSION)" "$(BUILD_PATH)"
 
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

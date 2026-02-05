@@ -7,7 +7,7 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(cellranger --version | sed 's/.*-//')
+    version=$(cellranger --version | sed -E 's/(^[^ ]* |.*-)//g')
     assert_equal "${version}" "${VERSION}"
 }
 

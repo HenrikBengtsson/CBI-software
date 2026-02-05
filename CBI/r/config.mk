@@ -5,8 +5,14 @@ VERSION=4.5.2
 LINUX_DISTRO_SPECIFIC=true
 
 CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib --without-recommended-packages
+CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib --without-recommended-packages --with-x=no
 BUILD_TARGET_FILE=bin/exec/R
 BUILD_OPTS=-j 4
 INSTALL_TARGET_FILE=bin/R
 MODULE_NAME=r
 OPENJDK_VERSION=1.8.0
+OPENJDK_VERSION=25
+
+CONFIG_MODULES=CBI scl-gcc-toolset
+
+DEPENDS_ON=bzip2-devel libcurl-devel readline-devel ncurses-devel

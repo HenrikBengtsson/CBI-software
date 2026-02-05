@@ -8,7 +8,7 @@ setup() {
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     version=$(java -version 2>&1 | head -1 | sed -E 's/^([[:alpha:] "])+//' | sed -E 's/".*//')
-    VERSION=$(echo "${VERSION}" | sed 's/[+][[:digit:]]$//')
+    VERSION=$(echo "${VERSION}" | sed -E 's/[+][[:digit:]]+$//')
     assert_equal "${version}" "${VERSION}"
 }
 
@@ -16,6 +16,6 @@ setup() {
 @test "validate javac is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     version=$(javac -version | sed -E 's/^([[:alpha:] "])+//' | sed -E 's/".*//')
-    VERSION=$(echo "${VERSION}" | sed 's/[+][[:digit:]]$//')
+    VERSION=$(echo "${VERSION}" | sed -E 's/[+][[:digit:]]+$//')
     assert_equal "${version}" "${VERSION}"
 }

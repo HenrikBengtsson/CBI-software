@@ -10,7 +10,7 @@ TARBALL=ncbi-$(NAME)-$(VERSION)+-x64-linux.tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/$(VERSION)/$(TARBALL); \
+	curl -O https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/$(VERSION)/$(TARBALL); \
 	tar -zxf $(TARBALL); \
 	mv ncbi-$(NAME)-$(VERSION)+ $(NAME)-$(VERSION)
 

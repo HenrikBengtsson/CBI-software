@@ -30,13 +30,15 @@ local min_java_version=8
 if (version_x >= 2) then
   if (version_y >= 17) then
     min_java_version=17
+  elseif (version_y >= 19) then
+    min_java_version=21
   elseif (version_y >= 2.5) then
     min_java_version=11
   end
 end
 
 
-local java_check = 'ver=$(java -version 2>&1 | grep -F "version" | sed -E "s/(.* version |\\")//g"); >&2 echo "Java version: ${ver} [IGV ' .. version .. ' requires Java ' .. min_java_version .. ' or newer]"; ver_x=$(sed -E "s/^1[.]//" <<< "${ver}" | sed "s/[.].*//"); if [[ ${ver_x} -lt ' .. min_java_version .. ' ]]; then >&2 echo "ERROR: Java ${ver_x} detected, but IGV requires Java ' .. min_java_version .. ' or newer: $(java -version 2>&1 | grep -F "version")"; return 1; fi;'
+local java_check = 'ver=$(java -version 2>&1 | grep -F "version" | sed -E "s/(.* version |\\")//g" | sed -E "s/ .*//"); >&2 echo "Java version: ${ver} [IGV ' .. version .. ' requires Java ' .. min_java_version .. ' or newer]"; ver_x=$(sed -E "s/^1[.]//" <<< "${ver}" | sed "s/[.].*//"); if [[ ${ver_x} -lt ' .. min_java_version .. ' ]]; then >&2 echo "ERROR: Java ${ver_x} detected, but IGV requires Java ' .. min_java_version .. ' or newer: $(java -version 2>&1 | grep -F "version")"; return 1; fi;'
 
 local bash = java_check .. ' ' .. home .. '/igv.sh "$@"'
 local csh  = home .. '/igv.sh $*'

@@ -7,6 +7,7 @@ include ../sysinfo.mk
 ## Use modern GCC and Java versions?
 GCC_MODULE=
 GCC_VERSION=13
+GCC_VERSION=15
 ifeq ($(LINUX_NAME),Ubuntu)
     ifeq ($(LINUX_VERSION),22.04)
         GCC_VERSION=11
@@ -101,6 +102,7 @@ assert_gcc_version:
 
 assert_java_version:
 	module --force purge; \
+	module try-load CBI 2> /dev/null; \
 	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
 	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
 	else \
@@ -140,8 +142,8 @@ assert_config: $(CONFIG_TARGET)
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]17\b" "$<"; \
 	fi
 
-	grep -E "Interfaces supported:.*\bX11\b" "$<"
-	grep -E "Interfaces supported:.*\btcltk\b" "$<"; \
+#	grep -E "Interfaces supported:.*\bX11\b" "$<"
+#	grep -E "Interfaces supported:.*\btcltk\b" "$<"; 
 
 	grep -E "External libraries:.*\breadline\b" "$<"
 #	grep -E "External libraries:.*\blzma\b" "$<"

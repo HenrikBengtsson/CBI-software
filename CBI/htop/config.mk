@@ -7,3 +7,5 @@ LINUX_DISTRO_SPECIFIC=true
 
 BUILD_TARGET_FILE=htop
 INSTALL_TARGET_FILE=bin/htop
+
+CONFIG_MODULES=autotools CBI scl-gcc-toolset

@@ -12,6 +12,8 @@ Description: Apache Ant is a Java library and command-line tool that help buildi
 Examples: `ant -h`
 ]])
 
+depends_on("openjdk")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

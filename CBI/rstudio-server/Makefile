@@ -66,6 +66,7 @@ $(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	module purge; \
 	module try-load $(CONFIG_MODULES); \
+	module list; \
 	export RSTUDIO_TOOLS_ROOT=$<; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 

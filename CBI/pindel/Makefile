@@ -38,8 +38,10 @@ else
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	module --force purge; \
 	cd $(BUILD_PATH); \
-	module load CBI; \
-	module load htslib; \
+        if ! module try-load $(CONFIG_MODULES) 2> /dev/null; then \
+            >&2 echo "ERROR: Failed to load module '$(CONFIG_MODULES)'"; \
+            exit 1; \
+        fi; \
 	module list; \
 	SAMTOOLS_HOME="$$(dirname $$(dirname $$(which htsfile)))"; \
 	echo "SAMTOOLS_HOME=$${SAMTOOLS_HOME}"; \

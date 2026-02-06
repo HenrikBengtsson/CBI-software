@@ -8,7 +8,7 @@ include ../utils.mk
 ## All available on Rocky 8, except C++17 requires scl-gcc-toolset
 ifeq ($(VERSION_X),9)
     ## PROJ 9.0.0 was released on 2022-03-01
-    CONFIG_MODULES=CBI scl-gcc-toolset
+    CONFIG_MODULES=CBI cmake scl-gcc-toolset sqlite
 endif
 
 GITHUB_REPO=https://github.com/OSGeo/PROJ

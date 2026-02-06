@@ -5,22 +5,27 @@
 ###  CBI.lua
 
 ## Infer defaults from the underlying file system
+system=generic
 if [[ -d "/wynton/home/cbi/shared/software/CBI" ]]; then
    >&2 echo "File system: Wynton (https://wynton.ucsf.edu/)"
    software_root="/wynton/home/cbi/shared/software/CBI"
    module_root="/wynton/home/cbi/shared/modulefiles/CBI"
+   system=ucsf-wynton
 elif [[ -d "/software/c4/cbi/software/" ]]; then
    >&2 echo "File system: C4 (https://www.c4.ucsf.edu/)"
    software_root="/software/c4/cbi/software"
    module_root="/software/c4/cbi/modulefiles"
+   system=ucsf-c4
 elif [[ ${HOSTNAME} == *".corehpc.ucsf.edu" ]]; then
    >&2 echo "File system: CoreHPC (https://it.ucsf.edu/service/corehpc)"
    software_root="/mnt/software/cbi/software"
    module_root="/mnt/software/cbi/modulefiles"
+   system=ucsf-corehpc
 elif [[ -d "/home/shared/cbc/software_cbc/shared/apps/manual" ]]; then
    >&2 echo "File system: TIPCC (legacy)"
    software_root="/home/shared/cbc/software_cbc/shared/apps/manual"
    module_root="/home/shared/cbc/software_cbc/shared/apps/modulefiles/CBI"
+   system=ucsf-tipcc
 elif [[ -d "$HOME/shared/software/CBI" ]]; then
    >&2 echo "File system: \$HOME"
    software_root="$HOME/shared/software/CBI"
@@ -141,4 +146,17 @@ prepend_path("MODULEPATH", module_root)
 
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", module_root)
+
+-- Warn once per session about CBI being beta on CoreHPC
+if mode() == "load" then
+    local already_loaded = os.getenv("__MODULE_CBI_LOADED__")
+    if not already_loaded and "${system}" == "ucsf-corehpc" then
+    -- Check if the shell is interactive
+        local is_interactive = os.getenv("PS1") ~= nil or os.getenv("TERM") ~= nil
+        if is_interactive then
+            LmodMessage("[BETA] The CBI Software Stack undergoes beta validation on CoreHPC:\n\n - It should be stable, but please note that we might have to re-install some tools\n - It might be that you will have re-install software later, e.g. R and Conda packages\n")
+        end
+    end
+    setenv("__MODULE_CBI_LOADED__", "true")
+end
 HEREDOC

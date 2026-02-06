@@ -19,13 +19,11 @@ include ../utils.mk
 ## which seems to suffice.
 
 ## Use the most modern version of GCC installed
-CONFIG_MODULES=CBI scl-devtoolset
+CONFIG_MODULES=CBI scl-gcc-toolset cmake
 
 ## GEOS (>= 3.10.0) requires CMake (>= 3.13)
-ifeq ($(VERSION_X_Y),3.10)
-  CONFIG_MODULES=CBI scl-devtoolset cmake
-else ifeq ($(VERSION_X_Y),3.11)
-  CONFIG_MODULES=CBI scl-devtoolset cmake
+ifeq ($(VERSION_X_Y),3.9)
+  CONFIG_MODULES=CBI scl-gcc-toolset
 endif
 
 TARBALL=$(NAME)-$(VERSION).tar.bz2

@@ -6,6 +6,11 @@ VERSION=3.14.0
 VERSION_ID=3140000
 VERSION_YEAR=2016
 
+## There's no 'make test' in 3.26.0 :(
+VERSION=3.26.0
+VERSION_ID=3260000
+VERSION_YEAR=2018
+
 ## There's no 'make test' in 3.31.1 :(
 VERSION=3.31.1
 VERSION_ID=3310100
@@ -78,7 +83,6 @@ VERSION_YEAR=2025
 VERSION=3.51.2
 VERSION_ID=3510200
 VERSION_YEAR=2026
-
 
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true

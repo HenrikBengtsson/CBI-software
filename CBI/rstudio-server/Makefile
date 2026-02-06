@@ -68,6 +68,9 @@ $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	module try-load $(CONFIG_MODULES); \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$<; \
+	if [[ "$(@F)" == "yaml-cpp" ]]; then \
+	     export CXXFLAGS="-include cstdint"; \
+	fi; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 
 ## FIXME/TMP /2023-04-16
@@ -91,6 +94,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	export RSTUDIO_VERSION_MINOR="$(RSTUDIO_VERSION_MINOR)";   \
 	export RSTUDIO_VERSION_PATCH="$(RSTUDIO_VERSION_PATCH)";   \
 	export RSTUDIO_VERSION_SUFFIX="$(RSTUDIO_VERSION_SUFFIX)"; \
+	cmake --version; \
 	cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) || rm "$@"
 
 $(BUILD_TARGET): $(CONFIG_TARGET)

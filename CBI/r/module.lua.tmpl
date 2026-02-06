@@ -75,6 +75,7 @@ if (v >= "4.1.0") then
       elseif has_gcc_toolset(gv) then
         depends_on("scl-gcc-toolset/" .. gv)
       end
+      try_load("cmake")
     end
   end
 end

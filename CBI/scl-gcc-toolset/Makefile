@@ -12,9 +12,13 @@ incl/%.lua: /opt/rh/gcc-toolset-%/enable
 	    echo "-- $(LMOD_DIR)/sh_to_modulefile $<"; \
 	    LD_LIBRARY_PATH= $(LMOD_DIR)/sh_to_modulefile "$<"; \
 	} > "$@.tmp"
-	if grep -q -F "setenv(" "$@.tmp"; then \
-	    echo "WARNING: Detected setenv() calls that might have to be edited to become prepend_path():"; \
-	    grep -H -n -F "setenv(" "$@.tmp"; \
+	if ! $${SETENV_FIXED:-false} && grep -q -F "setenv(" "$@.tmp"; then \
+	    { \
+	       echo "ERROR: Detected setenv() calls that might have to be edited to become prepend_path():"; \
+	       grep -H -n -F "setenv(" "$@.tmp"; \
+	       echo "Please edit '$@.tmp' as needed and rename to '$@' when done"; \
+	    } >&2; \
+	    exit 1; \
 	fi
 	mv "$@.tmp" "$@"
 

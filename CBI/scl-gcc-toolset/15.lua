@@ -32,8 +32,8 @@ end
 
 -- Don't edit! Created using: 
 -- /opt/ohpc/admin/lmod/lmod/libexec/sh_to_modulefile /opt/rh/gcc-toolset-15/enable
-setenv("INFOPATH","/opt/rh/gcc-toolset-15/root/usr/share/info")
-setenv("LD_LIBRARY_PATH","/opt/rh/gcc-toolset-15/root/usr/lib64:/opt/rh/gcc-toolset-15/root/usr/lib")
+prepend_path("INFOPATH","/opt/rh/gcc-toolset-15/root/usr/share/info")
+prepend_path("LD_LIBRARY_PATH","/opt/rh/gcc-toolset-15/root/usr/lib64:/opt/rh/gcc-toolset-15/root/usr/lib")
 prepend_path("MANPATH","/opt/rh/gcc-toolset-15/root/usr/share/man")
 prepend_path("PATH","/opt/rh/gcc-toolset-15/root/usr/bin")
-setenv("PKG_CONFIG_PATH","/opt/rh/gcc-toolset-15/root/usr/lib64/pkgconfig")
+prepend_path("PKG_CONFIG_PATH","/opt/rh/gcc-toolset-15/root/usr/lib64/pkgconfig")

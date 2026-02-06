@@ -4,3 +4,4 @@ DOWNLOAD_FILE=configure
 BUILD_TARGET_FILE=gsl-histogram
 INSTALL_TARGET_FILE=bin/gsl-histogram
 
+CONFIG_MODULES=CBI scl-gcc-toolset

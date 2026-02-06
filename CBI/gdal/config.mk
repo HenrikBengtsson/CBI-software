@@ -17,5 +17,4 @@ LINUX_DISTRO_SPECIFIC=true
 INSTALL_TARGET_FILE=bin/gdalinfo
 
 
-
-
+CONFIG_MODULES=CBI scl-gcc-toolset

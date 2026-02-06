@@ -15,4 +15,4 @@ OPENJDK_VERSION=25
 
 CONFIG_MODULES=CBI scl-gcc-toolset
 
-DEPENDS_ON=bzip2-devel libcurl-devel readline-devel ncurses-devel
+DEPENDS_ON=bzip2-devel libcurl-devel readline-devel ncurses-devel libpcre2-devel libicu-devel getttext-devel libpng-devel libjpeg-turbo-devel libtiff-devel libcairo-devel 

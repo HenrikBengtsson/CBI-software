@@ -198,6 +198,7 @@ r_javareconf: assert_java_version
 	chmod -R u+w $(PREFIX)/lib*/R/{bin,etc}
 	chmod u+w $(PREFIX)/*
 	module --force purge; \
+	module try-load CBI 2> /dev/null; \
 	if module load openjdk/$(OPENJDK_VERSION) 2> /dev/null; then \
 	    [[ -n $${JAVA_HOME} ]] || { echo >&2 "ERROR: JAVA_HOME not set"; exit 1; } \
 	else \

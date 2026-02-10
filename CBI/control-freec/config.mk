@@ -7,3 +7,5 @@ DOWNLOAD_TARGET_FILE=src/freec
 CONFIG=false
 BUILD_TARGET_FILE=bin/freec
 INSTALL_TARGET_FILE=bin/freec
+
+BUILD_MODULES=CBI scl-gcc-toolset

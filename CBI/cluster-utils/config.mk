@@ -8,7 +8,7 @@ NAME=cluster-utils
 ## /wynton/home/cbi/shared/software/CBI/cluster-utils-23.04.1/bin/ctop line 71.
 ## VERSION=23.04.1
 
-VERSION=25.04.1
+VERSION=26.01.1
 URL_DOWNLOAD=https://github.com/molgenis/cluster-utils/releases/
 URL=https://github.com/molgenis/cluster-utils/releases/
 DOWNLOAD_TARGET_FILE=bin/ctop

@@ -21,4 +21,4 @@ INSTALL_TARGET_FILE=bin/rserver
 ## Both are sufficient for installing v2025.05.0-496 /HB 2025-05-16
 ## Need CMake (>= 3.5 && < 3.30), because CMake (>= 3.30) triggers a
 ##   false positive error on CMake (>= 3.5) is required (sic!) /HB 2026-02-06
-CONFIG_MODULES=CBI jq scl-devtoolset r cmake/3.29.9 apache-ant sqlite/3.29.9
+CONFIG_MODULES=CBI jq scl-devtoolset r cmake/3.29.9 apache-ant sqlite

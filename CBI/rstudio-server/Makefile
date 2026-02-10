@@ -68,8 +68,15 @@ $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	module try-load $(CONFIG_MODULES); \
 	module list; \
 	export RSTUDIO_TOOLS_ROOT=$<; \
-	if [[ "$(@F)" == "yaml-cpp" ]]; then \
-	     export CXXFLAGS="-include cstdint"; \
+        export CXXFLAGS="-include cstdint"; \
+        export SQLITE3_INCLUDE_DIR=/mnt/software/cbi/software/_rocky9/sqlite-3.51.2/include; \
+        export SQLITE3_LIBRARY=/mnt/software/cbi/software/_rocky9/sqlite-3.51.2/lib/libsqlite3.so; \
+	$(BUILD_PATH)/dependencies/common/install-$(@F)
+#	if [[ "$(@F)" == "yaml-cpp" ]]; then \
+	    export CXXFLAGS="-include cstdint"; \
+	elif [[ "$(@F)" == "soci" ]]; then \
+	    export SQLITE3_INCLUDE_DIR=/mnt/software/cbi/software/_rocky9/sqlite-3.51.2/include; \
+	    export SQLITE3_LIBRARY=/mnt/software/cbi/software/_rocky9/sqlite-3.51.2/lib/libsqlite3.so; \
 	fi; \
 	$(BUILD_PATH)/dependencies/common/install-$(@F)
 

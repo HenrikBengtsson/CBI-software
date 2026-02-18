@@ -1,0 +1,6 @@
+NAME=gradle
+VERSION=9.3.1
+DOWNLOAD_TARGET_FILE=bin/gradle
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/gradle

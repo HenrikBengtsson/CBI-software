@@ -1,0 +1,30 @@
+help([[
+ollama: Start Building with Open Models
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: llm")
+whatis("URL: https://ollama.com/, https://github.com/ollama/ollama/releases/ (releases), https://github.com/ollama/ollama/ (source code)")
+whatis([[
+Description: Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models. 
+Examples: `ollama --version` and `ollama --help`.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib", "ollama"))
+
+
+-- Warn about missing system libraries
+if (mode() == "load") then
+  local handle = os.execute("ldconfig -p | grep -q libcuda.so")
+  if not handle then
+      LmodWarning("[" .. name .. "]: libcuda.so not found. GPU features may not work")
+  end
+end
+

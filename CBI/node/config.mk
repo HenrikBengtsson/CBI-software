@@ -1,0 +1,7 @@
+NAME=node
+VERSION=24.13.1
+DOWNLOAD_TARGET_FILE=bin/node
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/node
+

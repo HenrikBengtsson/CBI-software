@@ -8,17 +8,12 @@ whatis("Version: " .. version)
 whatis("Keywords: programming")
 whatis("URL: https://openjdk.org/, https://jdk.java.net/ (releases)")
 whatis([[
-Description: Open Java Development Kit (OpenJDK) is a free and open-source implementation of the Java Platform, Standard Edition (Java SE).
+Description: Open Java Development Kit (OpenJDK) is a free and open-source implementation of the Java Platform, Standard Edition (Java SE). Long-Term Support (LTS) versions of OpenJDK are 8, 11, 17, 21, and 25.
 Examples: `java -version` and `javac -version`.
 ]])
 
 -- Local variables
 local root = os.getenv("SOFTWARE_ROOT_CBI")
-
--- Specific to the Linux distribution?
-if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
-  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
-end
 
 local home = pathJoin(root, name .. "-" .. version)
 

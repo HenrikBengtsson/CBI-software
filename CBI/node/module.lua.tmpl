@@ -1,0 +1,25 @@
+help([[
+node: Node.js - Run JavaScript Everywhere
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: programming")
+whatis("URL: https://nodejs.org/, https://nodejs.org/docs/latest/api/ (documentation), https://github.com/nodejs/node (source code), https://github.com/nodejs/node/releases (releases)")
+whatis([[
+Description: Node.js is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts. Long-term-support (LTS) versions of Node.js have even numbers, e.g. 20, 22, and 24.
+Examples: `node --version` and `node --help`. It's recommended to do `npm config set prefix ~/.local` (once) such that `npm install -g <pkg>` installs to `~/.local`.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+setenv("NODE_PATH", pathJoin(base, "lib", "node_modules"))
+prepend_path("CPATH", pathJoin(home, "include"))
+
+

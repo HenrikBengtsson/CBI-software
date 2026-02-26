@@ -1,13 +1,15 @@
 include config.mk
 include ../utils.mk
 
+GITHUB_REPO=https://github.com/dariober/ASCIIGenome
+
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://github.com/dariober/ASCIIGenome/releases/download/v$(VERSION)/$(NAME)-$(VERSION).zip; \
+	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(NAME)-$(VERSION).zip; \
 	unzip $(NAME)-$(VERSION).zip
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
@@ -18,5 +20,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@curl --silent https://raw.githubusercontent.com/dariober/ASCIIGenome/master/CHANGELOG.md | grep -E "^New in" | head -1 | sed -E 's/^New in *//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
 

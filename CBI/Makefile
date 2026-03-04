@@ -146,12 +146,31 @@ PACKAGES:
 changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
 
-available-version:
+installed-versions:
+	@echo "Check for out-of-date modules:"
+	@for ff in */config.mk; do \
+	    dd=$$(dirname "$$ff"); \
+	    (cd "$$dd"; \
+	        iv=$$(module spider "$$dd" 2>&1 | grep -oP "$$dd/\K[\d.]+" | sort -V | tail -1); \
+	        cv=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); \
+	        if [[ -z $$iv ]]; then \
+	            printf "[ ?? ] %s %s: %s\n" "$$dd" "$$cv" "not-installed"; \
+	        elif [[ $$iv == $$cv ]] && [[ -z "$(FULL)" ]]; then \
+	            printf "[ OK ] %s %s: %s\n" "$$dd" "$$cv" "$$iv"; \
+	        else \
+	            printf "[NOTE] %s %s: %s\n" "$$dd" "$$cv" "$$iv"; \
+	        fi \
+	    ); \
+	done
+
+available-versions:
 	@echo "Check for out-of-date config.mk files:"
 	@for ff in */config.mk; do \
 	    dd=$$(dirname "$$ff"); \
 	    grep -qE "^available-version:" "$$dd/Makefile" && printf "[....] %s " "$$dd"; \
 	    (cd "$$dd"; \
+	        iv=$$(module spider "${name}" 2>&1 | grep -oP "${name}/\K[\d.]+" | sort -V | tail -1
+
 	        cv=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); \
 	        printf "%s" "$$cv"; \
 	        av=$$(timeout 5s make --quiet available-version 2> /dev/null | tr $$'\r' $$'\n'); \

@@ -1,0 +1,18 @@
+help("slackdump: Slack Dumper")
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utils")
+whatis("URL: https://github.com/rusq/slackdump, https://github.com/rusq/slackdump/blob/master/cmd/slackdump/internal/man/assets/quickstart.md (documentation) https://github.com/rusq/slackdump/blob/master/cmd/slackdump/internal/man/assets/changelog.md (changelog), https://github.com/rusq/slackdump/releases (releases)")
+whatis([[
+Description: Save or export your private and public Slack messages, threads, files, and users locally without admin privileges.
+Examples: `slackdump version`, `slackdump help quickstart`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))

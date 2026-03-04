@@ -2,7 +2,8 @@ include config.mk
 include ../utils.mk
 
 ARCH=x86_64-linux-gnu
-TARBALL=$(NAME)-$(VERSION)-$(ARCH).tar.gz
+VERSION2=$(VERSION)$(PATCH_VERSION)
+TARBALL=$(NAME)-$(VERSION2)-$(ARCH).tar.gz
 GITHUB_REPO=https://github.com/hpjansson/$(NAME)
 
 ## ----------------------------------------------------------
@@ -13,7 +14,7 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://hpjansson.org/chafa/releases/static/$(TARBALL); \
 	tar -xzf $(TARBALL); \
-	mv $(NAME)-$(VERSION)-$(ARCH) $(NAME)-$(VERSION)
+	mv $(NAME)-$(VERSION2)-$(ARCH) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

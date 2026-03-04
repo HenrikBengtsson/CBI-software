@@ -1,5 +1,5 @@
 NAME=action-validator
-VERSION=0.7.1
+VERSION=0.8.0
 DOWNLOAD_TARGET_FILE=action-validator_linux_amd64
 CONFIG=false
 BUILD_TARGET_FILE=action-validator

@@ -11,7 +11,7 @@ $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH); \
 	cd $(BUILD_PATH); \
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
-	tar jxf $(TARBALL)
+	tar xf $(TARBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

@@ -172,8 +172,6 @@ available-versions:
 	    dd=$$(dirname "$$ff"); \
 	    grep -qE "^available-version:" "$$dd/Makefile" && printf "[....] %s " "$$dd"; \
 	    (cd "$$dd"; \
-	        iv=$$(module spider "${name}" 2>&1 | grep -oP "${name}/\K[\d.]+" | sort -V | tail -1
-
 	        cv=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); \
 	        printf "%s" "$$cv"; \
 	        av=$$(timeout 5s make --quiet available-version 2> /dev/null | tr $$'\r' $$'\n'); \

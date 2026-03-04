@@ -148,15 +148,18 @@ changelog-urls:
 
 installed-versions:
 	@echo "Check for out-of-date modules:"
-	@for ff in */config.mk; do \
+	@shopt -s extglob; \
+	for ff in */config.mk; do \
 	    dd=$$(dirname "$$ff"); \
 	    (cd "$$dd"; \
-	        iv=$$(module spider "$$dd" 2>&1 | grep -oP "$$dd/\K[\d.]+" | sort -V | tail -1); \
+	        iv=$$(module spider "$$dd" 2>&1 | grep -oP "$$dd/\K[[:alnum:].-]+" | sort -V | tail -1); \
 	        cv=$$(make --quiet version 2> /dev/null | tr $$'\r' $$'\n'); \
 	        if [[ -z $$iv ]]; then \
 	            printf "[ ?? ] %s %s: %s\n" "$$dd" "$$cv" "not-installed"; \
 	        elif [[ $$iv == $$cv ]] && [[ -z "$(FULL)" ]]; then \
-	            printf "[ OK ] %s %s: %s\n" "$$dd" "$$cv" "$$iv"; \
+	            printf "[ OK ] %s %s\n" "$$dd" "$$iv"; \
+	        elif [[ $${iv%-gcc*} == $$cv ]] && [[ -z "$(FULL)" ]]; then \
+	            printf "[ OK ] %s %s\n" "$$dd" "$$iv"; \
 	        else \
 	            printf "[NOTE] %s %s: %s\n" "$$dd" "$$cv" "$$iv"; \
 	        fi \

@@ -23,7 +23,7 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p "$(PREFIX)"
 	cp -p "$(BUILD_TARGET)" "$(PREFIX)"
-	ln -al "$(PREFIX)"
+	ls -al "$(PREFIX)"
 
 available-version:
 	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'

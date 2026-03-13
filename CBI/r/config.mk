@@ -5,13 +5,17 @@ VERSION=4.5.3
 LINUX_DISTRO_SPECIFIC=true
 
 CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib --without-recommended-packages
-#CONFIG_OPTS=--enable-memory-profiling --enable-R-shlib --without-recommended-packages --with-x=no
 BUILD_TARGET_FILE=bin/exec/R
 BUILD_OPTS=-j 4
 INSTALL_TARGET_FILE=bin/R
 MODULE_NAME=r
 OPENJDK_VERSION=1.8.0
-#OPENJDK_VERSION=25
+
+ifneq ($(filter %corehpc.ucsf.edu,$(HOSTNAME)),)
+    CONFIG_OPTS += --with-x=no
+    OPENJDK_VERSION=25
+    GCC_VERSION=15
+endif
 
 CONFIG_MODULES=CBI scl-gcc-toolset
 

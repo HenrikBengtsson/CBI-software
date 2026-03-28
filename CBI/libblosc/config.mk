@@ -1,0 +1,6 @@
+NAME=libblosc
+VERSION=1.21.6
+DOWNLOAD_TARGET_FILE=CMakeLists.txt
+CONFIG_TARGET_FILE=build
+BUILD_TARGET_FILE=build/blosc/libblosc.so
+INSTALL_TARGET_FILE=lib/libblosc.so

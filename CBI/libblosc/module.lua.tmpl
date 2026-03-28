@@ -1,0 +1,21 @@
+help("libblosc: A Blocking, Shuffling and Loss-less Compression Library")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.blosc.org/, https://github.com/Blosc/c-blosc (source code), https://github.com/Blosc/c-blosc/releases (release)")
+whatis([[
+Description: A blocking, shuffling and loss-less compression library that can be faster than `memcpy()`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- run-time
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("PKG_CONFIG_PATH",  pathJoin(home, "lib", "pkgconfig"))
+prepend_path("CPATH",  pathJoin(home, "include"))

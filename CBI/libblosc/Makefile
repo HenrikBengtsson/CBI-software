@@ -19,19 +19,19 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(BUILD_PATH)/build"
 	cd "$(BUILD_PATH)/build"; \
 	module purge; \
-	module load $(CONFIG_MODULES); \
+	module try-load $(CONFIG_MODULES); \
 	cmake .. -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	module purge; \
-	module load $(BUILD_MODULES); \
+	module try-load $(BUILD_MODULES); \
 	cmake --build .
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	module purge; \
-	module load $(BUILD_MODULES); \
+	module try-load $(BUILD_MODULES); \
         cmake --build . --target install
 
 available-version:

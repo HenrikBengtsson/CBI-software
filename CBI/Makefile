@@ -150,7 +150,7 @@ clear-cache:
 	rm -rf ~/.cache/lmod
 
 installed-versions:
-	@echo "Check for out-of-date modules (<name> <available version>: <installed version>):"
+	@echo "Check for out-of-date modules (<name> <configured version>: <installed version>):"
 	@shopt -s extglob; \
 	for ff in */config.mk; do \
 	    dd=$$(dirname "$$ff"); \

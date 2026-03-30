@@ -1,5 +1,5 @@
 NAME=sratoolkit
-VERSION=3.2.1
+VERSION=3.4.1
 DOWNLOAD_TARGET_FILE=bin/fastq-dump
 CONFIG=false
 BUILD=false

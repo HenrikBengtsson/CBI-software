@@ -12,6 +12,8 @@ debug2:
 	@echo "PYTHON3=$(PYTHON3)"
 
 $(BUILD_PATH)/virtualenv:
+	## Assert Python module 'virtualenv' is installed
+	$(PYTHON3) -m virtualenv --version
 	module load CBI; \
 	$(PYTHON3) -m pip install --target="$(@D)" virtualenv pip
 

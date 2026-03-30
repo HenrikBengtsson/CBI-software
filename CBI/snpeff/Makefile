@@ -3,8 +3,9 @@ include ../utils.mk
 
 VERSION_:=$(subst .,_,$(VERSION))
 
+DOWNLOAD_BASE_URL=https://snpeff.odsp.astrazeneca.com/versions
 ZIPBALL=$(NAME)_v$(VERSION_)_core.zip
-DOWNLOAD_URL=https://snpeff.odsp.astrazeneca.com/versions/$(ZIPBALL)
+DOWNLOAD_URL=$(DOWNLOAD_BASE_URL)/$(ZIPBALL)
 
 ## ----------------------------------------------------------
 ## SOFTWARE

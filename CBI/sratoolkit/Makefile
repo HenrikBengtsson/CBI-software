@@ -1,7 +1,14 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME).$(VERSION)-centos_linux64.tar.gz
+## sratoolkit (<= 3.2.0)
+ARCH=centos_linux64
+
+## sratoolkit (>= 3.2.1)
+ARCH=alma_linux64
+
+TARNAME=$(NAME).$(VERSION)-$(ARCH)
+TARBALL=$(TARNAME).tar.gz
 FTP_HOME=https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk
 
 ## ----------------------------------------------------------
@@ -12,7 +19,7 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O $(FTP_HOME)/$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL); \
-	mv $(NAME).$(VERSION)-centos_linux64 $(NAME)-$(VERSION)
+	mv $(TARNAME) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

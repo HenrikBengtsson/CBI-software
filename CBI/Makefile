@@ -146,6 +146,9 @@ PACKAGES:
 changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
 
+clear-cache:
+	rm -rf ~/.cache/lmod
+
 installed-versions:
 	@echo "Check for out-of-date modules (<name> <available version>: <installed version>):"
 	@shopt -s extglob; \

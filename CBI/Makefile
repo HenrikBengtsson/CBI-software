@@ -147,7 +147,7 @@ changelog-urls:
 	grep -F "(changelog)" -- */module.lua.tmpl | sed 's/(changelog).*//' | sed -E 's|^(.+)/module.lua.tmpl:.*, |\1\t|'
 
 installed-versions:
-	@echo "Check for out-of-date modules:"
+	@echo "Check for out-of-date modules (<name> <available version>: <installed version>):"
 	@shopt -s extglob; \
 	for ff in */config.mk; do \
 	    dd=$$(dirname "$$ff"); \
@@ -167,7 +167,7 @@ installed-versions:
 	done
 
 available-versions:
-	@echo "Check for out-of-date config.mk files:"
+	@echo "Check for out-of-date config.mk files (<name> <configured version>: <available version>):"
 	@for ff in */config.mk; do \
 	    dd=$$(dirname "$$ff"); \
 	    grep -qE "^available-version:" "$$dd/Makefile" && printf "[....] %s " "$$dd"; \

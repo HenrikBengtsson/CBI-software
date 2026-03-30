@@ -5,6 +5,8 @@ PYTHON3=python3.11
 
 ifeq ($(LINUX_NAME),CentOS Linux)
 PYTHON3=python3
+else ifeq ($(_LINUX_DISTRO_),rocky9)
+PYTHON3=python3
 endif
 
 

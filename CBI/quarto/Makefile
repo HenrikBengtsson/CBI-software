@@ -3,6 +3,8 @@ include ../utils.mk
 
 ifeq ($(LINUX_NAME),Ubuntu)
   ARCH=linux-amd64
+else ifeq ($(LINUX_NAME),Rocky Linux)
+  ARCH=linux-amd64
 else
   ARCH=linux-rhel7-amd64
 endif

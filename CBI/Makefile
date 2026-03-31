@@ -149,7 +149,7 @@ changelog-urls:
 clear-cache:
 	rm -rf ~/.cache/lmod
 
-installed-versions:
+installed-versions: clear-cache
 	@echo "Check for out-of-date modules (<name> <configured version>: <installed version>):"
 	@shopt -s extglob; \
 	for ff in */config.mk; do \

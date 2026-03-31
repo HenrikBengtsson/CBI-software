@@ -13,6 +13,7 @@ Requirements: Firefox (>= 57) on the system.
 Examples: `browsh --version` and `browsh --help`.
 ]])
 
+depends_on("firefox")
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

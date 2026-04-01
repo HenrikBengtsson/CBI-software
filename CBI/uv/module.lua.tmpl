@@ -1,0 +1,19 @@
+help([[
+uv: Extremely Fast Python Package and Project Manager
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, python")
+whatis("URL: https://docs.astral.sh/uv (documentation), https://github.com/astral-sh/uv (source code), https://github.com/astral-sh/uv/releases (releases)")
+whatis([[
+Description: The 'uv' tool replaces 'pip', 'pip-tools', 'pipx', 'poetry', 'pyenv', 'twine', 'virtualenv', and more.
+Examples: `uv --help`, `uv --version`
+Warning: Only the most recent version of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

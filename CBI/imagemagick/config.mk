@@ -1,0 +1,6 @@
+NAME=imagemagick
+VERSION=7.1.2-18
+DOWNLOAD_TARGET_FILE=magick
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=magick

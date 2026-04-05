@@ -1,0 +1,21 @@
+help([[
+smolvm: Ship and Run Software with Isolation by Default
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, file viewer, cli, tui")
+whatis("URL: https://github.com/smol-machines/smolvm, https://github.com/smol-machines/smolvm/releases (releases)")
+whatis([[
+Description: Tool to build & run portable, lightweight, self-contained virtual machines.
+Examples: `smolvm --version` and `smolvm --help`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))

@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(upterm version | head -n 1 | sed -E 's/.* v//g')
+    version=$(upterm version | head -n 1 | sed -E 's/.* (v|version *)//g')
     assert_equal "${version}" "${VERSION}"
 }

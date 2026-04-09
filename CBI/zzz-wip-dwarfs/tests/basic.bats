@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(dwarfs --version | grep -E "^dwarf" | sed -E 's/^[^ ]+ +//' | sed -E 's/ .*//' | sed -E 's/.*v//')
+    version=$(dwarfs --help | grep -E "^dwarfs " | sed 's/.* [(]v//' | sed 's/ .*//')
     assert_equal "${version}" "${VERSION}"
 }

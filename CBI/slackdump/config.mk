@@ -1,5 +1,5 @@
 NAME=slackdump
-VERSION=4.1.0
+VERSION=4.2.0
 DOWNLOAD_TARGET_FILE=usr/bin/slackdump
 CONFIG=false
 BUILD=false

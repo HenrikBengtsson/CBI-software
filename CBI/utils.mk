@@ -175,7 +175,7 @@ download: $(DOWNLOAD_TARGET)
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	make --quiet pre_config
 	module --force purge; \
-	module load $(CONFIG_MODULES); \
+	module try-load $(CONFIG_MODULES); \
 	module list; \
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	cd $(BUILD_PATH); \
@@ -196,7 +196,7 @@ post_config:
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	make --quiet pre_build
 	module --force purge; \
-	module load $(BUILD_MODULES); \
+	module try-load $(BUILD_MODULES); \
 	module list; \
 	cd $(BUILD_PATH); \
 	make $(BUILD_OPTS)

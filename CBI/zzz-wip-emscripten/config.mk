@@ -1,5 +1,5 @@
 NAME=emsdk
-VERSION=4.0.21
+VERSION=5.0.5
 DOWNLOAD_TARGET_FILE=emsdk/emsdk.py
 CONFIG=false
 BUILD_TARGET_FILE=emsdk/emsdk

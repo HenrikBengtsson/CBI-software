@@ -1,5 +1,5 @@
 NAME=kitty
-VERSION=0.44.0
+VERSION=0.46.2
 DOWNLOAD_TARGET_FILE=.downloaded
 CONFIG=false
 BUILD=false

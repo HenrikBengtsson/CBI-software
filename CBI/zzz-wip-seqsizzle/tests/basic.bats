@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(seqsizzle --version | head -n 1 | sed -E 's/(^.+ | .*)//g')
+    version=$(seqsizzle --version | grep -E "^seqsizzle" | sed -E 's/(^.+ | .*)//g')
     assert_equal "${version}" "${VERSION}"
 }

@@ -1,5 +1,5 @@
 NAME=seqsizzle
-VERSION=0.1.4
+VERSION=0.4.1
 DOWNLOAD_TARGET_FILE=seqsizzle
 CONFIG=false
 BUILD=false

@@ -15,7 +15,7 @@ $(DOWNLOAD_TARGET):
 	curl -L -O https://releases.astral.sh/github/uv/releases/download/$(VERSION)/$(TARBALL); \
         tar xf $(TARBALL) --strip-components=1 -C $(BUILD_PATH)
 
-$(INSTALL_TARGET): $(BUILD_TARGET)
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)/.."
 	cp -pR "$(BUILD_PATH)" "$(PREFIX)/.."
 	ls -al "$(PREFIX)"

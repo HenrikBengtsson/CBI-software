@@ -1,5 +1,5 @@
 NAME=htop
-VERSION=3.4.1
+VERSION=3.5.0
 
 ## This software needs to be built for each Linux distribution separately
 ## (unless 'ncurses-compat-libs' is installed)

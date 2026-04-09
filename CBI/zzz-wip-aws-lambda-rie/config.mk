@@ -1,5 +1,5 @@
 NAME=aws-lambda-rie
-VERSION=1.24
+VERSION=1.35
 DOWNLOAD_TARGET_FILE=$(NAME)
 CONFIG=false
 BUILD=false

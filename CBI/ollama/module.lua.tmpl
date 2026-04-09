@@ -24,6 +24,6 @@ prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib", "ollama"))
 if (mode() == "load") then
   local handle = os.execute("ldconfig -p | grep -q libcuda.so")
   if not handle then
-      LmodWarning("[" .. name .. "]: libcuda.so not found. GPU features may not work")
+      LmodMessage("[" .. name .. "]: libcuda.so not found. GPU features may not work")
   end
 end

@@ -4,6 +4,7 @@ ollama: Start Building with Open Models
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: llm")
 whatis("URL: https://ollama.com/, https://github.com/ollama/ollama/releases/ (releases), https://github.com/ollama/ollama/ (source code)")

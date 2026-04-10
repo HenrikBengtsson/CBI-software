@@ -1,5 +1,5 @@
 NAME=ollama
-VERSION=0.20.4
+VERSION=0.20.5
 DOWNLOAD_TARGET_FILE=bin/ollama
 CONFIG=false
 BUILD=false

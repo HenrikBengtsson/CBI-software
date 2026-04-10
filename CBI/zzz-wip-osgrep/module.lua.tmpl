@@ -1,0 +1,19 @@
+help([[
+osgrep: Open Source Semantic Search for your AI Agent 
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, ai")
+whatis("URL: https://github.com/Ryandonofrio3/osgrep (documentation), https://github.com/igorshubovych/markdownlint-cli/releases/ (releases), https://github.com/igorshubovych/markdownlint-cli (source code)")
+whatis([[
+Description: Slash tokens. Save time. Semantic search for your coding agent. Natural-language search that works like grep. Fast, local, and built for coding agents.
+Examples: `osgrep --version`, `osgrep --help`.
+]]
+)
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "node_modules", ".bin"))

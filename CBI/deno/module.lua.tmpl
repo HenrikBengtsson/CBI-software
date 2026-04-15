@@ -1,0 +1,21 @@
+help([[
+deno: A Modern Runtime for JavaScript, TypeScript, and WebAssembly
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, javascript, typescript, webassembly")
+whatis("URL: https://deno.com/, https://docs.deno.com/runtime/ (documentation), https://github.com/denoland/deno (source code), https://github.com/denoland/deno/releases (releases)")
+whatis([[
+Description: Deno is a JavaScript, TypeScript, and WebAssembly runtime with secure defaults and a great developer experience. It's built on V8, Rust, and Tokio.
+Examples: `deno --version`, `deno --help`.
+License: MIT
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

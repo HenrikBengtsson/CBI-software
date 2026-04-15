@@ -4,3 +4,4 @@ CONFIG=false
 BUILD=false
 DOWNLOAD=false
 INSTALL_TARGET_FILE=node_modules/.bin/markdownlint
+BUILD_MODULES=CBI node

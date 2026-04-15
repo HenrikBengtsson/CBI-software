@@ -29,6 +29,8 @@ $(INSTALL_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
 	module purge; \
+	module try-load $(BUILD_MODULES); \
+	module list; \
 	npm_config_cache="$$(mktemp -d)" npm install --engine-strict --prefix="$(PREFIX)" markdownlint-cli@$(VERSION)
 	make post_install
 	ls -la $(PREFIX)

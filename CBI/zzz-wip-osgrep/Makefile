@@ -6,6 +6,9 @@ include ../utils.mk
 ## SOFTWARE
 ## ----------------------------------------------------------
 
+post_install:
+	npx run --prefix="$(PREFIX)" osgrep setup
+
 $(INSTALL_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \

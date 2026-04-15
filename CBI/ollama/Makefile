@@ -13,7 +13,7 @@ $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_HOME); \
         curl -L -O "$(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL)"; \
-	tar xf "$(TARBALL)" -C "$(BUILD_PATH)"
+	tar -I zstd -xf "$(TARBALL)" -C "$(BUILD_PATH)"
 
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

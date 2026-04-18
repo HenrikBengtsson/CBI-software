@@ -19,3 +19,10 @@ local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
 prepend_path("PATH", home)
+
+-- DENO_JOBS: Number of parallel workers used for the '--parallel' flag
+-- with the test subcommand. Defaults to number of available CPUs.
+-- FIX: Change default to two parallel workers
+if not os.getenv("DENO_JOBS") then
+    pushenv("DENO_JOBS", "2")
+end

@@ -126,19 +126,30 @@ assert_java_version:
 
 assert_config: $(CONFIG_TARGET)
 #	## Has C++ compiler
-	grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+" "$<"
+	@grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+" "$<"
 
-#	## Has C++11 compiler with version
-#	## Has C++11 compiler
-	if [[ $(VERSION_X) -ge 4 ]] || [[ $(VERSION_X) -ge 3 ]] && [[ $(VERSION_Y) -ge 4 ]]; then \
+        ## R (>= 3.0)
+#	## Has C++11 compiler 
+	@if [[ $(VERSION_X) -ge 3 ]]; then \
+            echo "R (>= 3.0)"; \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+][[:digit:]]+\b" "$<"; \
+	fi
+
+#       ## R (>= 3.4) && (< 4.0)
+	@if [[ $(VERSION_X) -eq 3 ]] && [[ $(VERSION_Y) -ge 4 ]]; then \
+            echo "R (>= 3.4 && < 4.0)"; \
 	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+](11|17)\b" "$<"; \
 	fi
-#	## Has C++14 compiler
-#	## Has C++17 compiler
+
+#       ## R (>= 4.0)
 	if [[ $(VERSION_X) -ge 4 ]]; then \
-	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]14\b" "$<"; \
-	    grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+]17\b" "$<"; \
+	    if [[ $(VERSION_Y) -ge 6 ]]; then \
+	        echo "R (>= 4.6)"; \
+	        grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+](20)\b" "$<"; \
+	    else \
+	        echo "R (>= 4.0 && <= 4.5)"; \
+	        grep -E "C[+][+]([[:digit:]]+|) compiler:[[:space:]]*g[+][+][[:space:]]+-std=gnu[+][+](14|17)\b" "$<"; \
+	    fi; \
 	fi
 
 #	grep -E "Interfaces supported:.*\bX11\b" "$<"

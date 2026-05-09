@@ -1,0 +1,19 @@
+help([[
+opencode: The Open Source AI Coding Agent
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: cli, ai")
+whatis("URL: https://opencode.ai/, https://github.com/anomalyco/opencode/releases (releases), https://github.com/anomalyco/opencode (source code)")
+whatis([[
+Description: The open source AI coding agent. Free models included or connect any model from any provider, including Claude, GPT, Gemini and more.
+Examples: `opencode --version`, `opencode --help`.
+]]
+)
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "node_modules", "opencode-ai", "bin"))

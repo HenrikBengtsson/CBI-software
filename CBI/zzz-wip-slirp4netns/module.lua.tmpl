@@ -1,0 +1,21 @@
+help([[
+slirp4netns: User-Mode Networking for Unprivileged Network Namespaces
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/rootless-containers/slirp4netns, https://github.com/rootless-containers/slirp4netns/releases/ (releases)")
+whatis([[
+Description: slirp4netns provides user-mode networking ("slirp") for unprivileged network namespaces.
+Examples: `slirp4netns --help`, `slirp4netns --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

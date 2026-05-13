@@ -240,6 +240,19 @@ uninstall:
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## End User License Agreement (EULA)
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef EULA
+  EULA=false
+endif
+
+eula: $(SOFTWARE_HOME)/_utils/assert-eula
+
+$(SOFTWARE_HOME)/_utils/assert-eula: ../../utils/assert-eula
+	mkdir -p "$(@D)"
+	cp -p "$<" "$@"
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MODULE
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef INSTALL_MODULE
@@ -466,6 +479,8 @@ debug:
 	@echo "ARCHITECTURE:"
 	@echo "LINUX_NAME: $(LINUX_NAME)"
 	@echo "LINUX_VERSION: $(LINUX_VERSION)"
+	@echo
+	@echo "EULA: $(EULA)"
 
 
 version:

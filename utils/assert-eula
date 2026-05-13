@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# assert-eula <app_name> <eula_url>
+
+MODULE_STACK="CBI"
+
+
+module_name="${1:?}"
+eula_url="${2:?}"
+
+data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/${MODULE_STACK}"
+sentinel="${data_dir}/eula_accepted_for_module_${module_name}"
+
+# 1. Check for existing approval
+[[ -f "${sentinel}" ]] && exit 0
+
+# 2. Check for interactivity
+if [[ ! -t 0 ]]; then
+    {
+        echo "------------------------------------------------------------"
+        echo "ERROR: EULA for '${module_name}' has not been accepted."
+        echo "Please run 'module load ${module_name}' in an _interactive_ shell"
+        echo "session to read and agree to the terms at:"
+        echo "<${eula_url}>"
+        echo "------------------------------------------------------------"
+    } >&2
+    exit 1
+fi
+
+# 3. Interactive Prompt
+{
+    echo
+    echo "To use '${module_name}', you must accept the end-user license agreement (EULA) at:"
+    echo "<${eula_url}>"
+    echo
+} >&2
+read -p "Do you agree to these terms? (y/n): " choice
+
+case "$choice" in
+    [yY][eE][sS]|[yY])
+        mkdir -p "${data_dir}"
+        date +"EULA accepted by user '${USER}' via 'module load ${module_name}' on %Y-%m-%d at %H:%M:%S" > "${sentinel}"
+        echo "EULA agreement recorded for ${module_name}." >&2
+        exit 0
+        ;;
+    *)
+        {
+            echo "------------------------------------------------------------"
+            echo "Error: EULA declined. Module load aborted." >&2
+            echo "------------------------------------------------------------"
+        } >&2
+        exit 1
+        ;;
+esac

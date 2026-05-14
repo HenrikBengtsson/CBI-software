@@ -421,6 +421,7 @@ debug:
 	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "VERSION_X: $(VERSION_X)"
 	@echo "VERSION_Y: $(VERSION_Y)"
+	@echo "VERSION_Z: $(VERSION_Z)"
 	@echo "URL: $(URL)"
 	@echo "LINUX_DISTRO_SPECIFIC: $(LINUX_DISTRO_SPECIFIC)"
 	@echo "_LINUX_DISTRO_: $(_LINUX_DISTRO_)"

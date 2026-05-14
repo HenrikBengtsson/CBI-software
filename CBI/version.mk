@@ -14,6 +14,7 @@ VERSION_X_Y_Z := $(shell echo "$(VERSION)" | sed -E 's/[+][[:digit:]]+$$//' | se
 VERSION_X_Y := $(shell echo "$(VERSION_X_Y_Z)" | sed -E 's/[.-][^.-]*$$//')
 VERSION_X := $(shell echo "$(VERSION_X_Y)" | sed -E 's/[.-][^.-]*$$//')
 VERSION_Y := $(shell echo "$(VERSION_X_Y)" | sed -E 's/^[^.-]*[.-]//')
+VERSION_Z := $(shell echo "$(VERSION_X_Y_Z)" | sed -E 's/^$(VERSION_X_Y)*[.-]//')
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -26,3 +27,4 @@ debug_version:
 	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "VERSION_X: $(VERSION_X)"
 	@echo "VERSION_Y: $(VERSION_Y)"
+	@echo "VERSION_Z: $(VERSION_Z)"

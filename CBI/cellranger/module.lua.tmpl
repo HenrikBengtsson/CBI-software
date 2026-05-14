@@ -4,12 +4,14 @@ Cell Ranger: 10x Genomics Pipeline for Single-Cell Data Analysis
 
 local name = myModuleName()
 local version = myModuleVersion()
+    
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, 10x genomics")
 whatis("URL: https://www.10xgenomics.com/support/software/cell-ranger/latest, https://www.10xgenomics.com/support/software/cell-ranger/latest/release-notes/cr-release-notes (changelog), https://github.com/10XGenomics/cellranger (source code)")
 whatis([[
 Description: Cell Ranger is a set of analysis pipelines that process Chromium Single Cell 3' RNA-seq output to align reads, generate gene-cell matrices and perform clustering and gene expression analysis.
 Examples: `cellranger --help` and `cellranger --version`.
+EULA: https://www.10xgenomics.com/legal/end-user-software-license-agreement
 Warning: To prevent a single Cell Ranger process from hijacking all CPU and RAM by default, this module sets environment variable `MROFLAGS='--localcores=1 --localmem=8 --limit-loadavg'` making those the default.
 ]])
 
@@ -31,4 +33,3 @@ pushenv("MROFLAGS", "--localcores=1 --localmem=8 --limit-loadavg")
 setenv("X86_64_LEVEL_ASSERT", "2")
 try_load("x86-64-level")
 setenv("X86_64_LEVEL_ASSERT", "")
-

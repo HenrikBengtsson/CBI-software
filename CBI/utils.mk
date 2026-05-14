@@ -1,5 +1,7 @@
 SHELL=bash
 
+export MODULE_INSTALLATION := "installing"
+
 include $(dir $(lastword $(MAKEFILE_LIST)))version.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))sysinfo.mk
 
@@ -240,19 +242,6 @@ uninstall:
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## End User License Agreement (EULA)
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ifndef EULA
-  EULA=false
-endif
-
-eula: $(SOFTWARE_HOME)/_utils/assert-eula
-
-$(SOFTWARE_HOME)/_utils/assert-eula: ../../utils/assert-eula
-	mkdir -p "$(@D)"
-	cp -p "$<" "$@"
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MODULE
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef INSTALL_MODULE
@@ -308,7 +297,11 @@ $(MODULE_TARGET): module.lua.tmpl
 	make --quiet pre_install_module
 	mkdir -p "$(@D)"
 	chmod u+w "$@" 2> /dev/null || true
-	cp "$<" "$@"
+	cp "$<" "$@.tmp"
+	if [[ -n "$(EULA_URL)" ]]; then \
+	     sed 's!{{ EULA_URL }}!$(EULA_URL)!' ../../utils/assert-eula.lmod.tmpl >> "$@.tmp"; \
+	fi
+	mv "$@.tmp" "$@"
 	make --quiet post_install_module
 	module load CBI; \
 	module --ignore-cache show $(MODULE_NAME_VERSION)

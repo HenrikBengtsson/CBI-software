@@ -15,7 +15,17 @@ EULA: https://www.10xgenomics.com/legal/end-user-software-license-agreement
 Warning: To prevent a single Cell Ranger process from hijacking all CPU and RAM by default, this module sets environment variable `MROFLAGS='--localcores=1 --localmem=8 --limit-loadavg'` making those the default.
 ]])
 
-load("bcl2fastq")
+local version_x_str = string.gsub(version, "[.].*", "")
+local version_x = tonumber(version_x_str)
+
+-- Cell Ranger (<  7.0): 'cellranger mkfastq' wrapper for 'bcl2fastq'
+-- Cell Ranger (== 7.0): 'cellranger mkfastq' and 'bcl-convert' supported
+-- Cell Ranger (>= 8.0): 'cellranger mkfastq' deprecated
+if (version_x < 7) then
+    load("bcl2fastq")
+elseif (version_x >= 7) then
+    try_load("bcl2fastq")
+end
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

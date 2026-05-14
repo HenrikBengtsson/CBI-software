@@ -22,7 +22,6 @@ $(DOWNLOAD_TARGET): $(BUILD_HOME)/$(TARBALL)
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)
 	cp -p -R $(BUILD_HOME)/$(NAME)-$(VERSION) $(PREFIX)/..
-	rm $(PREFIX)/.downloaded
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

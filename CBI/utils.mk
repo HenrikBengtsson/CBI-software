@@ -299,7 +299,7 @@ $(MODULE_TARGET): module.lua.tmpl
 	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@.tmp"
 	if [[ -n "$(EULA_URL)" ]]; then \
-	     sed 's!{{ EULA_URL }}!$(EULA_URL)!' ../../utils/assert-eula.lmod.tmpl >> "$@.tmp"; \
+	     sed 's!{{ EULA_URL }}!$(EULA_URL)!' ../../utils/assert_eula.lmod.tmpl >> "$@.tmp"; \
 	fi
 	mv "$@.tmp" "$@"
 	make --quiet post_install_module

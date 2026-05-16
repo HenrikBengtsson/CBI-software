@@ -13,6 +13,8 @@ Examples: `markdownlint --version`, `markdownlint --help`, `markdownlint -- *.md
 ]]
 )
 
+try_load("node")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

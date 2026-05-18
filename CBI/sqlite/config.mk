@@ -84,6 +84,10 @@ VERSION=3.51.2
 VERSION_ID=3510200
 VERSION_YEAR=2026
 
+VERSION=3.53.1
+VERSION_ID=3530100
+VERSION_YEAR=2026
+
 ## This software needs to be built for each Linux distribution separately
 LINUX_DISTRO_SPECIFIC=true
 

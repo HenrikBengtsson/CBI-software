@@ -1,0 +1,77 @@
+function assert_eula(module_name, eula_url)
+    if os.getenv("MODULE_INSTALLATION") then return end
+    
+    if (mode() ~= "load") then return end
+
+    -- Only act when loading the module
+    if (mode() ~= "load") then return end
+
+    local module_stack = "CBI"
+    local user = os.getenv("USER") or "unknown"
+    local xdg_data_home = os.getenv("XDG_DATA_HOME")
+    local home = os.getenv("HOME")
+    
+    -- Define data directory and sentinel path
+    local data_dir = (xdg_data_home or (home .. "/.local/share")) .. "/" .. module_stack
+    local sentinel = data_dir .. "/eula_accepted_for_module_" .. module_name
+
+    -- 1. Check for existing approval
+    local f = io.open(sentinel, "r")
+    if f then
+        f:close()
+        return
+    end
+
+    -- 2. Check for interactivity
+    -- [ -t 0 ] checks if stdin is a terminal
+    local is_interactive = os.execute("[ -t 0 ]")
+    if (not is_interactive) then
+        local msg = {
+            "\n" .. string.rep("-", 60),
+            "ERROR: EULA for '" .. module_name .. "' has not been accepted.",
+            "Please run 'module load " .. module_name .. "' in an *interactive*",
+            "shell session to read and agree to the terms at:",
+            "<" .. eula_url .. ">",
+            string.rep("-", 60) .. "\n"
+        }
+        LmodError(table.concat(msg, "\n"))
+    end
+
+    -- 3. Interactive Prompt
+    -- We must write to stderr to be visible to the user
+    io.stderr:write("\nTo use '" .. module_name .. "', you must accept the end-user license agreement (EULA) at:\n\n  <" .. eula_url .. ">\n\n")
+    io.stderr:write("Do you agree to these terms? (y/n): ")
+    
+    -- Read from /dev/tty to ensure we grab user input even if stdin is redirected
+    local tty = io.open("/dev/tty", "r")
+    local choice = tty:read("*l")
+    tty:close()
+
+    if (choice and choice:match("^[yY]%a*$")) then
+        -- Create directory and write sentinel
+        os.execute("mkdir -p " .. data_dir)
+        local timestamp = os.date("%Y-%m-%d at %H:%M:%S")
+        local record = "EULA accepted by user '" .. user .. "' via 'module load " .. module_name .. "' on " .. timestamp
+        
+        local sf = io.open(sentinel, "w")
+        if sf then
+            sf:write(record .. "\n")
+            sf:close()
+        end
+        
+        io.stderr:write("EULA agreement recorded for '" .. module_name .. "'.\n")
+    else
+        local err_msg = {
+            "\n" .. string.rep("-", 60),
+            "Error: EULA declined. Module load aborted.",
+            string.rep("-", 60) .. "\n"
+        }
+        LmodError(table.concat(err_msg, "\n"))
+    end
+end
+
+
+-- Assert the EULA has been approved
+if (mode() == "load") then
+   assert_eula(name, "{{ EULA_URL }}")
+end

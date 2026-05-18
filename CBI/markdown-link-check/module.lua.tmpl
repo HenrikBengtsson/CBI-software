@@ -13,6 +13,8 @@ Examples: `markdown-link-check --version`, `markdown-link-check --help`, `markdo
 ]]
 )
 
+try_load("node")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

@@ -37,5 +37,6 @@ $(INSTALL_TARGET):
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
+	module try-load $(BUILD_MODULES); \
 	npm_config_cache="$$(mktemp -d)" npm view markdownlint-cli version
 

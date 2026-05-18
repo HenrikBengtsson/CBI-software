@@ -29,11 +29,13 @@ $(INSTALL_TARGET):
 	mkdir -p $(BUILD_PATH)
 	cd $(BUILD_PATH); \
 	module purge; \
+	module try-load $(BUILD_MODULES); \
 	npm_config_cache="$$(mktemp -d)" npm install --engine-strict --prefix="$(PREFIX)" markdown-link-check@$(VERSION)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
+	module try-load $(BUILD_MODULES); \
 	npm_config_cache="$$(mktemp -d)" npm view markdown-link-check version
 

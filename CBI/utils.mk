@@ -1,5 +1,7 @@
 SHELL=bash
 
+export MODULE_INSTALLATION := "installing"
+
 include $(dir $(lastword $(MAKEFILE_LIST)))version.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))sysinfo.mk
 
@@ -295,7 +297,11 @@ $(MODULE_TARGET): module.lua.tmpl
 	make --quiet pre_install_module
 	mkdir -p "$(@D)"
 	chmod u+w "$@" 2> /dev/null || true
-	cp "$<" "$@"
+	cp "$<" "$@.tmp"
+	if [[ -n "$(EULA_URL)" ]]; then \
+	     sed 's!{{ EULA_URL }}!$(EULA_URL)!' ../../utils/assert_eula.lmod.tmpl >> "$@.tmp"; \
+	fi
+	mv "$@.tmp" "$@"
 	make --quiet post_install_module
 	module load CBI; \
 	module --ignore-cache show $(MODULE_NAME_VERSION)
@@ -415,6 +421,7 @@ debug:
 	@echo "VERSION_X_Y: $(VERSION_X_Y)"
 	@echo "VERSION_X: $(VERSION_X)"
 	@echo "VERSION_Y: $(VERSION_Y)"
+	@echo "VERSION_Z: $(VERSION_Z)"
 	@echo "URL: $(URL)"
 	@echo "LINUX_DISTRO_SPECIFIC: $(LINUX_DISTRO_SPECIFIC)"
 	@echo "_LINUX_DISTRO_: $(_LINUX_DISTRO_)"
@@ -466,6 +473,8 @@ debug:
 	@echo "ARCHITECTURE:"
 	@echo "LINUX_NAME: $(LINUX_NAME)"
 	@echo "LINUX_VERSION: $(LINUX_VERSION)"
+	@echo
+	@echo "EULA: $(EULA)"
 
 
 version:

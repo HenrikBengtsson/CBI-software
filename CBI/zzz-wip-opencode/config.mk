@@ -1,5 +1,5 @@
 NAME=opencode
-VERSION=1.14.33
+VERSION=1.14.42
 CONFIG=false
 BUILD=false
 DOWNLOAD=false

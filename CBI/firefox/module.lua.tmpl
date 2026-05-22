@@ -1,0 +1,22 @@
+help([[
+firefox: The Mozilla Firefox Web Browser
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility")
+whatis("URL: https://www.firefox.com/, https://firefox-source-docs.mozilla.org/ (documentation), mozilla.org/en-US/firefox/notes (changelog), https://github.com/mozilla-firefox/firefox (source code), https://searchfox.org/firefox-main/source (source code)")
+whatis([[
+Description: 
+Examples: `firefox --help`, `firefox --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

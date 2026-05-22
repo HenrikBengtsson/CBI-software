@@ -1,7 +1,8 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME)-$(VERSION)_linux_x86_64.tar.gz
+ARCH=linux-x86_64
+TARBALL=$(NAME)-$(ARCH).tar.gz
 GITHUB_REPO=https://github.com/COMBINE-lab/$(NAME)
 
 ## ----------------------------------------------------------
@@ -12,7 +13,7 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar zxf $(TARBALL); \
-	mv salmon-*_linux_x86_64 $(NAME)-$(VERSION)
+	mv salmon-*$(ARCH) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p $(PREFIX)

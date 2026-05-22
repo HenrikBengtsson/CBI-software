@@ -22,4 +22,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -p "$(NAME)_$(ARCH)" "$(PREFIX)"/bin/yq
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//' | sed -E 's/[[:space:]]//g'

@@ -1,0 +1,22 @@
+help([[
+sqlcmd: Tools for working with Microsoft SQL Server, Azure SQL Database, and Azure Synapse
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, sql")
+whatis("URL: https://github.com/microsoft/go-sqlcmd, https://learn.microsoft.com/sql/tools/sqlcmd/go-sqlcmd-utility (documentation), https://github.com/microsoft/go-sqlcmd/releases (releases)")
+whatis([[
+Description: 
+Examples: `sqlcmd --help`, `sqlcmd --version`.
+Warning: Only the most recent version of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

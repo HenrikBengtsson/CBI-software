@@ -46,6 +46,27 @@ ifndef BUILD_PATH
 endif
 
 
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## Install only recent versions?
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ifndef RECENT_ONLY
+  RECENT_ONLY=false
+endif
+
+ifeq ($(RECENT_ONLY),true)
+assert_version:
+	version=$$(make --quiet available-version 2> /dev/null); \
+	if [[ -n "$${version}" ]] && [[ "$${version}" != "$(VERSION)" ]]; then \
+	  >&2 echo "ERROR: Trying to install version $(VERSION) when $${version} is available"; \
+	  exit 1; \
+	fi
+else
+assert_version:
+endif
+
+
+
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DOWNLOADING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -164,7 +185,7 @@ endif
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MAKE RULES
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-all: debug install install_module modulerc check
+all: debug assert_version install install_module modulerc check
 	@echo "Installation successful: ${MODULE_NAME}/${MODULE_VERSION}"
 
 modulerc:
@@ -215,6 +236,7 @@ pre_build:
 post_build:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
+	make --quiet assert-version
 	make --quiet pre_install
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
@@ -431,6 +453,9 @@ debug:
 	@echo "BUILD_HOME: $(BUILD_HOME)"
 	@echo "BUILD_NAME: $(BUILD_NAME)"
 	@echo "BUILD_PATH: $(BUILD_PATH)"
+	@echo
+	@echo "RECENT_ONLY: $(RECENT_ONLY)"
+	@echo "AVAILABLE_VERSION: $(AVAILABLE_VERSION)"
 	@echo
 	@echo "DOWNLOADING:"
 	@echo "DOWNLOAD: $(DOWNLOAD)"

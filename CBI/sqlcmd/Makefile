@@ -15,7 +15,7 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar -xf $(TARBALL) -C "$(BUILD_PATH)"
 
-$(INSTALL_TARGET):
+$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)/.."
 	cp -p -R "$(BUILD_PATH)" "$(PREFIX)/.."
 	make post_install

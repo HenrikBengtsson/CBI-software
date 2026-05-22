@@ -12,6 +12,8 @@ $(BUILD_PATH)/virtualenv:
 ## of the 'Installation' document
 ## https://github.com/marcelm/cutadapt/blob/main/doc/installation.rst
 $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
+	make --quiet assert_version
+	make --quiet pre_install
 	module purge; \
 	module load CBI; \
 	module list; \
@@ -27,4 +29,4 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	python -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'
+	@python -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'

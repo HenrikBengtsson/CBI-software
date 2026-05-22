@@ -17,5 +17,5 @@ $(INSTALL_TARGET):
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	npm_config_cache="$$(mktemp -d)" npm view "$(NAME2)" version 2> /dev/null
+	@npm_config_cache="$$(mktemp -d)" npm view "$(NAME2)" version 2> /dev/null
 

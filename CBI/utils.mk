@@ -58,7 +58,7 @@ ifeq ($(RECENT_ONLY),true)
 assert_version:
 	version=$$(make --quiet available-version 2> /dev/null); \
 	if [[ -n "$${version}" ]] && [[ "$${version}" != "$(VERSION)" ]]; then \
-	  >&2 echo "ERROR: Trying to install version $(VERSION) when $${version} is available"; \
+	  >&2 echo "ERROR: Trying to install version '$(VERSION)' when '$${version}' is available"; \
 	  exit 1; \
 	fi
 else
@@ -455,7 +455,6 @@ debug:
 	@echo "BUILD_PATH: $(BUILD_PATH)"
 	@echo
 	@echo "RECENT_ONLY: $(RECENT_ONLY)"
-	@echo "AVAILABLE_VERSION: $(AVAILABLE_VERSION)"
 	@echo
 	@echo "DOWNLOADING:"
 	@echo "DOWNLOAD: $(DOWNLOAD)"

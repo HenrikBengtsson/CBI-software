@@ -18,4 +18,4 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	make install PREFIX="$(PREFIX)"
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//' | sed -E 's/[[:space:]]//g'

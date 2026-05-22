@@ -236,7 +236,7 @@ pre_build:
 post_build:
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
-	make --quiet assert-version
+	make --quiet assert_version
 	make --quiet pre_install
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \

@@ -4,3 +4,4 @@ DOWNLOAD_TARGET_FILE=shellcheck
 CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=shellcheck
+RECENT_ONLY=true

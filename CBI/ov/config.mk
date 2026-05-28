@@ -6,3 +6,4 @@ BUILD=false
 INSTALL_TARGET_FILE=ov
 
 
+RECENT_ONLY=true

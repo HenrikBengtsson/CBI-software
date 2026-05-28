@@ -9,3 +9,4 @@ INSTALL_TARGET_FILE=bin/mc
 
 CONFIG_MODULES=CBI scl-gcc-toolset
 
+RECENT_ONLY=true

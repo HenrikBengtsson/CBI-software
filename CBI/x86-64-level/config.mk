@@ -5,3 +5,4 @@ CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=x86-64-level
 
+RECENT_ONLY=true

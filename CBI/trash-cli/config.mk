@@ -5,3 +5,4 @@ BUILD_TARGET_FILE=bin/trash
 CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=bin/trash
+RECENT_ONLY=true

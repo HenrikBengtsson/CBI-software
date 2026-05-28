@@ -4,3 +4,4 @@ DOWNLOAD_TARGET_FILE=bin/pandoc
 CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=bin/pandoc
+RECENT_ONLY=true

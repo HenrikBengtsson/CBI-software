@@ -5,3 +5,4 @@ CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=nnn
 
+RECENT_ONLY=true

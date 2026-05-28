@@ -12,3 +12,4 @@ CONFIG_MODULES=CBI scl-gcc-toolset
 
 DEPENDS_ON=ncurses-devel perl-File-Compare
 
+RECENT_ONLY=true

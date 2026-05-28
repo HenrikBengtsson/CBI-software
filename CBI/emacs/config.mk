@@ -14,3 +14,4 @@ CONFIG_MODULES=CBI scl-gcc-toolset
 DEPENDS_ON=ncurses-devel
 
 
+RECENT_ONLY=true

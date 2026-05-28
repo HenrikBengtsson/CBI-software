@@ -5,3 +5,4 @@ CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=bash-startup
 
+RECENT_ONLY=true

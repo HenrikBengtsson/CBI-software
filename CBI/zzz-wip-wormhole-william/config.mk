@@ -6,3 +6,4 @@ CONFIG=false
 BUILD=false
 BUILD_MODULES=gnu14 CBI go
 INSTALL_TARGET_FILE=wormhole
+RECENT_ONLY=true

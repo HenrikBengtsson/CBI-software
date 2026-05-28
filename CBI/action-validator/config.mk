@@ -5,3 +5,4 @@ CONFIG=false
 BUILD_TARGET_FILE=action-validator
 INSTALL_TARGET_FILE=action-validator
 
+RECENT_ONLY=true

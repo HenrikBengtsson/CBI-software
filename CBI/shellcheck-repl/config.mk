@@ -5,3 +5,4 @@ CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=shellcheck-repl.bash
 
+RECENT_ONLY=true

@@ -4,3 +4,4 @@ DOWNLOAD_TARGET_FILE=emsdk/emsdk.py
 CONFIG=false
 BUILD_TARGET_FILE=emsdk/emsdk
 INSTALL_TARGET_FILE=emsdk
+RECENT_ONLY=true

@@ -13,5 +13,4 @@ $(DOWNLOAD_TARGET):
 	tar xf "$(TARBALL)"
 
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g' | sed -E 's/^jq-//'
+available-version: available-version-github | sed -E 's/^jq-//'

@@ -26,5 +26,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+available-version: available-version-github

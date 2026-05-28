@@ -21,5 +21,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp "$<" "$(PREFIX)"/share/man/man1 && \
 	cp -p "$(NAME)_$(ARCH)" "$(PREFIX)"/bin/yq
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+available-version: available-version-github

@@ -32,5 +32,4 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(DOWNLOAD_URL)/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g' | sed -E 's/^hdf5_//'
+available-version: available-version-github | sed -E 's/^hdf5_//'

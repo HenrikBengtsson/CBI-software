@@ -33,5 +33,4 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	module load $(BUILD_MODULES); \
         cmake --build . --target install
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+available-version: available-version-github

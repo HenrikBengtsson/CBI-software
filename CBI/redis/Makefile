@@ -36,5 +36,4 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make PREFIX="$(PREFIX)" install
 	make post_install
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+available-version: available-version-github

@@ -43,5 +43,4 @@ post_install_module:
 	make write_protect_module
 
 
-available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+available-version: available-version-github

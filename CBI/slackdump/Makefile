@@ -28,4 +28,4 @@ post_install:
 	mv $(PREFIX)/*.1 $(PREFIX)/share/man/man1
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'

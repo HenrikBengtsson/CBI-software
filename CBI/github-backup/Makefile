@@ -32,4 +32,4 @@ available-version:
 	@curl --silent "https://api.github.com/repos/$(GITHUB_OWNER)/$(GITHUB_REPONAME)/tags" | grep -E '"name":' | sed -E 's/(.* |"|,)//g' | grep -E "^[[:digit:].]+$$" | head -n 1
 
 
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'

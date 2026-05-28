@@ -27,4 +27,4 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	./coinbrew build SYMPHONY --prefix="$(PREFIX)" --tests=main --verbosity=1
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//' | sed -E 's/^hdf5_//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g' | sed -E 's/^hdf5_//'

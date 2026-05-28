@@ -24,5 +24,5 @@ $(INSTALL_MODULE):
 	exit 1
 
 available-version:
-	curl --head --silent "https://github.com/$(GITHUB_OWNER)/$(GITHUB_REPO)/releases/latest" | grep -i -E "^location:" | sed -E 's/.*(v|\/)//'
+	curl --head --silent "https://github.com/$(GITHUB_OWNER)/$(GITHUB_REPO)/releases/latest" | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
 

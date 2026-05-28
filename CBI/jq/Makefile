@@ -14,4 +14,4 @@ $(DOWNLOAD_TARGET):
 
 
 available-version:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E 's/.*(v|\/)//' | sed -E 's/^jq-//'
+	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g' | sed -E 's/^jq-//'

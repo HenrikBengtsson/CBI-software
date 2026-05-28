@@ -13,4 +13,5 @@ $(DOWNLOAD_TARGET):
 	tar xf "$(TARBALL)"
 
 
-available-version: available-version-github | sed -E 's/^jq-//'
+available-version:
+	@make --quiet available-version-github | sed -E 's/^jq-//'

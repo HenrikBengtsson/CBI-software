@@ -25,4 +25,3 @@ post_install:
 	sudo chown root:root $(INSTALL_TARGET)
 	sudo chmod u+s $(INSTALL_TARGET)
 
-available-version: available-version-github

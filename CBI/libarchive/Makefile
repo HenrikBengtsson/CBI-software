@@ -13,4 +13,3 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(GITHUB_REPO)/releases/download/v$(VERSION)/$(TARBALL); \
 	tar xf $(TARBALL)
 
-available-version: available-version-github

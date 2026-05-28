@@ -26,4 +26,5 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	./coinbrew build SYMPHONY --prefix="$(PREFIX)" --tests=main --verbosity=1
 
-available-version: available-version-github | sed -E 's/^hdf5_//'
+available-version:
+	@make --quiet available-version-github | sed -E 's/^hdf5_//'

@@ -43,4 +43,3 @@ post_install_module:
 	make write_protect_module
 
 
-available-version: available-version-github

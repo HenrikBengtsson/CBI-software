@@ -47,4 +47,3 @@ $(BUILD_PATH)/check.log:
 
 post_build: $(BUILD_PATH)/check.log
 
-available-version: available-version-github

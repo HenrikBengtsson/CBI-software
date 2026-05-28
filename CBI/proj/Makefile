@@ -60,4 +60,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 endif
 
 
-available-version: available-version-github

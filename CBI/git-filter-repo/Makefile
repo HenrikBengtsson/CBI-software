@@ -16,4 +16,3 @@ $(DOWNLOAD_TARGET):
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) $(PREFIX)
 
-available-version: available-version-github

@@ -95,4 +95,3 @@ endif
 
 BUILD_MODULES=$(CONFIG_MODULES)
 
-available-version: available-version-github

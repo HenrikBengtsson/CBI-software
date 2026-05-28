@@ -53,4 +53,3 @@ $(MODULE_TARGET): module.lua.tmpl incl/conda-$(VERSION).sh.lua
 	mv "$@.tmp" "$@"
 	make post_install_module
 
-available-version: available-version-github

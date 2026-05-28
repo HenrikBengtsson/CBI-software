@@ -16,4 +16,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-available-version: available-version-github

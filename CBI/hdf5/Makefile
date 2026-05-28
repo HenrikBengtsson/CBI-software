@@ -32,4 +32,5 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(DOWNLOAD_URL)/$(TARBALL); \
 	tar xvfz $(TARBALL)
 
-available-version: available-version-github | sed -E 's/^hdf5_//'
+available-version:
+	@make --quiet available-version-github | sed -E 's/^hdf5_//'

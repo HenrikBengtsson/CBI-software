@@ -25,4 +25,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	cp -p "$(BUILD_TARGET)" "$(PREFIX)"
 	ls -al "$(PREFIX)"
 
-available-version: available-version-github

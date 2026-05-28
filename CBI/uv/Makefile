@@ -20,4 +20,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -pR "$(BUILD_PATH)" "$(PREFIX)/.."
 	ls -al "$(PREFIX)"
 
-available-version: available-version-github

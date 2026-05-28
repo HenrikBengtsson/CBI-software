@@ -34,4 +34,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	module try-load $(BUILD_MODULES); \
         cmake --build . --target install
 
-available-version: available-version-github

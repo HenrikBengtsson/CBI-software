@@ -17,4 +17,3 @@ $(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	make install PREFIX="$(PREFIX)"
 
-available-version: available-version-github

@@ -25,4 +25,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 
 install: $(INSTALL_TARGET)
 
-available-version: available-version-github

@@ -22,4 +22,3 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	touch $@
 
-available-version: available-version-github

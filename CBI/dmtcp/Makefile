@@ -13,4 +13,3 @@ $(DOWNLOAD_TARGET):
 	curl -L -O $(GITHUB_REPO)/archive/refs/tags/$(TARBALL); \
 	tar zxf $(TARBALL)
 
-available-version: available-version-github

@@ -19,4 +19,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	mkdir -p "$(PREFIX)"
 	cp "$<" "$(PREFIX)"
 
-available-version: available-version-github

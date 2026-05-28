@@ -36,4 +36,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make PREFIX="$(PREFIX)" install
 	make post_install
 
-available-version: available-version-github

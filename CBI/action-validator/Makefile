@@ -21,4 +21,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
-available-version: available-version-github

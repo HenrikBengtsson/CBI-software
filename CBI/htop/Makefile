@@ -37,4 +37,3 @@ post_config:
 	cp '.deps/$$(myhtopplatprogram).Po' .deps/htop.Po
 endif
 
-available-version: available-version-github

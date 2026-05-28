@@ -26,4 +26,3 @@ post_install:
 	mkdir -p $(PREFIX)/share/man/man1
 	mv $(PREFIX)/*.1 $(PREFIX)/share/man/man1
 
-available-version: available-version-github

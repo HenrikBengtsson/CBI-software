@@ -41,4 +41,3 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 
-available-version: available-version-github

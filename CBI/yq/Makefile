@@ -21,4 +21,3 @@ $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp "$<" "$(PREFIX)"/share/man/man1 && \
 	cp -p "$(NAME)_$(ARCH)" "$(PREFIX)"/bin/yq
 
-available-version: available-version-github

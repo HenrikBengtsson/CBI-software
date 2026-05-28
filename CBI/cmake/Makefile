@@ -27,4 +27,3 @@ $(DOWNLOAD_TARGET):
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R "$(DOWNLOAD_PATH)" "$(SOFTWARE_HOME)"
 
-available-version: available-version-github

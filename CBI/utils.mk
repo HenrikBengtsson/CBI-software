@@ -505,5 +505,10 @@ version:
 	@echo "$(VERSION)"
 
 available-version-github:
-	@curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'
+	@if [[ -n "$(GITHUB_REPO)" ]]; then \
+	  curl --head --silent $(GITHUB_REPO)/releases/latest | grep -i -E "^location:" | sed -E -e 's/.*(v|\/)//' -e 's/[[:space:]]+//g'; \
+	fi
+
+available-version: available-version-github
+
 

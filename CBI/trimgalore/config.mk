@@ -1,5 +1,5 @@
 NAME=TrimGalore
-VERSION=0.6.11
+VERSION=2.2.0
 NAME2=trimgalore
 DOWNLOAD_TARGET_FILE=trim_galore
 CONFIG=false

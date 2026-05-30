@@ -7,6 +7,6 @@ setup() {
 
 @test "validate executable is of expected version" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    version=$(trim_galore --version | grep version | sed 's/.* //')
+    version=$(trim_galore --version | grep -E "(trim_galore|version)" | sed -E 's/^[[:alnum:]_]* //' | sed 's/ .*//')
     assert_equal "${version}" "${VERSION}"
 }

@@ -85,6 +85,7 @@ if cbi_linux == nil then
         -- CentOS 7.9: "CentOS Linux 7 (Core)"
         -- Rocky 8.8: "Rocky Linux 8.8 (Green Obsidian)"
         -- Rocky 9.6: "Rocky Linux 9.6 (Blue Onyx)"
+        -- Rocky 9.7: "Rocky Linux from CIQ Pro 9.7 (Blue Onyx)"
         -- Ubuntu 22.04.3: "Ubuntu 22.04.3 LTS"
 
         -- Drop auxillary strings after the version
@@ -93,15 +94,25 @@ if cbi_linux == nil then
         -- CentOS 7.9: "CentOS Linux 7"
         -- Rocky 8.8: "Rocky Linux 8.8"
         -- Rocky 9.6: "Rocky Linux 9.6"
+        -- Rocky 9.7: "Rocky Linux from CIQ Pro 9.7"
+        -- Ubuntu 22.04.3: "Ubuntu 22.04.3"
+
+        -- Drop 'Linux.*' while preserving version
+        line = line:gsub("%s*Linux.-(%d+%.%d+)", " %1") -- for CentOS and Rocky
+        -- Examples:
+        -- CentOS 7.9: "CentOS 7"
+        -- Rocky 8.8: "Rocky 8.8"
+        -- Rocky 9.6: "Rocky 9.6"
+        -- Rocky 9.7: "Rocky 9.7"
         -- Ubuntu 22.04.3: "Ubuntu 22.04.3"
 
         -- Work with lower-case strings
         line = string.lower(line)
-        line = line:gsub(" linux ", "") -- for CentOS and Rocky
         -- Examples:
         -- CentOS 7.9: "centos 7"
         -- Rocky 8.8: "rocky 8.8"
         -- Rocky 9.6: "rocky 9.6"
+        -- Rocky 9.7: "rocky 9.7"
         -- Ubuntu 22.04.3: "ubuntu 22.04.3"
 
         -- Remove spaces

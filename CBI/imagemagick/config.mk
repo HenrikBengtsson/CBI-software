@@ -1,5 +1,5 @@
 NAME=imagemagick
-VERSION=7.1.2-23
+VERSION=7.1.2-24
 DOWNLOAD_TARGET_FILE=magick
 CONFIG=false
 BUILD=false

@@ -1,15 +1,16 @@
 help([[
-TrimGalore: Taking Appropriate QC Measures for RRBS-Type or Other -Seq Applications with Trim Galore!
+TrimGalore: Consistent Adapter and Quality Trimming for NGS, with Extra Functionality for RRBS Data
 ]])
 
 local name = myModuleName()
 local version = myModuleVersion()
 whatis("Version: " .. version)
 whatis("Keywords: sequencing, genome")
-whatis("URL: https://github.com/FelixKrueger/TrimGalore, https://github.com/FelixKrueger/TrimGalore/blob/master/CHANGELOG.md (changelog)")
+whatis("URL: https://www.trimgalore.com/, https://github.com/FelixKrueger/TrimGalore (source code), https://github.com/FelixKrueger/TrimGalore/blob/master/CHANGELOG.md (changelog)")
 whatis([[
 Description: A wrapper around Cutadapt and FastQC to consistently apply adapter and quality trimming to FastQ files, with extra functionality for RRBS data.
 Examples: `trim_galore --version`, `trim_galore --help`, and `more "$TRIMGALORE_HOME/Docs/Trim_Galore_User_Guide.md"`.
+License: GPL
 ]])
 
 depends_on("cutadapt")

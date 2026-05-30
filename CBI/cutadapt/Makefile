@@ -1,10 +1,12 @@
 include config.mk
 include ../utils.mk
 
-PYTHON3=python3.11
+PYTHON3=python3
 
 ifeq ($(LINUX_NAME),CentOS Linux)
 PYTHON3=python3
+else ifeq ($(_LINUX_DISTRO_),rocky8)
+PYTHON3=python3.11
 else ifeq ($(_LINUX_DISTRO_),rocky9)
 PYTHON3=python3
 endif

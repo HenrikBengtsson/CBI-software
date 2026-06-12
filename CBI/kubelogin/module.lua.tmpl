@@ -1,0 +1,20 @@
+help([[
+kubelogin: Kubernetes OpenID Connect authentication
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli")
+whatis("URL: https://github.com/int128/kubelogin, https://github.com/int128/kubelogin/releases (releases)")
+whatis([[
+Description: `kubectl` plugin for Kubernetes OpenID Connect authentication (`kubectl oidc-login`).
+Examples: `kubelogin --help`, `kubelogin --version`
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", home)

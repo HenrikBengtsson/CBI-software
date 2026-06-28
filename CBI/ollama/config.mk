@@ -1,7 +1,7 @@
 NAME=ollama
-VERSION=0.24.0
+VERSION=0.30.10
 DOWNLOAD_TARGET_FILE=bin/ollama
 CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=bin/ollama
-
+RECENT_ONLY=true

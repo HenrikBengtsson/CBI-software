@@ -49,10 +49,15 @@ if version_ge(version, "3") then
   libdir = "lib64"
 
   if version_ge(version, "3.7") then
-    depends_on("libarchive")
+    if os.getenv("CBI_LINUX") == "rocky8" then
+      depends_on("libarchive")
+    end
     mandir = pathJoin("share", "man")
   end
 end
+
+-- requires GEOS
+depends_on("geos")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 

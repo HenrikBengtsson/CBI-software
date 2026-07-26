@@ -1,7 +1,7 @@
 NAME=proj
 
 ## PROJ 9.0.0 was released on 2022-03-01
-VERSION=9.7.0
+VERSION=9.8.1
 
 DOWNLOAD_TARGET_FILE=ChangeLog
 

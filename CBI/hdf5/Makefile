@@ -5,7 +5,7 @@ include ../utils.mk
 #DOWNLOAD_URL=https://support.hdfgroup.org/ftp/HDF5/releases/$(NAME)-$(VERSION_X_Y)/$(NAME)-$(VERSION)/src
 
 GITHUB_REPO=https://github.com/HDFGroup/hdf5
-DOWNLOAD_URL=$(GITHUB_REPO)/releases/download/$(NAME)_$(VERSION_X_Y)
+DOWNLOAD_URL=$(GITHUB_REPO)/releases/download/$(NAME)_$(VERSION_X_Y_Z)
 
 # From the 'make build' output:
 #

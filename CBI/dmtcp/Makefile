@@ -2,7 +2,7 @@ include config.mk
 include ../utils.mk
 
 GITHUB_REPO=https://github.com/dmtcp/dmtcp
-TARBALL=$(VERSION).tar.gz
+TARBALL=v$(VERSION).tar.gz
 
 ## ----------------------------------------------------------
 ## SOFTWARE

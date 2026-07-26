@@ -32,7 +32,9 @@ ifeq ($(VERSION_X),3)
     IS_GE_3_6 := $(shell echo "$(VERSION_X_Y)" | awk -F. '{ if ($$1 > 3 || ($$1 == 3 && $$2 >= 6)) print "yes"; else print "no" }')
     ifeq ($(IS_GE_3_6),yes)
         ## Rocky 8 provides only libarchive 3.3
-        CONFIG_MODULES:=$(CONFIG_MODULES) CBI libarchive
+	ifeq ($(CBI_LINUX),rocky8)
+            CONFIG_MODULES:=$(CONFIG_MODULES) CBI libarchive
+	endif
         ## Assert
         LIBARCHIVE_VERSION=$(shell module purge; module load $(CONFIG_MODULES); pkg-config --modversion libarchive)
         LIBARCHIVE_VERSION_X_Y_Z := $(shell echo "$(LIBARCHIVE_VERSION)" | sed -E 's/([[:digit:]]+)([.-])([[:digit:]]+)([.-])([[:digit:]]+).*/\1\2\3\4\5/')

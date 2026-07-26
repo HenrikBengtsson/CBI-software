@@ -1,5 +1,5 @@
 NAME=cellranger
-VERSION=10.0.0
+VERSION=10.1.0
 DOWNLOAD_TARGET_FILE=bin/cellranger
 CONFIG=false
 BUILD=false

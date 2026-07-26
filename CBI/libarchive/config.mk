@@ -1,5 +1,5 @@
 NAME=libarchive
-VERSION=3.8.7
+VERSION=3.8.8
 DOWNLOAD_TARGET_FILE=configure
 CONFIG_TARGET_FILE=config.log
 BUILD_TARGET_FILE=bsdunzip

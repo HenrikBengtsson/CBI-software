@@ -29,8 +29,8 @@ ifeq ($(VERSION_X),3)
     ## GDAL (>= 3.5.0) requires CMake and a modern compiler
     ## Rocky 8 provides a sufficient CMake and compiler
 
-    ifeq ($(VERSION_X_Y),3.6)
-    else
+    IS_GE_3_6 := $(shell echo "$(VERSION_X_Y)" | awk -F. '{ if ($$1 > 3 || ($$1 == 3 && $$2 >= 6)) print "yes"; else print "no" }')
+    ifeq ($(IS_GE_3_6),yes)
         ## Rocky 8 provides only libarchive 3.3
         CONFIG_MODULES:=$(CONFIG_MODULES) CBI libarchive
         ## Assert
@@ -43,9 +43,6 @@ ifeq ($(VERSION_X),3)
             $(error "GDAL (>= 3.7) requires libarchive (>= 3.5.0), but you got $(LIBARCHIVE_VERSION)")
         endif
     endif
-
-    ## GDAL (>= 3.0.0) requires PROJ (>= 6.0.0)
-    CONFIG_MODULES:=$(CONFIG_MODULES) CBI proj
 
     ## Use a modern HDF5, because the 'hdf5r' R package requires hdf5 (>= 1.8.13)
     #CONFIG_MODULES:=$(CONFIG_MODULES) CBI hdf5
@@ -70,14 +67,14 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	module --force purge; \
 	module load $(CONFIG_MODULES); \
-	cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DSQLITE3_INCLUDE_DIR="$(SQLITE3_HOME)/include"  -DSQLITE3_LIBRARY_RELEASE="$(SQLITE3_HOME)/lib" -DPROJ_INCLUDE_DIR="$(PROJ_HOME)/include" -DPROJ_LIBRARY_RELEASE="$(PROJ_HOME)/lib/libproj.so" -DGDAL_ENABLE_DRIVER_WEBP=OFF
+	cmake .. -DCMAKE_PREFIX_PATH="$$(geos-config --prefix)" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DSQLITE3_INCLUDE_DIR="$(SQLITE3_HOME)/include"  -DSQLITE3_LIBRARY_RELEASE="$(SQLITE3_HOME)/lib" -DPROJ_INCLUDE_DIR="$(PROJ_HOME)/include" -DPROJ_LIBRARY_RELEASE="$(PROJ_HOME)/lib/libproj.so" -DGDAL_ENABLE_DRIVER_WEBP=OFF
 
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	module --force purge; \
 	module load $(BUILD_MODULES); \
-	cmake --build .
+	cmake --build . --parallel 4
 
 $(INSTALL_TARGET): $(BUILD_TARGET)
 	cd "$(BUILD_PATH)/build"; \

@@ -1,0 +1,22 @@
+help([[
+Python 2.7 environment provided via Conda (miniforge3)
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: python, python2, conda")
+whatis("URL: https://www.python.org/, https://conda-forge.org/")
+whatis([[
+Description: A standalone Python 2.7 environment created with Conda from the CBI 'miniforge3' module. Provides 'python', 'python2', 'python2.7', and 'pip' for running legacy Python 2 code.
+Examples: `python2 --version`, `python2 -m pip install <pkg>`
+Warning: Python 2 reached end-of-life on 2020-01-01 and receives no security updates. Use only when Python 3 is not an option.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

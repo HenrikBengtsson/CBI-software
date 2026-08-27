@@ -15,21 +15,15 @@ endif
 debug2:
 	@echo "PYTHON3=$(PYTHON3)"
 
-$(BUILD_PATH)/virtualenv:
-	## Assert Python module 'virtualenv' is installed
-	$(PYTHON3) -m virtualenv --version
-	module load CBI; \
-	$(PYTHON3) -m pip install --target="$(@D)" virtualenv pip
-
 ## Based on the official instructions in Section 'Shared installation (on a cluster)'
 ## of the 'Installation' document
 ## https://github.com/marcelm/cutadapt/blob/main/doc/installation.rst
-$(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
+$(INSTALL_TARGET):
 	module purge; \
 	module load CBI; \
 	module list; \
 	mkdir -p "$(PREFIX)/bin"; \
-	$(BUILD_PATH)/bin/virtualenv -p $(PYTHON3) "$(PREFIX)/venv"; \
+	$(PYTHON3) -m venv "$(PREFIX)/venv"; \
 	. "$(PREFIX)/venv/bin/activate"; \
 	python --version; \
 	python -m pip install --upgrade pip; \

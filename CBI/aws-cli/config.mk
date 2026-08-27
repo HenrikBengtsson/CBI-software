@@ -1,5 +1,5 @@
 NAME=aws-cli
-VERSION=1.45.18
+VERSION=1.46.1
 DOWNLOAD=false
 CONFIG=false
 BUILD=false

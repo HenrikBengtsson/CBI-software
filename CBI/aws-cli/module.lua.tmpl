@@ -13,6 +13,29 @@ Examples: `aws help`.
 Warning: Only the most recent versions of this software will be kept.
 ]])
 
+-- aws-cli requires Python (>= 3.10). If 'python3' on the PATH is an older
+-- Python, try to provide a newer one by loading the 'miniforge3' module.
+local function on_path(exec)
+  for dir in string.gmatch(os.getenv("PATH") or "", "[^:]+") do
+    if isFile(pathJoin(dir, exec)) then
+      return true
+    end
+  end
+  return false
+end
+
+if on_path("python3") then
+  local bfr = capture("python3 --version 2>&1")
+  local major, minor = string.match(bfr, "Python (%d+)[.](%d+)")
+  if major ~= nil then
+    major = tonumber(major)
+    minor = tonumber(minor)
+    if major < 3 or (major == 3 and minor < 10) then
+      try_load("miniforge3")
+    end
+  end
+end
+
 -- Local variables
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

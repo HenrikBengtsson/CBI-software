@@ -12,6 +12,21 @@ Description: TopHat is a fast splice junction mapper for RNA-Seq reads. It align
 Examples: `tophat --version`.
 ]])
 
+-- TopHat requires Python 2. If 'python2' is not already on the PATH,
+-- try to provide it by loading the 'miniforge3-python2' module.
+local function on_path(exec)
+  for dir in string.gmatch(os.getenv("PATH") or "", "[^:]+") do
+    if isFile(pathJoin(dir, exec)) then
+      return true
+    end
+  end
+  return false
+end
+
+if not on_path("python2") then
+  try_load("miniforge3-python2")
+end
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 

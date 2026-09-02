@@ -29,4 +29,4 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@python -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'
+	@python3 -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'

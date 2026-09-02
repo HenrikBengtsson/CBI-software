@@ -1,6 +1,6 @@
 NAME=redis
 
-VERSION=7.4.8
+VERSION=7.4.11
 
 ## redis (>= 8.0) requires jemalloc.h
 #VERSION=8.6.2

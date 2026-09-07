@@ -1,6 +1,6 @@
 NAME=gdal
 
-VERSION=3.13.2
+VERSION=3.13.3
 
 ## GDAL < 3.6.0
 #VERSION=2.4.4

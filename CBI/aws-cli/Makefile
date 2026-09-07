@@ -4,21 +4,19 @@ include ../utils.mk
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-$(BUILD_PATH)/virtualenv:
-	module load CBI; \
-	python3 -m pip install --target="$(@D)" virtualenv pip
+PYTHON3=python3
 
 ## Based on the official instructions in Section 'Shared installation (on a cluster)'
 ## of the 'Installation' document
 ## https://github.com/marcelm/cutadapt/blob/main/doc/installation.rst
-$(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
+$(INSTALL_TARGET):
 	make --quiet assert_version
 	make --quiet pre_install
 	module purge; \
 	module load CBI; \
 	module list; \
 	mkdir -p "$(PREFIX)"; \
-	$(BUILD_PATH)/bin/virtualenv -p python3 "$(PREFIX)"; \
+	$(PYTHON3) -m venv "$(PREFIX)"; \
 	. "$(PREFIX)/bin/activate"; \
 	python --version; \
 	python -m pip install --upgrade pip; \
@@ -29,4 +27,4 @@ $(INSTALL_TARGET): $(BUILD_PATH)/virtualenv
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
 
 available-version:
-	@python -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'
+	@python3 -m pip index versions awscli 2>1 | head -n 1 | sed -E 's/(.*[(]|[)])//g'

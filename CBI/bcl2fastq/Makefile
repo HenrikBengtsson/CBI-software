@@ -1,21 +1,31 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME)-$(VERSION).tgz
+## Illumina retired its anonymous FTP server (ussd-ftp.illumina.com) and now
+## distributes bcl2fastq only through an EULA-gated download page that hands
+## out a per-browser-session URL, which cannot be scripted (same situation as
+## cellranger).  The user must therefore download the source archive manually
+## and place it in this directory.  An Illumina account (sign-in) is required,
+## and signing in requires accepting the Illumina Software Subscription
+## Agreement:
+## https://www.illumina.com/content/dam/illumina-marketing/documents/terms-conditions/united-states/illumina-software-subscription-agreement.pdf
+TARBALL=$(NAME)2-v$(subst .,-,$(VERSION))-tar.zip
 
 ## ----------------------------------------------------------
 ## SOFTWARE
 ## ----------------------------------------------------------
-$(DOWNLOAD_TARGET):
-	mkdir -p $(BUILD_HOME); \
+$(TARBALL):
+	$(error Cannot auto-download $(NAME) $(VERSION). Go to https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software/downloads.html, sign in (which requires accepting the Illumina Software Subscription Agreement <https://www.illumina.com/content/dam/illumina-marketing/documents/terms-conditions/united-states/illumina-software-subscription-agreement.pdf>), accept the EULA, and download "bcl2fastq2 Conversion Software v$(VERSION)" as the *Source* archive (the "tar" download, not the rpm). Save '$@' to $(PWD))
+
+$(DOWNLOAD_TARGET): $(TARBALL)
+	mkdir -p $(BUILD_HOME)
+	cp -p "$(TARBALL)" "$(BUILD_HOME)/"
 	cd $(BUILD_HOME); \
-	echo VERSION=${VERSION}; \
-	version=${VERSION}; \
-	fullname=${NAME}2-v$${version//./-}; \
-	curl -L -O ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/${NAME}/$${fullname}-tar.zip; \
-	unzip $${fullname}-tar.zip; \
-	tar vxf ${NAME}2-v${VERSION}.*-Source.tar.gz; \
-	mv ${NAME} ${BUILD_PATH}
+	unzip -o $(TARBALL); \
+	tar vxf $(NAME)2-v$(VERSION).*-Source.tar.gz; \
+	rm -rf "$(BUILD_PATH)"; \
+	mv $(NAME) $(BUILD_PATH)
+	touch $(DOWNLOAD_TARGET)
 
 $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \

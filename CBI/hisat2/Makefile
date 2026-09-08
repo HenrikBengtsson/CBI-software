@@ -4,6 +4,11 @@ include ../utils.mk
 VERSION_NO_DOTS=$(subst .,,$(VERSION))
 ZIPBALL=$(NAME)-$(VERSION_NO_DOTS)-Linux_x86_64.zip
 GITHUB_REPO=https://github.com/DaehwanKimLab/$(NAME)
+DOWNLOAD_URL=https://cloud.biohpc.swmed.edu/index.php/s/hisat2-$(VERSION_NO_DOTS)-Linux_x86_64/download
+ifeq ($(VERSION_X_Y_Z),2.2.1)
+  DOWNLOAD_URL=https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download
+endif
+
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -11,7 +16,7 @@ GITHUB_REPO=https://github.com/DaehwanKimLab/$(NAME)
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME)
 	cd $(BUILD_HOME); \
-	curl -o $(ZIPBALL) -L -O https://cloud.biohpc.swmed.edu/index.php/s/hisat2-$(VERSION_NO_DOTS)-Linux_x86_64/download; \
+	curl -o $(ZIPBALL) -L -O $(DOWNLOAD_URL); \
 	unzip $(ZIPBALL); \
 
 $(BUILD_TARGET): $(DOWNLOAD_TARGET)

@@ -11,14 +11,18 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	curl -L -O https://github.com/statgen/$(NAME)/archive/$(TARBALL); \
 	tar -xzf $(TARBALL)
+	## bamUtil's 'make cloneLib' fetches libStatGen via the legacy git://
+	## protocol, which GitHub permanently disabled on 2022-03-15.  Rewrite it
+	## to HTTPS so 'cloneLib' works again.
+	sed -i 's|git://github.com/|https://github.com/|g' $(BUILD_PATH)/Makefile.inc
 
-$(BUILD_TARGET):
+$(BUILD_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
 	module --force purge; \
 	make cloneLib; \
 	make
 
-$(INSTALL_TARGET): $(DOWNLOAD_TARGET)
+$(INSTALL_TARGET): $(BUILD_TARGET)
 	mkdir -p $(PREFIX)
 	cd $(BUILD_PATH); \
 	module --force purge; \

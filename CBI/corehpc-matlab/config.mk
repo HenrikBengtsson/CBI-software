@@ -1,4 +1,4 @@
-NAME=corehpc-matlab
+NAME=matlab
 VERSION=R2025b
 
 ## MATLAB is installed and maintained outside of CBI (by CoreHPC);

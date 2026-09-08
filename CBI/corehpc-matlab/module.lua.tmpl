@@ -1,0 +1,27 @@
+help([[
+MATLAB: The MathWorks Numerical Computing Environment
+]])
+
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: math, numerical computing, programming, proprietary")
+whatis("URL: https://www.mathworks.com/help/matlab/, https://www.mathworks.com/products/new_products/release_notes_search.html (changelog)")
+whatis([[
+Description: MATLAB is a programming and numeric computing platform for data analysis, algorithm development, and modeling.
+Examples: `matlab -batch "disp(version)"`, `matlab -nodisplay`.
+Note: MATLAB is installed and maintained by CoreHPC, not by CBI.
+]])
+
+-- MATLAB is site-installed (not CBI-built); one release per directory
+local base = os.getenv("MATLAB_ROOT_CBI") or "/mnt/software/ood/MATLAB"
+local home = pathJoin(base, version)   -- version is e.g. "R2025b"
+
+if not isDir(home) then
+  LmodError("Module '" .. myModuleFullName() .. "' is not supported because host '" ..
+            (os.getenv("HOSTNAME") or "?") .. "' does not have path '" .. home .. "'")
+end
+
+-- Only one MATLAB release loaded at a time
+family("matlab")
+
+prepend_path("PATH", pathJoin(home, "bin"))

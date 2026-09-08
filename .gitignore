@@ -25,3 +25,4 @@ check.out
 check.out.fail
 *.done
 *.log
+.osgrep/

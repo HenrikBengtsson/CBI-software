@@ -1,7 +1,7 @@
 include config.mk
 include ../utils.mk
 
-TARBALL=$(NAME)-$(VERSION)-bin.tar.gz
+TARBALL=$(NAME)-$(VERSION)-bin.tar.xz
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -9,7 +9,7 @@ TARBALL=$(NAME)-$(VERSION)-bin.tar.gz
 $(DOWNLOAD_TARGET):
 	mkdir -p $(BUILD_HOME); \
 	cd $(BUILD_HOME); \
-	curl -L -O https://www.apache.org/dist/ant/binaries/$(TARBALL); \
+	curl -L -O https://downloads.apache.org/ant/binaries/$(TARBALL); \
 	tar xf $(TARBALL)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)

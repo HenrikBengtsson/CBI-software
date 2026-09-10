@@ -1,0 +1,44 @@
+help([[
+globus-cli: Command-Line Interface to the Globus Research Data Management Platform
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, files, data transfer")
+whatis("URL: https://docs.globus.org/cli/, https://docs.globus.org/cli/changelog/ (changelog), https://github.com/globus/globus-cli (source code)")
+whatis([[
+Description: The Globus CLI provides an interface to Globus services (transfer, authentication, endpoint management, ...) from the shell, suitable for both interactive use and scripting. It installs the 'globus' command from the 'globus-cli' Python package.
+Examples: `globus version` and `globus --help`. To log in, use `globus login --no-local-server`, then verify access with `globus whoami`.
+License: Apache-2.0
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+-- globus-cli requires Python (>= 3.10). If 'python3' on the PATH is an older
+-- Python, try to provide a newer one by loading the 'miniforge3' module.
+local function on_path(exec)
+  for dir in string.gmatch(os.getenv("PATH") or "", "[^:]+") do
+    if isFile(pathJoin(dir, exec)) then
+      return true
+    end
+  end
+  return false
+end
+
+if on_path("python3") then
+  local bfr = capture("python3 --version 2>&1")
+  local major, minor = string.match(bfr, "Python (%d+)[.](%d+)")
+  if major ~= nil then
+    major = tonumber(major)
+    minor = tonumber(minor)
+    if major < 3 or (major == 3 and minor < 10) then
+      try_load("miniforge3")
+    end
+  end
+end
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

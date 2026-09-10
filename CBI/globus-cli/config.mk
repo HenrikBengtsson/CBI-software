@@ -1,0 +1,7 @@
+NAME=globus-cli
+VERSION=3.43.0
+DOWNLOAD=false
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/globus
+RECENT_ONLY=true

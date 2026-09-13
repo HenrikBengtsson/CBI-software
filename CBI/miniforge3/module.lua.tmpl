@@ -16,7 +16,10 @@ Examples: `conda --version`, `conda create --name=myenv`, `conda env list`, `con
 Warning: For now, this module works only in Bash. Also, do _not_ do `conda init`. If you do this by mistake, please undo by `conda init --reverse`.
 ]])
 
-conflict("miniconda3")
+-- Only one Python interpreter loaded at a time
+-- (supersedes the former conflict("miniconda3"): family covers
+--  every provider, and auto-swaps instead of hard-erroring)
+family("python")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

@@ -1,0 +1,20 @@
+help([[
+typst: A new markup-based typesetting system that is powerful and easy to learn.
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: typesetting, latex-alternative, markup")
+whatis("URL: https://typst.app/ (documentation), https://github.com/typst/typst/releases (changelog), https://github.com/typst/typst (source code)")
+whatis([[
+Description: Typst is a new markup-based typesetting system that is powerful and easy to learn. It is designed to be an alternative to LaTeX.
+Examples: `typst --version` and `typst compile document.typ`.
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

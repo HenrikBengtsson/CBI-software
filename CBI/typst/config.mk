@@ -1,0 +1,7 @@
+NAME=typst
+VERSION=0.15.1
+DOWNLOAD_TARGET_FILE=bin/typst
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/typst
+RECENT_ONLY=true

@@ -1,0 +1,20 @@
+help([[
+tinytex: A lightweight, cross-platform, portable, and easy-to-maintain LaTeX distribution based on TeX Live
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: latex, tex")
+whatis("URL: https://yihui.org/tinytex/ (documentation), https://github.com/rstudio/tinytex-releases/releases (changelog), https://github.com/rstudio/tinytex (source code)")
+whatis([[
+Description: TinyTeX is a lightweight, cross-platform, portable, and easy-to-maintain LaTeX distribution based on TeX Live.
+Examples: `tlmgr --version`, `pdflatex --version`, and `tlmgr install pgf` (to install a package).
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin", "x86_64-linux"))

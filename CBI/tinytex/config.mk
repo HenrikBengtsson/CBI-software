@@ -1,0 +1,7 @@
+NAME=tinytex
+VERSION=2026.09
+DOWNLOAD_TARGET_FILE=bin/x86_64-linux/tlmgr
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/x86_64-linux/tlmgr
+RECENT_ONLY=true

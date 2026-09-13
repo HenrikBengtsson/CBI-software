@@ -14,7 +14,7 @@ setup() {
 
 @test "validate command-line option --help" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
-    run "${MODULE_NAME}" --help
+    run gs --help
     assert_output --partial "${MODULE_NAME}"
     assert_output --partial "GPL Ghostscript"
     assert_output --partial "$(VERSION)"

@@ -1,0 +1,31 @@
+help([[
+python: The Python Programming Language
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: programming, python")
+whatis("URL: https://www.python.org/, https://github.com/astral-sh/python-build-standalone (build source), https://docs.python.org/3.14/ (documentation)")
+whatis([[
+Description: Python is an interpreted, high-level and general-purpose programming language.
+Examples: `python --version`, `python3 --version`, and `pip --version`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Only one Python interpreter loaded at a time
+family("python")
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

@@ -1,0 +1,7 @@
+NAME=nextflow
+VERSION=26.04.6
+DOWNLOAD_TARGET_FILE=bin/nextflow
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/nextflow
+RECENT_ONLY=true

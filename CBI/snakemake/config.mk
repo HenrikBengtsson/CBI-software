@@ -1,0 +1,7 @@
+NAME=snakemake
+VERSION=9.27.0
+DOWNLOAD=false
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/snakemake
+RECENT_ONLY=true

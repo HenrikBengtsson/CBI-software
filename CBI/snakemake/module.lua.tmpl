@@ -1,0 +1,21 @@
+help([[
+snakemake: Workflow Management System
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: workflow, pipeline, reproducibility")
+whatis("URL: https://snakemake.github.io/, https://github.com/snakemake/snakemake/releases (changelog), https://github.com/snakemake/snakemake (source code)")
+whatis([[
+Description: The Snakemake workflow management system is a tool to create reproducible and scalable data analyses. Workflows are described via a human-readable, Python-based language.
+Examples: `snakemake --version` and `snakemake --help`.
+License: MIT
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

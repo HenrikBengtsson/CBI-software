@@ -2,7 +2,6 @@ include config.mk
 include ../utils.mk
 
 GITHUB_REPO=https://github.com/$(NAME)/$(NAME)
-PYTHON3=python3
 
 ## ----------------------------------------------------------
 ## SOFTWARE
@@ -10,20 +9,27 @@ PYTHON3=python3
 $(INSTALL_TARGET):
 	make --quiet assert_version
 	make --quiet pre_install
+	mkdir -p $(BUILD_PATH)
 	module purge; \
-	module load CBI; \
+	module try-load $(BUILD_MODULES); \
 	module list; \
+	uv_dir="$${UV_PYTHON_INSTALL_DIR:-$(BUILD_PATH)}"; \
+	UV_PYTHON_INSTALL_DIR="$${uv_dir}" uv python install --no-bin $(PYTHON_VERSION); \
+	mkdir -p "$(PREFIX)/python"; \
+	cp -pR "$${uv_dir}"/cpython-$(PYTHON_VERSION)*/* "$(PREFIX)/python/"; \
+	"$(PREFIX)/python/bin/python3" -m venv "$(PREFIX)/venv"; \
+	uv pip install --python "$(PREFIX)/venv" $(NAME)==$(VERSION); \
 	mkdir -p "$(PREFIX)/bin"; \
-	$(PYTHON3) -m venv "$(PREFIX)/venv"; \
-	. "$(PREFIX)/venv/bin/activate"; \
-	python --version; \
-	python -m pip install --upgrade pip; \
-	python -m pip install $(NAME)==$(VERSION); \
 	ln -fs $(PREFIX)/venv/bin/snakemake $(PREFIX)/bin/
 	make post_install
 	ls -la "$(PREFIX)"
 	ls -la "$(PREFIX)/bin"
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+post_install:
+	rm -f "$(PREFIX)"/python/lib/python*/lib-dynload/_tkinter*.so
+	find "$(PREFIX)" -name "rot_13.py" -exec chmod a-x {} +
+	make --quiet write_protect_install
 
 available-version:
 	@make --quiet available-version-github

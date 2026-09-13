@@ -1,0 +1,32 @@
+help("OpenCV: Open Source Computer Vision Library")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, vision, opencv")
+whatis("URL: https://opencv.org/, https://docs.opencv.org/ (documentation), https://github.com/opencv/opencv (source code), https://github.com/opencv/opencv/releases (releases)")
+whatis([[
+Description: OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+local libdir = "lib64"
+
+-- execution
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
+-- building
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, libdir, "pkgconfig"))
+prepend_path("CPATH", pathJoin(home, "include", "opencv4"))
+prepend_path("CFLAGS", "-I" .. pathJoin(home, "include", "opencv4"), " ")
+prepend_path("LDFLAGS", "-L" .. pathJoin(home, libdir), " ")

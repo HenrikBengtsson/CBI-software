@@ -18,7 +18,7 @@ $(INSTALL_TARGET):
 	mkdir -p "$(PREFIX)/python"; \
 	cp -pR "$${uv_dir}"/cpython-$(PYTHON_VERSION)*/* "$(PREFIX)/python/"; \
 	"$(PREFIX)/python/bin/python3" -m venv "$(PREFIX)/venv"; \
-	uv pip install --python "$(PREFIX)/venv" $(NAME)==$(VERSION); \
+	uv pip install --python "$(PREFIX)/venv" $(NAME)==$(VERSION) $(if $(SNAKEMAKE_EXECUTOR),$(patsubst %,snakemake-executor-plugin-%,$(SNAKEMAKE_EXECUTOR))); \
 	mkdir -p "$(PREFIX)/bin"; \
 	ln -fs $(PREFIX)/venv/bin/snakemake $(PREFIX)/bin/
 	make post_install

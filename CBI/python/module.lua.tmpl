@@ -28,4 +28,12 @@ family("python")
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+-- Note: No CPATH; the headers are in include/python<X.Y>, which is
+-- located via 'python-config' or pkg-config, not via include/ itself.
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

@@ -19,6 +19,12 @@ prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 
 local libdir = pathJoin(home, "lib")
+
+-- linking
+prepend_path("LD_RUN_PATH", libdir)
+
+-- building
 prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", libdir)
 prepend_path("LDFLAGS", "-L" .. libdir, " ")
 

@@ -18,6 +18,13 @@ local home = pathJoin(root, name .. "-" .. version)
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
 
 

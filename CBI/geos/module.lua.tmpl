@@ -30,6 +30,7 @@ prepend_path("LD_LIBRARY_PATH", pathJoin(home, libdir))
 prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
 -- building
 prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, libdir))
 prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
 prepend_path("LDFLAGS", "-L" .. pathJoin(home, libdir), " ")
 

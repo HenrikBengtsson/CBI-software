@@ -1,0 +1,6 @@
+NAME=libexpat
+VERSION=2.8.4
+DOWNLOAD_TARGET_FILE=configure
+CONFIG_TARGET_FILE=config.log
+BUILD_TARGET_FILE=lib/libexpat.la
+INSTALL_TARGET_FILE=lib/libexpat.so

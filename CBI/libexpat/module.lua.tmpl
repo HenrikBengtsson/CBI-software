@@ -1,0 +1,29 @@
+help("libexpat: Fast streaming XML parser")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, XML")
+whatis("URL: https://libexpat.github.io/, https://github.com/libexpat/libexpat (source code), https://github.com/libexpat/libexpat/releases (releases)")
+whatis([[
+Description: Expat is a stream-oriented XML parser library written in C.
+Examples: `xmlwf -h`, `xmlwf -v`, and `man xmlwf`.
+License: MIT
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- execution
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH",  pathJoin(home, "lib", "pkgconfig"))

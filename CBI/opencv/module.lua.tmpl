@@ -30,5 +30,6 @@ prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
 -- building
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, libdir, "pkgconfig"))
 prepend_path("CPATH", pathJoin(home, "include", "opencv4"))
+prepend_path("LIBRARY_PATH", pathJoin(home, libdir))
 prepend_path("CFLAGS", "-I" .. pathJoin(home, "include", "opencv4"), " ")
 prepend_path("LDFLAGS", "-L" .. pathJoin(home, libdir), " ")

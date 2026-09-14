@@ -15,6 +15,8 @@ $(DOWNLOAD_TARGET):
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cp -R $(BUILD_PATH) $(PREFIX)
+	mkdir -p $(PREFIX)/lib
+	ln -s .. $(PREFIX)/lib/$(NAME)
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

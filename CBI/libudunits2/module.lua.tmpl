@@ -31,3 +31,4 @@ prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
 
 -- udunits2 specific
 pushenv("UDUNITS2_INCLUDE", pathJoin(home, "include"))
+pushenv("UDUNITS2_LIBS", "-L" .. pathJoin(home, "lib") .. " -ludunits2")

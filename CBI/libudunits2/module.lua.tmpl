@@ -1,0 +1,31 @@
+help("libudunits2: C library for units of physical quantities")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.unidata.ucar.edu/software/udunits/, https://docs.unidata.ucar.edu/udunits/current/ (documentation), https://github.com/Unidata/UDUNITS-2/ (source code), https://github.com/Unidata/UDUNITS-2/releases (releases)")
+whatis([[
+Description: The UDUNITS-2 package provides support for units of physical quantities. Its three main components are: a C library for units of physical quantities; a utility for obtaining the definition of a unit and for converting numeric values between compatible units; and an extensive database of units.
+Examples: `udunits2 -h`, `udunits2 -H meters -W km`, and `info udunits2`.
+License: BSD-3-Clause
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- execution
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("INFOPATH", pathJoin(home, "share", "info"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- udunits2 specific
+pushenv("UDUNITS2_INCLUDE", pathJoin(home, "include"))

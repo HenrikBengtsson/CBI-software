@@ -19,7 +19,10 @@ local home = pathJoin(root, name .. "-" .. version)
 
 setenv("JAVA_HOME", home)
 prepend_path("PATH", pathJoin(home, "bin"))
-prepend_path("MANPATH", pathJoin(home, "man"))
+local manpath = pathJoin(home, "man")
+if isDir(manpath) then
+  prepend_path("MANPATH", manpath)
+end
 prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("CPATH", pathJoin(home, "include"))
 

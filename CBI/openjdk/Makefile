@@ -6,15 +6,22 @@ TARBALL=$(NAME)-$(VERSION)_$(ARCH)_bin.tar.gz
 DOWNLOAD_VERSION=$(VERSION_X_Y_Z_ZZ)
 
 ifeq ($(VERSION),11.0.2)
-   DOWNLOAD_URL=https://download.java.net/java/GA/jdk$(VERSION_X)/9/GPL/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
+  DOWNLOAD_URL=https://download.java.net/java/GA/jdk$(VERSION_X)/9/GPL/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
+
 else ifeq ($(VERSION),17.0.0.1+2)
   DOWNLOAD_URL=https://download.java.net/openjdk/jdk$(VERSION_X_Y_Z_ZZ)/ri/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
+
 else ifeq ($(VERSION),21+35)
   DOWNLOAD_URL=https://download.java.net/openjdk/jdk$(VERSION_X)/ri/openjdk-$(VERSION)_$(ARCH)_bin.tar.gz
   DOWNLOAD_VERSION=$(VERSION_X)
+
 else ifeq ($(VERSION_X),25)
   DOWNLOAD_HASH=b1e0dfa218384cb9959bdcb897162d4e
   DOWNLOAD_URL=https://download.java.net/java/GA/jdk$(VERSION)/$(DOWNLOAD_HASH)/10/GPL/$(TARBALL)
+
+else ifeq ($(VERSION_X),27)
+  DOWNLOAD_HASH=55ce5470a6294008af0057ff4626d0e5
+  DOWNLOAD_URL=https://download.java.net/java/GA/jdk$(VERSION)/$(DOWNLOAD_HASH)/35/GPL/$(TARBALL)
 endif
 
 ifeq ($(DOWNLOAD_URL),)

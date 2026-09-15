@@ -1,5 +1,5 @@
 NAME=openjdk
-VERSION=25.0.2
+VERSION=27
 DOWNLOAD_TARGET_FILE=bin/java
 CONFIG=false
 BUILD=false

@@ -1,0 +1,29 @@
+help("libwebp: Library and tools for the WebP image format")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, image, file format")
+whatis("URL: https://developers.google.com/speed/webp, https://developers.google.com/speed/webp/docs/api (documentation), https://github.com/webmproject/libwebp (source code), https://storage.googleapis.com/downloads.webmproject.org/releases/webp/ (releases)")
+whatis([[
+Description: WebP is an image format that provides both lossless and lossy compression for images on the web. This module provides the libwebp, libwebpmux, and libwebpdemux libraries, their development files, and the command-line tools, e.g. cwebp, dwebp, and webpmux. Several R packages, e.g. 'ragg', require libwebp and libwebpmux to build.
+Examples: `cwebp -version`, `cwebp -h`, `dwebp -h`, and `man cwebp`.
+License: BSD-3-Clause
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+-- execution
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

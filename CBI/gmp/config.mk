@@ -1,0 +1,7 @@
+NAME=gmp
+VERSION=6.3.0
+DOWNLOAD_TARGET_FILE=configure
+CONFIG_OPTS=--enable-cxx
+CONFIG_TARGET_FILE=config.log
+BUILD_TARGET_FILE=.libs/libgmp.so
+INSTALL_TARGET_FILE=lib/libgmp.so

@@ -1,0 +1,22 @@
+help("libsodium: A modern, portable, easy to use crypto library.")
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: cryptography, library")
+whatis("URL: https://doc.libsodium.org/ (docs), https://github.com/jedisct1/libsodium (source), https://github.com/jedisct1/libsodium/releases (releases)")
+whatis("License: ISC License")
+whatis([[
+Description: Sodium is a new, easy-to-use software library for encryption, decryption, signatures, password hashing and more.
+Examples: `pkg-config --cflags --libs libsodium`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH",  pathJoin(home, "lib", "pkgconfig"))

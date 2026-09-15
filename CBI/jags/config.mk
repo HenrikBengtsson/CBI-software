@@ -6,4 +6,5 @@ BUILD_TARGET_FILE=stamp-h1
 INSTALL_TARGET_FILE=bin/jags
 LINUX_DISTRO_SPECIFIC=true
 
-CONFIG_MODULES=CBI scl-gcc-toolset
+CONFIG_MODULES=CBI scl-gcc-toolset openblas
+CONFIG_OPTS=--with-blas="-lopenblas" --with-lapack="-lopenblas"

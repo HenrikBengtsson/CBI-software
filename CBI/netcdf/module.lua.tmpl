@@ -1,0 +1,33 @@
+help([[
+netcdf: NetCDF (network Common Data Form)
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://www.unidata.ucar.edu/software/netcdf/, https://docs.unidata.ucar.edu/netcdf-c/current/ (documentation), https://github.com/Unidata/netcdf-c (source code), https://github.com/Unidata/netcdf-c/releases (releases)")
+whatis([[
+Description: NetCDF (network Common Data Form) is a set of software libraries and machine-independent data formats that support the creation, access, and sharing of array-oriented scientific data.
+Examples: `nc-config --all`, `ncdump`.
+License: NetCDF (MIT-like)
+]])
+
+depends_on("hdf5")
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+local libdir = pathJoin(home, "lib")
+
+-- linking
+prepend_path("LD_RUN_PATH", libdir)
+
+-- building
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", libdir)
+prepend_path("LDFLAGS", "-L" .. libdir, " ")
+prepend_path("PKG_CONFIG_PATH", pathJoin(libdir, "pkgconfig"))

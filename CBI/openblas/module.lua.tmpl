@@ -1,0 +1,34 @@
+help([[
+OpenBLAS: An optimized BLAS library based on GotoBLAS2
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library, math, BLAS, LAPACK")
+whatis("URL: https://www.openblas.net/")
+whatis([[
+Description: OpenBLAS is an optimized BLAS (Basic Linear Algebra Subprograms) library based on GotoBLAS2. It provides highly efficient implementations of BLAS and LAPACK routines.
+Examples: Set `CONFIG_OPTS=--with-blas="-L$OPENBLAS_HOME/lib -lopenblas" --with-lapack="-L$OPENBLAS_HOME/lib -lopenblas"` during software configuration to use it.
+License: BSD-3-Clause
+]])
+
+local name = "OpenBLAS"
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+local path = pathJoin(home, "lib")
+if not isDir(path) then
+  path = pathJoin(home, "lib64")
+end
+prepend_path("LD_LIBRARY_PATH", path)
+prepend_path("LIBRARY_PATH", path)
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(path, "pkgconfig"))
+
+pushenv("OPENBLAS_HOME", home)

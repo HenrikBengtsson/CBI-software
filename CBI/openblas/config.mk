@@ -1,0 +1,13 @@
+NAME=OpenBLAS
+MODULE_NAME=openblas
+VERSION=0.3.28
+DOWNLOAD_FILE=Makefile
+BUILD_TARGET_FILE=libopenblas.so
+INSTALL_TARGET_FILE=lib/libopenblas.so
+LINUX_DISTRO_SPECIFIC=true
+
+CONFIG_MODULES=CBI scl-gcc-toolset
+
+CONFIG=false
+
+BUILD_OPTS=

@@ -4,11 +4,12 @@ imagemagick: Create, Edit, Convert and Display Images in Many Formats
 
 local name = myModuleName()
 local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
-whatis("Keywords: utility, file viewer, cli, tui")
+whatis("Keywords: utility, file viewer, cli, tui, library")
 whatis("URL: https://imagemagick.org/, https://imagemagick.org/script/security-policy.php (configure security policies), https://github.com/ImageMagick/ImageMagick (source code)")
 whatis([[
-Description: ImageMagick is a free, open-source software suite, used for editing and manipulating digital images. It can be used to create, edit, compose, or convert bitmap images, and supports a wide range of file formats, including JPEG, PNG, GIF, TIFF, and Ultra HDR.
+Description: ImageMagick is a free, open-source software suite, used for editing and manipulating digital images. It can be used to create, edit, compose, or convert bitmap images, and supports a wide range of file formats, including JPEG, PNG, GIF, TIFF, and Ultra HDR. This module provides the command-line utilities as well as the MagickCore, MagickWand, and Magick++ development libraries.
 License: https://imagemagick.org/license/
 Examples: `magick -version` and `magick -help`. First time use: Make sure to configure `~/.config/ImageMagick/policy.xml` and verify with `magick -list policy`
 Warning: Only the most recent versions of this software will be kept.
@@ -18,5 +19,17 @@ Warning: Only the most recent versions of this software will be kept.
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
-prepend_path("PATH", home)
+-- execution
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
 
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+-- ImageMagick installs its headers below include/ImageMagick-7/, which is
+-- where <Magick++.h>, <MagickCore/...>, and <MagickWand/...> live.
+prepend_path("CPATH", pathJoin(home, "include", "ImageMagick-7"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

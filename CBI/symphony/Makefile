@@ -24,6 +24,10 @@ $(DOWNLOAD_TARGET):
 ## for SYMPHONY 5.7.3 with Osi 0.108.11.
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH); \
+        if ! module try-load $(CONFIG_MODULES) 2> /dev/null; then \
+            >&2 echo "ERROR: Failed to load module '$(CONFIG_MODULES)'"; \
+            exit 1; \
+        fi; \
 	./coinbrew build SYMPHONY --prefix="$(PREFIX)" --tests=main --verbosity=1
 
 available-version:

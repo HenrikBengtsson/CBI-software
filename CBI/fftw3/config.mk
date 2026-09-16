@@ -5,3 +5,5 @@ BUILD_TARGET_FILE=tests/bench
 INSTALL_TARGET_FILE=lib/libfftw3.so
 
 CONFIG_OPTS=--enable-shared --enable-threads --enable-openmp LDFLAGS=""
+
+CONFIG_MODULES=CBI scl-gcc-toolset

@@ -180,7 +180,9 @@ else
   PREFIX=
 endif
 
-
+ifndef INSTALL_MODULES
+  INSTALL_MODULES=$(BUILD_MODULES)
+endif
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## MAKE RULES
@@ -239,6 +241,8 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	make --quiet assert_version
 	make --quiet pre_install
 	mkdir -p $(PREFIX)
+	module --force purge; \
+	module try-load $(INSTALL_MODULES); \
 	cd $(BUILD_PATH); \
 	make --quiet install
 	make --quiet post_install
@@ -486,6 +490,7 @@ debug:
 	@echo
 	@echo "MODULES:"
 	@echo "INSTALL_MODULE: $(INSTALL_MODULE)"
+	@echo "INSTALL_MODULES: $(INSTALL_MODULES)"
 	@echo "MODULE_HOME: $(MODULE_HOME)"
 	@echo "MODULE_NAME: $(MODULE_NAME)"
 	@echo "MODULE_VERSION: $(MODULE_VERSION)"

@@ -68,6 +68,40 @@ endif
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## END-USER LICENSE AGREEMENT (EULA)
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## EULA_URL:
+##   If set, the user has to accept the EULA the first time they load
+##   the module; cf. 'utils/assert_eula.lmod.tmpl'.
+##
+## EULA_BLOCKED:
+##   If true, the software is *not* downloaded, built, or installed.
+##   Instead, a mockup module is installed, which produces an
+##   LmodError() explaining why the software is not available, and what
+##   the user can do instead; cf. 'utils/eula_blocked.lmod.tmpl'.  Use
+##   this when it is not clear that the EULA allows us to install the
+##   software once and share it with all users on the cluster.  The
+##   explanation can be customized per software by adding an
+##   'eula_blocked.txt' file next to 'config.mk'; otherwise
+##   'utils/eula_blocked.txt' is used.
+ifndef EULA_BLOCKED
+  EULA_BLOCKED=false
+endif
+
+ifeq ($(EULA_BLOCKED),true)
+  ifeq ($(strip $(EULA_URL)),)
+    $(error ERROR: EULA_BLOCKED=true requires that 'EULA_URL' is set)
+  endif
+
+  ## Nothing is downloaded, configured, built, or installed
+  DOWNLOAD=false
+  CONFIG=false
+  BUILD=false
+  INSTALL=false
+endif
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DOWNLOADING
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ifndef DOWNLOAD
@@ -182,6 +216,17 @@ endif
 
 ifndef INSTALL_MODULES
   INSTALL_MODULES=$(BUILD_MODULES)
+endif
+
+## Nothing is installed when EULA_BLOCKED=true, but keep 'PREFIX' so
+## that 'make uninstall' can remove an already installed version, e.g.
+## when toggling EULA_BLOCKED from false to true
+ifeq ($(EULA_BLOCKED),true)
+  ifneq ($(strip $(SOFTWARE_HOME)),)
+    PREFIX=$(SOFTWARE_HOME)/$(NAME)-$(VERSION)
+  else ifneq ($(strip $(SOFTWARE_ROOT_CBI)),)
+    PREFIX=$(SOFTWARE_ROOT_CBI)/$(NAME)-$(VERSION)
+  endif
 endif
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -319,12 +364,29 @@ ifeq ($(INSTALL_MODULE),true)
   endif
 endif
 
-$(MODULE_TARGET): module.lua.tmpl
+## Which module template to install?
+ifeq ($(EULA_BLOCKED),true)
+  MODULE_TMPL=../../utils/eula_blocked.lmod.tmpl
+  ifneq ($(wildcard eula_blocked.txt),)
+    EULA_BLOCKED_TXT=eula_blocked.txt
+  else
+    EULA_BLOCKED_TXT=../../utils/eula_blocked.txt
+  endif
+else
+  MODULE_TMPL=module.lua.tmpl
+  EULA_BLOCKED_TXT=
+endif
+
+$(MODULE_TARGET): $(MODULE_TMPL) $(EULA_BLOCKED_TXT)
 	make --quiet pre_install_module
 	mkdir -p "$(@D)"
 	chmod u+w "$@" 2> /dev/null || true
 	cp "$<" "$@.tmp"
-	if [[ -n "$(EULA_URL)" ]]; then \
+	if [[ "$(EULA_BLOCKED)" == "true" ]]; then \
+	     awk -v file="$(EULA_BLOCKED_TXT)" 'index($$0, "{{ EULA_BLOCKED_REASON }}") { while ((getline line < file) > 0) print line; next } { print }' "$@.tmp" \
+	       | sed -e 's!{{ NAME }}!$(NAME)!g' -e 's!{{ VERSION }}!$(VERSION)!g' -e 's!{{ EULA_URL }}!$(EULA_URL)!g' > "$@.tmp2"; \
+	     mv "$@.tmp2" "$@.tmp"; \
+	elif [[ -n "$(EULA_URL)" ]]; then \
 	     sed 's!{{ EULA_URL }}!$(EULA_URL)!' ../../utils/assert_eula.lmod.tmpl >> "$@.tmp"; \
 	fi
 	mv "$@.tmp" "$@"
@@ -393,6 +455,16 @@ check-export:
 	@echo "export MODULE_HIDDEN=$(MODULE_HIDDEN)"
 	@echo "export PREFIX=$(PREFIX)"
 
+ifeq ($(EULA_BLOCKED),true)
+## The software is not installed, so only assert that the mockup module
+## exists and that it refuses to load
+check:
+	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
+	    eval "$$(make --quiet check-export 2> /dev/null)"; \
+	    echo "*** EULA-blocked checks ..."; \
+	    bats ../.incl/tests-eula-blocked/*.bats; \
+	fi
+else
 check:
 	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
 	    eval "$$(make --quiet check-export 2> /dev/null)"; \
@@ -405,6 +477,7 @@ check:
 	        echo "*** Software-specific checks ... none (missing tests/ folder)"; \
 	    fi; \
 	fi
+endif
 
 check-libs:
 	@if module load CBI bats-core bats-assert bats-file &> /dev/null; then \
@@ -498,12 +571,16 @@ debug:
 	@echo "MODULE_NAME_VERSION: $(MODULE_NAME_VERSION)"
 	@echo "FULLNAME: $(FULLNAME)"
 	@echo "MODULE_TARGET: $(MODULE_TARGET)"
+	@echo "MODULE_TMPL: $(MODULE_TMPL)"
 	@echo
 	@echo "ARCHITECTURE:"
 	@echo "LINUX_NAME: $(LINUX_NAME)"
 	@echo "LINUX_VERSION: $(LINUX_VERSION)"
 	@echo
-	@echo "EULA: $(EULA)"
+	@echo "EULA:"
+	@echo "EULA_URL: $(EULA_URL)"
+	@echo "EULA_BLOCKED: $(EULA_BLOCKED)"
+	@echo "EULA_BLOCKED_TXT: $(EULA_BLOCKED_TXT)"
 
 
 version:

@@ -1,0 +1,14 @@
+This software is not installed on this cluster, and this module exists
+only to explain why.
+
+It is not clear to us whether the end-user license agreement (EULA) of
+the software allows us to install it once and make it available to
+everyone here. Until that is clear, we take the conservative approach
+and do not install it for everyone. What you can do instead is to
+install it under your own account, where you accept the EULA yourself.
+
+If your lab or your department holds a license that covers a shared
+installation on this cluster, please get in touch and we will revisit
+this:
+
+  <https://cbi.ucsf.edu/>

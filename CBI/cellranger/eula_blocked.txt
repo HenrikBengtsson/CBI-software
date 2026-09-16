@@ -1,0 +1,25 @@
+Cell Ranger is proprietary software from 10x Genomics, and it is not
+installed on this cluster. This module exists only to explain why, so
+that you do not have to guess whether we forgot about it.
+
+It is not clear to us whether the Cell Ranger end-user license
+agreement (EULA) allows us to install the software once and make it
+available to everyone here. It raises at a few questions that we are
+uncertain about. For example, the license is granted to one named
+licensee, and it is non-transferable and non-sublicensable (Section
+3.1). Also, access may not be given to anyone other than the
+employees, agents, and contractors of that licensee, and each of them
+has to be bound by the terms of the EULA separately (Section
+4.1(b)).
+
+Until that is clear, we take the conservative approach and do not
+install Cell Ranger for everyone.
+
+What you can do instead is to install Cell Ranger under your own
+account, where you accept the EULA yourself:
+
+  <https://www.10xgenomics.com/support/software/cell-ranger/downloads>
+
+If your lab or your department holds a license that covers a shared
+installation on this cluster, or know someone who can investigate this
+problem further, please get in touch.

@@ -6,3 +6,4 @@ CONFIG_TARGET_FILE=config.log
 BUILD_TARGET_FILE=.libs/libgmp.so
 INSTALL_TARGET_FILE=lib/libgmp.so
 MODULE_NAME=libgmp
+LINUX_DISTRO_SPECIFIC=true

@@ -16,3 +16,5 @@ CONFIG=false
 BUILD=false
 INSTALL_TARGET_FILE=include/tiledb/tiledb.h
 MODULE_NAME=libtiledb
+
+LINUX_DISTRO_SPECIFIC=true

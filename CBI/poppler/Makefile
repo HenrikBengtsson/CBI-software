@@ -1,3 +1,6 @@
+## Important
+export LD_RUN_PATH=
+
 include config.mk
 include ../utils.mk
 

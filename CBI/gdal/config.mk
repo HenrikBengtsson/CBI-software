@@ -26,3 +26,7 @@ CONFIG_MODULES:=$(CONFIG_MODULES) CBI proj
 
 ## Build GDAL with GEOS support
 CONFIG_MODULES:=$(CONFIG_MODULES) CBI geos
+
+## Build GDAL with NetCDF support
+CONFIG_MODULES:=$(CONFIG_MODULES) CBI netcdf
+

@@ -6,4 +6,5 @@ BUILD=false
 INSTALL_TARGET_FILE=lib/pkgconfig/osi-sym.pc
 INSTALL_TARGET=$(PREFIX)/$(INSTALL_TARGET_FILE)
 
+CONFIG_MODULES=CBI scl-gcc-toolset
 

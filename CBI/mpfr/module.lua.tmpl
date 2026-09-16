@@ -1,0 +1,28 @@
+help([[MPFR: The GNU Multiple Precision Floating-Point Reliable Library]])
+
+local name = "mpfr"
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, math, floating-point")
+whatis("URL: https://www.mpfr.org/ (home), https://www.mpfr.org/mpfr-current/mpfr.html (documentation), https://www.mpfr.org/mpfr-current/ (releases)")
+whatis("License: LGPL-3.0-or-later")
+whatis([[
+Description: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.
+Examples: `gcc -O2 myprogram.c -lmpfr -lgmp`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("CPATH",  pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH",  pathJoin(home, "lib", "pkgconfig"))

@@ -24,7 +24,8 @@ local home = pathJoin(root, name .. "-" .. version)
 -- execution
 prepend_path("PATH", pathJoin(home, "bin"))
 prepend_path("MANPATH", pathJoin(home, "share", "man"))
-prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+-- Do not prepend LD_LIBRARY_PATH because it causes system tools like 'dnf' (which use python/sqlite) to segfault
+-- prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 -- linking
 prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
 -- building

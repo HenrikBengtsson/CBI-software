@@ -31,6 +31,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	module list; \
 	export CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 $${CFLAGS}"; \
 	export CFLAGS="-DSQLITE_ENABLE_RTREE=1 $${CFLAGS}"; \
+	export LDFLAGS="-Wl,-rpath,'\$\$ORIGIN/../lib' $${LDFLAGS}"; \
 	echo "LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}"; \
 	echo "CFLAGS=$${CFLAGS}"; \
 	cd $(BUILD_PATH); \

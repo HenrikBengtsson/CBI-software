@@ -12,6 +12,7 @@ setup() {
 }
 
 @test "executable can be run" {
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     run "$PREFIX/bin/glpsol" --version
     assert_success
 }

@@ -134,8 +134,9 @@ end
 
 -- WORKAROUND: nloptr 2.0.0 requires CMake (>= 3.15)
 -- See https://github.com/astamm/nloptr/issues/104#issuecomment-1111498876
-pushenv("CMAKE_BIN", "cmake3")
-
+if (isFile("/usr/bin/cmake3")) then
+  pushenv("CMAKE_BIN", "cmake3")
+end
 
 
 -- Assert that there is no active Conda environment

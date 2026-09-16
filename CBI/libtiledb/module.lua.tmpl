@@ -14,6 +14,12 @@ License: MIT
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
 local home = pathJoin(root, name .. "-" .. version)
 
 -- Runtime

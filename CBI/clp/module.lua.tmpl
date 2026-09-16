@@ -13,7 +13,7 @@ Description: Clp (Coin-or linear programming) is an open-source linear programmi
 Examples: `clp`
 ]])
 
-depends_on("coinutils")
+depends_on("libcoinutils")
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)

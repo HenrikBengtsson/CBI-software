@@ -1,0 +1,34 @@
+help([[
+librsvg: SVG rendering library
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library")
+whatis("URL: https://wiki.gnome.org/Projects/LibRsvg, https://gnome.pages.gitlab.gnome.org/librsvg/ (documentation), https://gitlab.gnome.org/GNOME/librsvg/-/releases (releases), https://gitlab.gnome.org/GNOME/librsvg (source code)")
+whatis([[
+Description: librsvg is a library to render SVG images to Cairo surfaces.
+License: LGPL-2.1-or-later.
+Examples: `rsvg-convert --version`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib64"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib64"))
+
+-- building
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib64"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib64", "pkgconfig"))
+prepend_path("XDG_DATA_DIRS", pathJoin(home, "share"))

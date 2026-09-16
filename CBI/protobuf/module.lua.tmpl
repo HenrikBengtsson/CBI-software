@@ -7,7 +7,7 @@ local version = myModuleVersion()
 version = string.gsub(version, "^[.]", "") -- for hidden modules
 whatis("Version: " .. version)
 whatis("Keywords: library, serialization, programming")
-whatis("URL: https://protobuf.dev/ (homepage), https://github.com/protocolbuffers/protobuf (source)")
+whatis("URL: https://protobuf.dev/, https://protobuf.dev/reference/cpp/ (documentation), https://github.com/protocolbuffers/protobuf/releases (changelog), https://github.com/protocolbuffers/protobuf (source code)")
 whatis("License: BSD-3-Clause")
 whatis([[
 Description: Protocol Buffers are a language-neutral, platform-neutral, extensible mechanism for serializing structured data. This module provides both halves that distributions split into 'protobuf-compiler' and 'protobuf-devel': the 'protoc' compiler, and the C++ headers, shared libraries and pkg-config files that other software links against. Abseil, which protobuf both builds and links against, is installed alongside it here.

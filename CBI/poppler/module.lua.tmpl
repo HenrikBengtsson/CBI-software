@@ -1,0 +1,40 @@
+help([[
+Poppler: PDF rendering library
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, pdf, text extraction")
+whatis("URL: https://poppler.freedesktop.org/, https://poppler.freedesktop.org/api/cpp/ (documentation), https://poppler.freedesktop.org/releases.html (changelog), https://gitlab.freedesktop.org/poppler/poppler (source code)")
+whatis("License: GPL-2.0-or-later")
+whatis([[
+Description: Poppler is a PDF rendering library. This module provides both halves that distributions split into 'poppler-utils' and 'poppler-cpp-devel': the command-line tools ('pdftotext', 'pdfinfo', 'pdfimages', 'pdftoppm', 'pdfunite', ...), and the C++ headers, shared libraries and pkg-config files that other software links against. Building the 'pdftools' R package requires this module. The separately licensed 'poppler-data' encoding tables are not bundled; poppler reads the distribution's copy under /usr/share/poppler if it is installed, and degrades quietly if it is not, which affects CJK and Cyrillic PDFs only.
+Examples: `pdftotext file.pdf -`, `pdfinfo file.pdf`, `pkg-config --cflags --libs poppler-cpp`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+-- Command-line utilities, e.g. 'pdftotext'
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- Runtime
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- Build time
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("CMAKE_PREFIX_PATH", home)

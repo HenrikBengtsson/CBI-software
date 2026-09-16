@@ -18,14 +18,8 @@ License: Apache-2.0
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 local home = pathJoin(root, name .. "-" .. version)
 
--- Cargo
-prepend_path("PATH", pathJoin(home, "cargo/bin"))
-prepend_path("MANPATH", pathJoin(home, "cargo/share/man"))
-
--- Rustc
-prepend_path("PATH", pathJoin(home, "rustc/bin"))
-prepend_path("MANPATH", pathJoin(home, "rustc/share/man"))
-prepend_path("LD_LIBRARY_PATH", pathJoin(home, "rustc/lib"))
-
-pushenv("RUSTFLAGS", "--sysroot=" .. pathJoin(home, "rust-std-x86_64-unknown-linux-gnu"))
+-- Cargo & Rustc
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share/man"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
 

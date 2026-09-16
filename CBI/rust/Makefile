@@ -18,8 +18,8 @@ $(DOWNLOAD_TARGET):
 	mv $(FULLNAME) $(NAME)-$(VERSION)
 
 $(INSTALL_TARGET): $(DOWNLOAD_TARGET)
-	mkdir -p "$(PREFIX)/.."
-	cp -R $(BUILD_PATH) $(PREFIX)/..
+	mkdir -p "$(PREFIX)"
+	cd $(BUILD_PATH) && ./install.sh --prefix="$(PREFIX)"
 	make post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"

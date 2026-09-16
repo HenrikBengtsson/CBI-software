@@ -1,0 +1,40 @@
+help([[
+Protocol Buffers: Google's data interchange format
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: library, serialization, programming")
+whatis("URL: https://protobuf.dev/ (homepage), https://github.com/protocolbuffers/protobuf (source)")
+whatis("License: BSD-3-Clause")
+whatis([[
+Description: Protocol Buffers are a language-neutral, platform-neutral, extensible mechanism for serializing structured data. This module provides both halves that distributions split into 'protobuf-compiler' and 'protobuf-devel': the 'protoc' compiler, and the C++ headers, shared libraries and pkg-config files that other software links against. Abseil, which protobuf both builds and links against, is installed alongside it here.
+Examples: `protoc --version`, `pkg-config --cflags --libs protobuf`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+-- 'protoc', which R packages such as 'protolite' and 'RProtoBuf' call at
+-- build time
+prepend_path("PATH", pathJoin(home, "bin"))
+
+-- Runtime
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- Build time
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("CMAKE_PREFIX_PATH", home)

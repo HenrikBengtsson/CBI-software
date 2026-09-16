@@ -1,0 +1,43 @@
+help([[
+MariaDB Connector/C: client library for MariaDB and MySQL servers
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+version = string.gsub(version, "^[.]", "") -- for hidden modules
+whatis("Version: " .. version)
+whatis("Keywords: database, library, mariadb, mysql, sql")
+whatis("URL: https://mariadb.com/kb/en/mariadb-connector-c/, https://mariadb.com/kb/en/mariadb-connector-c-api-functions/ (documentation), https://github.com/mariadb-corporation/mariadb-connector-c/releases (changelog), https://github.com/mariadb-corporation/mariadb-connector-c (source code)")
+whatis("License: LGPL-2.1-or-later")
+whatis([[
+Description: MariaDB Connector/C is the C client library for MariaDB and MySQL servers.
+Examples: `mariadb_config --cflags --libs`, `pkg-config --cflags --libs libmariadb`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+-- 'mariadb_config', which 'RMariaDB' and 'RMySQL' call at build time,
+-- plus its 'mysql_config' alias
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("MANPATH", pathJoin(home, "share", "man"))
+
+-- Runtime
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- Linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- Build time.  The headers sit in include/mariadb/, so it is that
+-- directory, not include/, that goes on CPATH; that makes both
+-- '#include <mysql.h>' and '#include <mysql/client_plugin.h>' resolve.
+prepend_path("CPATH", pathJoin(home, "include", "mariadb"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("CMAKE_PREFIX_PATH", home)

@@ -20,7 +20,7 @@ $(CONFIG_TARGET): $(DOWNLOAD_TARGET)
 	cd "$(BUILD_PATH)/build"; \
 	module purge; \
 	module try-load $(CONFIG_MODULES); \
-	cmake .. -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	cmake .. -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 $(BUILD_TARGET): $(CONFIG_TARGET)
 	cd "$(BUILD_PATH)/build"; \

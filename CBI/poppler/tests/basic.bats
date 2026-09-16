@@ -129,12 +129,13 @@ EOF
     assert_equal "${prefix}" "${PREFIX}"
 }
 
-## 'poppler-cpp.pc' has 'Requires.private: poppler', and 'poppler.pc' in turn
-## names freetype2, fontconfig, zlib, libjpeg, libpng and libtiff-4.
-## pkg-config resolves that whole chain or nothing, so one missing system
-## *.pc file breaks every consumer -- including the 'pdftools' R package,
-## whose configure script runs exactly this -- while the test above still
-## passes.
+## 'poppler-cpp.pc' carries 'Requires.private: poppler = <version>', and
+## pkg-config resolves that chain or returns nothing -- so a half-installed
+## tree breaks every consumer, including the 'pdftools' R package whose
+## configure script runs exactly this, while the test above still passes.
+## (In 24.04.0 'poppler.pc' itself names no further modules; later releases
+## add freetype2, fontconfig and friends to its 'Requires.private:', which
+## makes this check strictly more valuable after a VERSION bump.)
 @test "pkg-config resolves the full Requires.private: chain" {
     module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
     run pkg-config --print-errors --cflags --libs poppler-cpp

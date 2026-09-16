@@ -39,6 +39,7 @@ prepend_path("LD_RUN_PATH", pathJoin(home, libdir))
 prepend_path("CPATH", pathJoin(home, "include"))
 prepend_path("LIBRARY_PATH", pathJoin(home, libdir))
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, libdir, "pkgconfig"))
+prepend_path("CMAKE_PREFIX_PATH", home)
 
 
 -- From 'make install':

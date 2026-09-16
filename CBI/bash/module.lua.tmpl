@@ -19,6 +19,7 @@ prepend_path("PATH", pathJoin(home, "bin"))
 if version >= "4.0" then
     prepend_path("MANPATH", pathJoin(home, "share", "man"))
     prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+prepend_path("CMAKE_PREFIX_PATH", home)
 else
     prepend_path("MANPATH", pathJoin(home, "man"))
 end

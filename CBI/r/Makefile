@@ -247,7 +247,16 @@ r_javareconf: assert_java_version
 	make GCC_VERSION=$(GCC_VERSION) write_protect_install
 
 
-post_install: r_javareconf
+## Install the CBI site profile (see Rprofile.site for why).
+## Loop over lib*/ rather than globbing into cp, which would get two
+## destination arguments if both lib/ and lib64/ exist.
+install_rprofile_site:
+	for dir in $(PREFIX)/lib*/R/etc; do \
+	    chmod u+w "$$dir"; \
+	    cp Rprofile.site "$$dir/Rprofile.site"; \
+	done
+
+post_install: r_javareconf install_rprofile_site
 	## Prevent package installations/updates in system library
 	chmod -R ugo-w $(PREFIX)/lib*/R/library
 	chmod u+w $(PREFIX) $(PREFIX)/*

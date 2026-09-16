@@ -1,0 +1,20 @@
+## CBI site profile for R
+##
+## Prefer cairo for bitmap devices when X11 is unavailable.
+##
+## R decides options(bitmapType) at startup and picks "Xlib" unless its
+## stricter cairo check passes.  On a build configured with --with-x=no there
+## is no X11, so png()/jpeg()/tiff() without an explicit type= cannot work,
+## even under xvfb-run.  cairo is built in and does work, so prefer it.
+##
+## This belongs in the site profile rather than in the user's session because
+## options() do not cross process boundaries: R CMD INSTALL runs the package
+## lazy-load step in a subprocess, and packages that open a device while being
+## loaded (e.g. inventorize) fail there regardless of what the calling session
+## set.  The site profile is read by those subprocesses.
+##
+## The test is made at run time so this file is safe on builds that do have
+## X11, where "Xlib" remains the default.
+if (!capabilities("X11") && capabilities("cairo")) {
+    options(bitmapType = "cairo")
+}

@@ -1,0 +1,23 @@
+help([[glpk: GNU Linear Programming Kit]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library, utility, optimization, math")
+whatis("URL: https://www.gnu.org/software/glpk/")
+whatis("URL: https://www.gnu.org/software/glpk/#docs (documentation)")
+whatis("URL: https://ftp.gnu.org/gnu/glpk/ (releases)")
+whatis("URL: https://git.savannah.gnu.org/git/glpk.git (source code)")
+whatis([[
+Description: The GLPK (GNU Linear Programming Kit) package is intended for solving large-scale linear programming (LP), mixed integer programming (MIP), and other related problems.
+License: GPL-3.0
+Examples: `glpsol --help`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))

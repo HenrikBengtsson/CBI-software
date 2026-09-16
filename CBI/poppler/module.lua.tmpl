@@ -10,7 +10,7 @@ whatis("Keywords: library, pdf, text extraction")
 whatis("URL: https://poppler.freedesktop.org/, https://poppler.freedesktop.org/api/cpp/ (documentation), https://poppler.freedesktop.org/releases.html (changelog), https://gitlab.freedesktop.org/poppler/poppler (source code)")
 whatis("License: GPL-2.0-or-later")
 whatis([[
-Description: Poppler is a PDF rendering library. This module provides both halves that distributions split into 'poppler-utils' and 'poppler-cpp-devel': the command-line tools ('pdftotext', 'pdfinfo', 'pdfimages', 'pdftoppm', 'pdfunite', ...), and the C++ headers, shared libraries and pkg-config files that other software links against. Building the 'pdftools' R package requires this module. The separately licensed 'poppler-data' encoding tables are not bundled; poppler reads the distribution's copy under /usr/share/poppler if it is installed, and degrades quietly if it is not, which affects CJK and Cyrillic PDFs only.
+Description: Poppler is a PDF rendering library. This module provides both halves that distributions split into 'poppler-utils' and 'poppler-cpp-devel': the command-line tools ('pdftotext', 'pdfinfo', 'pdfimages', 'pdftoppm', 'pdfunite', ...), and the C++ headers with shared libraries.
 Examples: `pdftotext file.pdf -`, `pdfinfo file.pdf`, `pkg-config --cflags --libs poppler-cpp`
 ]])
 

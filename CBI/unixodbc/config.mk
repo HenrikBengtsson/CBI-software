@@ -1,0 +1,14 @@
+NAME=unixODBC
+VERSION=2.3.14
+
+MODULE_NAME=unixodbc
+
+DOWNLOAD_TARGET_FILE=configure
+CONFIG_TARGET_FILE=config.log
+BUILD_TARGET_FILE=DriverManager/libodbc.la
+INSTALL_TARGET_FILE=bin/odbc_config
+RECENT_ONLY=true
+
+LINUX_DISTRO_SPECIFIC=true
+
+CONFIG_MODULES=CBI scl-gcc-toolset

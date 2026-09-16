@@ -1,8 +1,8 @@
 include config.mk
 include ../utils.mk
 
-
 TARBALL=$(VERSION).tar.gz
+GITHUB_REPO=https://github.com/coin-or/$(NAME)
 
 ## ----------------------------------------------------------
 ## SOFTWARE

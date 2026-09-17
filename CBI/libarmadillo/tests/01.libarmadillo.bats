@@ -7,7 +7,7 @@ setup() {
 }
 
 @test "library exists" {
-    run stat "$PREFIX/lib/libarmadillo.so"
+    run stat "$PREFIX/lib64/libarmadillo.so"
     assert_success
 }
 
@@ -17,6 +17,6 @@ setup() {
 }
 
 @test "pkgconfig exists" {
-    run stat "$PREFIX/lib/pkgconfig/armadillo.pc"
+    run stat "$PREFIX/lib64/pkgconfig/armadillo.pc"
     assert_success
 }

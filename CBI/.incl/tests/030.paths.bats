@@ -24,7 +24,7 @@ setup() {
         for dir in "${dirs[@]}"; do
             ## Check only folder under SOFTWARE_HOME
             if [[ "$dir" == "$SOFTWARE_HOME"* ]]; then
-#               grep -q -E "(^|:)${dir}(:|$)" <<< "$path0" && continue
+                grep -q -E "(^|:)${dir}(:|$)" <<< "$path0" && continue
                 [[ -d "${dir}" ]] || missing+=( "$dir" )
             fi
         done

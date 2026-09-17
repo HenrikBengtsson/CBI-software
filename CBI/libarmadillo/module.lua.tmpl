@@ -1,0 +1,20 @@
+help([[Armadillo: C++ linear algebra library]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library, math, linear algebra")
+whatis("URL: https://arma.sourceforge.net/, https://arma.sourceforge.net/docs.html (documentation), https://arma.sourceforge.net/docs.html#changelog (changelog), https://gitlab.com/conradsnicta/armadillo-code (source code)")
+whatis([[
+Description: Armadillo is a high quality linear algebra library (matrix maths) for the C++ language, aiming towards a good balance between speed and ease of use.
+License: Apache 2.0
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

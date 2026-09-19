@@ -37,14 +37,13 @@ $(DOWNLOAD_TARGET):
 	cd $(BUILD_HOME); \
 	[[ -f "$(TARBALL)" ]] || curl -L -O "https://github.com/rstudio/rstudio/archive/refs/tags/$(TARBALL)"; \
 	tar zxf "$(TARBALL)"; \
-	mv rstudio-$(VERSION) $(NAME)-$(VERSION); \
-	sed -i 's/-DCMAKE_BUILD_TYPE=Release/-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \\\n\t-DCMAKE_BUILD_TYPE=Release/' $(NAME)-$(VERSION)/dependencies/common/install-yaml-cpp
+	mv rstudio-$(VERSION) $(NAME)-$(VERSION)
 	@echo "Now run:"
 	@echo "  make rstudio-tools"
 
-RSTUDIO_TOOLS := $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto $(BUILD_PATH)/rstudio-tools/panmirror $(BUILD_PATH)/dependencies/common/gwtproject
+RSTUDIO_TOOLS := $(BUILD_PATH)/rstudio-tools/yaml-cpp $(BUILD_PATH)/rstudio-tools/boost $(BUILD_PATH)/rstudio-tools/dictionaries $(BUILD_PATH)/rstudio-tools/mathjax $(BUILD_PATH)/rstudio-tools/pandoc $(BUILD_PATH)/rstudio-tools/soci $(BUILD_PATH)/dependencies/common/node $(BUILD_PATH)/rstudio-tools/quarto $(BUILD_PATH)/rstudio-tools/panmirror
 
-ifneq ($(filter 2025 2026 2027 2028 2029 2030,$(VERSION_X)),)
+ifeq ($(VERSION_X),2025)
 RSTUDIO_TOOLS += $(BUILD_PATH)/rstudio-tools/copilot-language-server
 endif
 
@@ -63,10 +62,6 @@ $(BUILD_PATH)/rstudio-tools: $(DOWNLOAD_TARGET)
 $(BUILD_PATH)/dependencies/common/node: $(DOWNLOAD_TARGET)
 	cd $(BUILD_PATH)/dependencies/common/; \
 	./install-npm-dependencies
-
-$(BUILD_PATH)/dependencies/common/gwtproject: $(DOWNLOAD_TARGET)
-	cd $(BUILD_PATH)/dependencies/common/; \
-	./install-gwt
 
 $(BUILD_PATH)/rstudio-tools/%: $(BUILD_PATH)/rstudio-tools
 	module purge; \

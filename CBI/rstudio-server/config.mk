@@ -7,11 +7,9 @@ NAME=rstudio-server
 
 VERSION=2025.09.1-401
 VERSION=2026.01.0-392
-VERSION=2026.09.0-174
 
 # last version that install out of the box for now
-#VERSION=2025.05.1-513
-
+VERSION=2025.05.1-513
 
 
 DOWNLOAD_TARGET_FILE=INSTALL

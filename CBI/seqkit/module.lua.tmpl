@@ -1,0 +1,17 @@
+help([[seqkit: A cross-platform and ultrafast toolkit for FASTA/Q file manipulation]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, sequencing, fasta, fastq")
+whatis("URL: https://bioinf.shenwei.me/seqkit/, https://github.com/shenwei356/seqkit/releases (changelog), https://github.com/shenwei356/seqkit (source code)")
+whatis([[
+Description: SeqKit is a cross-platform and ultrafast toolkit for FASTA/Q file manipulation.
+License: MIT
+Examples: `seqkit --help`
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

@@ -1,0 +1,33 @@
+help([[oneTBB: Intel/UXL Foundation's Threading Building Blocks, C++ library for parallelism on multi-core processors]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: library, parallel, threading, multicore")
+whatis("URL: https://uxlfoundation.github.io/oneTBB/, https://github.com/uxlfoundation/oneTBB/blob/master/RELEASE_NOTES.md (changelog), https://github.com/uxlfoundation/oneTBB (source code), https://github.com/uxlfoundation/oneTBB/releases (download)")
+whatis([[
+Description: oneTBB (Threading Building Blocks) is a flexible C++ library for parallel programming on multi-core processors. This is the modern, CMake-based oneTBB (>= 2021), built here so that gdal/terra and R packages that build against RcppParallel's bundled oneTBB (e.g. via LinkingTo: RcppParallel) resolve the SAME TBB ABI at runtime, instead of colliding with Rocky 8's system 'tbb' RPM (2018.2, classic tbb::task ABI) that terra otherwise picks up by default.
+License: Apache-2.0
+Examples: A C++/library dependency; there is no user-facing executable. Consuming code links with `-ltbb` and includes `<tbb/tbb.h>` or `<oneapi/tbb.h>`.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+
+-- Specific to the Linux distribution?
+if string.match(myFileName(), "/_" .. os.getenv("CBI_LINUX") .. "/") then
+  root = pathJoin(root, "_" .. os.getenv("CBI_LINUX"))
+end
+
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("LD_LIBRARY_PATH", pathJoin(home, "lib"))
+
+-- linking
+prepend_path("LD_RUN_PATH", pathJoin(home, "lib"))
+
+-- building
+prepend_path("CMAKE_PREFIX_PATH", home)
+prepend_path("CPATH", pathJoin(home, "include"))
+prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
+prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
+prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")

@@ -1,0 +1,6 @@
+NAME=seqkit
+VERSION=2.13.0
+DOWNLOAD_TARGET_FILE=seqkit
+CONFIG=false
+BUILD=false
+INSTALL_TARGET_FILE=bin/seqkit

@@ -62,6 +62,9 @@ depends_on("geos")
 -- Build/link against the modern oneTBB (>= 2021)
 depends_on("libtbb")
 
+-- requires NetCDF
+depends_on("netcdf")
+
 local root = os.getenv("SOFTWARE_ROOT_CBI")
 
 -- Specific to the Linux distribution?

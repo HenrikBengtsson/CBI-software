@@ -8,7 +8,7 @@ whatis("URL: https://uxlfoundation.github.io/oneTBB/, https://github.com/uxlfoun
 whatis([[
 Description: oneTBB (Threading Building Blocks) is a flexible C++ library for parallel programming on multi-core processors. This is the modern, CMake-based oneTBB (>= 2021), built here so that gdal/terra and R packages that build against RcppParallel's bundled oneTBB (e.g. via LinkingTo: RcppParallel) resolve the SAME TBB ABI at runtime, instead of colliding with Rocky 8's system 'tbb' RPM (2018.2, classic tbb::task ABI) that terra otherwise picks up by default.
 License: Apache-2.0
-Examples: A C++/library dependency; there is no user-facing executable. Consuming code links with `-ltbb` and includes `<tbb/tbb.h>` or `<oneapi/tbb.h>`.
+Examples: A C++/library dependency; there is no user-facing executable. Prefer `pkg-config --cflags --libs tbb` over a bare `-ltbb`: oneTBB ships no upstream .pc file, so this module writes its own with an explicit `-L`, because GCC's LIBRARY_PATH does not reliably win over its own built-in /usr/lib64 search path for a bare `-ltbb` (confirmed: this silently linked Rocky 8's system tbb 2018.2 instead, producing 'undefined reference' errors against this module's modern oneTBB symbols). `pkg-config --cflags --libs tbb` and `#include <tbb/tbb.h>` or `<oneapi/tbb.h>`.
 ]])
 
 local root = os.getenv("SOFTWARE_ROOT_CBI")
@@ -31,3 +31,9 @@ prepend_path("CPATH", pathJoin(home, "include"))
 prepend_path("LIBRARY_PATH", pathJoin(home, "lib"))
 prepend_path("CFLAGS", "-I" .. pathJoin(home, "include"), " ")
 prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
+
+-- pkg-config's PKG_CONFIG_PATH search reliably beats its default system
+-- paths (unlike GCC's LIBRARY_PATH vs. built-in /usr/lib64 -- see above),
+-- so consumers that use `pkg-config ... tbb` resolve to this module's
+-- modern oneTBB, not Rocky 8's system 'tbb' RPM.
+prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))

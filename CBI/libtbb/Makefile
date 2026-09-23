@@ -53,8 +53,39 @@ $(INSTALL_TARGET): $(BUILD_TARGET)
 	module --force purge; \
 	module try-load $(BUILD_MODULES); \
 	cmake --build . --target install
+	make --quiet post_install
 	ls -la $(PREFIX)
 	@echo "SOFTWARE INSTALLED TO: $(PREFIX)"
+
+## oneTBB's CMake build installs no .pc file at all (confirmed: no .pc.in
+## template anywhere in its cmake/templates/, only TBBConfig.cmake for
+## CMake's own find_package()). Consumers that resolve TBB via pkg-config
+## (e.g. terra, quanteda -- see their configure scripts) would otherwise
+## silently fall through to Rocky 8's system tbb.pc at /usr/lib64/pkgconfig
+## instead of this module. Writing our own here, with an explicit -L, is
+## also the fix for a GCC quirk: a bare '-ltbb' does not reliably resolve
+## via LIBRARY_PATH ahead of GCC's own built-in /usr/lib64 search path
+## (confirmed empirically -- see module.lua.tmpl), so pkg-config's explicit
+## -L is required, not just a nice-to-have.
+## NOTE: '${prefix}'/'${libdir}' below are pkg-config's OWN variable syntax,
+## meant to stay literal in the .pc file and be resolved by pkg-config at
+## read time -- not shell-expanded while this recipe writes the file. Hence
+## single-quoting every line and letting only Make's $(PREFIX)/$(VERSION)
+## (no '$$') get substituted before the shell ever sees this.
+post_install:
+	mkdir -p $(PREFIX)/lib/pkgconfig
+	printf '%s\n' \
+	  'prefix=$(PREFIX)' \
+	  'libdir=$${prefix}/lib' \
+	  'includedir=$${prefix}/include' \
+	  '' \
+	  'Name: tbb' \
+	  'Description: oneTBB (Threading Building Blocks)' \
+	  'Version: $(VERSION)' \
+	  'Libs: -L$${libdir} -ltbb' \
+	  'Cflags: -I$${includedir}' \
+	  > $(PREFIX)/lib/pkgconfig/tbb.pc
+	cat $(PREFIX)/lib/pkgconfig/tbb.pc
 
 available-version:
 	@curl --silent https://api.github.com/repos/uxlfoundation/oneTBB/releases/latest | jq -r .tag_name | sed 's/^v//'

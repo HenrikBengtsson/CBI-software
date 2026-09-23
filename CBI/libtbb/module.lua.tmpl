@@ -37,3 +37,13 @@ prepend_path("LDFLAGS", "-L" .. pathJoin(home, "lib"), " ")
 -- so consumers that use `pkg-config ... tbb` resolve to this module's
 -- modern oneTBB, not Rocky 8's system 'tbb' RPM.
 prepend_path("PKG_CONFIG_PATH", pathJoin(home, "lib", "pkgconfig"))
+
+-- This system's `pkg-config` is actually `pkgconf`, which silently strips
+-- a `-L<dir>` from its `--libs` output whenever <dir> is already on
+-- LIBRARY_PATH, on the assumption that's redundant. It isn't here: we
+-- confirmed empirically that GCC's LIBRARY_PATH does NOT reliably win over
+-- its own built-in /usr/lib64 search path for a bare `-ltbb` (see above),
+-- so `pkg-config --libs tbb` would otherwise hand out a bare `-ltbb` that
+-- silently links Rocky 8's system tbb 2018.2 instead of this module.
+-- PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 disables that stripping (confirmed fix).
+setenv("PKG_CONFIG_ALLOW_SYSTEM_LIBS", "1")

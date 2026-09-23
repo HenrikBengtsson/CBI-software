@@ -37,10 +37,17 @@ setup() {
 }
 
 @test "pkgconfig Libs includes an explicit -L (not just -ltbb)" {
-    # A bare '-ltbb' is not enough: GCC's LIBRARY_PATH does not reliably
-    # win over its own built-in /usr/lib64 search path, which silently
-    # resolves to Rocky 8's system tbb 2018.2 instead of this module.
-    run bash -c "PKG_CONFIG_PATH='$PREFIX/lib/pkgconfig' pkg-config --libs tbb"
+    # Set LIBRARY_PATH here too, matching how the module is actually loaded
+    # (it sets both PKG_CONFIG_PATH and LIBRARY_PATH at once): this system's
+    # `pkg-config` is really `pkgconf`, which silently strips a `-L<dir>`
+    # from its output whenever <dir> is already on LIBRARY_PATH, assuming
+    # that's redundant. It isn't -- GCC's LIBRARY_PATH does not reliably win
+    # over its own built-in /usr/lib64 search path for a bare '-ltbb', which
+    # silently resolves to Rocky 8's system tbb 2018.2 instead of this
+    # module. PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 (set by module.lua.tmpl) is
+    # what stops pkgconf stripping it; this test would have caught it
+    # missing, since without it this exact setup reproduces the bug.
+    run bash -c "PKG_CONFIG_PATH='$PREFIX/lib/pkgconfig' LIBRARY_PATH='$PREFIX/lib' PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 pkg-config --libs tbb"
     assert_success
     assert_output --partial "-L$PREFIX/lib"
 }
@@ -55,6 +62,8 @@ int main() {
 EOF
     run bash -c "
       export PKG_CONFIG_PATH='$PREFIX/lib/pkgconfig'
+      export LIBRARY_PATH='$PREFIX/lib'
+      export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
       g++ -std=gnu++17 -DTBB \$(pkg-config --cflags tbb) \
         -o '$BATS_TEST_TMPDIR/tbb_test' '$BATS_TEST_TMPDIR/tbb_test.cpp' \
         \$(pkg-config --libs tbb) \

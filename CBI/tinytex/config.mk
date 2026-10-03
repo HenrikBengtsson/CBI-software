@@ -1,5 +1,5 @@
 NAME=tinytex
-VERSION=2026.09
+VERSION=2026.10
 DOWNLOAD_TARGET_FILE=bin/x86_64-linux/tlmgr
 CONFIG=false
 BUILD=false

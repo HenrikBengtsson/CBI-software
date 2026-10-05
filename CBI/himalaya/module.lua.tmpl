@@ -1,0 +1,21 @@
+help([[
+himalaya: CLI to Manage Emails
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, email")
+whatis("URL: https://github.com/pimalaya/himalaya, https://github.com/pimalaya/himalaya/blob/master/CHANGELOG.md (changelog), https://github.com/pimalaya/himalaya/releases (download)")
+whatis([[
+Description: A command-line interface for managing emails, e.g. listing and searching envelopes, reading, writing, replying, forwarding, moving, deleting, and exporting raw messages (e.g. as EML files), and downloading attachments. Supports multiple accounts and backends, including IMAP, SMTP, JMAP, Gmail, Microsoft Graph, Maildir, and mbox.
+License: MIT
+Examples: `himalaya --help`, `himalaya --version`, `himalaya envelope list`, `himalaya envelope search <query>`, `himalaya message read --raw <ID> > msg.eml`, and `himalaya attachment download <ID>`.
+Note: The configuration file is `~/.config/himalaya/config.toml`.
+Warning: Only the most recent versions of this software will be kept.
+]])
+
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

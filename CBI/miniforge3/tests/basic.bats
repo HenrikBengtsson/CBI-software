@@ -11,3 +11,16 @@ setup() {
     truth=$(echo "${VERSION}" | sed -E 's/-.*$//')
     assert_equal "${version}" "${truth}"
 }
+
+@test "CONDA_OFFLINE is unset by default" {
+    unset NO_INTERNET
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    assert_equal "${CONDA_OFFLINE:-}" ""
+}
+
+@test "NO_INTERNET=true sets CONDA_OFFLINE=true" {
+    export NO_INTERNET=true
+    module load "${MODULE_REPO}" "${MODULE_NAME}/${MODULE_VERSION}"
+    assert_equal "${CONDA_OFFLINE:-}" "true"
+    unset NO_INTERNET
+}

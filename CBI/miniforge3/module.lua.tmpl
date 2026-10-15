@@ -42,6 +42,14 @@ if mode() == "load" then
   pushenv("CONDA_PYTHON_EXE", pathJoin(home, "bin", "python"))
   pushenv("_CE_M", "")
   pushenv("_CE_CONDA", "")
+
+  -- On a host without internet access, conda otherwise hangs for several
+  -- minutes retrying unreachable channels before failing. Set
+  -- NO_INTERNET=true (e.g. on compute nodes) to make conda fail fast
+  -- instead.
+  if os.getenv("NO_INTERNET") == "true" then
+    pushenv("CONDA_OFFLINE", "true")
+  end
 elseif mode() == "unload" then
   pushenv("CONDA_EXE", "false")
   pushenv("CONDA_PYTHON_EXE", "false")

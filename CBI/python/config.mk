@@ -1,5 +1,5 @@
 NAME=python
-VERSION=3.14.6
+VERSION=3.14.8
 CONFIG=false
 BUILD=false
 DOWNLOAD=false

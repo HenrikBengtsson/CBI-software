@@ -1,5 +1,5 @@
 NAME=llmfit
-VERSION=1.1.14
+VERSION=1.1.17
 DOWNLOAD_TARGET_FILE=install.sh
 CONFIG=false
 BUILD_TARGET_FILE=target/release/$(NAME)

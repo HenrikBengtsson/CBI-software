@@ -1,0 +1,20 @@
+help([[
+tea: Gitea/Forgejo's Official Command Line Tool
+]])
+
+local name = myModuleName()
+local version = myModuleVersion()
+whatis("Version: " .. version)
+whatis("Keywords: utility, cli, git, gitea, forgejo, codeberg")
+whatis("URL: https://gitea.com/gitea/tea, https://gitea.com/gitea/tea/raw/branch/main/README.md (documentation), https://gitea.com/gitea/tea/releases (changelog), https://gitea.com/gitea/tea (source code)")
+whatis([[
+Description: `tea` is the official command-line client for Gitea, and it works against any compatible Gitea/Forgejo instance, including Codeberg. It brings issues, pull requests, releases, and other forge concepts to the terminal next to where you are already working with `git` and your code.
+Examples: `tea --version` and `tea --help`. Setup: `tea login add --url https://codeberg.org --name codeberg` (once, prompts for a token). CLI query example: `tea issues list --repo owner/repo --login codeberg`. Open a pull request: `tea pulls create --repo owner/repo --login codeberg`.
+License: MIT
+]])
+
+-- Local variables
+local root = os.getenv("SOFTWARE_ROOT_CBI")
+local home = pathJoin(root, name .. "-" .. version)
+
+prepend_path("PATH", pathJoin(home, "bin"))

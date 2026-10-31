@@ -135,9 +135,9 @@ if (!nzchar(Sys.getenv("R_CMD"))) {
 #'
 #' @author Henrik Bengtsson
 local({
-  no_internet <- identical(toupper(Sys.getenv("NO_INTERNET")), "TRUE")
-  if (isTRUE(no_internet)) {
-    has_internet <- FALSE
+  if (!is.na(Sys.getenv("NO_INTERNET", NA_character_))) {
+    no_internet <- identical(toupper(Sys.getenv("NO_INTERNET")), "TRUE")
+    has_internet <- !no_internet
   } else {
     has_internet <- as.logical(toupper(Sys.getenv("R_INTERNET", "FALSE")))
     if (is.na(has_internet)) {

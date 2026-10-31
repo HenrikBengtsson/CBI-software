@@ -145,11 +145,18 @@ if (!nzchar(Sys.getenv("R_CMD"))) {
 #'
 #' @author Henrik Bengtsson
 local({
-  has_internet <- as.logical(toupper(Sys.getenv("R_INTERNET", "FALSE")))
-  if (is.na(has_internet)) {
-    dev_node <- grepl("dev[0-9]$", Sys.info()[["nodename"]])
-    has_internet <- dev_node
+  no_internet <- identical(toupper(Sys.getenv("NO_INTERNET")), "TRUE")
+  if (isTRUE(no_internet)) {
+    has_internet <- FALSE
+  } else {
+    has_internet <- as.logical(toupper(Sys.getenv("R_INTERNET", "FALSE")))
+    if (is.na(has_internet)) {
+      ## Hard-coded for UCSF Wynton HPC
+      dev_node <- grepl("dev[0-9]$", Sys.info()[["nodename"]])
+      has_internet <- dev_node
+    }
   }
+  
   ## Nothing todo?  
   if (has_internet) return()
   

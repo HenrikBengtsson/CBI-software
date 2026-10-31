@@ -161,10 +161,14 @@ pushenv("MODULE_ROOT_CBI", module_root)
 -- Compute nodes do not have internet access
 local slurm_job_id = os.getenv("SLURM_JOB_ID")
 local job_id = os.getenv("JOB_ID")
-if "${system}" == "ucsf-corehpc" and (slurm_job_id ~= nil and slurm_job_id ~= "") then
-  setenv("NO_INTERNET", "true")
-elseif "${system}" == "ucsf-wynton" and (job_id ~= nil and job_id ~= "") then
-  setenv("NO_INTERNET", "true")
+if "${system}" == "ucsf-corehpc" then
+  if (slurm_job_id ~= nil and slurm_job_id ~= "") then
+    setenv("NO_INTERNET", "true")
+  end
+elseif "${system}" == "ucsf-wynton" then
+  if (job_id ~= nil and job_id ~= "") then
+    setenv("NO_INTERNET", "true")
+  end
 end
 
 -- Warn once per session about CBI being beta on CoreHPC

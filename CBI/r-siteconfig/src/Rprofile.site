@@ -95,12 +95,7 @@ if (!nzchar(Sys.getenv("R_CMD"))) {
     repos <- c(
       getOption("repos"),
       known_repos(),
-      "CRAN"       = "https://cloud.r-project.org",
-      "CRANextra"  = if (.Platform$OS.type == "windows") {
-                       "https://www.stats.ox.ac.uk/pub/RWin"
-                     },
-      "R-Forge"    = "http://R-Forge.R-project.org",
-      "rforge.net" = "https://www.rforge.net"
+      "CRAN" = "https://cloud.r-project.org"
     )
 
     # Drop remaining '@...@' values
@@ -123,11 +118,6 @@ if (!nzchar(Sys.getenv("R_CMD"))) {
     idx <- match("CRAN", names(repos))
     if (!is.na(idx)) repos <- c(repos[idx], repos[-idx])
     
-    # Use HTTP when HTTPS is not supported
-    if (getRversion() < "3.2.2") {
-      repos <- gsub("https://", "http://", repos, fixed = TRUE)
-    }
-  
     # Keep only unique existing ones
     repos <- repos[!is.na(repos)]
     names <- names(repos)

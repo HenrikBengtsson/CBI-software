@@ -48,27 +48,9 @@ if (!nzchar(Sys.getenv("R_CMD"))) {
       if (nzchar(biocver)) return(biocver)
   
       # Via the BiocManager package?
-      ## WORKAROUND: BiocManager::version() can be very slow
-      ## because it calls installed.packages().
-      ## https://github.com/Bioconductor/BiocManager/pull/42
       tryCatch({
-        if (utils::packageVersion("BiocManager") >= "1.30.5") {
-          biocver <- as.character(BiocManager::version())
-          unloadNamespace("BiocManager")
-        } else {
-          tryCatch({
-            ## WARNING: The following call with query the Bioconductor
-            ## web server (https://bioconductor.org/config.yaml) to infer
-            ## the recommended Bioconductor version for this version of R
-            ## NOTE: If it fails to connect, it will produce warnings
-            ## saying so, but will not give an error
-            biocver <- as.character(BiocManager:::.version_choose_best())
-            unloadNamespace("BiocManager")
-            ## Assert valid version, which is not the case if it failed
-            ## to query the Bioconductor server. If not, undo.
-            if (is.na(package_version(biocver, strict = FALSE))) biocver <- ""
-          }, error = identity)
-        }
+        biocver <- as.character(BiocManager::version())
+        unloadNamespace("BiocManager")
         if (nzchar(biocver)) return(biocver)
       }, error = identity)
   

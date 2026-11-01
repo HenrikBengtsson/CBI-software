@@ -92,6 +92,14 @@ if (cbi_shared_root) then
     if (isDir(r_repos_root)) then
       pushenv("R_REPOS_ROOT", r_repos_root)
     end
+    -- Set R_LIBS_SITE, unless already set or set to NULL
+    local r_libs_site = os.getenv("R_LIBS_SITE")
+    if (not r_libs_site) then
+      r_libs_site = pathJoin(r_repos_root, "r_libs_site")
+      if (isDir(r_libs_site)) then
+        pushenv("R_LIBS_SITE", r_libs_site)
+      end
+    end
   end
 end
 

@@ -251,10 +251,26 @@ r_javareconf: assert_java_version
 ## Loop over lib*/ rather than globbing into cp, which would get two
 ## destination arguments if both lib/ and lib64/ exist.
 install_rprofile_site:
-	for dir in $(PREFIX)/lib*/R/etc; do \
-	    chmod -R u+w "$$dir"; \
-	    cp Rprofile.site "$$dir/Rprofile.site"; \
+	root=$(wildcard $(PREFIX)/lib*/R); \
+	echo "root='$${root}'"; \
+	for dir in $${root}/etc; do \
+	    chmod -R u+w "$${dir}"; \
+	    cp Rprofile.site "$${dir}/Rprofile.site"; \
 	done
+
+install_r_libs_site:
+	file=$(wildcard siteconfig_*.tar.gz); \
+	if [[ -f "$${file}" ]]; then \
+	  root=$(wildcard $(PREFIX)/lib*/R); \
+	  echo "root='$${root}'"; \
+	  chmod u+w "$${root}"; \
+	  path=$${root}/site-library; \
+	  [[ -d "$${path}" ]] || mkdir -p "$${path}"; \
+	  chmod -R u+w "$${path}"; \
+	  $(PREFIX)/bin/R CMD INSTALL --library="$${path}" siteconfig_*.tar.gz; \
+	  chmod -R u-w "$${path}"; \
+	  chmod u-w "$${root}"; \
+	fi
 
 post_install: r_javareconf install_rprofile_site
 	## Prevent package installations/updates in system library

@@ -158,14 +158,19 @@ prepend_path("MODULEPATH", module_root)
 pushenv("SOFTWARE_ROOT_CBI", "${software_root}")
 pushenv("MODULE_ROOT_CBI", module_root)
 
+-- Assume internet access by default
+setenv("NO_INTERNET", "false")
+
 -- Compute nodes do not have internet access
 local slurm_job_id = os.getenv("SLURM_JOB_ID")
 local job_id = os.getenv("JOB_ID")
 if "${system}" == "ucsf-corehpc" then
+  setenv("CBI_SHARED_ROOT", "/mnt/software/cbi/mirrors")
   if (slurm_job_id ~= nil and slurm_job_id ~= "") then
     setenv("NO_INTERNET", "true")
   end
 elseif "${system}" == "ucsf-wynton" then
+  setenv("CBI_SHARED_ROOT", "/wynton/home/cbi/shared/mirrors/r-mirrors")
   if (job_id ~= nil and job_id ~= "") then
     setenv("NO_INTERNET", "true")
   end

@@ -1,6 +1,8 @@
 ## CBI site profile for R
-##
+
+## --------------------------------------------------------------------------
 ## Prefer cairo for bitmap devices when X11 is unavailable.
+## --------------------------------------------------------------------------
 ##
 ## R decides options(bitmapType) at startup and picks "Xlib" unless its
 ## stricter cairo check passes.  On a build configured with --with-x=no there

@@ -252,7 +252,7 @@ r_javareconf: assert_java_version
 ## destination arguments if both lib/ and lib64/ exist.
 install_rprofile_site:
 	for dir in $(PREFIX)/lib*/R/etc; do \
-	    chmod u+w "$$dir"; \
+	    chmod -R u+w "$$dir"; \
 	    cp Rprofile.site "$$dir/Rprofile.site"; \
 	done
 
